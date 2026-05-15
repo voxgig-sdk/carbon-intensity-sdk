@@ -1,0 +1,74 @@
+{
+  "existing": {
+    "intensity_factor": {
+      "INTENSITY_FACTOR00": {
+        "biomass": "s8c",
+        "coal": "s8d",
+        "dutch_import": "s8e",
+        "french_import": "s8f",
+        "gas__combined_cycle": "s90",
+        "gas__open_cycle": "s91",
+        "hydro": "s92",
+        "irish_import": "s93",
+        "nuclear": "s94",
+        "oil": "s95",
+        "other": "s96",
+        "pumped_storage": "s97",
+        "solar": "s98",
+        "wind": "s99"
+      },
+      "INTENSITY_FACTOR01": {
+        "biomass": "s118",
+        "coal": "s119",
+        "dutch_import": "s11a",
+        "french_import": "s11b",
+        "gas__combined_cycle": "s11c",
+        "gas__open_cycle": "s11d",
+        "hydro": "s11e",
+        "irish_import": "s11f",
+        "nuclear": "s120",
+        "oil": "s121",
+        "other": "s122",
+        "pumped_storage": "s123",
+        "solar": "s124",
+        "wind": "s125"
+      },
+      "INTENSITY_FACTOR02": {
+        "biomass": "s1a4",
+        "coal": "s1a5",
+        "dutch_import": "s1a6",
+        "french_import": "s1a7",
+        "gas__combined_cycle": "s1a8",
+        "gas__open_cycle": "s1a9",
+        "hydro": "s1aa",
+        "irish_import": "s1ab",
+        "nuclear": "s1ac",
+        "oil": "s1ad",
+        "other": "s1ae",
+        "pumped_storage": "s1af",
+        "solar": "s1b0",
+        "wind": "s1b1"
+      }
+    }
+  },
+  "new": {
+    "intensity_factor": {
+      "intensity_factor_ref01": {
+        "biomass": "s230",
+        "coal": "s231",
+        "dutch_import": "s232",
+        "french_import": "s233",
+        "gas__combined_cycle": "s234",
+        "gas__open_cycle": "s235",
+        "hydro": "s236",
+        "irish_import": "s237",
+        "nuclear": "s238",
+        "oil": "s239",
+        "other": "s23a",
+        "pumped_storage": "s23b",
+        "solar": "s23c",
+        "wind": "s23d"
+      }
+    }
+  }
+}

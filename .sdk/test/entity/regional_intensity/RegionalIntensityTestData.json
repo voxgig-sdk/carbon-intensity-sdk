@@ -1,0 +1,38 @@
+{
+  "existing": {
+    "regional_intensity": {
+      "REGIONAL_INTENSITY00": {
+        "data": [],
+        "dnoregion": "s33",
+        "postcode": "s34",
+        "regionid": "s35",
+        "shortname": "s36"
+      },
+      "REGIONAL_INTENSITY01": {
+        "data": [],
+        "dnoregion": "s65",
+        "postcode": "s66",
+        "regionid": "s67",
+        "shortname": "s68"
+      },
+      "REGIONAL_INTENSITY02": {
+        "data": [],
+        "dnoregion": "s97",
+        "postcode": "s98",
+        "regionid": "s99",
+        "shortname": "s9a"
+      }
+    }
+  },
+  "new": {
+    "regional_intensity": {
+      "regional_intensity_ref01": {
+        "data": [],
+        "dnoregion": "sc9",
+        "postcode": "sca",
+        "regionid": "scb",
+        "shortname": "scc"
+      }
+    }
+  }
+}

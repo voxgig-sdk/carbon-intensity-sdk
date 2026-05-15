@@ -1,0 +1,57 @@
+# Entity: regional
+
+main: kit: entity: regional: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "data"
+      req: false
+      type: "`$ARRAY`"
+    }
+    {
+      name: "dnoregion"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "postcode"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "regionid"
+      req: false
+      type: "`$INTEGER`"
+    }
+    {
+      name: "shortname"
+      req: false
+      type: "`$STRING`"
+    }
+  ]
+
+  name: "regional"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          method: "GET"
+          orig: "/regional"
+          parts: [
+            "regional"
+          ]
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

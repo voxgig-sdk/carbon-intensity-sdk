@@ -1,0 +1,103 @@
+# Entity: intensity_factor
+
+main: kit: entity: intensity_factor: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "biomass"
+      req: false
+      type: "`$INTEGER`"
+    }
+    {
+      name: "coal"
+      req: false
+      type: "`$INTEGER`"
+    }
+    {
+      name: "dutch_import"
+      req: false
+      type: "`$INTEGER`"
+    }
+    {
+      name: "french_import"
+      req: false
+      type: "`$INTEGER`"
+    }
+    {
+      name: "gas__combined_cycle"
+      req: false
+      type: "`$INTEGER`"
+    }
+    {
+      name: "gas__open_cycle"
+      req: false
+      type: "`$INTEGER`"
+    }
+    {
+      name: "hydro"
+      req: false
+      type: "`$INTEGER`"
+    }
+    {
+      name: "irish_import"
+      req: false
+      type: "`$INTEGER`"
+    }
+    {
+      name: "nuclear"
+      req: false
+      type: "`$INTEGER`"
+    }
+    {
+      name: "oil"
+      req: false
+      type: "`$INTEGER`"
+    }
+    {
+      name: "other"
+      req: false
+      type: "`$INTEGER`"
+    }
+    {
+      name: "pumped_storage"
+      req: false
+      type: "`$INTEGER`"
+    }
+    {
+      name: "solar"
+      req: false
+      type: "`$INTEGER`"
+    }
+    {
+      name: "wind"
+      req: false
+      type: "`$INTEGER`"
+    }
+  ]
+
+  name: "intensity_factor"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          method: "GET"
+          orig: "/intensity/factors"
+          parts: [
+            "intensity"
+            "factors"
+          ]
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

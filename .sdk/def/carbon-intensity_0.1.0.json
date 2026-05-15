@@ -1,0 +1,1594 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Carbon Intensity API",
+    "version": "1.0.0",
+    "description": "Official API for Carbon Intensity in Great Britain provided by National Grid ESO. Allows access to current and historical carbon intensity data for different regions and time periods.",
+    "contact": {
+      "name": "Lyndon Ruff",
+      "email": "lyndon.ruff@nationalgrideso.com"
+    },
+    "license": {
+      "name": "CC BY 4.0",
+      "url": "https://creativecommons.org/licenses/by/4.0/"
+    },
+    "termsOfService": "https://api.carbonintensity.org.uk/terms"
+  },
+  "servers": [
+    {
+      "url": "https://api.carbonintensity.org.uk",
+      "description": "Production server"
+    }
+  ],
+  "paths": {
+    "/intensity": {
+      "get": {
+        "summary": "Get current carbon intensity",
+        "description": "Gets current carbon intensity for Great Britain",
+        "operationId": "getCurrentIntensity",
+        "tags": [
+          "Carbon Intensity - National"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IntensityResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/intensity/date": {
+      "get": {
+        "summary": "Get carbon intensity for today",
+        "description": "Gets carbon intensity for today",
+        "operationId": "getIntensityToday",
+        "tags": [
+          "Carbon Intensity - National"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IntensityListResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/intensity/date/{date}": {
+      "get": {
+        "summary": "Get carbon intensity for specified date",
+        "description": "Gets carbon intensity for specified date",
+        "operationId": "getIntensityByDate",
+        "tags": [
+          "Carbon Intensity - National"
+        ],
+        "parameters": [
+          {
+            "name": "date",
+            "in": "path",
+            "required": true,
+            "description": "Date in YYYY-MM-DD format",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IntensityListResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/intensity/date/{date}/{period}": {
+      "get": {
+        "summary": "Get carbon intensity for specified date and settlement period",
+        "description": "Gets carbon intensity for specified date and settlement period",
+        "operationId": "getIntensityByDateAndPeriod",
+        "tags": [
+          "Carbon Intensity - National"
+        ],
+        "parameters": [
+          {
+            "name": "date",
+            "in": "path",
+            "required": true,
+            "description": "Date in YYYY-MM-DD format",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "period",
+            "in": "path",
+            "required": true,
+            "description": "Settlement period (1-48)",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 48
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IntensityResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/intensity/factors": {
+      "get": {
+        "summary": "Get carbon intensity factors for fuel types",
+        "description": "Gets carbon intensity factors for fuel types",
+        "operationId": "getIntensityFactors",
+        "tags": [
+          "Carbon Intensity - National"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IntensityFactorsResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/intensity/{from}": {
+      "get": {
+        "summary": "Get carbon intensity for specified datetime",
+        "description": "Gets carbon intensity for specified datetime",
+        "operationId": "getIntensityByDatetime",
+        "tags": [
+          "Carbon Intensity - National"
+        ],
+        "parameters": [
+          {
+            "name": "from",
+            "in": "path",
+            "required": true,
+            "description": "Datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IntensityResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/intensity/{from}/fw24h": {
+      "get": {
+        "summary": "Get carbon intensity for 24h after specified datetime",
+        "description": "Gets carbon intensity for 24 hours forward from specified datetime",
+        "operationId": "getIntensityForward24h",
+        "tags": [
+          "Carbon Intensity - National"
+        ],
+        "parameters": [
+          {
+            "name": "from",
+            "in": "path",
+            "required": true,
+            "description": "Datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IntensityListResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/intensity/{from}/fw48h": {
+      "get": {
+        "summary": "Get carbon intensity for 48h after specified datetime",
+        "description": "Gets carbon intensity for 48 hours forward from specified datetime",
+        "operationId": "getIntensityForward48h",
+        "tags": [
+          "Carbon Intensity - National"
+        ],
+        "parameters": [
+          {
+            "name": "from",
+            "in": "path",
+            "required": true,
+            "description": "Datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IntensityListResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/intensity/{from}/pt24h": {
+      "get": {
+        "summary": "Get carbon intensity for 24h before specified datetime",
+        "description": "Gets carbon intensity for 24 hours prior to specified datetime",
+        "operationId": "getIntensityPast24h",
+        "tags": [
+          "Carbon Intensity - National"
+        ],
+        "parameters": [
+          {
+            "name": "from",
+            "in": "path",
+            "required": true,
+            "description": "Datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IntensityListResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/intensity/{from}/{to}": {
+      "get": {
+        "summary": "Get carbon intensity between specified datetimes",
+        "description": "Gets carbon intensity between specified datetimes",
+        "operationId": "getIntensityBetweenDatetimes",
+        "tags": [
+          "Carbon Intensity - National"
+        ],
+        "parameters": [
+          {
+            "name": "from",
+            "in": "path",
+            "required": true,
+            "description": "Start datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "to",
+            "in": "path",
+            "required": true,
+            "description": "End datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IntensityListResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/intensity/stats/{from}/{to}": {
+      "get": {
+        "summary": "Get carbon intensity statistics between specified datetimes",
+        "description": "Gets carbon intensity statistics between specified datetimes",
+        "operationId": "getIntensityStats",
+        "tags": [
+          "Statistics - National"
+        ],
+        "parameters": [
+          {
+            "name": "from",
+            "in": "path",
+            "required": true,
+            "description": "Start datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "to",
+            "in": "path",
+            "required": true,
+            "description": "End datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatsResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/intensity/stats/{from}/{to}/{block}": {
+      "get": {
+        "summary": "Get carbon intensity statistics in blocks between specified datetimes",
+        "description": "Gets carbon intensity statistics in blocks between specified datetimes",
+        "operationId": "getIntensityStatsBlocks",
+        "tags": [
+          "Statistics - National"
+        ],
+        "parameters": [
+          {
+            "name": "from",
+            "in": "path",
+            "required": true,
+            "description": "Start datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "to",
+            "in": "path",
+            "required": true,
+            "description": "End datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "block",
+            "in": "path",
+            "required": true,
+            "description": "Block length in hours (e.g., 2 for 2-hour blocks)",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatsBlockResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/generation": {
+      "get": {
+        "summary": "Get current generation mix",
+        "description": "Gets current generation mix for Great Britain (beta)",
+        "operationId": "getCurrentGeneration",
+        "tags": [
+          "Generation Mix - National"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenerationResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/generation/{from}/pt24h": {
+      "get": {
+        "summary": "Get generation mix for 24h before specified datetime",
+        "description": "Gets generation mix for 24 hours prior to specified datetime (beta)",
+        "operationId": "getGenerationPast24h",
+        "tags": [
+          "Generation Mix - National"
+        ],
+        "parameters": [
+          {
+            "name": "from",
+            "in": "path",
+            "required": true,
+            "description": "Datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenerationListResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/generation/{from}/{to}": {
+      "get": {
+        "summary": "Get generation mix between specified datetimes",
+        "description": "Gets generation mix between specified datetimes (beta)",
+        "operationId": "getGenerationBetweenDatetimes",
+        "tags": [
+          "Generation Mix - National"
+        ],
+        "parameters": [
+          {
+            "name": "from",
+            "in": "path",
+            "required": true,
+            "description": "Start datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "to",
+            "in": "path",
+            "required": true,
+            "description": "End datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenerationListResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/regional": {
+      "get": {
+        "summary": "Get current carbon intensity for GB regions",
+        "description": "Gets current carbon intensity for all Great Britain regions (beta)",
+        "operationId": "getRegionalIntensity",
+        "tags": [
+          "Carbon Intensity - Regional"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegionalIntensityResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/regional/england": {
+      "get": {
+        "summary": "Get current carbon intensity for England",
+        "description": "Gets current carbon intensity for England (beta)",
+        "operationId": "getEnglandIntensity",
+        "tags": [
+          "Carbon Intensity - Regional"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegionalIntensityResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/regional/scotland": {
+      "get": {
+        "summary": "Get current carbon intensity for Scotland",
+        "description": "Gets current carbon intensity for Scotland (beta)",
+        "operationId": "getScotlandIntensity",
+        "tags": [
+          "Carbon Intensity - Regional"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegionalIntensityResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/regional/wales": {
+      "get": {
+        "summary": "Get current carbon intensity for Wales",
+        "description": "Gets current carbon intensity for Wales (beta)",
+        "operationId": "getWalesIntensity",
+        "tags": [
+          "Carbon Intensity - Regional"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegionalIntensityResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/regional/postcode/{postcode}": {
+      "get": {
+        "summary": "Get current carbon intensity for specified outward postcode",
+        "description": "Gets current carbon intensity for specified outward postcode (beta)",
+        "operationId": "getIntensityByPostcode",
+        "tags": [
+          "Carbon Intensity - Regional"
+        ],
+        "parameters": [
+          {
+            "name": "postcode",
+            "in": "path",
+            "required": true,
+            "description": "Outward postcode (e.g., SW1)",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegionalIntensityResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/regional/regionid/{regionid}": {
+      "get": {
+        "summary": "Get current carbon intensity for specified region",
+        "description": "Gets current carbon intensity for specified region (beta)",
+        "operationId": "getIntensityByRegionId",
+        "tags": [
+          "Carbon Intensity - Regional"
+        ],
+        "parameters": [
+          {
+            "name": "regionid",
+            "in": "path",
+            "required": true,
+            "description": "Region ID (1-17)",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 17
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegionalIntensityResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/regional/intensity/{from}/fw24h": {
+      "get": {
+        "summary": "Get carbon intensity for 24h after specified datetime for GB regions",
+        "description": "Gets carbon intensity for 24 hours forward from specified datetime for GB regions (beta)",
+        "operationId": "getRegionalIntensityForward24h",
+        "tags": [
+          "Carbon Intensity - Regional"
+        ],
+        "parameters": [
+          {
+            "name": "from",
+            "in": "path",
+            "required": true,
+            "description": "Datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegionalIntensityListResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/regional/intensity/{from}/fw24h/postcode/{postcode}": {
+      "get": {
+        "summary": "Get carbon intensity for 24h after specified datetime for specified outward postcode",
+        "description": "Gets carbon intensity for 24 hours forward from specified datetime for specified outward postcode (beta)",
+        "operationId": "getRegionalIntensityForward24hByPostcode",
+        "tags": [
+          "Carbon Intensity - Regional"
+        ],
+        "parameters": [
+          {
+            "name": "from",
+            "in": "path",
+            "required": true,
+            "description": "Datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "postcode",
+            "in": "path",
+            "required": true,
+            "description": "Outward postcode (e.g., SW1)",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegionalIntensityListResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/regional/intensity/{from}/fw24h/regionid/{regionid}": {
+      "get": {
+        "summary": "Get carbon intensity for 24h after specified datetime for specified region",
+        "description": "Gets carbon intensity for 24 hours forward from specified datetime for specified region (beta)",
+        "operationId": "getRegionalIntensityForward24hByRegionId",
+        "tags": [
+          "Carbon Intensity - Regional"
+        ],
+        "parameters": [
+          {
+            "name": "from",
+            "in": "path",
+            "required": true,
+            "description": "Datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "regionid",
+            "in": "path",
+            "required": true,
+            "description": "Region ID (1-17)",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 17
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegionalIntensityListResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/regional/intensity/{from}/fw48h": {
+      "get": {
+        "summary": "Get carbon intensity for 48h after specified datetime for GB regions",
+        "description": "Gets carbon intensity for 48 hours forward from specified datetime for GB regions (beta)",
+        "operationId": "getRegionalIntensityForward48h",
+        "tags": [
+          "Carbon Intensity - Regional"
+        ],
+        "parameters": [
+          {
+            "name": "from",
+            "in": "path",
+            "required": true,
+            "description": "Datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegionalIntensityListResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/regional/intensity/{from}/fw48h/postcode/{postcode}": {
+      "get": {
+        "summary": "Get carbon intensity for 48h after specified datetime for specified outward postcode",
+        "description": "Gets carbon intensity for 48 hours forward from specified datetime for specified outward postcode (beta)",
+        "operationId": "getRegionalIntensityForward48hByPostcode",
+        "tags": [
+          "Carbon Intensity - Regional"
+        ],
+        "parameters": [
+          {
+            "name": "from",
+            "in": "path",
+            "required": true,
+            "description": "Datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "postcode",
+            "in": "path",
+            "required": true,
+            "description": "Outward postcode (e.g., SW1)",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegionalIntensityListResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/regional/intensity/{from}/fw48h/regionid/{regionid}": {
+      "get": {
+        "summary": "Get carbon intensity for 48h after specified datetime for specified region",
+        "description": "Gets carbon intensity for 48 hours forward from specified datetime for specified region (beta)",
+        "operationId": "getRegionalIntensityForward48hByRegionId",
+        "tags": [
+          "Carbon Intensity - Regional"
+        ],
+        "parameters": [
+          {
+            "name": "from",
+            "in": "path",
+            "required": true,
+            "description": "Datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "regionid",
+            "in": "path",
+            "required": true,
+            "description": "Region ID (1-17)",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 17
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegionalIntensityListResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/regional/intensity/{from}/pt24h": {
+      "get": {
+        "summary": "Get carbon intensity for 24h before specified datetime for GB regions",
+        "description": "Gets carbon intensity for 24 hours prior to specified datetime for GB regions (beta)",
+        "operationId": "getRegionalIntensityPast24h",
+        "tags": [
+          "Carbon Intensity - Regional"
+        ],
+        "parameters": [
+          {
+            "name": "from",
+            "in": "path",
+            "required": true,
+            "description": "Datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegionalIntensityListResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/regional/intensity/{from}/pt24h/postcode/{postcode}": {
+      "get": {
+        "summary": "Get carbon intensity for 24h before specified datetime for specified outward postcode",
+        "description": "Gets carbon intensity for 24 hours prior to specified datetime for specified outward postcode (beta)",
+        "operationId": "getRegionalIntensityPast24hByPostcode",
+        "tags": [
+          "Carbon Intensity - Regional"
+        ],
+        "parameters": [
+          {
+            "name": "from",
+            "in": "path",
+            "required": true,
+            "description": "Datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "postcode",
+            "in": "path",
+            "required": true,
+            "description": "Outward postcode (e.g., SW1)",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegionalIntensityListResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/regional/intensity/{from}/pt24h/regionid/{regionid}": {
+      "get": {
+        "summary": "Get carbon intensity for 24h before specified datetime for specified region",
+        "description": "Gets carbon intensity for 24 hours prior to specified datetime for specified region (beta)",
+        "operationId": "getRegionalIntensityPast24hByRegionId",
+        "tags": [
+          "Carbon Intensity - Regional"
+        ],
+        "parameters": [
+          {
+            "name": "from",
+            "in": "path",
+            "required": true,
+            "description": "Datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "regionid",
+            "in": "path",
+            "required": true,
+            "description": "Region ID (1-17)",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 17
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegionalIntensityListResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/regional/intensity/{from}/{to}": {
+      "get": {
+        "summary": "Get carbon intensity between specified datetimes for GB regions",
+        "description": "Gets carbon intensity between specified datetimes for GB regions (beta)",
+        "operationId": "getRegionalIntensityBetweenDatetimes",
+        "tags": [
+          "Carbon Intensity - Regional"
+        ],
+        "parameters": [
+          {
+            "name": "from",
+            "in": "path",
+            "required": true,
+            "description": "Start datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "to",
+            "in": "path",
+            "required": true,
+            "description": "End datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegionalIntensityListResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/regional/intensity/{from}/{to}/postcode/{postcode}": {
+      "get": {
+        "summary": "Get carbon intensity between specified datetimes for specified outward postcode",
+        "description": "Gets carbon intensity between specified datetimes for specified outward postcode (beta)",
+        "operationId": "getRegionalIntensityBetweenDatetimesByPostcode",
+        "tags": [
+          "Carbon Intensity - Regional"
+        ],
+        "parameters": [
+          {
+            "name": "from",
+            "in": "path",
+            "required": true,
+            "description": "Start datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "to",
+            "in": "path",
+            "required": true,
+            "description": "End datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "postcode",
+            "in": "path",
+            "required": true,
+            "description": "Outward postcode (e.g., SW1)",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegionalIntensityListResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/regional/intensity/{from}/{to}/regionid/{regionid}": {
+      "get": {
+        "summary": "Get carbon intensity between specified datetimes for specified region",
+        "description": "Gets carbon intensity between specified datetimes for specified region (beta)",
+        "operationId": "getRegionalIntensityBetweenDatetimesByRegionId",
+        "tags": [
+          "Carbon Intensity - Regional"
+        ],
+        "parameters": [
+          {
+            "name": "from",
+            "in": "path",
+            "required": true,
+            "description": "Start datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "to",
+            "in": "path",
+            "required": true,
+            "description": "End datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "regionid",
+            "in": "path",
+            "required": true,
+            "description": "Region ID (1-17)",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 17
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegionalIntensityListResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "IntensityData": {
+        "type": "object",
+        "properties": {
+          "from": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Start datetime of the period"
+          },
+          "to": {
+            "type": "string",
+            "format": "date-time",
+            "description": "End datetime of the period"
+          },
+          "intensity": {
+            "type": "object",
+            "properties": {
+              "forecast": {
+                "type": "integer",
+                "description": "Forecasted carbon intensity (gCO2/kWh)"
+              },
+              "actual": {
+                "type": "integer",
+                "description": "Actual carbon intensity (gCO2/kWh)"
+              },
+              "index": {
+                "type": "string",
+                "description": "Intensity index",
+                "enum": [
+                  "very low",
+                  "low",
+                  "moderate",
+                  "high",
+                  "very high"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "IntensityResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IntensityData"
+            }
+          }
+        }
+      },
+      "IntensityListResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IntensityData"
+            }
+          }
+        }
+      },
+      "IntensityFactorsResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "Biomass": {
+                  "type": "integer",
+                  "description": "Carbon intensity factor for biomass (gCO2/kWh)"
+                },
+                "Coal": {
+                  "type": "integer",
+                  "description": "Carbon intensity factor for coal (gCO2/kWh)"
+                },
+                "Dutch Imports": {
+                  "type": "integer",
+                  "description": "Carbon intensity factor for Dutch imports (gCO2/kWh)"
+                },
+                "French Imports": {
+                  "type": "integer",
+                  "description": "Carbon intensity factor for French imports (gCO2/kWh)"
+                },
+                "Gas (Combined Cycle)": {
+                  "type": "integer",
+                  "description": "Carbon intensity factor for gas combined cycle (gCO2/kWh)"
+                },
+                "Gas (Open Cycle)": {
+                  "type": "integer",
+                  "description": "Carbon intensity factor for gas open cycle (gCO2/kWh)"
+                },
+                "Hydro": {
+                  "type": "integer",
+                  "description": "Carbon intensity factor for hydro (gCO2/kWh)"
+                },
+                "Irish Imports": {
+                  "type": "integer",
+                  "description": "Carbon intensity factor for Irish imports (gCO2/kWh)"
+                },
+                "Nuclear": {
+                  "type": "integer",
+                  "description": "Carbon intensity factor for nuclear (gCO2/kWh)"
+                },
+                "Oil": {
+                  "type": "integer",
+                  "description": "Carbon intensity factor for oil (gCO2/kWh)"
+                },
+                "Other": {
+                  "type": "integer",
+                  "description": "Carbon intensity factor for other (gCO2/kWh)"
+                },
+                "Pumped Storage": {
+                  "type": "integer",
+                  "description": "Carbon intensity factor for pumped storage (gCO2/kWh)"
+                },
+                "Solar": {
+                  "type": "integer",
+                  "description": "Carbon intensity factor for solar (gCO2/kWh)"
+                },
+                "Wind": {
+                  "type": "integer",
+                  "description": "Carbon intensity factor for wind (gCO2/kWh)"
+                }
+              }
+            }
+          }
+        }
+      },
+      "StatsResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "from": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "to": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "intensity": {
+                  "type": "object",
+                  "properties": {
+                    "max": {
+                      "type": "integer",
+                      "description": "Maximum carbon intensity (gCO2/kWh)"
+                    },
+                    "average": {
+                      "type": "integer",
+                      "description": "Average carbon intensity (gCO2/kWh)"
+                    },
+                    "min": {
+                      "type": "integer",
+                      "description": "Minimum carbon intensity (gCO2/kWh)"
+                    },
+                    "index": {
+                      "type": "string",
+                      "description": "Average intensity index"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "StatsBlockResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "from": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "to": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "intensity": {
+                  "type": "object",
+                  "properties": {
+                    "max": {
+                      "type": "integer",
+                      "description": "Maximum carbon intensity (gCO2/kWh)"
+                    },
+                    "average": {
+                      "type": "integer",
+                      "description": "Average carbon intensity (gCO2/kWh)"
+                    },
+                    "min": {
+                      "type": "integer",
+                      "description": "Minimum carbon intensity (gCO2/kWh)"
+                    },
+                    "index": {
+                      "type": "string",
+                      "description": "Average intensity index"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "GenerationMix": {
+        "type": "object",
+        "properties": {
+          "fuel": {
+            "type": "string",
+            "description": "Fuel type"
+          },
+          "perc": {
+            "type": "number",
+            "format": "float",
+            "description": "Percentage of total generation"
+          }
+        }
+      },
+      "GenerationData": {
+        "type": "object",
+        "properties": {
+          "from": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "to": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "generationmix": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GenerationMix"
+            }
+          }
+        }
+      },
+      "GenerationResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GenerationData"
+            }
+          }
+        }
+      },
+      "GenerationListResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GenerationData"
+            }
+          }
+        }
+      },
+      "RegionalData": {
+        "type": "object",
+        "properties": {
+          "regionid": {
+            "type": "integer",
+            "description": "Region ID (1-17)"
+          },
+          "dnoregion": {
+            "type": "string",
+            "description": "Distribution Network Operator region"
+          },
+          "shortname": {
+            "type": "string",
+            "description": "Short region name"
+          },
+          "postcode": {
+            "type": "string",
+            "description": "Outward postcode"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "from": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "to": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "intensity": {
+                  "type": "object",
+                  "properties": {
+                    "forecast": {
+                      "type": "integer",
+                      "description": "Forecasted carbon intensity (gCO2/kWh)"
+                    },
+                    "index": {
+                      "type": "string",
+                      "description": "Intensity index"
+                    }
+                  }
+                },
+                "generationmix": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/GenerationMix"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "RegionalIntensityResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RegionalData"
+            }
+          }
+        }
+      },
+      "RegionalIntensityListResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RegionalData"
+            }
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Carbon Intensity - National",
+      "description": "National carbon intensity data for Great Britain"
+    },
+    {
+      "name": "Statistics - National",
+      "description": "Statistical analysis of national carbon intensity"
+    },
+    {
+      "name": "Generation Mix - National",
+      "description": "National electricity generation mix data (beta)"
+    },
+    {
+      "name": "Carbon Intensity - Regional",
+      "description": "Regional carbon intensity data for Great Britain (beta)"
+    }
+  ],
+  "externalDocs": {
+    "description": "Official Carbon Intensity API Documentation",
+    "url": "https://api.carbonintensity.org.uk/"
+  }
+}

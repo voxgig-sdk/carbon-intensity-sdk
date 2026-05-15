@@ -1,0 +1,44 @@
+# BasicIntensityListFlow
+
+main: kit: flow: BasicIntensityListFlow:
+{
+  entity: "intensity_list",
+  kind: "basic",
+  name: "BasicIntensityListFlow",
+  step: [
+    {
+      op: "list",
+      valid: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "intensity_list_ref01"
+          }
+        }
+      ]
+    }
+
+    {
+      input: {
+        ref: "intensity_list_ref01",
+        srcdatavar: "intensity_list_ref01_data",
+        suffix: "_dt0"
+      }
+
+      match: {
+        id: "intensity_list01"
+      }
+
+      op: "load",
+      valid: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-intensity_list_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicIntensityListFlow"
+}

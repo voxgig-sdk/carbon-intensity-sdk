@@ -1,0 +1,2247 @@
+{
+  "name": "carbon-intensity",
+  "origin": "voxgig-sdk",
+  "def": "carbon-intensity_0.1.0.json",
+  "main": {
+    "kit": {
+      "info": {
+        "contact": {
+          "email": "lyndon.ruff@nationalgrideso.com",
+          "name": "Lyndon Ruff"
+        },
+        "description": "Official API for Carbon Intensity in Great Britain provided by National Grid ESO. Allows access to current and historical carbon intensity data for different regions and time periods.",
+        "license": {
+          "name": "CC BY 4.0",
+          "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "servers": [
+          {
+            "description": "Production server",
+            "url": "https://api.carbonintensity.org.uk"
+          }
+        ],
+        "termsOfService": "https://api.carbonintensity.org.uk/terms",
+        "title": "Carbon Intensity API",
+        "version": "1.0.0"
+      },
+      "config": {
+        "auth": {
+          "prefix": "Bearer"
+        },
+        "headers": {
+          "content-type": "application/json"
+        }
+      },
+      "entity": {
+        "generation": {
+          "alias": {
+            "field": {}
+          },
+          "fields": [
+            {
+              "name": "from",
+              "req": false,
+              "type": "`$STRING`",
+              "active": true
+            },
+            {
+              "name": "generationmix",
+              "req": false,
+              "type": "`$ARRAY`",
+              "active": true
+            },
+            {
+              "name": "to",
+              "req": false,
+              "type": "`$STRING`",
+              "active": true
+            }
+          ],
+          "name": "generation",
+          "op": {
+            "list": {
+              "name": "list",
+              "points": [
+                {
+                  "args": {
+                    "params": [
+                      {
+                        "kind": "param",
+                        "name": "from",
+                        "orig": "from",
+                        "reqd": true,
+                        "type": "`$STRING`",
+                        "active": true
+                      },
+                      {
+                        "kind": "param",
+                        "name": "to",
+                        "orig": "to",
+                        "reqd": true,
+                        "type": "`$STRING`",
+                        "active": true
+                      }
+                    ]
+                  },
+                  "method": "GET",
+                  "orig": "/generation/{from}/{to}",
+                  "parts": [
+                    "generation",
+                    "{from}",
+                    "{to}"
+                  ],
+                  "select": {
+                    "exist": [
+                      "from",
+                      "to"
+                    ]
+                  },
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  },
+                  "active": true
+                },
+                {
+                  "method": "GET",
+                  "orig": "/generation",
+                  "parts": [
+                    "generation"
+                  ],
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  },
+                  "active": true,
+                  "args": {},
+                  "select": {}
+                }
+              ],
+              "input": "data"
+            }
+          },
+          "relations": {
+            "ancestors": [
+              [
+                "generation"
+              ]
+            ]
+          },
+          "active": true
+        },
+        "generation_list": {
+          "alias": {
+            "field": {}
+          },
+          "fields": [
+            {
+              "name": "from",
+              "req": false,
+              "type": "`$STRING`",
+              "active": true
+            },
+            {
+              "name": "generationmix",
+              "req": false,
+              "type": "`$ARRAY`",
+              "active": true
+            },
+            {
+              "name": "to",
+              "req": false,
+              "type": "`$STRING`",
+              "active": true
+            }
+          ],
+          "name": "generation_list",
+          "op": {
+            "list": {
+              "name": "list",
+              "points": [
+                {
+                  "args": {
+                    "params": [
+                      {
+                        "kind": "param",
+                        "name": "from",
+                        "orig": "from",
+                        "reqd": true,
+                        "type": "`$STRING`",
+                        "active": true
+                      }
+                    ]
+                  },
+                  "method": "GET",
+                  "orig": "/generation/{from}/pt24h",
+                  "parts": [
+                    "generation",
+                    "{from}",
+                    "pt24h"
+                  ],
+                  "select": {
+                    "exist": [
+                      "from"
+                    ]
+                  },
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  },
+                  "active": true
+                }
+              ],
+              "input": "data"
+            }
+          },
+          "relations": {
+            "ancestors": [
+              [
+                "generation"
+              ]
+            ]
+          },
+          "active": true
+        },
+        "intensity": {
+          "alias": {
+            "field": {}
+          },
+          "fields": [
+            {
+              "name": "data",
+              "req": false,
+              "type": "`$ARRAY`",
+              "active": true
+            },
+            {
+              "name": "from",
+              "req": false,
+              "type": "`$STRING`",
+              "active": true
+            },
+            {
+              "name": "intensity",
+              "req": false,
+              "type": "`$OBJECT`",
+              "active": true
+            },
+            {
+              "name": "to",
+              "req": false,
+              "type": "`$STRING`",
+              "active": true
+            }
+          ],
+          "name": "intensity",
+          "op": {
+            "list": {
+              "name": "list",
+              "points": [
+                {
+                  "args": {
+                    "params": [
+                      {
+                        "kind": "param",
+                        "name": "date",
+                        "orig": "date",
+                        "reqd": true,
+                        "type": "`$STRING`",
+                        "active": true
+                      },
+                      {
+                        "kind": "param",
+                        "name": "period",
+                        "orig": "period",
+                        "reqd": true,
+                        "type": "`$INTEGER`",
+                        "active": true
+                      }
+                    ]
+                  },
+                  "method": "GET",
+                  "orig": "/intensity/date/{date}/{period}",
+                  "parts": [
+                    "intensity",
+                    "date",
+                    "{date}",
+                    "{period}"
+                  ],
+                  "select": {
+                    "exist": [
+                      "date",
+                      "period"
+                    ]
+                  },
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  },
+                  "active": true
+                },
+                {
+                  "args": {
+                    "params": [
+                      {
+                        "kind": "param",
+                        "name": "from",
+                        "orig": "from",
+                        "reqd": true,
+                        "type": "`$STRING`",
+                        "active": true
+                      },
+                      {
+                        "kind": "param",
+                        "name": "to",
+                        "orig": "to",
+                        "reqd": true,
+                        "type": "`$STRING`",
+                        "active": true
+                      }
+                    ]
+                  },
+                  "method": "GET",
+                  "orig": "/intensity/{from}/{to}",
+                  "parts": [
+                    "intensity",
+                    "{from}",
+                    "{to}"
+                  ],
+                  "select": {
+                    "exist": [
+                      "from",
+                      "to"
+                    ]
+                  },
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  },
+                  "active": true
+                },
+                {
+                  "method": "GET",
+                  "orig": "/intensity",
+                  "parts": [
+                    "intensity"
+                  ],
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  },
+                  "active": true,
+                  "args": {},
+                  "select": {}
+                }
+              ],
+              "input": "data"
+            },
+            "load": {
+              "name": "load",
+              "points": [
+                {
+                  "args": {
+                    "params": [
+                      {
+                        "kind": "param",
+                        "name": "id",
+                        "orig": "from",
+                        "reqd": true,
+                        "type": "`$STRING`",
+                        "active": true
+                      }
+                    ]
+                  },
+                  "method": "GET",
+                  "orig": "/intensity/{from}",
+                  "parts": [
+                    "intensity",
+                    "{id}"
+                  ],
+                  "rename": {
+                    "param": {
+                      "from": "id"
+                    }
+                  },
+                  "select": {
+                    "exist": [
+                      "id"
+                    ]
+                  },
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  },
+                  "active": true
+                }
+              ],
+              "input": "data"
+            }
+          },
+          "relations": {
+            "ancestors": [
+              [
+                "date"
+              ],
+              [
+                "intensity"
+              ]
+            ]
+          },
+          "active": true
+        },
+        "intensity_factor": {
+          "alias": {
+            "field": {}
+          },
+          "fields": [
+            {
+              "name": "biomass",
+              "req": false,
+              "type": "`$INTEGER`",
+              "active": true
+            },
+            {
+              "name": "coal",
+              "req": false,
+              "type": "`$INTEGER`",
+              "active": true
+            },
+            {
+              "name": "dutch_import",
+              "req": false,
+              "type": "`$INTEGER`",
+              "active": true
+            },
+            {
+              "name": "french_import",
+              "req": false,
+              "type": "`$INTEGER`",
+              "active": true
+            },
+            {
+              "name": "gas__combined_cycle",
+              "req": false,
+              "type": "`$INTEGER`",
+              "active": true
+            },
+            {
+              "name": "gas__open_cycle",
+              "req": false,
+              "type": "`$INTEGER`",
+              "active": true
+            },
+            {
+              "name": "hydro",
+              "req": false,
+              "type": "`$INTEGER`",
+              "active": true
+            },
+            {
+              "name": "irish_import",
+              "req": false,
+              "type": "`$INTEGER`",
+              "active": true
+            },
+            {
+              "name": "nuclear",
+              "req": false,
+              "type": "`$INTEGER`",
+              "active": true
+            },
+            {
+              "name": "oil",
+              "req": false,
+              "type": "`$INTEGER`",
+              "active": true
+            },
+            {
+              "name": "other",
+              "req": false,
+              "type": "`$INTEGER`",
+              "active": true
+            },
+            {
+              "name": "pumped_storage",
+              "req": false,
+              "type": "`$INTEGER`",
+              "active": true
+            },
+            {
+              "name": "solar",
+              "req": false,
+              "type": "`$INTEGER`",
+              "active": true
+            },
+            {
+              "name": "wind",
+              "req": false,
+              "type": "`$INTEGER`",
+              "active": true
+            }
+          ],
+          "name": "intensity_factor",
+          "op": {
+            "list": {
+              "name": "list",
+              "points": [
+                {
+                  "method": "GET",
+                  "orig": "/intensity/factors",
+                  "parts": [
+                    "intensity",
+                    "factors"
+                  ],
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  },
+                  "active": true,
+                  "args": {},
+                  "select": {}
+                }
+              ],
+              "input": "data"
+            }
+          },
+          "active": true,
+          "relations": {
+            "ancestors": []
+          }
+        },
+        "intensity_list": {
+          "alias": {
+            "field": {}
+          },
+          "fields": [
+            {
+              "name": "data",
+              "req": false,
+              "type": "`$ARRAY`",
+              "active": true
+            },
+            {
+              "name": "from",
+              "req": false,
+              "type": "`$STRING`",
+              "active": true
+            },
+            {
+              "name": "intensity",
+              "req": false,
+              "type": "`$OBJECT`",
+              "active": true
+            },
+            {
+              "name": "to",
+              "req": false,
+              "type": "`$STRING`",
+              "active": true
+            }
+          ],
+          "name": "intensity_list",
+          "op": {
+            "list": {
+              "name": "list",
+              "points": [
+                {
+                  "args": {
+                    "params": [
+                      {
+                        "kind": "param",
+                        "name": "from",
+                        "orig": "from",
+                        "reqd": true,
+                        "type": "`$STRING`",
+                        "active": true
+                      }
+                    ]
+                  },
+                  "method": "GET",
+                  "orig": "/intensity/{from}/fw24h",
+                  "parts": [
+                    "intensity",
+                    "{from}",
+                    "fw24h"
+                  ],
+                  "select": {
+                    "exist": [
+                      "from"
+                    ]
+                  },
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  },
+                  "active": true
+                },
+                {
+                  "args": {
+                    "params": [
+                      {
+                        "kind": "param",
+                        "name": "from",
+                        "orig": "from",
+                        "reqd": true,
+                        "type": "`$STRING`",
+                        "active": true
+                      }
+                    ]
+                  },
+                  "method": "GET",
+                  "orig": "/intensity/{from}/fw48h",
+                  "parts": [
+                    "intensity",
+                    "{from}",
+                    "fw48h"
+                  ],
+                  "select": {
+                    "exist": [
+                      "from"
+                    ]
+                  },
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  },
+                  "active": true
+                },
+                {
+                  "args": {
+                    "params": [
+                      {
+                        "kind": "param",
+                        "name": "from",
+                        "orig": "from",
+                        "reqd": true,
+                        "type": "`$STRING`",
+                        "active": true
+                      }
+                    ]
+                  },
+                  "method": "GET",
+                  "orig": "/intensity/{from}/pt24h",
+                  "parts": [
+                    "intensity",
+                    "{from}",
+                    "pt24h"
+                  ],
+                  "select": {
+                    "exist": [
+                      "from"
+                    ]
+                  },
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  },
+                  "active": true
+                },
+                {
+                  "method": "GET",
+                  "orig": "/intensity/date",
+                  "parts": [
+                    "intensity",
+                    "date"
+                  ],
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  },
+                  "active": true,
+                  "args": {},
+                  "select": {}
+                }
+              ],
+              "input": "data"
+            },
+            "load": {
+              "name": "load",
+              "points": [
+                {
+                  "args": {
+                    "params": [
+                      {
+                        "kind": "param",
+                        "name": "date",
+                        "orig": "date",
+                        "reqd": true,
+                        "type": "`$STRING`",
+                        "active": true
+                      }
+                    ]
+                  },
+                  "method": "GET",
+                  "orig": "/intensity/date/{date}",
+                  "parts": [
+                    "intensity",
+                    "date",
+                    "{date}"
+                  ],
+                  "select": {
+                    "exist": [
+                      "date"
+                    ]
+                  },
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  },
+                  "active": true
+                }
+              ],
+              "input": "data"
+            }
+          },
+          "relations": {
+            "ancestors": [
+              [
+                "date"
+              ],
+              [
+                "intensity"
+              ]
+            ]
+          },
+          "active": true
+        },
+        "regional": {
+          "alias": {
+            "field": {}
+          },
+          "fields": [
+            {
+              "name": "data",
+              "req": false,
+              "type": "`$ARRAY`",
+              "active": true
+            },
+            {
+              "name": "dnoregion",
+              "req": false,
+              "type": "`$STRING`",
+              "active": true
+            },
+            {
+              "name": "postcode",
+              "req": false,
+              "type": "`$STRING`",
+              "active": true
+            },
+            {
+              "name": "regionid",
+              "req": false,
+              "type": "`$INTEGER`",
+              "active": true
+            },
+            {
+              "name": "shortname",
+              "req": false,
+              "type": "`$STRING`",
+              "active": true
+            }
+          ],
+          "name": "regional",
+          "op": {
+            "list": {
+              "name": "list",
+              "points": [
+                {
+                  "method": "GET",
+                  "orig": "/regional",
+                  "parts": [
+                    "regional"
+                  ],
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  },
+                  "active": true,
+                  "args": {},
+                  "select": {}
+                }
+              ],
+              "input": "data"
+            }
+          },
+          "active": true,
+          "relations": {
+            "ancestors": []
+          }
+        },
+        "regional_intensity": {
+          "alias": {
+            "field": {}
+          },
+          "fields": [
+            {
+              "name": "data",
+              "req": false,
+              "type": "`$ARRAY`",
+              "active": true
+            },
+            {
+              "name": "dnoregion",
+              "req": false,
+              "type": "`$STRING`",
+              "active": true
+            },
+            {
+              "name": "postcode",
+              "req": false,
+              "type": "`$STRING`",
+              "active": true
+            },
+            {
+              "name": "regionid",
+              "req": false,
+              "type": "`$INTEGER`",
+              "active": true
+            },
+            {
+              "name": "shortname",
+              "req": false,
+              "type": "`$STRING`",
+              "active": true
+            }
+          ],
+          "name": "regional_intensity",
+          "op": {
+            "list": {
+              "name": "list",
+              "points": [
+                {
+                  "method": "GET",
+                  "orig": "/regional/england",
+                  "parts": [
+                    "regional",
+                    "england"
+                  ],
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  },
+                  "active": true,
+                  "args": {},
+                  "select": {}
+                },
+                {
+                  "method": "GET",
+                  "orig": "/regional/scotland",
+                  "parts": [
+                    "regional",
+                    "scotland"
+                  ],
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  },
+                  "active": true,
+                  "args": {},
+                  "select": {}
+                },
+                {
+                  "method": "GET",
+                  "orig": "/regional/wales",
+                  "parts": [
+                    "regional",
+                    "wales"
+                  ],
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  },
+                  "active": true,
+                  "args": {},
+                  "select": {}
+                }
+              ],
+              "input": "data"
+            },
+            "load": {
+              "name": "load",
+              "points": [
+                {
+                  "args": {
+                    "params": [
+                      {
+                        "kind": "param",
+                        "name": "postcode",
+                        "orig": "postcode",
+                        "reqd": true,
+                        "type": "`$STRING`",
+                        "active": true
+                      }
+                    ]
+                  },
+                  "method": "GET",
+                  "orig": "/regional/postcode/{postcode}",
+                  "parts": [
+                    "regional",
+                    "postcode",
+                    "{postcode}"
+                  ],
+                  "select": {
+                    "exist": [
+                      "postcode"
+                    ]
+                  },
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  },
+                  "active": true
+                },
+                {
+                  "args": {
+                    "params": [
+                      {
+                        "kind": "param",
+                        "name": "regionid",
+                        "orig": "regionid",
+                        "reqd": true,
+                        "type": "`$INTEGER`",
+                        "active": true
+                      }
+                    ]
+                  },
+                  "method": "GET",
+                  "orig": "/regional/regionid/{regionid}",
+                  "parts": [
+                    "regional",
+                    "regionid",
+                    "{regionid}"
+                  ],
+                  "select": {
+                    "exist": [
+                      "regionid"
+                    ]
+                  },
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  },
+                  "active": true
+                }
+              ],
+              "input": "data"
+            }
+          },
+          "relations": {
+            "ancestors": [
+              [
+                "postcode"
+              ],
+              [
+                "regionid"
+              ]
+            ]
+          },
+          "active": true
+        },
+        "regional_intensity_list": {
+          "alias": {
+            "field": {}
+          },
+          "fields": [
+            {
+              "name": "data",
+              "req": false,
+              "type": "`$ARRAY`",
+              "active": true
+            },
+            {
+              "name": "dnoregion",
+              "req": false,
+              "type": "`$STRING`",
+              "active": true
+            },
+            {
+              "name": "postcode",
+              "req": false,
+              "type": "`$STRING`",
+              "active": true
+            },
+            {
+              "name": "regionid",
+              "req": false,
+              "type": "`$INTEGER`",
+              "active": true
+            },
+            {
+              "name": "shortname",
+              "req": false,
+              "type": "`$STRING`",
+              "active": true
+            }
+          ],
+          "name": "regional_intensity_list",
+          "op": {
+            "list": {
+              "name": "list",
+              "points": [
+                {
+                  "args": {
+                    "params": [
+                      {
+                        "kind": "param",
+                        "name": "from",
+                        "orig": "from",
+                        "reqd": true,
+                        "type": "`$STRING`",
+                        "active": true
+                      },
+                      {
+                        "kind": "param",
+                        "name": "to",
+                        "orig": "to",
+                        "reqd": true,
+                        "type": "`$STRING`",
+                        "active": true
+                      }
+                    ]
+                  },
+                  "method": "GET",
+                  "orig": "/regional/intensity/{from}/{to}",
+                  "parts": [
+                    "regional",
+                    "intensity",
+                    "{from}",
+                    "{to}"
+                  ],
+                  "select": {
+                    "exist": [
+                      "from",
+                      "to"
+                    ]
+                  },
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  },
+                  "active": true
+                },
+                {
+                  "args": {
+                    "params": [
+                      {
+                        "kind": "param",
+                        "name": "from",
+                        "orig": "from",
+                        "reqd": true,
+                        "type": "`$STRING`",
+                        "active": true
+                      }
+                    ]
+                  },
+                  "method": "GET",
+                  "orig": "/regional/intensity/{from}/fw24h",
+                  "parts": [
+                    "regional",
+                    "intensity",
+                    "{from}",
+                    "fw24h"
+                  ],
+                  "select": {
+                    "exist": [
+                      "from"
+                    ]
+                  },
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  },
+                  "active": true
+                },
+                {
+                  "args": {
+                    "params": [
+                      {
+                        "kind": "param",
+                        "name": "from",
+                        "orig": "from",
+                        "reqd": true,
+                        "type": "`$STRING`",
+                        "active": true
+                      }
+                    ]
+                  },
+                  "method": "GET",
+                  "orig": "/regional/intensity/{from}/fw48h",
+                  "parts": [
+                    "regional",
+                    "intensity",
+                    "{from}",
+                    "fw48h"
+                  ],
+                  "select": {
+                    "exist": [
+                      "from"
+                    ]
+                  },
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  },
+                  "active": true
+                },
+                {
+                  "args": {
+                    "params": [
+                      {
+                        "kind": "param",
+                        "name": "from",
+                        "orig": "from",
+                        "reqd": true,
+                        "type": "`$STRING`",
+                        "active": true
+                      }
+                    ]
+                  },
+                  "method": "GET",
+                  "orig": "/regional/intensity/{from}/pt24h",
+                  "parts": [
+                    "regional",
+                    "intensity",
+                    "{from}",
+                    "pt24h"
+                  ],
+                  "select": {
+                    "exist": [
+                      "from"
+                    ]
+                  },
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  },
+                  "active": true
+                }
+              ],
+              "input": "data"
+            },
+            "load": {
+              "name": "load",
+              "points": [
+                {
+                  "args": {
+                    "params": [
+                      {
+                        "kind": "param",
+                        "name": "intensity_id",
+                        "orig": "from",
+                        "reqd": true,
+                        "type": "`$STRING`",
+                        "active": true
+                      },
+                      {
+                        "kind": "param",
+                        "name": "postcode",
+                        "orig": "postcode",
+                        "reqd": true,
+                        "type": "`$STRING`",
+                        "active": true
+                      },
+                      {
+                        "kind": "param",
+                        "name": "to",
+                        "orig": "to",
+                        "reqd": true,
+                        "type": "`$STRING`",
+                        "active": true
+                      }
+                    ]
+                  },
+                  "method": "GET",
+                  "orig": "/regional/intensity/{from}/{to}/postcode/{postcode}",
+                  "parts": [
+                    "regional",
+                    "intensity",
+                    "{intensity_id}",
+                    "{to}",
+                    "postcode",
+                    "{postcode}"
+                  ],
+                  "rename": {
+                    "param": {
+                      "from": "intensity_id"
+                    }
+                  },
+                  "select": {
+                    "exist": [
+                      "intensity_id",
+                      "postcode",
+                      "to"
+                    ]
+                  },
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  },
+                  "active": true
+                },
+                {
+                  "args": {
+                    "params": [
+                      {
+                        "kind": "param",
+                        "name": "intensity_id",
+                        "orig": "from",
+                        "reqd": true,
+                        "type": "`$STRING`",
+                        "active": true
+                      },
+                      {
+                        "kind": "param",
+                        "name": "regionid",
+                        "orig": "regionid",
+                        "reqd": true,
+                        "type": "`$INTEGER`",
+                        "active": true
+                      },
+                      {
+                        "kind": "param",
+                        "name": "to",
+                        "orig": "to",
+                        "reqd": true,
+                        "type": "`$STRING`",
+                        "active": true
+                      }
+                    ]
+                  },
+                  "method": "GET",
+                  "orig": "/regional/intensity/{from}/{to}/regionid/{regionid}",
+                  "parts": [
+                    "regional",
+                    "intensity",
+                    "{intensity_id}",
+                    "{to}",
+                    "regionid",
+                    "{regionid}"
+                  ],
+                  "rename": {
+                    "param": {
+                      "from": "intensity_id"
+                    }
+                  },
+                  "select": {
+                    "exist": [
+                      "intensity_id",
+                      "regionid",
+                      "to"
+                    ]
+                  },
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  },
+                  "active": true
+                },
+                {
+                  "args": {
+                    "params": [
+                      {
+                        "kind": "param",
+                        "name": "intensity_id",
+                        "orig": "from",
+                        "reqd": true,
+                        "type": "`$STRING`",
+                        "active": true
+                      },
+                      {
+                        "kind": "param",
+                        "name": "postcode",
+                        "orig": "postcode",
+                        "reqd": true,
+                        "type": "`$STRING`",
+                        "active": true
+                      }
+                    ]
+                  },
+                  "method": "GET",
+                  "orig": "/regional/intensity/{from}/fw24h/postcode/{postcode}",
+                  "parts": [
+                    "regional",
+                    "intensity",
+                    "{intensity_id}",
+                    "fw24h",
+                    "postcode",
+                    "{postcode}"
+                  ],
+                  "rename": {
+                    "param": {
+                      "from": "intensity_id"
+                    }
+                  },
+                  "select": {
+                    "exist": [
+                      "intensity_id",
+                      "postcode"
+                    ]
+                  },
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  },
+                  "active": true
+                },
+                {
+                  "args": {
+                    "params": [
+                      {
+                        "kind": "param",
+                        "name": "intensity_id",
+                        "orig": "from",
+                        "reqd": true,
+                        "type": "`$STRING`",
+                        "active": true
+                      },
+                      {
+                        "kind": "param",
+                        "name": "postcode",
+                        "orig": "postcode",
+                        "reqd": true,
+                        "type": "`$STRING`",
+                        "active": true
+                      }
+                    ]
+                  },
+                  "method": "GET",
+                  "orig": "/regional/intensity/{from}/fw48h/postcode/{postcode}",
+                  "parts": [
+                    "regional",
+                    "intensity",
+                    "{intensity_id}",
+                    "fw48h",
+                    "postcode",
+                    "{postcode}"
+                  ],
+                  "rename": {
+                    "param": {
+                      "from": "intensity_id"
+                    }
+                  },
+                  "select": {
+                    "exist": [
+                      "intensity_id",
+                      "postcode"
+                    ]
+                  },
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  },
+                  "active": true
+                },
+                {
+                  "args": {
+                    "params": [
+                      {
+                        "kind": "param",
+                        "name": "intensity_id",
+                        "orig": "from",
+                        "reqd": true,
+                        "type": "`$STRING`",
+                        "active": true
+                      },
+                      {
+                        "kind": "param",
+                        "name": "postcode",
+                        "orig": "postcode",
+                        "reqd": true,
+                        "type": "`$STRING`",
+                        "active": true
+                      }
+                    ]
+                  },
+                  "method": "GET",
+                  "orig": "/regional/intensity/{from}/pt24h/postcode/{postcode}",
+                  "parts": [
+                    "regional",
+                    "intensity",
+                    "{intensity_id}",
+                    "pt24h",
+                    "postcode",
+                    "{postcode}"
+                  ],
+                  "rename": {
+                    "param": {
+                      "from": "intensity_id"
+                    }
+                  },
+                  "select": {
+                    "exist": [
+                      "intensity_id",
+                      "postcode"
+                    ]
+                  },
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  },
+                  "active": true
+                },
+                {
+                  "args": {
+                    "params": [
+                      {
+                        "kind": "param",
+                        "name": "intensity_id",
+                        "orig": "from",
+                        "reqd": true,
+                        "type": "`$STRING`",
+                        "active": true
+                      },
+                      {
+                        "kind": "param",
+                        "name": "regionid",
+                        "orig": "regionid",
+                        "reqd": true,
+                        "type": "`$INTEGER`",
+                        "active": true
+                      }
+                    ]
+                  },
+                  "method": "GET",
+                  "orig": "/regional/intensity/{from}/fw24h/regionid/{regionid}",
+                  "parts": [
+                    "regional",
+                    "intensity",
+                    "{intensity_id}",
+                    "fw24h",
+                    "regionid",
+                    "{regionid}"
+                  ],
+                  "rename": {
+                    "param": {
+                      "from": "intensity_id"
+                    }
+                  },
+                  "select": {
+                    "exist": [
+                      "intensity_id",
+                      "regionid"
+                    ]
+                  },
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  },
+                  "active": true
+                },
+                {
+                  "args": {
+                    "params": [
+                      {
+                        "kind": "param",
+                        "name": "intensity_id",
+                        "orig": "from",
+                        "reqd": true,
+                        "type": "`$STRING`",
+                        "active": true
+                      },
+                      {
+                        "kind": "param",
+                        "name": "regionid",
+                        "orig": "regionid",
+                        "reqd": true,
+                        "type": "`$INTEGER`",
+                        "active": true
+                      }
+                    ]
+                  },
+                  "method": "GET",
+                  "orig": "/regional/intensity/{from}/fw48h/regionid/{regionid}",
+                  "parts": [
+                    "regional",
+                    "intensity",
+                    "{intensity_id}",
+                    "fw48h",
+                    "regionid",
+                    "{regionid}"
+                  ],
+                  "rename": {
+                    "param": {
+                      "from": "intensity_id"
+                    }
+                  },
+                  "select": {
+                    "exist": [
+                      "intensity_id",
+                      "regionid"
+                    ]
+                  },
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  },
+                  "active": true
+                },
+                {
+                  "args": {
+                    "params": [
+                      {
+                        "kind": "param",
+                        "name": "intensity_id",
+                        "orig": "from",
+                        "reqd": true,
+                        "type": "`$STRING`",
+                        "active": true
+                      },
+                      {
+                        "kind": "param",
+                        "name": "regionid",
+                        "orig": "regionid",
+                        "reqd": true,
+                        "type": "`$INTEGER`",
+                        "active": true
+                      }
+                    ]
+                  },
+                  "method": "GET",
+                  "orig": "/regional/intensity/{from}/pt24h/regionid/{regionid}",
+                  "parts": [
+                    "regional",
+                    "intensity",
+                    "{intensity_id}",
+                    "pt24h",
+                    "regionid",
+                    "{regionid}"
+                  ],
+                  "rename": {
+                    "param": {
+                      "from": "intensity_id"
+                    }
+                  },
+                  "select": {
+                    "exist": [
+                      "intensity_id",
+                      "regionid"
+                    ]
+                  },
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  },
+                  "active": true
+                }
+              ],
+              "input": "data"
+            }
+          },
+          "relations": {
+            "ancestors": [
+              [
+                "intensity"
+              ],
+              [
+                "intensity",
+                "postcode"
+              ],
+              [
+                "intensity",
+                "regionid"
+              ]
+            ]
+          },
+          "active": true
+        },
+        "stat": {
+          "alias": {
+            "field": {}
+          },
+          "fields": [
+            {
+              "name": "from",
+              "req": false,
+              "type": "`$STRING`",
+              "active": true
+            },
+            {
+              "name": "intensity",
+              "req": false,
+              "type": "`$OBJECT`",
+              "active": true
+            },
+            {
+              "name": "to",
+              "req": false,
+              "type": "`$STRING`",
+              "active": true
+            }
+          ],
+          "name": "stat",
+          "op": {
+            "list": {
+              "name": "list",
+              "points": [
+                {
+                  "args": {
+                    "params": [
+                      {
+                        "kind": "param",
+                        "name": "block",
+                        "orig": "block",
+                        "reqd": true,
+                        "type": "`$INTEGER`",
+                        "active": true
+                      },
+                      {
+                        "kind": "param",
+                        "name": "from",
+                        "orig": "from",
+                        "reqd": true,
+                        "type": "`$STRING`",
+                        "active": true
+                      },
+                      {
+                        "kind": "param",
+                        "name": "to",
+                        "orig": "to",
+                        "reqd": true,
+                        "type": "`$STRING`",
+                        "active": true
+                      }
+                    ]
+                  },
+                  "method": "GET",
+                  "orig": "/intensity/stats/{from}/{to}/{block}",
+                  "parts": [
+                    "intensity",
+                    "stats",
+                    "{from}",
+                    "{to}",
+                    "{block}"
+                  ],
+                  "select": {
+                    "exist": [
+                      "block",
+                      "from",
+                      "to"
+                    ]
+                  },
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  },
+                  "active": true
+                },
+                {
+                  "args": {
+                    "params": [
+                      {
+                        "kind": "param",
+                        "name": "from",
+                        "orig": "from",
+                        "reqd": true,
+                        "type": "`$STRING`",
+                        "active": true
+                      },
+                      {
+                        "kind": "param",
+                        "name": "to",
+                        "orig": "to",
+                        "reqd": true,
+                        "type": "`$STRING`",
+                        "active": true
+                      }
+                    ]
+                  },
+                  "method": "GET",
+                  "orig": "/intensity/stats/{from}/{to}",
+                  "parts": [
+                    "intensity",
+                    "stats",
+                    "{from}",
+                    "{to}"
+                  ],
+                  "select": {
+                    "exist": [
+                      "from",
+                      "to"
+                    ]
+                  },
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  },
+                  "active": true
+                }
+              ],
+              "input": "data"
+            }
+          },
+          "relations": {
+            "ancestors": [
+              [
+                "stat"
+              ]
+            ]
+          },
+          "active": true
+        }
+      },
+      "feature": {
+        "test": {
+          "name": "test",
+          "title": "In-memory mock transport for testing without a live server",
+          "version": "0.0.1",
+          "active": true,
+          "config": {
+            "options": {
+              "active": false
+            }
+          },
+          "hook": {
+            "PostConstruct": {
+              "active": true,
+              "await": false
+            },
+            "PostConstructEntity": {
+              "active": true,
+              "await": false
+            },
+            "SetData": {
+              "active": true,
+              "await": false
+            },
+            "GetData": {
+              "active": true,
+              "await": false
+            },
+            "SetMatch": {
+              "active": true
+            },
+            "GetMatch": {
+              "active": true,
+              "await": false
+            },
+            "PrePoint": {
+              "active": true
+            },
+            "PreSpec": {
+              "active": true,
+              "await": false
+            },
+            "PreRequest": {
+              "active": true,
+              "await": false
+            },
+            "PreResponse": {
+              "active": true,
+              "await": false
+            },
+            "PreResult": {
+              "active": true,
+              "await": false
+            },
+            "PreTarget": {
+              "active": false,
+              "await": false
+            },
+            "PostOperation": {
+              "active": false,
+              "await": false
+            }
+          },
+          "target": {
+            "ts": {
+              "deps": {}
+            },
+            "go": {
+              "deps": {}
+            },
+            "lua": {
+              "deps": {}
+            },
+            "php": {
+              "deps": {}
+            },
+            "py": {
+              "deps": {}
+            },
+            "rb": {
+              "deps": {}
+            }
+          }
+        }
+      },
+      "flow": {
+        "BasicGenerationFlow": {
+          "entity": "generation",
+          "kind": "basic",
+          "name": "BasicGenerationFlow",
+          "step": [
+            {
+              "op": "list",
+              "valid": [
+                {
+                  "apply": "ItemExists",
+                  "def": {
+                    "ref": "generation_ref01"
+                  }
+                }
+              ],
+              "active": true,
+              "match": {},
+              "data": {},
+              "input": {},
+              "spec": []
+            }
+          ],
+          "key$": "BasicGenerationFlow",
+          "active": true,
+          "param": {}
+        },
+        "BasicGenerationListFlow": {
+          "entity": "generation_list",
+          "kind": "basic",
+          "name": "BasicGenerationListFlow",
+          "step": [
+            {
+              "match": {
+                "from": "from01"
+              },
+              "op": "list",
+              "valid": [
+                {
+                  "apply": "ItemExists",
+                  "def": {
+                    "ref": "generation_list_ref01"
+                  }
+                }
+              ],
+              "active": true,
+              "data": {},
+              "input": {},
+              "spec": []
+            }
+          ],
+          "key$": "BasicGenerationListFlow",
+          "active": true,
+          "param": {}
+        },
+        "BasicIntensityFactorFlow": {
+          "entity": "intensity_factor",
+          "kind": "basic",
+          "name": "BasicIntensityFactorFlow",
+          "step": [
+            {
+              "op": "list",
+              "valid": [
+                {
+                  "apply": "ItemExists",
+                  "def": {
+                    "ref": "intensity_factor_ref01"
+                  }
+                }
+              ],
+              "active": true,
+              "match": {},
+              "data": {},
+              "input": {},
+              "spec": []
+            }
+          ],
+          "key$": "BasicIntensityFactorFlow",
+          "active": true,
+          "param": {}
+        },
+        "BasicIntensityFlow": {
+          "entity": "intensity",
+          "kind": "basic",
+          "name": "BasicIntensityFlow",
+          "step": [
+            {
+              "op": "list",
+              "valid": [
+                {
+                  "apply": "ItemExists",
+                  "def": {
+                    "ref": "intensity_ref01"
+                  }
+                }
+              ],
+              "active": true,
+              "match": {},
+              "data": {},
+              "input": {},
+              "spec": []
+            },
+            {
+              "input": {
+                "ref": "intensity_ref01",
+                "srcdatavar": "intensity_ref01_data",
+                "suffix": "_dt0"
+              },
+              "match": {
+                "id": "intensity01"
+              },
+              "op": "load",
+              "valid": [
+                {
+                  "apply": "TextFieldMark",
+                  "def": {
+                    "mark": "Mark01-intensity_ref01"
+                  }
+                }
+              ],
+              "active": true,
+              "data": {},
+              "spec": []
+            }
+          ],
+          "key$": "BasicIntensityFlow",
+          "active": true,
+          "param": {}
+        },
+        "BasicIntensityListFlow": {
+          "entity": "intensity_list",
+          "kind": "basic",
+          "name": "BasicIntensityListFlow",
+          "step": [
+            {
+              "op": "list",
+              "valid": [
+                {
+                  "apply": "ItemExists",
+                  "def": {
+                    "ref": "intensity_list_ref01"
+                  }
+                }
+              ],
+              "active": true,
+              "match": {},
+              "data": {},
+              "input": {},
+              "spec": []
+            },
+            {
+              "input": {
+                "ref": "intensity_list_ref01",
+                "srcdatavar": "intensity_list_ref01_data",
+                "suffix": "_dt0"
+              },
+              "match": {
+                "id": "intensity_list01"
+              },
+              "op": "load",
+              "valid": [
+                {
+                  "apply": "TextFieldMark",
+                  "def": {
+                    "mark": "Mark01-intensity_list_ref01"
+                  }
+                }
+              ],
+              "active": true,
+              "data": {},
+              "spec": []
+            }
+          ],
+          "key$": "BasicIntensityListFlow",
+          "active": true,
+          "param": {}
+        },
+        "BasicRegionalFlow": {
+          "entity": "regional",
+          "kind": "basic",
+          "name": "BasicRegionalFlow",
+          "step": [
+            {
+              "op": "list",
+              "valid": [
+                {
+                  "apply": "ItemExists",
+                  "def": {
+                    "ref": "regional_ref01"
+                  }
+                }
+              ],
+              "active": true,
+              "match": {},
+              "data": {},
+              "input": {},
+              "spec": []
+            }
+          ],
+          "key$": "BasicRegionalFlow",
+          "active": true,
+          "param": {}
+        },
+        "BasicRegionalIntensityFlow": {
+          "entity": "regional_intensity",
+          "kind": "basic",
+          "name": "BasicRegionalIntensityFlow",
+          "step": [
+            {
+              "op": "list",
+              "valid": [
+                {
+                  "apply": "ItemExists",
+                  "def": {
+                    "ref": "regional_intensity_ref01"
+                  }
+                }
+              ],
+              "active": true,
+              "match": {},
+              "data": {},
+              "input": {},
+              "spec": []
+            },
+            {
+              "input": {
+                "ref": "regional_intensity_ref01",
+                "srcdatavar": "regional_intensity_ref01_data",
+                "suffix": "_dt0"
+              },
+              "match": {
+                "id": "regional_intensity01"
+              },
+              "op": "load",
+              "valid": [
+                {
+                  "apply": "TextFieldMark",
+                  "def": {
+                    "mark": "Mark01-regional_intensity_ref01"
+                  }
+                }
+              ],
+              "active": true,
+              "data": {},
+              "spec": []
+            }
+          ],
+          "key$": "BasicRegionalIntensityFlow",
+          "active": true,
+          "param": {}
+        },
+        "BasicRegionalIntensityListFlow": {
+          "entity": "regional_intensity_list",
+          "kind": "basic",
+          "name": "BasicRegionalIntensityListFlow",
+          "step": [
+            {
+              "match": {
+                "from": "from01"
+              },
+              "op": "list",
+              "valid": [
+                {
+                  "apply": "ItemExists",
+                  "def": {
+                    "ref": "regional_intensity_list_ref01"
+                  }
+                }
+              ],
+              "active": true,
+              "data": {},
+              "input": {},
+              "spec": []
+            },
+            {
+              "input": {
+                "ref": "regional_intensity_list_ref01",
+                "srcdatavar": "regional_intensity_list_ref01_data",
+                "suffix": "_dt0"
+              },
+              "match": {
+                "id": "regional_intensity_list01",
+                "intensity_id": "intensity01"
+              },
+              "op": "load",
+              "valid": [
+                {
+                  "apply": "TextFieldMark",
+                  "def": {
+                    "mark": "Mark01-regional_intensity_list_ref01"
+                  }
+                }
+              ],
+              "active": true,
+              "data": {},
+              "spec": []
+            }
+          ],
+          "key$": "BasicRegionalIntensityListFlow",
+          "active": true,
+          "param": {}
+        },
+        "BasicStatFlow": {
+          "entity": "stat",
+          "kind": "basic",
+          "name": "BasicStatFlow",
+          "step": [
+            {
+              "match": {
+                "from": "from01",
+                "to": "to01"
+              },
+              "op": "list",
+              "valid": [
+                {
+                  "apply": "ItemExists",
+                  "def": {
+                    "ref": "stat_ref01"
+                  }
+                }
+              ],
+              "active": true,
+              "data": {},
+              "input": {},
+              "spec": []
+            }
+          ],
+          "key$": "BasicStatFlow",
+          "active": true,
+          "param": {}
+        }
+      },
+      "target": {
+        "ts": {
+          "title": "TypeScript",
+          "ext": "ts",
+          "comment": {
+            "line": "//"
+          },
+          "module": {
+            "name": "carbon-intensity"
+          },
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
+          "deps": {
+            "dotenv": {
+              "active": true,
+              "version": "^17.4.2",
+              "kind": "dev"
+            },
+            "typescript": {
+              "active": true,
+              "version": "^5.9.3",
+              "kind": "dev"
+            },
+            "@types/node": {
+              "active": true,
+              "version": "^25.6.0",
+              "kind": "dev"
+            }
+          },
+          "name": "ts",
+          "active": true
+        },
+        "go": {
+          "title": "Golang",
+          "ext": "go",
+          "comment": {
+            "line": "//"
+          },
+          "module": {
+            "name": "carbon-intensity"
+          },
+          "srcfeature": false,
+          "deps": {
+            "github.com/voxgig/struct": {
+              "active": true,
+              "version": "v0.0.0",
+              "replace": "./utility/struct",
+              "kind": "prod"
+            }
+          },
+          "name": "go",
+          "active": true
+        },
+        "lua": {
+          "title": "Lua",
+          "ext": "lua",
+          "comment": {
+            "line": "--"
+          },
+          "module": {
+            "name": "carbon-intensity"
+          },
+          "srcfeature": false,
+          "deps": {
+            "dkjson": {
+              "active": true,
+              "version": "2.5",
+              "kind": "prod"
+            }
+          },
+          "name": "lua",
+          "active": true
+        },
+        "php": {
+          "title": "PHP",
+          "ext": "php",
+          "comment": {
+            "line": "//"
+          },
+          "module": {
+            "name": "carbon-intensity"
+          },
+          "srcfeature": false,
+          "deps": {},
+          "name": "php",
+          "active": true
+        },
+        "py": {
+          "title": "Python",
+          "ext": "py",
+          "comment": {
+            "line": "#"
+          },
+          "module": {
+            "name": "carbon-intensity"
+          },
+          "srcfeature": false,
+          "deps": {
+            "requests": {
+              "active": true,
+              "version": "2.33",
+              "kind": "prod"
+            }
+          },
+          "name": "py",
+          "active": true
+        },
+        "rb": {
+          "title": "Ruby",
+          "ext": "rb",
+          "comment": {
+            "line": "#"
+          },
+          "module": {
+            "name": "carbon-intensity"
+          },
+          "srcfeature": false,
+          "deps": {
+            "voxgig-struct": {
+              "active": true,
+              "version": "0.0.10",
+              "kind": "prod"
+            },
+            "json": {
+              "active": true,
+              "version": "0",
+              "kind": "prod"
+            }
+          },
+          "name": "rb",
+          "active": true
+        }
+      },
+      "option": {}
+    },
+    "def": {
+      "desc": ""
+    },
+    "api": {
+      "guide": {},
+      "entity": {}
+    }
+  },
+  "name__orig": "carbon-intensity",
+  "Name": "CarbonIntensity",
+  "name_": "carbon_intensity",
+  "name-": "carbon-intensity",
+  "NAME": "CARBON-INTENSITY"
+}

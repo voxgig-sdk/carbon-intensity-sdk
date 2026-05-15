@@ -1,0 +1,22 @@
+# BasicRegionalFlow
+
+main: kit: flow: BasicRegionalFlow:
+{
+  entity: "regional",
+  kind: "basic",
+  name: "BasicRegionalFlow",
+  step: [
+    {
+      op: "list",
+      valid: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "regional_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicRegionalFlow"
+}

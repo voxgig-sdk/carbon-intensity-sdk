@@ -1,0 +1,27 @@
+# BasicStatFlow
+
+main: kit: flow: BasicStatFlow:
+{
+  entity: "stat",
+  kind: "basic",
+  name: "BasicStatFlow",
+  step: [
+    {
+      match: {
+        from: "from01",
+        to: "to01"
+      }
+
+      op: "list",
+      valid: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "stat_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicStatFlow"
+}

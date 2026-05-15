@@ -1,0 +1,73 @@
+# Entity: generation_list
+
+main: kit: entity: generation_list: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "from"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "generationmix"
+      req: false
+      type: "`$ARRAY`"
+    }
+    {
+      name: "to"
+      req: false
+      type: "`$STRING`"
+    }
+  ]
+
+  name: "generation_list"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "from"
+                orig: "from"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/generation/{from}/pt24h"
+          parts: [
+            "generation"
+            "{from}"
+            "pt24h"
+          ]
+          select: {
+            exist: [
+              "from"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+  relations: {
+    ancestors: [
+      [
+        "generation"
+      ]
+    ]
+  }
+
+
+
+}

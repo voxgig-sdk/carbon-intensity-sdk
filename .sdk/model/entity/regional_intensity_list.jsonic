@@ -1,0 +1,571 @@
+# Entity: regional_intensity_list
+
+main: kit: entity: regional_intensity_list: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "data"
+      req: false
+      type: "`$ARRAY`"
+    }
+    {
+      name: "dnoregion"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "postcode"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "regionid"
+      req: false
+      type: "`$INTEGER`"
+    }
+    {
+      name: "shortname"
+      req: false
+      type: "`$STRING`"
+    }
+  ]
+
+  name: "regional_intensity_list"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "from"
+                orig: "from"
+                reqd: true
+                type: "`$STRING`"
+              }
+              {
+                kind: "param"
+                name: "to"
+                orig: "to"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/regional/intensity/{from}/{to}"
+          parts: [
+            "regional"
+            "intensity"
+            "{from}"
+            "{to}"
+          ]
+          select: {
+            exist: [
+              "from"
+              "to"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "from"
+                orig: "from"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/regional/intensity/{from}/fw24h"
+          parts: [
+            "regional"
+            "intensity"
+            "{from}"
+            "fw24h"
+          ]
+          select: {
+            exist: [
+              "from"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "from"
+                orig: "from"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/regional/intensity/{from}/fw48h"
+          parts: [
+            "regional"
+            "intensity"
+            "{from}"
+            "fw48h"
+          ]
+          select: {
+            exist: [
+              "from"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "from"
+                orig: "from"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/regional/intensity/{from}/pt24h"
+          parts: [
+            "regional"
+            "intensity"
+            "{from}"
+            "pt24h"
+          ]
+          select: {
+            exist: [
+              "from"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    load: {
+      name: "load"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "intensity_id"
+                orig: "from"
+                reqd: true
+                type: "`$STRING`"
+              }
+              {
+                kind: "param"
+                name: "postcode"
+                orig: "postcode"
+                reqd: true
+                type: "`$STRING`"
+              }
+              {
+                kind: "param"
+                name: "to"
+                orig: "to"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/regional/intensity/{from}/{to}/postcode/{postcode}"
+          parts: [
+            "regional"
+            "intensity"
+            "{intensity_id}"
+            "{to}"
+            "postcode"
+            "{postcode}"
+          ]
+          rename: {
+            param: {
+              from: "intensity_id"
+            }
+          }
+          select: {
+            exist: [
+              "intensity_id"
+              "postcode"
+              "to"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "intensity_id"
+                orig: "from"
+                reqd: true
+                type: "`$STRING`"
+              }
+              {
+                kind: "param"
+                name: "regionid"
+                orig: "regionid"
+                reqd: true
+                type: "`$INTEGER`"
+              }
+              {
+                kind: "param"
+                name: "to"
+                orig: "to"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/regional/intensity/{from}/{to}/regionid/{regionid}"
+          parts: [
+            "regional"
+            "intensity"
+            "{intensity_id}"
+            "{to}"
+            "regionid"
+            "{regionid}"
+          ]
+          rename: {
+            param: {
+              from: "intensity_id"
+            }
+          }
+          select: {
+            exist: [
+              "intensity_id"
+              "regionid"
+              "to"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "intensity_id"
+                orig: "from"
+                reqd: true
+                type: "`$STRING`"
+              }
+              {
+                kind: "param"
+                name: "postcode"
+                orig: "postcode"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/regional/intensity/{from}/fw24h/postcode/{postcode}"
+          parts: [
+            "regional"
+            "intensity"
+            "{intensity_id}"
+            "fw24h"
+            "postcode"
+            "{postcode}"
+          ]
+          rename: {
+            param: {
+              from: "intensity_id"
+            }
+          }
+          select: {
+            exist: [
+              "intensity_id"
+              "postcode"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "intensity_id"
+                orig: "from"
+                reqd: true
+                type: "`$STRING`"
+              }
+              {
+                kind: "param"
+                name: "postcode"
+                orig: "postcode"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/regional/intensity/{from}/fw48h/postcode/{postcode}"
+          parts: [
+            "regional"
+            "intensity"
+            "{intensity_id}"
+            "fw48h"
+            "postcode"
+            "{postcode}"
+          ]
+          rename: {
+            param: {
+              from: "intensity_id"
+            }
+          }
+          select: {
+            exist: [
+              "intensity_id"
+              "postcode"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "intensity_id"
+                orig: "from"
+                reqd: true
+                type: "`$STRING`"
+              }
+              {
+                kind: "param"
+                name: "postcode"
+                orig: "postcode"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/regional/intensity/{from}/pt24h/postcode/{postcode}"
+          parts: [
+            "regional"
+            "intensity"
+            "{intensity_id}"
+            "pt24h"
+            "postcode"
+            "{postcode}"
+          ]
+          rename: {
+            param: {
+              from: "intensity_id"
+            }
+          }
+          select: {
+            exist: [
+              "intensity_id"
+              "postcode"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "intensity_id"
+                orig: "from"
+                reqd: true
+                type: "`$STRING`"
+              }
+              {
+                kind: "param"
+                name: "regionid"
+                orig: "regionid"
+                reqd: true
+                type: "`$INTEGER`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/regional/intensity/{from}/fw24h/regionid/{regionid}"
+          parts: [
+            "regional"
+            "intensity"
+            "{intensity_id}"
+            "fw24h"
+            "regionid"
+            "{regionid}"
+          ]
+          rename: {
+            param: {
+              from: "intensity_id"
+            }
+          }
+          select: {
+            exist: [
+              "intensity_id"
+              "regionid"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "intensity_id"
+                orig: "from"
+                reqd: true
+                type: "`$STRING`"
+              }
+              {
+                kind: "param"
+                name: "regionid"
+                orig: "regionid"
+                reqd: true
+                type: "`$INTEGER`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/regional/intensity/{from}/fw48h/regionid/{regionid}"
+          parts: [
+            "regional"
+            "intensity"
+            "{intensity_id}"
+            "fw48h"
+            "regionid"
+            "{regionid}"
+          ]
+          rename: {
+            param: {
+              from: "intensity_id"
+            }
+          }
+          select: {
+            exist: [
+              "intensity_id"
+              "regionid"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "intensity_id"
+                orig: "from"
+                reqd: true
+                type: "`$STRING`"
+              }
+              {
+                kind: "param"
+                name: "regionid"
+                orig: "regionid"
+                reqd: true
+                type: "`$INTEGER`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/regional/intensity/{from}/pt24h/regionid/{regionid}"
+          parts: [
+            "regional"
+            "intensity"
+            "{intensity_id}"
+            "pt24h"
+            "regionid"
+            "{regionid}"
+          ]
+          rename: {
+            param: {
+              from: "intensity_id"
+            }
+          }
+          select: {
+            exist: [
+              "intensity_id"
+              "regionid"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+  relations: {
+    ancestors: [
+      [
+        "intensity"
+      ]
+      [
+        "intensity"
+        "postcode"
+      ]
+      [
+        "intensity"
+        "regionid"
+      ]
+    ]
+  }
+
+
+
+}

@@ -1,0 +1,156 @@
+# Entity: regional_intensity
+
+main: kit: entity: regional_intensity: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "data"
+      req: false
+      type: "`$ARRAY`"
+    }
+    {
+      name: "dnoregion"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "postcode"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "regionid"
+      req: false
+      type: "`$INTEGER`"
+    }
+    {
+      name: "shortname"
+      req: false
+      type: "`$STRING`"
+    }
+  ]
+
+  name: "regional_intensity"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          method: "GET"
+          orig: "/regional/england"
+          parts: [
+            "regional"
+            "england"
+          ]
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+        {
+          method: "GET"
+          orig: "/regional/scotland"
+          parts: [
+            "regional"
+            "scotland"
+          ]
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+        {
+          method: "GET"
+          orig: "/regional/wales"
+          parts: [
+            "regional"
+            "wales"
+          ]
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    load: {
+      name: "load"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "postcode"
+                orig: "postcode"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/regional/postcode/{postcode}"
+          parts: [
+            "regional"
+            "postcode"
+            "{postcode}"
+          ]
+          select: {
+            exist: [
+              "postcode"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "regionid"
+                orig: "regionid"
+                reqd: true
+                type: "`$INTEGER`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/regional/regionid/{regionid}"
+          parts: [
+            "regional"
+            "regionid"
+            "{regionid}"
+          ]
+          select: {
+            exist: [
+              "regionid"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+  relations: {
+    ancestors: [
+      [
+        "postcode"
+      ]
+      [
+        "regionid"
+      ]
+    ]
+  }
+
+
+
+}

@@ -1,0 +1,47 @@
+{
+  "existing": {
+    "regional_intensity_list": {
+      "REGIONAL_INTENSITY_LIST00": {
+        "data": [],
+        "dnoregion": "s33",
+        "postcode": "s34",
+        "regionid": "s35",
+        "shortname": "s36",
+        "from": "FROM01",
+        "to": "TO01",
+        "intensity_id": "INTENSITY01"
+      },
+      "REGIONAL_INTENSITY_LIST01": {
+        "data": [],
+        "dnoregion": "s65",
+        "postcode": "s66",
+        "regionid": "s67",
+        "shortname": "s68",
+        "from": "FROM01",
+        "to": "TO01",
+        "intensity_id": "INTENSITY01"
+      },
+      "REGIONAL_INTENSITY_LIST02": {
+        "data": [],
+        "dnoregion": "s97",
+        "postcode": "s98",
+        "regionid": "s99",
+        "shortname": "s9a",
+        "from": "FROM01",
+        "to": "TO01",
+        "intensity_id": "INTENSITY01"
+      }
+    }
+  },
+  "new": {
+    "regional_intensity_list": {
+      "regional_intensity_list_ref01": {
+        "data": [],
+        "dnoregion": "sc9",
+        "postcode": "sca",
+        "regionid": "scb",
+        "shortname": "scc"
+      }
+    }
+  }
+}

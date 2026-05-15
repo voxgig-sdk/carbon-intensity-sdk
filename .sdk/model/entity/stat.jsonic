@@ -1,0 +1,129 @@
+# Entity: stat
+
+main: kit: entity: stat: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "from"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "intensity"
+      req: false
+      type: "`$OBJECT`"
+    }
+    {
+      name: "to"
+      req: false
+      type: "`$STRING`"
+    }
+  ]
+
+  name: "stat"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "block"
+                orig: "block"
+                reqd: true
+                type: "`$INTEGER`"
+              }
+              {
+                kind: "param"
+                name: "from"
+                orig: "from"
+                reqd: true
+                type: "`$STRING`"
+              }
+              {
+                kind: "param"
+                name: "to"
+                orig: "to"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/intensity/stats/{from}/{to}/{block}"
+          parts: [
+            "intensity"
+            "stats"
+            "{from}"
+            "{to}"
+            "{block}"
+          ]
+          select: {
+            exist: [
+              "block"
+              "from"
+              "to"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "from"
+                orig: "from"
+                reqd: true
+                type: "`$STRING`"
+              }
+              {
+                kind: "param"
+                name: "to"
+                orig: "to"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/intensity/stats/{from}/{to}"
+          parts: [
+            "intensity"
+            "stats"
+            "{from}"
+            "{to}"
+          ]
+          select: {
+            exist: [
+              "from"
+              "to"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+  relations: {
+    ancestors: [
+      [
+        "stat"
+      ]
+    ]
+  }
+
+
+
+}

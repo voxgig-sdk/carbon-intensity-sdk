@@ -1,0 +1,143 @@
+# Guide
+
+guide: {
+  metrics: count: entity: 9
+  metrics: count: path: 33
+  metrics: count: method: 33
+
+  entity: generation: {
+    path: "/generation": {
+      op: list: method: *GET
+    }
+    path: "/generation/{from}/{to}": {
+      op: list: method: *GET
+    }
+  }
+
+  entity: generation_list: {
+    path: "/generation/{from}/pt24h": {
+      op: list: method: *GET
+    }
+  }
+
+  entity: intensity: {
+    path: "/intensity": {
+      op: list: method: *GET
+    }
+    path: "/intensity/date/{date}/{period}": {
+      op: list: method: *GET
+    }
+    path: "/intensity/{from}": {
+      rename: param: "from": *"id"
+      op: load: method: *GET
+    }
+    path: "/intensity/{from}/{to}": {
+      op: list: method: *GET
+    }
+  }
+
+  entity: intensity_factor: {
+    path: "/intensity/factors": {
+      op: list: method: *GET
+    }
+  }
+
+  entity: intensity_list: {
+    path: "/intensity/date": {
+      op: list: method: *GET
+    }
+    path: "/intensity/date/{date}": {
+      op: load: method: *GET
+    }
+    path: "/intensity/{from}/fw24h": {
+      op: list: method: *GET
+    }
+    path: "/intensity/{from}/fw48h": {
+      op: list: method: *GET
+    }
+    path: "/intensity/{from}/pt24h": {
+      op: list: method: *GET
+    }
+  }
+
+  entity: regional: {
+    path: "/regional": {
+      op: list: method: *GET
+    }
+  }
+
+  entity: regional_intensity: {
+    path: "/regional/england": {
+      op: list: method: *GET
+    }
+    path: "/regional/postcode/{postcode}": {
+      op: load: method: *GET
+    }
+    path: "/regional/regionid/{regionid}": {
+      op: load: method: *GET
+    }
+    path: "/regional/scotland": {
+      op: list: method: *GET
+    }
+    path: "/regional/wales": {
+      op: list: method: *GET
+    }
+  }
+
+  entity: regional_intensity_list: {
+    path: "/regional/intensity/{from}/fw24h": {
+      op: list: method: *GET
+    }
+    path: "/regional/intensity/{from}/fw24h/postcode/{postcode}": {
+      rename: param: "from": *"intensity_id"
+      op: load: method: *GET
+    }
+    path: "/regional/intensity/{from}/fw24h/regionid/{regionid}": {
+      rename: param: "from": *"intensity_id"
+      op: load: method: *GET
+    }
+    path: "/regional/intensity/{from}/fw48h": {
+      op: list: method: *GET
+    }
+    path: "/regional/intensity/{from}/fw48h/postcode/{postcode}": {
+      rename: param: "from": *"intensity_id"
+      op: load: method: *GET
+    }
+    path: "/regional/intensity/{from}/fw48h/regionid/{regionid}": {
+      rename: param: "from": *"intensity_id"
+      op: load: method: *GET
+    }
+    path: "/regional/intensity/{from}/pt24h": {
+      op: list: method: *GET
+    }
+    path: "/regional/intensity/{from}/pt24h/postcode/{postcode}": {
+      rename: param: "from": *"intensity_id"
+      op: load: method: *GET
+    }
+    path: "/regional/intensity/{from}/pt24h/regionid/{regionid}": {
+      rename: param: "from": *"intensity_id"
+      op: load: method: *GET
+    }
+    path: "/regional/intensity/{from}/{to}": {
+      op: list: method: *GET
+    }
+    path: "/regional/intensity/{from}/{to}/postcode/{postcode}": {
+      rename: param: "from": *"intensity_id"
+      op: load: method: *GET
+    }
+    path: "/regional/intensity/{from}/{to}/regionid/{regionid}": {
+      rename: param: "from": *"intensity_id"
+      op: load: method: *GET
+    }
+  }
+
+  entity: stat: {
+    path: "/intensity/stats/{from}/{to}": {
+      op: list: method: *GET
+    }
+    path: "/intensity/stats/{from}/{to}/{block}": {
+      op: list: method: *GET
+    }
+  }
+
+}

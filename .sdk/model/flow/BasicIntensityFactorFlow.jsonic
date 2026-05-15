@@ -1,0 +1,22 @@
+# BasicIntensityFactorFlow
+
+main: kit: flow: BasicIntensityFactorFlow:
+{
+  entity: "intensity_factor",
+  kind: "basic",
+  name: "BasicIntensityFactorFlow",
+  step: [
+    {
+      op: "list",
+      valid: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "intensity_factor_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicIntensityFactorFlow"
+}

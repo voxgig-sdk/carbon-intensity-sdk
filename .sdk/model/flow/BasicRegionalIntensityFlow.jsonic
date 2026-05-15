@@ -1,0 +1,44 @@
+# BasicRegionalIntensityFlow
+
+main: kit: flow: BasicRegionalIntensityFlow:
+{
+  entity: "regional_intensity",
+  kind: "basic",
+  name: "BasicRegionalIntensityFlow",
+  step: [
+    {
+      op: "list",
+      valid: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "regional_intensity_ref01"
+          }
+        }
+      ]
+    }
+
+    {
+      input: {
+        ref: "regional_intensity_ref01",
+        srcdatavar: "regional_intensity_ref01_data",
+        suffix: "_dt0"
+      }
+
+      match: {
+        id: "regional_intensity01"
+      }
+
+      op: "load",
+      valid: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-regional_intensity_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicRegionalIntensityFlow"
+}

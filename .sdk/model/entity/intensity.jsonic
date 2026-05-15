@@ -1,0 +1,176 @@
+# Entity: intensity
+
+main: kit: entity: intensity: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "data"
+      req: false
+      type: "`$ARRAY`"
+    }
+    {
+      name: "from"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "intensity"
+      req: false
+      type: "`$OBJECT`"
+    }
+    {
+      name: "to"
+      req: false
+      type: "`$STRING`"
+    }
+  ]
+
+  name: "intensity"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "date"
+                orig: "date"
+                reqd: true
+                type: "`$STRING`"
+              }
+              {
+                kind: "param"
+                name: "period"
+                orig: "period"
+                reqd: true
+                type: "`$INTEGER`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/intensity/date/{date}/{period}"
+          parts: [
+            "intensity"
+            "date"
+            "{date}"
+            "{period}"
+          ]
+          select: {
+            exist: [
+              "date"
+              "period"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "from"
+                orig: "from"
+                reqd: true
+                type: "`$STRING`"
+              }
+              {
+                kind: "param"
+                name: "to"
+                orig: "to"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/intensity/{from}/{to}"
+          parts: [
+            "intensity"
+            "{from}"
+            "{to}"
+          ]
+          select: {
+            exist: [
+              "from"
+              "to"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+        {
+          method: "GET"
+          orig: "/intensity"
+          parts: [
+            "intensity"
+          ]
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    load: {
+      name: "load"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "id"
+                orig: "from"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/intensity/{from}"
+          parts: [
+            "intensity"
+            "{id}"
+          ]
+          rename: {
+            param: {
+              from: "id"
+            }
+          }
+          select: {
+            exist: [
+              "id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+  relations: {
+    ancestors: [
+      [
+        "date"
+      ]
+      [
+        "intensity"
+      ]
+    ]
+  }
+
+
+
+}

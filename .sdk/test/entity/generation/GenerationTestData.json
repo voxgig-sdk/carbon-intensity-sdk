@@ -1,0 +1,30 @@
+{
+  "existing": {
+    "generation": {
+      "GENERATION00": {
+        "from": "s1e",
+        "generationmix": [],
+        "to": "s20"
+      },
+      "GENERATION01": {
+        "from": "s3c",
+        "generationmix": [],
+        "to": "s3e"
+      },
+      "GENERATION02": {
+        "from": "s5a",
+        "generationmix": [],
+        "to": "s5c"
+      }
+    }
+  },
+  "new": {
+    "generation": {
+      "generation_ref01": {
+        "from": "s78",
+        "generationmix": [],
+        "to": "s7a"
+      }
+    }
+  }
+}

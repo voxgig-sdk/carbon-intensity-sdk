@@ -1,0 +1,40 @@
+{
+  "existing": {
+    "intensity": {
+      "INTENSITY00": {
+        "data": [],
+        "from": "s29",
+        "intensity": {},
+        "to": "s2b",
+        "date": "DATE01",
+        "period": "PERIOD01"
+      },
+      "INTENSITY01": {
+        "data": [],
+        "from": "s51",
+        "intensity": {},
+        "to": "s53",
+        "date": "DATE01",
+        "period": "PERIOD01"
+      },
+      "INTENSITY02": {
+        "data": [],
+        "from": "s79",
+        "intensity": {},
+        "to": "s7b",
+        "date": "DATE01",
+        "period": "PERIOD01"
+      }
+    }
+  },
+  "new": {
+    "intensity": {
+      "intensity_ref01": {
+        "data": [],
+        "from": "sa1",
+        "intensity": {},
+        "to": "sa3"
+      }
+    }
+  }
+}

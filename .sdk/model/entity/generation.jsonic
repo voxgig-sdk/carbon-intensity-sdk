@@ -1,0 +1,92 @@
+# Entity: generation
+
+main: kit: entity: generation: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "from"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "generationmix"
+      req: false
+      type: "`$ARRAY`"
+    }
+    {
+      name: "to"
+      req: false
+      type: "`$STRING`"
+    }
+  ]
+
+  name: "generation"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "from"
+                orig: "from"
+                reqd: true
+                type: "`$STRING`"
+              }
+              {
+                kind: "param"
+                name: "to"
+                orig: "to"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/generation/{from}/{to}"
+          parts: [
+            "generation"
+            "{from}"
+            "{to}"
+          ]
+          select: {
+            exist: [
+              "from"
+              "to"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+        {
+          method: "GET"
+          orig: "/generation"
+          parts: [
+            "generation"
+          ]
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+  relations: {
+    ancestors: [
+      [
+        "generation"
+      ]
+    ]
+  }
+
+
+
+}

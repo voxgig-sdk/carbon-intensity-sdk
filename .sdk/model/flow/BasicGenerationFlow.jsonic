@@ -1,0 +1,22 @@
+# BasicGenerationFlow
+
+main: kit: flow: BasicGenerationFlow:
+{
+  entity: "generation",
+  kind: "basic",
+  name: "BasicGenerationFlow",
+  step: [
+    {
+      op: "list",
+      valid: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "generation_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicGenerationFlow"
+}

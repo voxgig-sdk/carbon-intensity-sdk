@@ -1,0 +1,11 @@
+# Entity Models
+
+@"generation.jsonic"
+@"generation_list.jsonic"
+@"intensity.jsonic"
+@"intensity_factor.jsonic"
+@"intensity_list.jsonic"
+@"regional.jsonic"
+@"regional_intensity.jsonic"
+@"regional_intensity_list.jsonic"
+@"stat.jsonic"

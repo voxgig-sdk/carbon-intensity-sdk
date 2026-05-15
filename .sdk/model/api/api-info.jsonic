@@ -1,0 +1,29 @@
+# API Information
+
+
+main: {
+  kit: {
+    info: {
+      contact: {
+        email: "lyndon.ruff@nationalgrideso.com"
+        name: "Lyndon Ruff"
+      }
+      description: "Official API for Carbon Intensity in Great Britain provided by National Grid ESO. Allows access to current and historical carbon intensity data for different regions and time periods."
+      license: {
+        name: "CC BY 4.0"
+        url: "https://creativecommons.org/licenses/by/4.0/"
+      }
+      servers: [
+        {
+          description: "Production server"
+          url: "https://api.carbonintensity.org.uk"
+        }
+      ]
+      termsOfService: "https://api.carbonintensity.org.uk/terms"
+      title: "Carbon Intensity API"
+      version: "1.0.0"
+    }
+  }
+}
+
+}
