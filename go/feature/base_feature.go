@@ -1,7 +1,7 @@
 package feature
 
 import (
-	"github.com/voxgig-sdk/carbon-intensity-sdk/core"
+	"github.com/voxgig-sdk/carbon-intensity-sdk/go/core"
 )
 
 type BaseFeature struct {

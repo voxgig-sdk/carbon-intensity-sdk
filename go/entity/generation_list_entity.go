@@ -1,9 +1,9 @@
 package entity
 
 import (
-	"github.com/voxgig-sdk/carbon-intensity-sdk/core"
+	"github.com/voxgig-sdk/carbon-intensity-sdk/go/core"
 
-	vs "github.com/voxgig/struct"
+	vs "github.com/voxgig-sdk/carbon-intensity-sdk/go/utility/struct"
 )
 
 type GenerationListEntity struct {

@@ -1,10 +1,10 @@
 package voxgigcarbonintensitysdk
 
 import (
-	"github.com/voxgig-sdk/carbon-intensity-sdk/core"
-	"github.com/voxgig-sdk/carbon-intensity-sdk/entity"
-	"github.com/voxgig-sdk/carbon-intensity-sdk/feature"
-	_ "github.com/voxgig-sdk/carbon-intensity-sdk/utility"
+	"github.com/voxgig-sdk/carbon-intensity-sdk/go/core"
+	"github.com/voxgig-sdk/carbon-intensity-sdk/go/entity"
+	"github.com/voxgig-sdk/carbon-intensity-sdk/go/feature"
+	_ "github.com/voxgig-sdk/carbon-intensity-sdk/go/utility"
 )
 
 // Type aliases preserve external API.

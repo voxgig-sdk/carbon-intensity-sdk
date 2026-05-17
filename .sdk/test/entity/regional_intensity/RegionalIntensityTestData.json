@@ -6,21 +6,24 @@
         "dnoregion": "s33",
         "postcode": "s34",
         "regionid": "s35",
-        "shortname": "s36"
+        "shortname": "s36",
+        "id": "REGIONAL_INTENSITY00"
       },
       "REGIONAL_INTENSITY01": {
         "data": [],
         "dnoregion": "s65",
         "postcode": "s66",
         "regionid": "s67",
-        "shortname": "s68"
+        "shortname": "s68",
+        "id": "REGIONAL_INTENSITY01"
       },
       "REGIONAL_INTENSITY02": {
         "data": [],
         "dnoregion": "s97",
         "postcode": "s98",
         "regionid": "s99",
-        "shortname": "s9a"
+        "shortname": "s9a",
+        "id": "REGIONAL_INTENSITY02"
       }
     }
   },

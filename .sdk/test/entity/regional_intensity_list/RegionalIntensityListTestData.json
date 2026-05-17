@@ -9,7 +9,8 @@
         "shortname": "s36",
         "from": "FROM01",
         "to": "TO01",
-        "intensity_id": "INTENSITY01"
+        "intensity_id": "INTENSITY01",
+        "id": "REGIONAL_INTENSITY_LIST00"
       },
       "REGIONAL_INTENSITY_LIST01": {
         "data": [],
@@ -19,7 +20,8 @@
         "shortname": "s68",
         "from": "FROM01",
         "to": "TO01",
-        "intensity_id": "INTENSITY01"
+        "intensity_id": "INTENSITY01",
+        "id": "REGIONAL_INTENSITY_LIST01"
       },
       "REGIONAL_INTENSITY_LIST02": {
         "data": [],
@@ -29,7 +31,8 @@
         "shortname": "s9a",
         "from": "FROM01",
         "to": "TO01",
-        "intensity_id": "INTENSITY01"
+        "intensity_id": "INTENSITY01",
+        "id": "REGIONAL_INTENSITY_LIST02"
       }
     }
   },

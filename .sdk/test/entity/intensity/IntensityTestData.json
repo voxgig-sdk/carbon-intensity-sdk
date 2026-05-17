@@ -7,7 +7,8 @@
         "intensity": {},
         "to": "s2b",
         "date": "DATE01",
-        "period": "PERIOD01"
+        "period": "PERIOD01",
+        "id": "INTENSITY00"
       },
       "INTENSITY01": {
         "data": [],
@@ -15,7 +16,8 @@
         "intensity": {},
         "to": "s53",
         "date": "DATE01",
-        "period": "PERIOD01"
+        "period": "PERIOD01",
+        "id": "INTENSITY01"
       },
       "INTENSITY02": {
         "data": [],
@@ -23,7 +25,8 @@
         "intensity": {},
         "to": "s7b",
         "date": "DATE01",
-        "period": "PERIOD01"
+        "period": "PERIOD01",
+        "id": "INTENSITY02"
       }
     }
   },

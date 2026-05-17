@@ -9,10 +9,10 @@ import (
 	"testing"
 	"time"
 
-	sdk "github.com/voxgig-sdk/carbon-intensity-sdk"
-	"github.com/voxgig-sdk/carbon-intensity-sdk/core"
+	sdk "github.com/voxgig-sdk/carbon-intensity-sdk/go"
+	"github.com/voxgig-sdk/carbon-intensity-sdk/go/core"
 
-	vs "github.com/voxgig/struct"
+	vs "github.com/voxgig-sdk/carbon-intensity-sdk/go/utility/struct"
 )
 
 func TestIntensityFactorEntity(t *testing.T) {

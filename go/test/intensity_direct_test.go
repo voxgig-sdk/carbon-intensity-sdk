@@ -6,8 +6,8 @@ import (
 	"strings"
 	"testing"
 
-	sdk "github.com/voxgig-sdk/carbon-intensity-sdk"
-	"github.com/voxgig-sdk/carbon-intensity-sdk/core"
+	sdk "github.com/voxgig-sdk/carbon-intensity-sdk/go"
+	"github.com/voxgig-sdk/carbon-intensity-sdk/go/core"
 )
 
 func TestIntensityDirect(t *testing.T) {

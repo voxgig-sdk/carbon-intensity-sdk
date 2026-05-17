@@ -6,21 +6,24 @@
         "from": "s29",
         "intensity": {},
         "to": "s2b",
-        "date": "DATE01"
+        "date": "DATE01",
+        "id": "INTENSITY_LIST00"
       },
       "INTENSITY_LIST01": {
         "data": [],
         "from": "s51",
         "intensity": {},
         "to": "s53",
-        "date": "DATE01"
+        "date": "DATE01",
+        "id": "INTENSITY_LIST01"
       },
       "INTENSITY_LIST02": {
         "data": [],
         "from": "s79",
         "intensity": {},
         "to": "s7b",
-        "date": "DATE01"
+        "date": "DATE01",
+        "id": "INTENSITY_LIST02"
       }
     }
   },

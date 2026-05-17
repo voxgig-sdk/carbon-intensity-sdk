@@ -12,9 +12,9 @@ import (
 	"sync"
 	"testing"
 
-	sdk "github.com/voxgig-sdk/carbon-intensity-sdk"
+	sdk "github.com/voxgig-sdk/carbon-intensity-sdk/go"
 
-	vs "github.com/voxgig/struct"
+	vs "github.com/voxgig-sdk/carbon-intensity-sdk/go/utility/struct"
 )
 
 var envLocalOnce sync.Once
