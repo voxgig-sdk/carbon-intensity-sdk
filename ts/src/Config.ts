@@ -38,10 +38,6 @@ class Config {
   options = {
     base: 'https://api.carbonintensity.org.uk',
 
-    auth: {
-      prefix: 'Bearer',
-    },
-
     headers: {
       "content-type": "application/json"
     },

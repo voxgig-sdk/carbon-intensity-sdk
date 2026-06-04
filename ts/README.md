@@ -17,9 +17,7 @@ loading a specific record.
 ```ts
 import { CarbonIntensitySDK } from 'carbon-intensity'
 
-const client = new CarbonIntensitySDK({
-  apikey: process.env.CARBON-INTENSITY_APIKEY,
-})
+const client = new CarbonIntensitySDK({})
 ```
 
 ### 2. List generations
@@ -84,7 +82,7 @@ const result = await client.Planet().load({ id: 'test01' })
 You can also use the instance method:
 
 ```ts
-const client = new CarbonIntensitySDK({ apikey: '...' })
+const client = new CarbonIntensitySDK()
 const testClient = client.tester()
 ```
 
@@ -120,7 +118,6 @@ const logger = {
 }
 
 const client = new CarbonIntensitySDK({
-  apikey: '...',
   extend: [logger],
 })
 ```
@@ -131,7 +128,6 @@ Create a `.env.local` file at the project root:
 
 ```
 CARBON-INTENSITY_TEST_LIVE=TRUE
-CARBON-INTENSITY_APIKEY=<your-key>
 ```
 
 Then run:
@@ -149,7 +145,6 @@ cd ts && npm test
 
 ```ts
 new CarbonIntensitySDK(options?: {
-  apikey?: string
   base?: string
   prefix?: string
   suffix?: string
@@ -160,7 +155,6 @@ new CarbonIntensitySDK(options?: {
 
 | Option | Type | Description |
 | --- | --- | --- |
-| `apikey` | `string` | API key for authentication. |
 | `base` | `string` | Base URL of the API server. |
 | `prefix` | `string` | URL path prefix prepended to all requests. |
 | `suffix` | `string` | URL path suffix appended to all requests. |

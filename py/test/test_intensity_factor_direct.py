@@ -61,14 +61,12 @@ def _intensity_factor_direct_setup(mockres):
     env = runner.env_override({
         "CARBONINTENSITY_TEST_INTENSITY_FACTOR_ENTID": {},
         "CARBONINTENSITY_TEST_LIVE": "FALSE",
-        "CARBONINTENSITY_APIKEY": "NONE",
     })
 
     live = env.get("CARBONINTENSITY_TEST_LIVE") == "TRUE"
 
     if live:
         merged_opts = {
-            "apikey": env.get("CARBONINTENSITY_APIKEY"),
         }
         client = CarbonIntensitySDK(merged_opts)
         return {

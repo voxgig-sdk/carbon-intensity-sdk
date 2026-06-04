@@ -118,14 +118,12 @@ func generation_listDirectSetup(mockres any) *generation_listDirectSetupResult {
 	env := envOverride(map[string]any{
 		"CARBONINTENSITY_TEST_GENERATION_LIST_ENTID": map[string]any{},
 		"CARBONINTENSITY_TEST_LIVE":    "FALSE",
-		"CARBONINTENSITY_APIKEY":       "NONE",
 	})
 
 	live := env["CARBONINTENSITY_TEST_LIVE"] == "TRUE"
 
 	if live {
 		mergedOpts := map[string]any{
-			"apikey": env["CARBONINTENSITY_APIKEY"],
 		}
 		client := sdk.NewCarbonIntensitySDK(mergedOpts)
 

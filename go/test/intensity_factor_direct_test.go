@@ -93,14 +93,12 @@ func intensity_factorDirectSetup(mockres any) *intensity_factorDirectSetupResult
 	env := envOverride(map[string]any{
 		"CARBONINTENSITY_TEST_INTENSITY_FACTOR_ENTID": map[string]any{},
 		"CARBONINTENSITY_TEST_LIVE":    "FALSE",
-		"CARBONINTENSITY_APIKEY":       "NONE",
 	})
 
 	live := env["CARBONINTENSITY_TEST_LIVE"] == "TRUE"
 
 	if live {
 		mergedOpts := map[string]any{
-			"apikey": env["CARBONINTENSITY_APIKEY"],
 		}
 		client := sdk.NewCarbonIntensitySDK(mergedOpts)
 
