@@ -1,8 +1,17 @@
 {
   "name": "voxgig-sdk/carbon-intensity",
-  "description": "CarbonIntensity SDK for PHP",
+  "description": "Unofficial generated PHP SDK for the Carbon Intensity public API. Not affiliated with or endorsed by the upstream API provider.",
   "type": "library",
+  "keywords": ["voxgig", "sdk", "generated-sdk", "openapi", "api-client", "carbon-intensity"],
+  "homepage": "https://github.com/voxgig-sdk/carbon-intensity-sdk",
   "license": "MIT",
+  "authors": [
+    { "name": "Voxgig", "homepage": "https://voxgig.com" }
+  ],
+  "support": {
+    "issues": "https://github.com/voxgig-sdk/carbon-intensity-sdk/issues",
+    "source": "https://github.com/voxgig-sdk/carbon-intensity-sdk"
+  },
   "minimum-stability": "stable",
   "require": {
     "php": ">=8.2"

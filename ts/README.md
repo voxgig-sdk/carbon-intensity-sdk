@@ -10,7 +10,7 @@ The TypeScript SDK for the CarbonIntensity API — a type-safe, entity-oriented 
 
 ## Install
 ```bash
-npm install carbon-intensity
+npm install @voxgig-sdk/carbon-intensity
 ```
 ## Tutorial: your first API call
 

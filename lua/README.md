@@ -10,7 +10,7 @@ The Lua SDK for the CarbonIntensity API — an entity-oriented client using Lua 
 
 ## Install
 ```bash
-luarocks install carbon-intensity-sdk
+luarocks install voxgig-sdk-carbon-intensity
 ```
 
 If the module is not yet published, add the source directory to

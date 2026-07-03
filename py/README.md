@@ -10,7 +10,7 @@ The Python SDK for the CarbonIntensity API — an entity-oriented client followi
 
 ## Install
 ```bash
-pip install carbon-intensity-sdk
+pip install voxgig-sdk-carbon-intensity
 ```
 
 Or install from source:

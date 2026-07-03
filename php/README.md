@@ -10,7 +10,7 @@ The PHP SDK for the CarbonIntensity API — an entity-oriented client using PHP 
 
 ## Install
 ```bash
-composer require voxgig/carbon-intensity-sdk
+composer require voxgig-sdk/carbon-intensity
 ```
 
 

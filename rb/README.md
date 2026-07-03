@@ -10,13 +10,13 @@ The Ruby SDK for the CarbonIntensity API — an entity-oriented client using idi
 
 ## Install
 ```bash
-gem install carbon-intensity-sdk
+gem install voxgig-sdk-carbon-intensity
 ```
 
 Or add to your `Gemfile`:
 
 ```ruby
-gem "carbon-intensity-sdk"
+gem "voxgig-sdk-carbon-intensity"
 ```
 
 Then run:

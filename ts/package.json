@@ -1,7 +1,23 @@
 {
   "name": "@voxgig-sdk/carbon-intensity",
   "version": "0.0.1",
-  "description": "DESCRIPTION",
+  "description": "Unofficial generated TypeScript SDK for the Carbon Intensity public API. Not affiliated with or endorsed by the upstream API provider.",
+  "keywords": [
+    "voxgig",
+    "sdk",
+    "generated-sdk",
+    "openapi",
+    "api-client",
+    "carbon-intensity"
+  ],
+  "homepage": "https://github.com/voxgig-sdk/carbon-intensity-sdk#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/voxgig-sdk/carbon-intensity-sdk.git"
+  },
+  "bugs": {
+    "url": "https://github.com/voxgig-sdk/carbon-intensity-sdk/issues"
+  },
   "main": "dist/CarbonIntensitySDK.js",
   "type": "commonjs",
   "types": "dist/CarbonIntensitySDK.d.ts",
@@ -14,7 +30,10 @@
     "clean": "rm -rf node_modules yarn.lock package-lock.json",
     "reset": "npm run clean && npm i && npm run build && npm test"
   },
-  "author": "CarbonIntensity",
+  "author": {
+    "name": "Voxgig",
+    "url": "https://voxgig.com"
+  },
   "license": "MIT",
   "dependencies": {},
   "peerDependencies": {},
