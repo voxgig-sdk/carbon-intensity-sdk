@@ -68,12 +68,14 @@ function regional_direct_setup($mockres)
     $env = Runner::env_override([
         "CARBONINTENSITY_TEST_REGIONAL_ENTID" => [],
         "CARBONINTENSITY_TEST_LIVE" => "FALSE",
+        "CARBONINTENSITY_APIKEY" => "NONE",
     ]);
 
     $live = $env["CARBONINTENSITY_TEST_LIVE"] === "TRUE";
 
     if ($live) {
         $merged_opts = [
+            "apikey" => $env["CARBONINTENSITY_APIKEY"],
         ];
         $client = new CarbonIntensitySDK($merged_opts);
         return [

@@ -1,6 +1,11 @@
 # CarbonIntensity Python SDK
 
-The Python SDK for the CarbonIntensity API. Provides an entity-oriented interface following Pythonic conventions.
+
+
+The Python SDK for the CarbonIntensity API — an entity-oriented client following Pythonic conventions.
+
+> Other languages, the CLI, and MCP server live alongside this one — see
+> the [top-level README](../README.md).
 
 
 ## Install
@@ -23,15 +28,18 @@ loading a specific record.
 ### 1. Create a client
 
 ```python
+import os
 from carbonintensity_sdk import CarbonIntensitySDK
 
-client = CarbonIntensitySDK({})
+client = CarbonIntensitySDK({
+    "apikey": os.environ.get("CARBON-INTENSITY_APIKEY"),
+})
 ```
 
 ### 2. List generations
 
 ```python
-result, err = client.Generation(None).list(None, None)
+result, err = client.Generation().list()
 if err:
     raise Exception(err)
 
@@ -83,11 +91,9 @@ print(fetchdef["headers"])
 Create a mock client for unit testing — no server required:
 
 ```python
-client = CarbonIntensitySDK.test(None, None)
+client = CarbonIntensitySDK.test()
 
-result, err = client.CarbonIntensity(None).load(
-    {"id": "test01"}, None
-)
+result, err = client.CarbonIntensity().load({"id": "test01"})
 # result contains mock response data
 ```
 
@@ -118,6 +124,7 @@ Create a `.env.local` file at the project root:
 
 ```
 CARBON-INTENSITY_TEST_LIVE=TRUE
+CARBON-INTENSITY_APIKEY=<your-key>
 ```
 
 Then run:
@@ -141,6 +148,7 @@ Creates a new SDK client.
 
 | Option | Type | Description |
 | --- | --- | --- |
+| `apikey` | `str` | API key for authentication. |
 | `base` | `str` | Base URL of the API server. |
 | `prefix` | `str` | URL path prefix prepended to all requests. |
 | `suffix` | `str` | URL path suffix appended to all requests. |

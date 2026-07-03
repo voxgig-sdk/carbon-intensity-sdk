@@ -94,6 +94,7 @@ function generation_list_basic_setup(extra)
     ["CARBONINTENSITY_TEST_GENERATION_LIST_ENTID"] = idmap,
     ["CARBONINTENSITY_TEST_LIVE"] = "FALSE",
     ["CARBONINTENSITY_TEST_EXPLAIN"] = "FALSE",
+    ["CARBONINTENSITY_APIKEY"] = "NONE",
   })
 
   local idmap_resolved = helpers.to_map(
@@ -105,6 +106,7 @@ function generation_list_basic_setup(extra)
   if env["CARBONINTENSITY_TEST_LIVE"] == "TRUE" then
     local merged_opts = vs.merge({
       {
+        apikey = env["CARBONINTENSITY_APIKEY"],
       },
       extra or {},
     })

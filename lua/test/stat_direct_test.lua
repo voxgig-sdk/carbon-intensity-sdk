@@ -87,12 +87,14 @@ function stat_direct_setup(mockres)
   local env = runner.env_override({
     ["CARBONINTENSITY_TEST_STAT_ENTID"] = {},
     ["CARBONINTENSITY_TEST_LIVE"] = "FALSE",
+    ["CARBONINTENSITY_APIKEY"] = "NONE",
   })
 
   local live = env["CARBONINTENSITY_TEST_LIVE"] == "TRUE"
 
   if live then
     local merged_opts = {
+      apikey = env["CARBONINTENSITY_APIKEY"],
     }
     local client = sdk.new(merged_opts)
     return {

@@ -144,12 +144,14 @@ function directSetup(mockres?: any) {
   const env = envOverride({
     'CARBONINTENSITY_TEST_INTENSITY_LIST_ENTID': {},
     'CARBONINTENSITY_TEST_LIVE': 'FALSE',
+    'CARBONINTENSITY_APIKEY': 'NONE',
   })
 
   const live = 'TRUE' === env.CARBONINTENSITY_TEST_LIVE
 
   if (live) {
     const client = new CarbonIntensitySDK({
+      apikey: env.CARBONINTENSITY_APIKEY,
     })
 
     let idmap: any = env['CARBONINTENSITY_TEST_INTENSITY_LIST_ENTID']

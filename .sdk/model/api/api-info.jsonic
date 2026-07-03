@@ -22,38 +22,7 @@ main: {
       termsOfService: "https://api.carbonintensity.org.uk/terms"
       title: "Carbon Intensity API"
       version: "1.0.0"
-      tagline: "Live and forecast carbon intensity (gCO2/kWh), generation mix and regional breakdowns for Great Britain's electricity grid"
-      homepage: "https://carbonintensity.org.uk/"
-      docs_url: "https://carbon-intensity.github.io/api-definitions/"
-      license_short: "Creative Commons Attribution 4.0 International (CC BY 4.0) — attribution to National Energy System Operator (NESO) required."
-      license_md: `- Data published under [Creative Commons Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/).
-- Attribute to **National Energy System Operator (NESO)** (formerly National Grid ESO) when reusing data.
-- Full terms: <https://github.com/carbon-intensity/terms>.
-- Methodology for national and regional forecasts is published separately by NESO.`
-      about_md: `The [Carbon Intensity API](https://carbonintensity.org.uk/) is the official feed for the carbon intensity of electricity in Great Britain, developed by the [National Energy System Operator (NESO)](https://www.neso.energy/). It exposes half-hourly readings, two-day forecasts and historical values for the national grid and for each GB region, together with the generation mix that drives those values.
-
-What you get from the API:
-
-- National carbon intensity (\`forecast\`, \`actual\`, \`index\`) in gCO2/kWh at half-hour resolution.
-- Forecasts up to 48 hours ahead and look-backs up to 24 hours via \`fw24h\`, \`fw48h\`, \`pt24h\` suffixes.
-- Statistics (\`max\`, \`min\`, \`average\`) over arbitrary ranges, optionally block-averaged.
-- Generation mix percentages for gas, coal, biomass, nuclear, hydro, imports, solar, wind and other.
-- Carbon factors per fuel type (Biomass, Coal, Gas combined/open cycle, Hydro, Nuclear, Oil, Solar, Wind, imports).
-- Regional intensity and mix for England, Scotland, Wales, by outward postcode, or by region ID (1–17, covering the 14 DNO regions plus England, Scotland, Wales).
-
-No authentication is required and CORS is enabled. Responses are available in JSON or XML. Custom date ranges are capped at 14 days for intensity queries and 30 days for stats queries.`
-      entity_desc: {
-        generation: "Current GB generation mix as a single snapshot — percentage share of gas, coal, biomass, nuclear, hydro, imports, solar, wind and other (`GET /generation`)."
-        generation_list: "Historical generation mix over a range or past 24 hours (`GET /generation/{from}/pt24h`, `GET /generation/{from}/{to}`)."
-        intensity: "National carbon intensity for the current half-hour, including `forecast`, `actual` (gCO2/kWh) and an `index` band (`GET /intensity`)."
-        intensity_factor: "Carbon emission factors per fuel type used by the model — Biomass, Coal, Gas (combined/open cycle), Hydro, Nuclear, Oil, Solar, Wind and imports (`GET /intensity/factors`)."
-        intensity_list: "National intensity series for a date, period, custom range (max 14 days), or 24/48-hour forward and backward windows (`GET /intensity/date`, `GET /intensity/date/{date}`, `GET /intensity/{from}/{to}`, `GET /intensity/{from}/fw48h`, `GET /intensity/{from}/pt24h`)."
-        regional: "Snapshot of carbon intensity and generation mix across all GB regions (`GET /regional`)."
-        regional_intensity: "Intensity and mix for a single area — England, Scotland, Wales, an outward postcode, or a numeric region ID (`GET /regional/england`, `GET /regional/postcode/{postcode}`, `GET /regional/regionid/{regionid}`)."
-        regional_intensity_list: "Regional intensity time series including forward (`fw24h`, `fw48h`) and backward (`pt24h`) windows for a given area."
-        stat: "Aggregate statistics (`max`, `min`, `average` gCO2/kWh) over a range up to 30 days, optionally averaged into 1–24 hour blocks (`GET /intensity/stats/{from}/{to}`, `GET /intensity/stats/{from}/{to}/{block}`)."
-      }
-      auth: false
     }
   }
 }
+
