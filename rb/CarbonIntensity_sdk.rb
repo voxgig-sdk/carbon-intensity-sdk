@@ -208,117 +208,63 @@ class CarbonIntensitySDK
   end
 
 
-  # Idiomatic facade: client.generation.list / client.generation.load({ "id" => ... })
-  def generation
-    require_relative 'entity/generation_entity'
-    @generation ||= GenerationEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.generation instead.
+  # Canonical facade: client.Generation.list / client.Generation.load({ "id" => ... })
   def Generation(data = nil)
     require_relative 'entity/generation_entity'
     GenerationEntity.new(self, data)
   end
 
 
-  # Idiomatic facade: client.generation_list.list / client.generation_list.load({ "id" => ... })
-  def generation_list
-    require_relative 'entity/generation_list_entity'
-    @generation_list ||= GenerationListEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.generation_list instead.
+  # Canonical facade: client.GenerationList.list / client.GenerationList.load({ "id" => ... })
   def GenerationList(data = nil)
     require_relative 'entity/generation_list_entity'
     GenerationListEntity.new(self, data)
   end
 
 
-  # Idiomatic facade: client.intensity.list / client.intensity.load({ "id" => ... })
-  def intensity
-    require_relative 'entity/intensity_entity'
-    @intensity ||= IntensityEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.intensity instead.
+  # Canonical facade: client.Intensity.list / client.Intensity.load({ "id" => ... })
   def Intensity(data = nil)
     require_relative 'entity/intensity_entity'
     IntensityEntity.new(self, data)
   end
 
 
-  # Idiomatic facade: client.intensity_factor.list / client.intensity_factor.load({ "id" => ... })
-  def intensity_factor
-    require_relative 'entity/intensity_factor_entity'
-    @intensity_factor ||= IntensityFactorEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.intensity_factor instead.
+  # Canonical facade: client.IntensityFactor.list / client.IntensityFactor.load({ "id" => ... })
   def IntensityFactor(data = nil)
     require_relative 'entity/intensity_factor_entity'
     IntensityFactorEntity.new(self, data)
   end
 
 
-  # Idiomatic facade: client.intensity_list.list / client.intensity_list.load({ "id" => ... })
-  def intensity_list
-    require_relative 'entity/intensity_list_entity'
-    @intensity_list ||= IntensityListEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.intensity_list instead.
+  # Canonical facade: client.IntensityList.list / client.IntensityList.load({ "id" => ... })
   def IntensityList(data = nil)
     require_relative 'entity/intensity_list_entity'
     IntensityListEntity.new(self, data)
   end
 
 
-  # Idiomatic facade: client.regional.list / client.regional.load({ "id" => ... })
-  def regional
-    require_relative 'entity/regional_entity'
-    @regional ||= RegionalEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.regional instead.
+  # Canonical facade: client.Regional.list / client.Regional.load({ "id" => ... })
   def Regional(data = nil)
     require_relative 'entity/regional_entity'
     RegionalEntity.new(self, data)
   end
 
 
-  # Idiomatic facade: client.regional_intensity.list / client.regional_intensity.load({ "id" => ... })
-  def regional_intensity
-    require_relative 'entity/regional_intensity_entity'
-    @regional_intensity ||= RegionalIntensityEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.regional_intensity instead.
+  # Canonical facade: client.RegionalIntensity.list / client.RegionalIntensity.load({ "id" => ... })
   def RegionalIntensity(data = nil)
     require_relative 'entity/regional_intensity_entity'
     RegionalIntensityEntity.new(self, data)
   end
 
 
-  # Idiomatic facade: client.regional_intensity_list.list / client.regional_intensity_list.load({ "id" => ... })
-  def regional_intensity_list
-    require_relative 'entity/regional_intensity_list_entity'
-    @regional_intensity_list ||= RegionalIntensityListEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.regional_intensity_list instead.
+  # Canonical facade: client.RegionalIntensityList.list / client.RegionalIntensityList.load({ "id" => ... })
   def RegionalIntensityList(data = nil)
     require_relative 'entity/regional_intensity_list_entity'
     RegionalIntensityListEntity.new(self, data)
   end
 
 
-  # Idiomatic facade: client.stat.list / client.stat.load({ "id" => ... })
-  def stat
-    require_relative 'entity/stat_entity'
-    @stat ||= StatEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.stat instead.
+  # Canonical facade: client.Stat.list / client.Stat.load({ "id" => ... })
   def Stat(data = nil)
     require_relative 'entity/stat_entity'
     StatEntity.new(self, data)

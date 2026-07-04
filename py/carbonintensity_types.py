@@ -4,179 +4,161 @@
 # params (op.<name>.points[].args.params[]). Field/param types come from the
 # canonical type sentinels via @voxgig/sdkgen canonToType (source of truth:
 # @voxgig/apidef VALID_CANON). Do not edit by hand.
+#
+# These are TypedDicts, not dataclasses: the SDK ops return/accept plain dicts
+# at runtime, and a TypedDict IS a dict shape, so the types match the runtime.
+# Optional (req:false) keys are modelled as TypedDict key-optionality
+# (total=False), split into a required base + total=False subclass when a type
+# has both required and optional keys.
 
 from __future__ import annotations
 
-from dataclasses import dataclass
-from typing import Optional, Any
+from typing import TypedDict, Any
 
 
-@dataclass
-class Generation:
-    generationmix: Optional[list] = None
-    to: Optional[str] = None
-
-
-@dataclass
-class GenerationListMatch:
+class Generation(TypedDict, total=False):
+    generationmix: list
     to: str
 
 
-@dataclass
-class GenerationList:
-    generationmix: Optional[list] = None
-    to: Optional[str] = None
+class GenerationListMatch(TypedDict):
+    to: str
 
 
-@dataclass
-class GenerationListListMatch:
+class GenerationList(TypedDict, total=False):
+    generationmix: list
+    to: str
+
+
+class GenerationListListMatch(TypedDict):
     pass
 
 
-@dataclass
-class Intensity:
-    data: Optional[list] = None
-    intensity: Optional[dict] = None
-    to: Optional[str] = None
+class Intensity(TypedDict, total=False):
+    data: list
+    intensity: dict
+    to: str
 
 
-@dataclass
-class IntensityLoadMatch:
+class IntensityLoadMatch(TypedDict):
     id: str
 
 
-@dataclass
-class IntensityListMatch:
+class IntensityListMatch(TypedDict):
     date: str
     period: int
     to: str
 
 
-@dataclass
-class IntensityFactor:
-    biomass: Optional[int] = None
-    coal: Optional[int] = None
-    dutch_import: Optional[int] = None
-    french_import: Optional[int] = None
-    gas__combined_cycle: Optional[int] = None
-    gas__open_cycle: Optional[int] = None
-    hydro: Optional[int] = None
-    irish_import: Optional[int] = None
-    nuclear: Optional[int] = None
-    oil: Optional[int] = None
-    other: Optional[int] = None
-    pumped_storage: Optional[int] = None
-    solar: Optional[int] = None
-    wind: Optional[int] = None
+class IntensityFactor(TypedDict, total=False):
+    biomass: int
+    coal: int
+    dutch_import: int
+    french_import: int
+    gas__combined_cycle: int
+    gas__open_cycle: int
+    hydro: int
+    irish_import: int
+    nuclear: int
+    oil: int
+    other: int
+    pumped_storage: int
+    solar: int
+    wind: int
 
 
-@dataclass
-class IntensityFactorListMatch:
-    biomass: Optional[int] = None
-    coal: Optional[int] = None
-    dutch_import: Optional[int] = None
-    french_import: Optional[int] = None
-    gas__combined_cycle: Optional[int] = None
-    gas__open_cycle: Optional[int] = None
-    hydro: Optional[int] = None
-    irish_import: Optional[int] = None
-    nuclear: Optional[int] = None
-    oil: Optional[int] = None
-    other: Optional[int] = None
-    pumped_storage: Optional[int] = None
-    solar: Optional[int] = None
-    wind: Optional[int] = None
+class IntensityFactorListMatch(TypedDict, total=False):
+    biomass: int
+    coal: int
+    dutch_import: int
+    french_import: int
+    gas__combined_cycle: int
+    gas__open_cycle: int
+    hydro: int
+    irish_import: int
+    nuclear: int
+    oil: int
+    other: int
+    pumped_storage: int
+    solar: int
+    wind: int
 
 
-@dataclass
-class IntensityList:
-    data: Optional[list] = None
-    intensity: Optional[dict] = None
-    to: Optional[str] = None
+class IntensityList(TypedDict, total=False):
+    data: list
+    intensity: dict
+    to: str
 
 
-@dataclass
-class IntensityListLoadMatch:
+class IntensityListLoadMatch(TypedDict):
     date: str
 
 
-@dataclass
-class IntensityListListMatch:
+class IntensityListListMatch(TypedDict):
     pass
 
 
-@dataclass
-class Regional:
-    data: Optional[list] = None
-    dnoregion: Optional[str] = None
-    postcode: Optional[str] = None
-    regionid: Optional[int] = None
-    shortname: Optional[str] = None
+class Regional(TypedDict, total=False):
+    data: list
+    dnoregion: str
+    postcode: str
+    regionid: int
+    shortname: str
 
 
-@dataclass
-class RegionalListMatch:
-    data: Optional[list] = None
-    dnoregion: Optional[str] = None
-    postcode: Optional[str] = None
-    regionid: Optional[int] = None
-    shortname: Optional[str] = None
+class RegionalListMatch(TypedDict, total=False):
+    data: list
+    dnoregion: str
+    postcode: str
+    regionid: int
+    shortname: str
 
 
-@dataclass
-class RegionalIntensity:
-    data: Optional[list] = None
-    dnoregion: Optional[str] = None
-    postcode: Optional[str] = None
-    regionid: Optional[int] = None
-    shortname: Optional[str] = None
+class RegionalIntensity(TypedDict, total=False):
+    data: list
+    dnoregion: str
+    postcode: str
+    regionid: int
+    shortname: str
 
 
-@dataclass
-class RegionalIntensityLoadMatch:
+class RegionalIntensityLoadMatch(TypedDict):
     postcode: str
     regionid: int
 
 
-@dataclass
-class RegionalIntensityListMatch:
-    data: Optional[list] = None
-    dnoregion: Optional[str] = None
-    postcode: Optional[str] = None
-    regionid: Optional[int] = None
-    shortname: Optional[str] = None
+class RegionalIntensityListMatch(TypedDict, total=False):
+    data: list
+    dnoregion: str
+    postcode: str
+    regionid: int
+    shortname: str
 
 
-@dataclass
-class RegionalIntensityList:
-    data: Optional[list] = None
-    dnoregion: Optional[str] = None
-    postcode: Optional[str] = None
-    regionid: Optional[int] = None
-    shortname: Optional[str] = None
+class RegionalIntensityList(TypedDict, total=False):
+    data: list
+    dnoregion: str
+    postcode: str
+    regionid: int
+    shortname: str
 
 
-@dataclass
-class RegionalIntensityListLoadMatch:
+class RegionalIntensityListLoadMatch(TypedDict):
     intensity_id: str
     postcode: str
     to: str
     regionid: int
 
 
-@dataclass
-class RegionalIntensityListListMatch:
+class RegionalIntensityListListMatch(TypedDict):
     to: str
 
 
-@dataclass
-class Stat:
-    intensity: Optional[dict] = None
-    to: Optional[str] = None
+class Stat(TypedDict, total=False):
+    intensity: dict
+    to: str
 
 
-@dataclass
-class StatListMatch:
+class StatListMatch(TypedDict):
     block: int
     to: str
-

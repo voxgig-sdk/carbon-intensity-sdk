@@ -31,14 +31,16 @@ from carbonintensity_sdk import CarbonIntensitySDK
 client = CarbonIntensitySDK()
 ```
 
-### 2. List generations
+### 2. List generation records
+
+`list()` returns a `list` of records (each a `dict`) and raises on
+error — iterate it directly.
 
 ```python
 try:
-    result = client.generation.list()
-    for item in result:
-        d = item.data_get()
-        print(d["id"], d["name"])
+    generations = client.Generation().list({})
+    for generation in generations:
+        print(generation)
 except Exception as err:
     print(f"list failed: {err}")
 ```
@@ -86,8 +88,9 @@ Create a mock client for unit testing — no server required:
 ```python
 client = CarbonIntensitySDK.test()
 
-result = client.generation.load({"id": "test01"})
-# result contains mock response data
+# Entity ops return the bare record and raise on error.
+generation = client.Generation().load({"id": "test01"})
+# generation contains the mock response record
 ```
 
 ### Use a custom fetch function
@@ -165,9 +168,9 @@ Creates a test-mode client with mock transport. Both arguments may be `None`.
 | `direct` | `(fetchargs) -> dict` | Build and send an HTTP request. Returns a result dict (branch on `ok`). |
 | `Generation` | `(data) -> GenerationEntity` | Create a Generation entity instance. |
 | `GenerationList` | `(data) -> GenerationListEntity` | Create a GenerationList entity instance. |
-| `Intensity` | `(data) -> IntensityEntity` | Create a Intensity entity instance. |
-| `IntensityFactor` | `(data) -> IntensityFactorEntity` | Create a IntensityFactor entity instance. |
-| `IntensityList` | `(data) -> IntensityListEntity` | Create a IntensityList entity instance. |
+| `Intensity` | `(data) -> IntensityEntity` | Create an Intensity entity instance. |
+| `IntensityFactor` | `(data) -> IntensityFactorEntity` | Create an IntensityFactor entity instance. |
+| `IntensityList` | `(data) -> IntensityListEntity` | Create an IntensityList entity instance. |
 | `Regional` | `(data) -> RegionalEntity` | Create a Regional entity instance. |
 | `RegionalIntensity` | `(data) -> RegionalIntensityEntity` | Create a RegionalIntensity entity instance. |
 | `RegionalIntensityList` | `(data) -> RegionalIntensityListEntity` | Create a RegionalIntensityList entity instance. |
@@ -345,7 +348,7 @@ API path: `/intensity/stats/{from}/{to}/{block}`
 
 ### Generation
 
-Create an instance: `const generation = client.generation`
+Create an instance: `generation = client.Generation()`
 
 #### Operations
 
@@ -363,14 +366,14 @@ Create an instance: `const generation = client.generation`
 
 #### Example: List
 
-```ts
-const generations = await client.generation.list()
+```python
+generations = client.Generation().list({})
 ```
 
 
 ### GenerationList
 
-Create an instance: `const generation_list = client.generation_list`
+Create an instance: `generation_list = client.GenerationList()`
 
 #### Operations
 
@@ -388,14 +391,14 @@ Create an instance: `const generation_list = client.generation_list`
 
 #### Example: List
 
-```ts
-const generation_lists = await client.generation_list.list()
+```python
+generation_lists = client.GenerationList().list({})
 ```
 
 
 ### Intensity
 
-Create an instance: `const intensity = client.intensity`
+Create an instance: `intensity = client.Intensity()`
 
 #### Operations
 
@@ -415,20 +418,20 @@ Create an instance: `const intensity = client.intensity`
 
 #### Example: Load
 
-```ts
-const intensity = await client.intensity.load({ id: 'intensity_id' })
+```python
+intensity = client.Intensity().load({"id": "intensity_id"})
 ```
 
 #### Example: List
 
-```ts
-const intensitys = await client.intensity.list()
+```python
+intensitys = client.Intensity().list({})
 ```
 
 
 ### IntensityFactor
 
-Create an instance: `const intensity_factor = client.intensity_factor`
+Create an instance: `intensity_factor = client.IntensityFactor()`
 
 #### Operations
 
@@ -457,14 +460,14 @@ Create an instance: `const intensity_factor = client.intensity_factor`
 
 #### Example: List
 
-```ts
-const intensity_factors = await client.intensity_factor.list()
+```python
+intensity_factors = client.IntensityFactor().list({})
 ```
 
 
 ### IntensityList
 
-Create an instance: `const intensity_list = client.intensity_list`
+Create an instance: `intensity_list = client.IntensityList()`
 
 #### Operations
 
@@ -484,20 +487,20 @@ Create an instance: `const intensity_list = client.intensity_list`
 
 #### Example: Load
 
-```ts
-const intensity_list = await client.intensity_list.load({ id: 'intensity_list_id' })
+```python
+intensity_list = client.IntensityList().load({"id": "intensity_list_id"})
 ```
 
 #### Example: List
 
-```ts
-const intensity_lists = await client.intensity_list.list()
+```python
+intensity_lists = client.IntensityList().list({})
 ```
 
 
 ### Regional
 
-Create an instance: `const regional = client.regional`
+Create an instance: `regional = client.Regional()`
 
 #### Operations
 
@@ -517,14 +520,14 @@ Create an instance: `const regional = client.regional`
 
 #### Example: List
 
-```ts
-const regionals = await client.regional.list()
+```python
+regionals = client.Regional().list({})
 ```
 
 
 ### RegionalIntensity
 
-Create an instance: `const regional_intensity = client.regional_intensity`
+Create an instance: `regional_intensity = client.RegionalIntensity()`
 
 #### Operations
 
@@ -545,20 +548,20 @@ Create an instance: `const regional_intensity = client.regional_intensity`
 
 #### Example: Load
 
-```ts
-const regional_intensity = await client.regional_intensity.load({ id: 'regional_intensity_id' })
+```python
+regional_intensity = client.RegionalIntensity().load({"id": "regional_intensity_id"})
 ```
 
 #### Example: List
 
-```ts
-const regional_intensitys = await client.regional_intensity.list()
+```python
+regional_intensitys = client.RegionalIntensity().list({})
 ```
 
 
 ### RegionalIntensityList
 
-Create an instance: `const regional_intensity_list = client.regional_intensity_list`
+Create an instance: `regional_intensity_list = client.RegionalIntensityList()`
 
 #### Operations
 
@@ -579,20 +582,20 @@ Create an instance: `const regional_intensity_list = client.regional_intensity_l
 
 #### Example: Load
 
-```ts
-const regional_intensity_list = await client.regional_intensity_list.load({ id: 'regional_intensity_list_id' })
+```python
+regional_intensity_list = client.RegionalIntensityList().load({"id": "regional_intensity_list_id"})
 ```
 
 #### Example: List
 
-```ts
-const regional_intensity_lists = await client.regional_intensity_list.list()
+```python
+regional_intensity_lists = client.RegionalIntensityList().list({})
 ```
 
 
 ### Stat
 
-Create an instance: `const stat = client.stat`
+Create an instance: `stat = client.Stat()`
 
 #### Operations
 
@@ -610,8 +613,8 @@ Create an instance: `const stat = client.stat`
 
 #### Example: List
 
-```ts
-const stats = await client.stat.list()
+```python
+stats = client.Stat().list({})
 ```
 
 
@@ -685,7 +688,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```python
-generation = client.generation
+generation = client.Generation()
 generation.load({"id": "example_id"})
 
 # generation.data_get() now returns the loaded generation data

@@ -31,17 +31,17 @@ local sdk = require("carbon-intensity_sdk")
 local client = sdk.new()
 ```
 
-### 2. List generations
+### 2. List generation records
+
+Entity operations return `(value, err)`. For `list`, `value` is the
+array of records itself — iterate it directly (there is no wrapper).
 
 ```lua
-local result, err = client:generation():list()
+local generations, err = client:Generation():list()
 if err then error(err) end
 
-if type(result) == "table" then
-  for _, item in ipairs(result) do
-    local d = item:data_get()
-    print(d["id"], d["name"])
-  end
+for _, item in ipairs(generations) do
+  print(item["id"], item["name"])
 end
 ```
 
@@ -88,8 +88,8 @@ Create a mock client for unit testing — no server required:
 ```lua
 local client = sdk.test()
 
-local result, err = client:generation():load({ id = "test01" })
--- result contains mock response data
+local result, err = client:Generation():load({ id = "test01" })
+-- result is the loaded data; err is set on failure
 ```
 
 ### Use a custom fetch function
@@ -169,9 +169,9 @@ Creates a test-mode client with mock transport. Both arguments may be `nil`.
 | `direct` | `(fetchargs) -> table, err` | Build and send an HTTP request. |
 | `Generation` | `(data) -> GenerationEntity` | Create a Generation entity instance. |
 | `GenerationList` | `(data) -> GenerationListEntity` | Create a GenerationList entity instance. |
-| `Intensity` | `(data) -> IntensityEntity` | Create a Intensity entity instance. |
-| `IntensityFactor` | `(data) -> IntensityFactorEntity` | Create a IntensityFactor entity instance. |
-| `IntensityList` | `(data) -> IntensityListEntity` | Create a IntensityList entity instance. |
+| `Intensity` | `(data) -> IntensityEntity` | Create an Intensity entity instance. |
+| `IntensityFactor` | `(data) -> IntensityFactorEntity` | Create an IntensityFactor entity instance. |
+| `IntensityList` | `(data) -> IntensityListEntity` | Create an IntensityList entity instance. |
 | `Regional` | `(data) -> RegionalEntity` | Create a Regional entity instance. |
 | `RegionalIntensity` | `(data) -> RegionalIntensityEntity` | Create a RegionalIntensity entity instance. |
 | `RegionalIntensityList` | `(data) -> RegionalIntensityListEntity` | Create a RegionalIntensityList entity instance. |
@@ -197,17 +197,22 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return `(any, err)`. The first value is a
-`table` with these keys:
+Entity operations return `(value, err)`. The `value` is the operation's
+data **directly** — there is no wrapper:
 
-| Key | Type | Description |
-| --- | --- | --- |
-| `ok` | `boolean` | `true` if the HTTP status is 2xx. |
-| `status` | `number` | HTTP status code. |
-| `headers` | `table` | Response headers. |
-| `data` | `any` | Parsed JSON response body. |
+| Operation | `value` |
+| --- | --- |
+| `load` / `create` / `update` / `remove` | the entity record (a `table`) |
+| `list` | an array (`table`) of entity records |
 
-On error, `ok` is `false` and `err` contains the error value.
+Check `err` first (it is non-`nil` on failure), then use `value`:
+
+    local generation, err = client:Generation():load({ id = "example_id" })
+    if err then error(err) end
+    -- generation is the loaded record
+
+Only `direct()` returns a response envelope — a `table` with `ok`,
+`status`, `headers`, and `data` keys.
 
 ### Entities
 
@@ -345,7 +350,7 @@ API path: `/intensity/stats/{from}/{to}/{block}`
 
 ### Generation
 
-Create an instance: `const generation = client.generation`
+Create an instance: `local generation = client:Generation(nil)`
 
 #### Operations
 
@@ -363,14 +368,14 @@ Create an instance: `const generation = client.generation`
 
 #### Example: List
 
-```ts
-const generations = await client.generation.list()
+```lua
+local generations, err = client:Generation():list()
 ```
 
 
 ### GenerationList
 
-Create an instance: `const generation_list = client.generation_list`
+Create an instance: `local generation_list = client:GenerationList(nil)`
 
 #### Operations
 
@@ -388,14 +393,14 @@ Create an instance: `const generation_list = client.generation_list`
 
 #### Example: List
 
-```ts
-const generation_lists = await client.generation_list.list()
+```lua
+local generation_lists, err = client:GenerationList():list()
 ```
 
 
 ### Intensity
 
-Create an instance: `const intensity = client.intensity`
+Create an instance: `local intensity = client:Intensity(nil)`
 
 #### Operations
 
@@ -415,20 +420,20 @@ Create an instance: `const intensity = client.intensity`
 
 #### Example: Load
 
-```ts
-const intensity = await client.intensity.load({ id: 'intensity_id' })
+```lua
+local intensity, err = client:Intensity():load({ id = "intensity_id" })
 ```
 
 #### Example: List
 
-```ts
-const intensitys = await client.intensity.list()
+```lua
+local intensitys, err = client:Intensity():list()
 ```
 
 
 ### IntensityFactor
 
-Create an instance: `const intensity_factor = client.intensity_factor`
+Create an instance: `local intensity_factor = client:IntensityFactor(nil)`
 
 #### Operations
 
@@ -457,14 +462,14 @@ Create an instance: `const intensity_factor = client.intensity_factor`
 
 #### Example: List
 
-```ts
-const intensity_factors = await client.intensity_factor.list()
+```lua
+local intensity_factors, err = client:IntensityFactor():list()
 ```
 
 
 ### IntensityList
 
-Create an instance: `const intensity_list = client.intensity_list`
+Create an instance: `local intensity_list = client:IntensityList(nil)`
 
 #### Operations
 
@@ -484,20 +489,20 @@ Create an instance: `const intensity_list = client.intensity_list`
 
 #### Example: Load
 
-```ts
-const intensity_list = await client.intensity_list.load({ id: 'intensity_list_id' })
+```lua
+local intensity_list, err = client:IntensityList():load({ id = "intensity_list_id" })
 ```
 
 #### Example: List
 
-```ts
-const intensity_lists = await client.intensity_list.list()
+```lua
+local intensity_lists, err = client:IntensityList():list()
 ```
 
 
 ### Regional
 
-Create an instance: `const regional = client.regional`
+Create an instance: `local regional = client:Regional(nil)`
 
 #### Operations
 
@@ -517,14 +522,14 @@ Create an instance: `const regional = client.regional`
 
 #### Example: List
 
-```ts
-const regionals = await client.regional.list()
+```lua
+local regionals, err = client:Regional():list()
 ```
 
 
 ### RegionalIntensity
 
-Create an instance: `const regional_intensity = client.regional_intensity`
+Create an instance: `local regional_intensity = client:RegionalIntensity(nil)`
 
 #### Operations
 
@@ -545,20 +550,20 @@ Create an instance: `const regional_intensity = client.regional_intensity`
 
 #### Example: Load
 
-```ts
-const regional_intensity = await client.regional_intensity.load({ id: 'regional_intensity_id' })
+```lua
+local regional_intensity, err = client:RegionalIntensity():load({ id = "regional_intensity_id" })
 ```
 
 #### Example: List
 
-```ts
-const regional_intensitys = await client.regional_intensity.list()
+```lua
+local regional_intensitys, err = client:RegionalIntensity():list()
 ```
 
 
 ### RegionalIntensityList
 
-Create an instance: `const regional_intensity_list = client.regional_intensity_list`
+Create an instance: `local regional_intensity_list = client:RegionalIntensityList(nil)`
 
 #### Operations
 
@@ -579,20 +584,20 @@ Create an instance: `const regional_intensity_list = client.regional_intensity_l
 
 #### Example: Load
 
-```ts
-const regional_intensity_list = await client.regional_intensity_list.load({ id: 'regional_intensity_list_id' })
+```lua
+local regional_intensity_list, err = client:RegionalIntensityList():load({ id = "regional_intensity_list_id" })
 ```
 
 #### Example: List
 
-```ts
-const regional_intensity_lists = await client.regional_intensity_list.list()
+```lua
+local regional_intensity_lists, err = client:RegionalIntensityList():list()
 ```
 
 
 ### Stat
 
-Create an instance: `const stat = client.stat`
+Create an instance: `local stat = client:Stat(nil)`
 
 #### Operations
 
@@ -610,8 +615,8 @@ Create an instance: `const stat = client.stat`
 
 #### Example: List
 
-```ts
-const stats = await client.stat.list()
+```lua
+local stats, err = client:Stat():list()
 ```
 
 
@@ -686,7 +691,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```lua
-local generation = client:generation()
+local generation = client:Generation()
 generation:load({ id = "example_id" })
 
 -- generation:data_get() now returns the loaded generation data

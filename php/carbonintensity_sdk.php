@@ -233,10 +233,10 @@ class CarbonIntensitySDK
 
     private $_generation = null;
 
-    // Idiomatic facade: $client->generation()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias Generation() (PHP method
-    // names are case-insensitive).
-    public function generation($data = null)
+    // Canonical facade: $client->Generation()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->generation()
+    // resolves here too.
+    public function Generation($data = null)
     {
         require_once __DIR__ . '/entity/generation_entity.php';
         if ($data === null) {
@@ -251,10 +251,10 @@ class CarbonIntensitySDK
 
     private $_generation_list = null;
 
-    // Idiomatic facade: $client->generation_list()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias GenerationList() (PHP method
-    // names are case-insensitive).
-    public function generation_list($data = null)
+    // Canonical facade: $client->GenerationList()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->generation_list()
+    // resolves here too.
+    public function GenerationList($data = null)
     {
         require_once __DIR__ . '/entity/generation_list_entity.php';
         if ($data === null) {
@@ -269,10 +269,10 @@ class CarbonIntensitySDK
 
     private $_intensity = null;
 
-    // Idiomatic facade: $client->intensity()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias Intensity() (PHP method
-    // names are case-insensitive).
-    public function intensity($data = null)
+    // Canonical facade: $client->Intensity()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->intensity()
+    // resolves here too.
+    public function Intensity($data = null)
     {
         require_once __DIR__ . '/entity/intensity_entity.php';
         if ($data === null) {
@@ -287,10 +287,10 @@ class CarbonIntensitySDK
 
     private $_intensity_factor = null;
 
-    // Idiomatic facade: $client->intensity_factor()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias IntensityFactor() (PHP method
-    // names are case-insensitive).
-    public function intensity_factor($data = null)
+    // Canonical facade: $client->IntensityFactor()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->intensity_factor()
+    // resolves here too.
+    public function IntensityFactor($data = null)
     {
         require_once __DIR__ . '/entity/intensity_factor_entity.php';
         if ($data === null) {
@@ -305,10 +305,10 @@ class CarbonIntensitySDK
 
     private $_intensity_list = null;
 
-    // Idiomatic facade: $client->intensity_list()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias IntensityList() (PHP method
-    // names are case-insensitive).
-    public function intensity_list($data = null)
+    // Canonical facade: $client->IntensityList()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->intensity_list()
+    // resolves here too.
+    public function IntensityList($data = null)
     {
         require_once __DIR__ . '/entity/intensity_list_entity.php';
         if ($data === null) {
@@ -323,10 +323,10 @@ class CarbonIntensitySDK
 
     private $_regional = null;
 
-    // Idiomatic facade: $client->regional()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias Regional() (PHP method
-    // names are case-insensitive).
-    public function regional($data = null)
+    // Canonical facade: $client->Regional()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->regional()
+    // resolves here too.
+    public function Regional($data = null)
     {
         require_once __DIR__ . '/entity/regional_entity.php';
         if ($data === null) {
@@ -341,10 +341,10 @@ class CarbonIntensitySDK
 
     private $_regional_intensity = null;
 
-    // Idiomatic facade: $client->regional_intensity()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias RegionalIntensity() (PHP method
-    // names are case-insensitive).
-    public function regional_intensity($data = null)
+    // Canonical facade: $client->RegionalIntensity()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->regional_intensity()
+    // resolves here too.
+    public function RegionalIntensity($data = null)
     {
         require_once __DIR__ . '/entity/regional_intensity_entity.php';
         if ($data === null) {
@@ -359,10 +359,10 @@ class CarbonIntensitySDK
 
     private $_regional_intensity_list = null;
 
-    // Idiomatic facade: $client->regional_intensity_list()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias RegionalIntensityList() (PHP method
-    // names are case-insensitive).
-    public function regional_intensity_list($data = null)
+    // Canonical facade: $client->RegionalIntensityList()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->regional_intensity_list()
+    // resolves here too.
+    public function RegionalIntensityList($data = null)
     {
         require_once __DIR__ . '/entity/regional_intensity_list_entity.php';
         if ($data === null) {
@@ -377,10 +377,10 @@ class CarbonIntensitySDK
 
     private $_stat = null;
 
-    // Idiomatic facade: $client->stat()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias Stat() (PHP method
-    // names are case-insensitive).
-    public function stat($data = null)
+    // Canonical facade: $client->Stat()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->stat()
+    // resolves here too.
+    public function Stat($data = null)
     {
         require_once __DIR__ . '/entity/stat_entity.php';
         if ($data === null) {

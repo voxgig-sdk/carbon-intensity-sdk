@@ -26,9 +26,11 @@ import { CarbonIntensitySDK } from '@voxgig-sdk/carbon-intensity'
 
 const client = new CarbonIntensitySDK()
 
-// List all generations
-const generations = await client.generation.list()
-console.log(generations.data)
+// List all generations (returns Generation[])
+const generations = await client.Generation().list()
+for (const generation of generations) {
+  console.log(generation)
+}
 ```
 
 See the [TypeScript README](ts/README.md) for the full guide.
@@ -91,9 +93,10 @@ from carbonintensity_sdk import CarbonIntensitySDK
 
 client = CarbonIntensitySDK()
 
-# List all generations
-generations = client.generation.list()
-print(generations)
+# List all generations (returns a list, raises on error)
+generations = client.Generation().list({})
+for generation in generations:
+    print(generation)
 ```
 
 ### PHP
@@ -104,8 +107,8 @@ require_once 'carbonintensity_sdk.php';
 
 $client = new CarbonIntensitySDK();
 
-// List all generations (throws on error)
-$generations = $client->generation()->list();
+// List all generations (returns an array; throws on error)
+$generations = $client->Generation()->list();
 print_r($generations);
 ```
 
@@ -128,8 +131,8 @@ require_relative "CarbonIntensity_sdk"
 
 client = CarbonIntensitySDK.new
 
-# List all generations
-generations = client.generation.list
+# List all generations (returns an Array; raises on error)
+generations = client.Generation.list
 puts generations
 ```
 
@@ -141,7 +144,7 @@ local sdk = require("carbon-intensity_sdk")
 local client = sdk.new()
 
 -- List all generations
-local generations, err = client:generation():list()
+local generations, err = client:Generation():list()
 print(generations)
 ```
 
@@ -154,22 +157,27 @@ in-memory mock, so unit tests run offline.
 
 ```ts
 const client = CarbonIntensitySDK.test()
-const result = await client.generation.load({ id: 'test01' })
-// result.ok === true, result.data contains mock data
+const generation = await client.Generation().load({ id: 'test01' })
+// generation is a bare Generation populated with mock data
+console.log(generation)
 ```
 
 ### Python
 
 ```python
 client = CarbonIntensitySDK.test()
-result = client.generation.load({"id": "test01"})
+generation = client.Generation().load({"id": "test01"})
+print(generation)
 ```
 
 ### PHP
 
 ```php
-$client = CarbonIntensitySDK::test();
-$result = $client->generation()->load(["id" => "test01"]);
+// Seed fixture data so offline calls resolve without a live server.
+$client = CarbonIntensitySDK::test([
+    "entity" => ["generation" => ["test01" => ["id" => "test01"]]],
+]);
+$generation = $client->Generation()->load(["id" => "test01"]);
 ```
 
 ### Golang
@@ -184,15 +192,18 @@ result, err := client.Generation(nil).Load(
 ### Ruby
 
 ```ruby
-client = CarbonIntensitySDK.test
-result = client.generation.load({ "id" => "test01" })
+# Seed fixture data so offline calls resolve without a live server.
+client = CarbonIntensitySDK.test({
+  "entity" => { "generation" => { "test01" => { "id" => "test01" } } },
+})
+generation = client.Generation.load({ "id" => "test01" })
 ```
 
 ### Lua
 
 ```lua
 local client = sdk.test()
-local result, err = client:generation():load({ id = "test01" })
+local result, err = client:Generation():load({ id = "test01" })
 ```
 
 ## How it works
@@ -240,6 +251,9 @@ const result = await client.direct({
   method: 'GET',
   params: { id: 'example' },
 })
+if (result instanceof Error) {
+  throw result
+}
 console.log(result.data)
 ```
 

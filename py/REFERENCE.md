@@ -112,7 +112,7 @@ Prepare a fetch definition without sending. Returns the `fetchdef` and raises on
 ## GenerationEntity
 
 ```python
-generation = client.generation
+generation = client.Generation()
 ```
 
 ### Fields
@@ -130,7 +130,9 @@ generation = client.generation
 List entities matching the given criteria. Returns a list and raises on error.
 
 ```python
-results = client.generation.list({})
+results = client.Generation().list({})
+for generation in results:
+    print(generation)
 ```
 
 ### Common Methods
@@ -165,7 +167,7 @@ Return the entity name.
 ## GenerationListEntity
 
 ```python
-generation_list = client.generation_list
+generation_list = client.GenerationList()
 ```
 
 ### Fields
@@ -183,7 +185,9 @@ generation_list = client.generation_list
 List entities matching the given criteria. Returns a list and raises on error.
 
 ```python
-results = client.generation_list.list({})
+results = client.GenerationList().list({})
+for generation_list in results:
+    print(generation_list)
 ```
 
 ### Common Methods
@@ -218,7 +222,7 @@ Return the entity name.
 ## IntensityEntity
 
 ```python
-intensity = client.intensity
+intensity = client.Intensity()
 ```
 
 ### Fields
@@ -237,7 +241,9 @@ intensity = client.intensity
 List entities matching the given criteria. Returns a list and raises on error.
 
 ```python
-results = client.intensity.list({})
+results = client.Intensity().list({})
+for intensity in results:
+    print(intensity)
 ```
 
 #### `load(reqmatch, ctrl=None) -> dict`
@@ -245,7 +251,7 @@ results = client.intensity.list({})
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.intensity.load({"id": "intensity_id"})
+result = client.Intensity().load({"id": "intensity_id"})
 ```
 
 ### Common Methods
@@ -280,7 +286,7 @@ Return the entity name.
 ## IntensityFactorEntity
 
 ```python
-intensity_factor = client.intensity_factor
+intensity_factor = client.IntensityFactor()
 ```
 
 ### Fields
@@ -309,7 +315,9 @@ intensity_factor = client.intensity_factor
 List entities matching the given criteria. Returns a list and raises on error.
 
 ```python
-results = client.intensity_factor.list({})
+results = client.IntensityFactor().list({})
+for intensity_factor in results:
+    print(intensity_factor)
 ```
 
 ### Common Methods
@@ -344,7 +352,7 @@ Return the entity name.
 ## IntensityListEntity
 
 ```python
-intensity_list = client.intensity_list
+intensity_list = client.IntensityList()
 ```
 
 ### Fields
@@ -363,7 +371,9 @@ intensity_list = client.intensity_list
 List entities matching the given criteria. Returns a list and raises on error.
 
 ```python
-results = client.intensity_list.list({})
+results = client.IntensityList().list({})
+for intensity_list in results:
+    print(intensity_list)
 ```
 
 #### `load(reqmatch, ctrl=None) -> dict`
@@ -371,7 +381,7 @@ results = client.intensity_list.list({})
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.intensity_list.load({"id": "intensity_list_id"})
+result = client.IntensityList().load({"id": "intensity_list_id"})
 ```
 
 ### Common Methods
@@ -406,7 +416,7 @@ Return the entity name.
 ## RegionalEntity
 
 ```python
-regional = client.regional
+regional = client.Regional()
 ```
 
 ### Fields
@@ -426,7 +436,9 @@ regional = client.regional
 List entities matching the given criteria. Returns a list and raises on error.
 
 ```python
-results = client.regional.list({})
+results = client.Regional().list({})
+for regional in results:
+    print(regional)
 ```
 
 ### Common Methods
@@ -461,7 +473,7 @@ Return the entity name.
 ## RegionalIntensityEntity
 
 ```python
-regional_intensity = client.regional_intensity
+regional_intensity = client.RegionalIntensity()
 ```
 
 ### Fields
@@ -481,7 +493,9 @@ regional_intensity = client.regional_intensity
 List entities matching the given criteria. Returns a list and raises on error.
 
 ```python
-results = client.regional_intensity.list({})
+results = client.RegionalIntensity().list({})
+for regional_intensity in results:
+    print(regional_intensity)
 ```
 
 #### `load(reqmatch, ctrl=None) -> dict`
@@ -489,7 +503,7 @@ results = client.regional_intensity.list({})
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.regional_intensity.load({"id": "regional_intensity_id"})
+result = client.RegionalIntensity().load({"id": "regional_intensity_id"})
 ```
 
 ### Common Methods
@@ -524,7 +538,7 @@ Return the entity name.
 ## RegionalIntensityListEntity
 
 ```python
-regional_intensity_list = client.regional_intensity_list
+regional_intensity_list = client.RegionalIntensityList()
 ```
 
 ### Fields
@@ -544,7 +558,9 @@ regional_intensity_list = client.regional_intensity_list
 List entities matching the given criteria. Returns a list and raises on error.
 
 ```python
-results = client.regional_intensity_list.list({})
+results = client.RegionalIntensityList().list({})
+for regional_intensity_list in results:
+    print(regional_intensity_list)
 ```
 
 #### `load(reqmatch, ctrl=None) -> dict`
@@ -552,7 +568,7 @@ results = client.regional_intensity_list.list({})
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.regional_intensity_list.load({"id": "regional_intensity_list_id"})
+result = client.RegionalIntensityList().load({"id": "regional_intensity_list_id"})
 ```
 
 ### Common Methods
@@ -587,7 +603,7 @@ Return the entity name.
 ## StatEntity
 
 ```python
-stat = client.stat
+stat = client.Stat()
 ```
 
 ### Fields
@@ -605,7 +621,9 @@ stat = client.stat
 List entities matching the given criteria. Returns a list and raises on error.
 
 ```python
-results = client.stat.list({})
+results = client.Stat().list({})
+for stat in results:
+    print(stat)
 ```
 
 ### Common Methods

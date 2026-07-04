@@ -118,7 +118,7 @@ same parameters as `direct()`. Raises on error.
 ## GenerationEntity
 
 ```ruby
-generation = client.generation
+generation = client.Generation
 ```
 
 ### Fields
@@ -136,7 +136,7 @@ generation = client.generation
 List entities matching the given criteria. Returns an array. Raises on error.
 
 ```ruby
-results = client.generation.list(nil)
+results = client.Generation.list(nil)
 ```
 
 ### Common Methods
@@ -172,7 +172,7 @@ Return the entity name.
 ## GenerationListEntity
 
 ```ruby
-generation_list = client.generation_list
+generation_list = client.GenerationList
 ```
 
 ### Fields
@@ -190,7 +190,7 @@ generation_list = client.generation_list
 List entities matching the given criteria. Returns an array. Raises on error.
 
 ```ruby
-results = client.generation_list.list(nil)
+results = client.GenerationList.list(nil)
 ```
 
 ### Common Methods
@@ -226,7 +226,7 @@ Return the entity name.
 ## IntensityEntity
 
 ```ruby
-intensity = client.intensity
+intensity = client.Intensity
 ```
 
 ### Fields
@@ -245,7 +245,7 @@ intensity = client.intensity
 List entities matching the given criteria. Returns an array. Raises on error.
 
 ```ruby
-results = client.intensity.list(nil)
+results = client.Intensity.list(nil)
 ```
 
 #### `load(reqmatch, ctrl = nil) -> result`
@@ -253,7 +253,7 @@ results = client.intensity.list(nil)
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.intensity.load({ "id" => "intensity_id" })
+result = client.Intensity.load({ "id" => "intensity_id" })
 ```
 
 ### Common Methods
@@ -289,7 +289,7 @@ Return the entity name.
 ## IntensityFactorEntity
 
 ```ruby
-intensity_factor = client.intensity_factor
+intensity_factor = client.IntensityFactor
 ```
 
 ### Fields
@@ -318,7 +318,7 @@ intensity_factor = client.intensity_factor
 List entities matching the given criteria. Returns an array. Raises on error.
 
 ```ruby
-results = client.intensity_factor.list(nil)
+results = client.IntensityFactor.list(nil)
 ```
 
 ### Common Methods
@@ -354,7 +354,7 @@ Return the entity name.
 ## IntensityListEntity
 
 ```ruby
-intensity_list = client.intensity_list
+intensity_list = client.IntensityList
 ```
 
 ### Fields
@@ -373,7 +373,7 @@ intensity_list = client.intensity_list
 List entities matching the given criteria. Returns an array. Raises on error.
 
 ```ruby
-results = client.intensity_list.list(nil)
+results = client.IntensityList.list(nil)
 ```
 
 #### `load(reqmatch, ctrl = nil) -> result`
@@ -381,7 +381,7 @@ results = client.intensity_list.list(nil)
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.intensity_list.load({ "id" => "intensity_list_id" })
+result = client.IntensityList.load({ "id" => "intensity_list_id" })
 ```
 
 ### Common Methods
@@ -417,7 +417,7 @@ Return the entity name.
 ## RegionalEntity
 
 ```ruby
-regional = client.regional
+regional = client.Regional
 ```
 
 ### Fields
@@ -437,7 +437,7 @@ regional = client.regional
 List entities matching the given criteria. Returns an array. Raises on error.
 
 ```ruby
-results = client.regional.list(nil)
+results = client.Regional.list(nil)
 ```
 
 ### Common Methods
@@ -473,7 +473,7 @@ Return the entity name.
 ## RegionalIntensityEntity
 
 ```ruby
-regional_intensity = client.regional_intensity
+regional_intensity = client.RegionalIntensity
 ```
 
 ### Fields
@@ -493,7 +493,7 @@ regional_intensity = client.regional_intensity
 List entities matching the given criteria. Returns an array. Raises on error.
 
 ```ruby
-results = client.regional_intensity.list(nil)
+results = client.RegionalIntensity.list(nil)
 ```
 
 #### `load(reqmatch, ctrl = nil) -> result`
@@ -501,7 +501,7 @@ results = client.regional_intensity.list(nil)
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.regional_intensity.load({ "id" => "regional_intensity_id" })
+result = client.RegionalIntensity.load({ "id" => "regional_intensity_id" })
 ```
 
 ### Common Methods
@@ -537,7 +537,7 @@ Return the entity name.
 ## RegionalIntensityListEntity
 
 ```ruby
-regional_intensity_list = client.regional_intensity_list
+regional_intensity_list = client.RegionalIntensityList
 ```
 
 ### Fields
@@ -557,7 +557,7 @@ regional_intensity_list = client.regional_intensity_list
 List entities matching the given criteria. Returns an array. Raises on error.
 
 ```ruby
-results = client.regional_intensity_list.list(nil)
+results = client.RegionalIntensityList.list(nil)
 ```
 
 #### `load(reqmatch, ctrl = nil) -> result`
@@ -565,7 +565,7 @@ results = client.regional_intensity_list.list(nil)
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.regional_intensity_list.load({ "id" => "regional_intensity_list_id" })
+result = client.RegionalIntensityList.load({ "id" => "regional_intensity_list_id" })
 ```
 
 ### Common Methods
@@ -601,7 +601,7 @@ Return the entity name.
 ## StatEntity
 
 ```ruby
-stat = client.stat
+stat = client.Stat
 ```
 
 ### Fields
@@ -619,7 +619,7 @@ stat = client.stat
 List entities matching the given criteria. Returns an array. Raises on error.
 
 ```ruby
-results = client.stat.list(nil)
+results = client.Stat.list(nil)
 ```
 
 ### Common Methods

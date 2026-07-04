@@ -29,18 +29,16 @@ require_once 'carbonintensity_sdk.php';
 $client = new CarbonIntensitySDK();
 ```
 
-### 2. List generations
+### 2. List generation records
 
 ```php
 try {
-    $result = $client->generation()->list();
-    if (is_array($result)) {
-        foreach ($result as $item) {
-            $d = $item->data_get();
-            echo $d["id"] . " " . $d["name"] . "\n";
-        }
+    // list() returns an array of Generation records — iterate directly.
+    $generations = $client->Generation()->list();
+    foreach ($generations as $item) {
+        echo $item["id"] . " " . $item["name"] . "\n";
     }
-} catch (\Exception $err) {
+} catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
 }
 ```
@@ -86,13 +84,17 @@ print_r($fetchdef["headers"]);
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required:
+Create a mock client for unit testing — no server required. Seed fixture
+data via the `entity` option so offline calls resolve without a live server:
 
 ```php
-$client = CarbonIntensitySDK::test();
+$client = CarbonIntensitySDK::test([
+    "entity" => ["generation" => ["test01" => ["id" => "test01"]]],
+]);
 
-$result = $client->generation()->load(["id" => "test01"]);
-// $result contains mock response data
+// load() returns the bare mock record (throws on error).
+$generation = $client->Generation()->load(["id" => "test01"]);
+print_r($generation);
 ```
 
 ### Use a custom fetch function
@@ -173,9 +175,9 @@ Creates a test-mode client with mock transport. Both arguments may be `null`.
 | `direct` | `(array $fetchargs): array` | Build and send an HTTP request. |
 | `Generation` | `($data): GenerationEntity` | Create a Generation entity instance. |
 | `GenerationList` | `($data): GenerationListEntity` | Create a GenerationList entity instance. |
-| `Intensity` | `($data): IntensityEntity` | Create a Intensity entity instance. |
-| `IntensityFactor` | `($data): IntensityFactorEntity` | Create a IntensityFactor entity instance. |
-| `IntensityList` | `($data): IntensityListEntity` | Create a IntensityList entity instance. |
+| `Intensity` | `($data): IntensityEntity` | Create an Intensity entity instance. |
+| `IntensityFactor` | `($data): IntensityFactorEntity` | Create an IntensityFactor entity instance. |
+| `IntensityList` | `($data): IntensityListEntity` | Create an IntensityList entity instance. |
 | `Regional` | `($data): RegionalEntity` | Create a Regional entity instance. |
 | `RegionalIntensity` | `($data): RegionalIntensityEntity` | Create a RegionalIntensity entity instance. |
 | `RegionalIntensityList` | `($data): RegionalIntensityListEntity` | Create a RegionalIntensityList entity instance. |
@@ -353,7 +355,7 @@ API path: `/intensity/stats/{from}/{to}/{block}`
 
 ### Generation
 
-Create an instance: `const generation = client.generation`
+Create an instance: `$generation = $client->Generation();`
 
 #### Operations
 
@@ -371,14 +373,15 @@ Create an instance: `const generation = client.generation`
 
 #### Example: List
 
-```ts
-const generations = await client.generation.list()
+```php
+// list() returns an array of Generation records (throws on error).
+$generations = $client->Generation()->list();
 ```
 
 
 ### GenerationList
 
-Create an instance: `const generation_list = client.generation_list`
+Create an instance: `$generation_list = $client->GenerationList();`
 
 #### Operations
 
@@ -396,14 +399,15 @@ Create an instance: `const generation_list = client.generation_list`
 
 #### Example: List
 
-```ts
-const generation_lists = await client.generation_list.list()
+```php
+// list() returns an array of GenerationList records (throws on error).
+$generation_lists = $client->GenerationList()->list();
 ```
 
 
 ### Intensity
 
-Create an instance: `const intensity = client.intensity`
+Create an instance: `$intensity = $client->Intensity();`
 
 #### Operations
 
@@ -423,20 +427,22 @@ Create an instance: `const intensity = client.intensity`
 
 #### Example: Load
 
-```ts
-const intensity = await client.intensity.load({ id: 'intensity_id' })
+```php
+// load() returns the bare Intensity record (throws on error).
+$intensity = $client->Intensity()->load(["id" => "intensity_id"]);
 ```
 
 #### Example: List
 
-```ts
-const intensitys = await client.intensity.list()
+```php
+// list() returns an array of Intensity records (throws on error).
+$intensitys = $client->Intensity()->list();
 ```
 
 
 ### IntensityFactor
 
-Create an instance: `const intensity_factor = client.intensity_factor`
+Create an instance: `$intensity_factor = $client->IntensityFactor();`
 
 #### Operations
 
@@ -465,14 +471,15 @@ Create an instance: `const intensity_factor = client.intensity_factor`
 
 #### Example: List
 
-```ts
-const intensity_factors = await client.intensity_factor.list()
+```php
+// list() returns an array of IntensityFactor records (throws on error).
+$intensity_factors = $client->IntensityFactor()->list();
 ```
 
 
 ### IntensityList
 
-Create an instance: `const intensity_list = client.intensity_list`
+Create an instance: `$intensity_list = $client->IntensityList();`
 
 #### Operations
 
@@ -492,20 +499,22 @@ Create an instance: `const intensity_list = client.intensity_list`
 
 #### Example: Load
 
-```ts
-const intensity_list = await client.intensity_list.load({ id: 'intensity_list_id' })
+```php
+// load() returns the bare IntensityList record (throws on error).
+$intensity_list = $client->IntensityList()->load(["id" => "intensity_list_id"]);
 ```
 
 #### Example: List
 
-```ts
-const intensity_lists = await client.intensity_list.list()
+```php
+// list() returns an array of IntensityList records (throws on error).
+$intensity_lists = $client->IntensityList()->list();
 ```
 
 
 ### Regional
 
-Create an instance: `const regional = client.regional`
+Create an instance: `$regional = $client->Regional();`
 
 #### Operations
 
@@ -525,14 +534,15 @@ Create an instance: `const regional = client.regional`
 
 #### Example: List
 
-```ts
-const regionals = await client.regional.list()
+```php
+// list() returns an array of Regional records (throws on error).
+$regionals = $client->Regional()->list();
 ```
 
 
 ### RegionalIntensity
 
-Create an instance: `const regional_intensity = client.regional_intensity`
+Create an instance: `$regional_intensity = $client->RegionalIntensity();`
 
 #### Operations
 
@@ -553,20 +563,22 @@ Create an instance: `const regional_intensity = client.regional_intensity`
 
 #### Example: Load
 
-```ts
-const regional_intensity = await client.regional_intensity.load({ id: 'regional_intensity_id' })
+```php
+// load() returns the bare RegionalIntensity record (throws on error).
+$regional_intensity = $client->RegionalIntensity()->load(["id" => "regional_intensity_id"]);
 ```
 
 #### Example: List
 
-```ts
-const regional_intensitys = await client.regional_intensity.list()
+```php
+// list() returns an array of RegionalIntensity records (throws on error).
+$regional_intensitys = $client->RegionalIntensity()->list();
 ```
 
 
 ### RegionalIntensityList
 
-Create an instance: `const regional_intensity_list = client.regional_intensity_list`
+Create an instance: `$regional_intensity_list = $client->RegionalIntensityList();`
 
 #### Operations
 
@@ -587,20 +599,22 @@ Create an instance: `const regional_intensity_list = client.regional_intensity_l
 
 #### Example: Load
 
-```ts
-const regional_intensity_list = await client.regional_intensity_list.load({ id: 'regional_intensity_list_id' })
+```php
+// load() returns the bare RegionalIntensityList record (throws on error).
+$regional_intensity_list = $client->RegionalIntensityList()->load(["id" => "regional_intensity_list_id"]);
 ```
 
 #### Example: List
 
-```ts
-const regional_intensity_lists = await client.regional_intensity_list.list()
+```php
+// list() returns an array of RegionalIntensityList records (throws on error).
+$regional_intensity_lists = $client->RegionalIntensityList()->list();
 ```
 
 
 ### Stat
 
-Create an instance: `const stat = client.stat`
+Create an instance: `$stat = $client->Stat();`
 
 #### Operations
 
@@ -618,8 +632,9 @@ Create an instance: `const stat = client.stat`
 
 #### Example: List
 
-```ts
-const stats = await client.stat.list()
+```php
+// list() returns an array of Stat records (throws on error).
+$stats = $client->Stat()->list();
 ```
 
 
@@ -694,7 +709,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```php
-$generation = $client->generation();
+$generation = $client->Generation();
 $generation->load(["id" => "example_id"]);
 
 // $generation->dataGet() now returns the loaded generation data
