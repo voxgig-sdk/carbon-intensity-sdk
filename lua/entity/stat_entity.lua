@@ -81,6 +81,10 @@ end
 
 
 
+---@param reqmatch StatListMatch
+---@param ctrl? table
+---@return Stat[]
+---@return string? err
 function StatEntity:list(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({

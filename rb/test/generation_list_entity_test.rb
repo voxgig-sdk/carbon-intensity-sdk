@@ -45,8 +45,7 @@ class GenerationListEntityTest < Minitest::Test
       "from" => setup[:idmap]["from01"],
     }
 
-    generation_list_ref01_list_result, err = generation_list_ref01_ent.list(generation_list_ref01_match, nil)
-    assert_nil err
+    generation_list_ref01_list_result = generation_list_ref01_ent.list(generation_list_ref01_match, nil)
     assert generation_list_ref01_list_result.is_a?(Array)
 
   end
@@ -85,7 +84,6 @@ def generation_list_basic_setup(extra)
     "CARBONINTENSITY_TEST_GENERATION_LIST_ENTID" => idmap,
     "CARBONINTENSITY_TEST_LIVE" => "FALSE",
     "CARBONINTENSITY_TEST_EXPLAIN" => "FALSE",
-    "CARBONINTENSITY_APIKEY" => "NONE",
   })
 
   idmap_resolved = Helpers.to_map(
@@ -97,7 +95,6 @@ def generation_list_basic_setup(extra)
   if env["CARBONINTENSITY_TEST_LIVE"] == "TRUE"
     merged_opts = Vs.merge([
       {
-        "apikey" => env["CARBONINTENSITY_APIKEY"],
       },
       extra || {},
     ])

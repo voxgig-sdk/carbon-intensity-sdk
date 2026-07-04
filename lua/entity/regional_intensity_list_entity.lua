@@ -79,6 +79,10 @@ end
 
 
 
+---@param reqmatch RegionalIntensityListLoadMatch
+---@param ctrl? table
+---@return RegionalIntensityList
+---@return string? err
 function RegionalIntensityListEntity:load(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({
@@ -104,6 +108,10 @@ end
 
 
 
+---@param reqmatch RegionalIntensityListListMatch
+---@param ctrl? table
+---@return RegionalIntensityList[]
+---@return string? err
 function RegionalIntensityListEntity:list(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({

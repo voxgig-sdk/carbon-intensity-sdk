@@ -79,6 +79,10 @@ end
 
 
 
+---@param reqmatch IntensityListLoadMatch
+---@param ctrl? table
+---@return IntensityList
+---@return string? err
 function IntensityListEntity:load(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({
@@ -104,6 +108,10 @@ end
 
 
 
+---@param reqmatch IntensityListListMatch
+---@param ctrl? table
+---@return IntensityList[]
+---@return string? err
 function IntensityListEntity:list(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({

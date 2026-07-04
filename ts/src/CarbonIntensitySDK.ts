@@ -10,6 +10,8 @@ import { RegionalIntensityEntity } from './entity/RegionalIntensityEntity'
 import { RegionalIntensityListEntity } from './entity/RegionalIntensityListEntity'
 import { StatEntity } from './entity/StatEntity'
 
+export type * from './CarbonIntensityTypes'
+
 
 import { inspect } from 'node:util'
 
@@ -210,54 +212,126 @@ class CarbonIntensitySDK {
 
 
 
+  _generation?: GenerationEntity
+
+  // Idiomatic facade: `client.generation.list()` / `client.generation.load({ id })`.
+  get generation(): GenerationEntity {
+    return (this._generation ??= new GenerationEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.generation` instead. */
   Generation(data?: any) {
     const self = this
     return new GenerationEntity(self,data)
   }
 
 
+  _generation_list?: GenerationListEntity
+
+  // Idiomatic facade: `client.generation_list.list()` / `client.generation_list.load({ id })`.
+  get generation_list(): GenerationListEntity {
+    return (this._generation_list ??= new GenerationListEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.generation_list` instead. */
   GenerationList(data?: any) {
     const self = this
     return new GenerationListEntity(self,data)
   }
 
 
+  _intensity?: IntensityEntity
+
+  // Idiomatic facade: `client.intensity.list()` / `client.intensity.load({ id })`.
+  get intensity(): IntensityEntity {
+    return (this._intensity ??= new IntensityEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.intensity` instead. */
   Intensity(data?: any) {
     const self = this
     return new IntensityEntity(self,data)
   }
 
 
+  _intensity_factor?: IntensityFactorEntity
+
+  // Idiomatic facade: `client.intensity_factor.list()` / `client.intensity_factor.load({ id })`.
+  get intensity_factor(): IntensityFactorEntity {
+    return (this._intensity_factor ??= new IntensityFactorEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.intensity_factor` instead. */
   IntensityFactor(data?: any) {
     const self = this
     return new IntensityFactorEntity(self,data)
   }
 
 
+  _intensity_list?: IntensityListEntity
+
+  // Idiomatic facade: `client.intensity_list.list()` / `client.intensity_list.load({ id })`.
+  get intensity_list(): IntensityListEntity {
+    return (this._intensity_list ??= new IntensityListEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.intensity_list` instead. */
   IntensityList(data?: any) {
     const self = this
     return new IntensityListEntity(self,data)
   }
 
 
+  _regional?: RegionalEntity
+
+  // Idiomatic facade: `client.regional.list()` / `client.regional.load({ id })`.
+  get regional(): RegionalEntity {
+    return (this._regional ??= new RegionalEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.regional` instead. */
   Regional(data?: any) {
     const self = this
     return new RegionalEntity(self,data)
   }
 
 
+  _regional_intensity?: RegionalIntensityEntity
+
+  // Idiomatic facade: `client.regional_intensity.list()` / `client.regional_intensity.load({ id })`.
+  get regional_intensity(): RegionalIntensityEntity {
+    return (this._regional_intensity ??= new RegionalIntensityEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.regional_intensity` instead. */
   RegionalIntensity(data?: any) {
     const self = this
     return new RegionalIntensityEntity(self,data)
   }
 
 
+  _regional_intensity_list?: RegionalIntensityListEntity
+
+  // Idiomatic facade: `client.regional_intensity_list.list()` / `client.regional_intensity_list.load({ id })`.
+  get regional_intensity_list(): RegionalIntensityListEntity {
+    return (this._regional_intensity_list ??= new RegionalIntensityListEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.regional_intensity_list` instead. */
   RegionalIntensityList(data?: any) {
     const self = this
     return new RegionalIntensityListEntity(self,data)
   }
 
 
+  _stat?: StatEntity
+
+  // Idiomatic facade: `client.stat.list()` / `client.stat.load({ id })`.
+  get stat(): StatEntity {
+    return (this._stat ??= new StatEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.stat` instead. */
   Stat(data?: any) {
     const self = this
     return new StatEntity(self,data)

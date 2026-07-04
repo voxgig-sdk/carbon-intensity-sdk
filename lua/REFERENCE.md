@@ -19,7 +19,6 @@ Create a new SDK client instance.
 | Name | Type | Description |
 | --- | --- | --- |
 | `options` | `table` | SDK configuration options. |
-| `options.apikey` | `string` | API key for authentication. |
 | `options.base` | `string` | Base URL for API requests. |
 | `options.prefix` | `string` | URL prefix appended after base. |
 | `options.suffix` | `string` | URL suffix appended after path. |
@@ -116,7 +115,7 @@ same parameters as `direct()`.
 ## GenerationEntity
 
 ```lua
-local generation = client:Generation(nil)
+local generation = client:generation(nil)
 ```
 
 ### Fields
@@ -134,7 +133,7 @@ local generation = client:Generation(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:Generation():list()
+local results, err = client:generation():list()
 ```
 
 ### Common Methods
@@ -170,7 +169,7 @@ Return the entity name.
 ## GenerationListEntity
 
 ```lua
-local generation_list = client:GenerationList(nil)
+local generation_list = client:generation_list(nil)
 ```
 
 ### Fields
@@ -188,7 +187,7 @@ local generation_list = client:GenerationList(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:GenerationList():list()
+local results, err = client:generation_list():list()
 ```
 
 ### Common Methods
@@ -224,7 +223,7 @@ Return the entity name.
 ## IntensityEntity
 
 ```lua
-local intensity = client:Intensity(nil)
+local intensity = client:intensity(nil)
 ```
 
 ### Fields
@@ -243,7 +242,7 @@ local intensity = client:Intensity(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:Intensity():list()
+local results, err = client:intensity():list()
 ```
 
 #### `load(reqmatch, ctrl) -> any, err`
@@ -251,7 +250,7 @@ local results, err = client:Intensity():list()
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:Intensity():load({ id = "intensity_id" })
+local result, err = client:intensity():load({ id = "intensity_id" })
 ```
 
 ### Common Methods
@@ -287,7 +286,7 @@ Return the entity name.
 ## IntensityFactorEntity
 
 ```lua
-local intensity_factor = client:IntensityFactor(nil)
+local intensity_factor = client:intensity_factor(nil)
 ```
 
 ### Fields
@@ -316,7 +315,7 @@ local intensity_factor = client:IntensityFactor(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:IntensityFactor():list()
+local results, err = client:intensity_factor():list()
 ```
 
 ### Common Methods
@@ -352,7 +351,7 @@ Return the entity name.
 ## IntensityListEntity
 
 ```lua
-local intensity_list = client:IntensityList(nil)
+local intensity_list = client:intensity_list(nil)
 ```
 
 ### Fields
@@ -371,7 +370,7 @@ local intensity_list = client:IntensityList(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:IntensityList():list()
+local results, err = client:intensity_list():list()
 ```
 
 #### `load(reqmatch, ctrl) -> any, err`
@@ -379,7 +378,7 @@ local results, err = client:IntensityList():list()
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:IntensityList():load({ id = "intensity_list_id" })
+local result, err = client:intensity_list():load({ id = "intensity_list_id" })
 ```
 
 ### Common Methods
@@ -415,7 +414,7 @@ Return the entity name.
 ## RegionalEntity
 
 ```lua
-local regional = client:Regional(nil)
+local regional = client:regional(nil)
 ```
 
 ### Fields
@@ -435,7 +434,7 @@ local regional = client:Regional(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:Regional():list()
+local results, err = client:regional():list()
 ```
 
 ### Common Methods
@@ -471,7 +470,7 @@ Return the entity name.
 ## RegionalIntensityEntity
 
 ```lua
-local regional_intensity = client:RegionalIntensity(nil)
+local regional_intensity = client:regional_intensity(nil)
 ```
 
 ### Fields
@@ -491,7 +490,7 @@ local regional_intensity = client:RegionalIntensity(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:RegionalIntensity():list()
+local results, err = client:regional_intensity():list()
 ```
 
 #### `load(reqmatch, ctrl) -> any, err`
@@ -499,7 +498,7 @@ local results, err = client:RegionalIntensity():list()
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:RegionalIntensity():load({ id = "regional_intensity_id" })
+local result, err = client:regional_intensity():load({ id = "regional_intensity_id" })
 ```
 
 ### Common Methods
@@ -535,7 +534,7 @@ Return the entity name.
 ## RegionalIntensityListEntity
 
 ```lua
-local regional_intensity_list = client:RegionalIntensityList(nil)
+local regional_intensity_list = client:regional_intensity_list(nil)
 ```
 
 ### Fields
@@ -555,7 +554,7 @@ local regional_intensity_list = client:RegionalIntensityList(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:RegionalIntensityList():list()
+local results, err = client:regional_intensity_list():list()
 ```
 
 #### `load(reqmatch, ctrl) -> any, err`
@@ -563,7 +562,7 @@ local results, err = client:RegionalIntensityList():list()
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:RegionalIntensityList():load({ id = "regional_intensity_list_id" })
+local result, err = client:regional_intensity_list():load({ id = "regional_intensity_list_id" })
 ```
 
 ### Common Methods
@@ -599,7 +598,7 @@ Return the entity name.
 ## StatEntity
 
 ```lua
-local stat = client:Stat(nil)
+local stat = client:stat(nil)
 ```
 
 ### Fields
@@ -617,7 +616,7 @@ local stat = client:Stat(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:Stat():list()
+local results, err = client:stat():list()
 ```
 
 ### Common Methods

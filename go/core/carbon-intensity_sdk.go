@@ -245,46 +245,73 @@ func (sdk *CarbonIntensitySDK) Direct(fetchargs map[string]any) (map[string]any,
 }
 
 
+// Generation returns a Generation entity bound to this client.
+// Idiomatic usage: client.Generation(nil).List(nil, nil) or
+// client.Generation(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *CarbonIntensitySDK) Generation(data map[string]any) CarbonIntensityEntity {
 	return NewGenerationEntityFunc(sdk, data)
 }
 
 
+// GenerationList returns a GenerationList entity bound to this client.
+// Idiomatic usage: client.GenerationList(nil).List(nil, nil) or
+// client.GenerationList(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *CarbonIntensitySDK) GenerationList(data map[string]any) CarbonIntensityEntity {
 	return NewGenerationListEntityFunc(sdk, data)
 }
 
 
+// Intensity returns a Intensity entity bound to this client.
+// Idiomatic usage: client.Intensity(nil).List(nil, nil) or
+// client.Intensity(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *CarbonIntensitySDK) Intensity(data map[string]any) CarbonIntensityEntity {
 	return NewIntensityEntityFunc(sdk, data)
 }
 
 
+// IntensityFactor returns a IntensityFactor entity bound to this client.
+// Idiomatic usage: client.IntensityFactor(nil).List(nil, nil) or
+// client.IntensityFactor(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *CarbonIntensitySDK) IntensityFactor(data map[string]any) CarbonIntensityEntity {
 	return NewIntensityFactorEntityFunc(sdk, data)
 }
 
 
+// IntensityList returns a IntensityList entity bound to this client.
+// Idiomatic usage: client.IntensityList(nil).List(nil, nil) or
+// client.IntensityList(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *CarbonIntensitySDK) IntensityList(data map[string]any) CarbonIntensityEntity {
 	return NewIntensityListEntityFunc(sdk, data)
 }
 
 
+// Regional returns a Regional entity bound to this client.
+// Idiomatic usage: client.Regional(nil).List(nil, nil) or
+// client.Regional(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *CarbonIntensitySDK) Regional(data map[string]any) CarbonIntensityEntity {
 	return NewRegionalEntityFunc(sdk, data)
 }
 
 
+// RegionalIntensity returns a RegionalIntensity entity bound to this client.
+// Idiomatic usage: client.RegionalIntensity(nil).List(nil, nil) or
+// client.RegionalIntensity(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *CarbonIntensitySDK) RegionalIntensity(data map[string]any) CarbonIntensityEntity {
 	return NewRegionalIntensityEntityFunc(sdk, data)
 }
 
 
+// RegionalIntensityList returns a RegionalIntensityList entity bound to this client.
+// Idiomatic usage: client.RegionalIntensityList(nil).List(nil, nil) or
+// client.RegionalIntensityList(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *CarbonIntensitySDK) RegionalIntensityList(data map[string]any) CarbonIntensityEntity {
 	return NewRegionalIntensityListEntityFunc(sdk, data)
 }
 
 
+// Stat returns a Stat entity bound to this client.
+// Idiomatic usage: client.Stat(nil).List(nil, nil) or
+// client.Stat(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *CarbonIntensitySDK) Stat(data map[string]any) CarbonIntensityEntity {
 	return NewStatEntityFunc(sdk, data)
 }

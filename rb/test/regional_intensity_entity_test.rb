@@ -43,14 +43,12 @@ class RegionalIntensityEntityTest < Minitest::Test
     regional_intensity_ref01_ent = client.RegionalIntensity(nil)
     regional_intensity_ref01_match = {}
 
-    regional_intensity_ref01_list_result, err = regional_intensity_ref01_ent.list(regional_intensity_ref01_match, nil)
-    assert_nil err
+    regional_intensity_ref01_list_result = regional_intensity_ref01_ent.list(regional_intensity_ref01_match, nil)
     assert regional_intensity_ref01_list_result.is_a?(Array)
 
     # LOAD
     regional_intensity_ref01_match_dt0 = {}
-    regional_intensity_ref01_data_dt0_loaded, err = regional_intensity_ref01_ent.load(regional_intensity_ref01_match_dt0, nil)
-    assert_nil err
+    regional_intensity_ref01_data_dt0_loaded = regional_intensity_ref01_ent.load(regional_intensity_ref01_match_dt0, nil)
     assert !regional_intensity_ref01_data_dt0_loaded.nil?
 
   end
@@ -89,7 +87,6 @@ def regional_intensity_basic_setup(extra)
     "CARBONINTENSITY_TEST_REGIONAL_INTENSITY_ENTID" => idmap,
     "CARBONINTENSITY_TEST_LIVE" => "FALSE",
     "CARBONINTENSITY_TEST_EXPLAIN" => "FALSE",
-    "CARBONINTENSITY_APIKEY" => "NONE",
   })
 
   idmap_resolved = Helpers.to_map(
@@ -101,7 +98,6 @@ def regional_intensity_basic_setup(extra)
   if env["CARBONINTENSITY_TEST_LIVE"] == "TRUE"
     merged_opts = Vs.merge([
       {
-        "apikey" => env["CARBONINTENSITY_APIKEY"],
       },
       extra || {},
     ])

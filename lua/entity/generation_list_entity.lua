@@ -81,6 +81,10 @@ end
 
 
 
+---@param reqmatch GenerationListListMatch
+---@param ctrl? table
+---@return GenerationList[]
+---@return string? err
 function GenerationListEntity:list(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({

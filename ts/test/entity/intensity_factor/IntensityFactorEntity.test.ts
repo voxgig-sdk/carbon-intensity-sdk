@@ -113,7 +113,6 @@ function basicSetup(extra?: any) {
     'CARBON_INTENSITY_TEST_INTENSITY_FACTOR_ENTID': idmap,
     'CARBON_INTENSITY_TEST_LIVE': 'FALSE',
     'CARBON_INTENSITY_TEST_EXPLAIN': 'FALSE',
-    'CARBON_INTENSITY_APIKEY': 'NONE',
   })
 
   idmap = env['CARBON_INTENSITY_TEST_INTENSITY_FACTOR_ENTID']
@@ -123,7 +122,6 @@ function basicSetup(extra?: any) {
   if (live) {
     client = new CarbonIntensitySDK(merge([
       {
-        apikey: env.CARBON_INTENSITY_APIKEY,
       },
       extra
     ]))

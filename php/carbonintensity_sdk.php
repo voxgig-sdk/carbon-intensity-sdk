@@ -103,7 +103,7 @@ class CarbonIntensitySDK
         return $this->_rootctx;
     }
 
-    public function prepare(array $fetchargs = []): array
+    public function prepare(array $fetchargs = []): mixed
     {
         $utility = $this->_utility;
         $fetchargs = $fetchargs ?? [];
@@ -149,19 +149,27 @@ class CarbonIntensitySDK
 
         [$_, $err] = ($utility->prepare_auth)($ctx);
         if ($err) {
-            return [null, $err];
+            return ($utility->make_error)($ctx, $err);
         }
 
-        return ($utility->make_fetch_def)($ctx);
+        [$fetchdef, $fd_err] = ($utility->make_fetch_def)($ctx);
+        if ($fd_err) {
+            return ($utility->make_error)($ctx, $fd_err);
+        }
+        return $fetchdef;
     }
 
-    public function direct(array $fetchargs = []): array
+    public function direct(array $fetchargs = []): mixed
     {
         $utility = $this->_utility;
 
-        [$fetchdef, $err] = $this->prepare($fetchargs);
-        if ($err) {
-            return [["ok" => false, "err" => $err], null];
+        // direct() is the raw-HTTP escape hatch: it never throws, it returns
+        // an {ok, err, ...} dict. prepare() now raises on error, so catch it
+        // and surface the failure through the dict instead.
+        try {
+            $fetchdef = $this->prepare($fetchargs);
+        } catch (\Throwable $err) {
+            return ["ok" => false, "err" => $err];
         }
 
         $fetchargs = $fetchargs ?? [];
@@ -176,14 +184,14 @@ class CarbonIntensitySDK
         [$fetched, $fetch_err] = ($utility->fetcher)($ctx, $url, $fetchdef);
 
         if ($fetch_err) {
-            return [["ok" => false, "err" => $fetch_err], null];
+            return ["ok" => false, "err" => $fetch_err];
         }
 
         if ($fetched === null) {
-            return [[
+            return [
                 "ok" => false,
                 "err" => $ctx->make_error("direct_no_response", "response: undefined"),
-            ], null];
+            ];
         }
 
         if (is_array($fetched)) {
@@ -208,80 +216,179 @@ class CarbonIntensitySDK
                 }
             }
 
-            return [[
+            return [
                 "ok" => $status >= 200 && $status < 300,
                 "status" => $status,
                 "headers" => Struct::getprop($fetched, "headers"),
                 "data" => $json_data,
-            ], null];
+            ];
         }
 
-        return [[
+        return [
             "ok" => false,
             "err" => $ctx->make_error("direct_invalid", "invalid response type"),
-        ], null];
+        ];
     }
 
 
-    public function Generation($data = null)
+    private $_generation = null;
+
+    // Idiomatic facade: $client->generation()->list() / ->load(["id" => ...]).
+    // Also serves the deprecated PascalCase alias Generation() (PHP method
+    // names are case-insensitive).
+    public function generation($data = null)
     {
         require_once __DIR__ . '/entity/generation_entity.php';
+        if ($data === null) {
+            if ($this->_generation === null) {
+                $this->_generation = new GenerationEntity($this, null);
+            }
+            return $this->_generation;
+        }
         return new GenerationEntity($this, $data);
     }
 
 
-    public function GenerationList($data = null)
+    private $_generation_list = null;
+
+    // Idiomatic facade: $client->generation_list()->list() / ->load(["id" => ...]).
+    // Also serves the deprecated PascalCase alias GenerationList() (PHP method
+    // names are case-insensitive).
+    public function generation_list($data = null)
     {
         require_once __DIR__ . '/entity/generation_list_entity.php';
+        if ($data === null) {
+            if ($this->_generation_list === null) {
+                $this->_generation_list = new GenerationListEntity($this, null);
+            }
+            return $this->_generation_list;
+        }
         return new GenerationListEntity($this, $data);
     }
 
 
-    public function Intensity($data = null)
+    private $_intensity = null;
+
+    // Idiomatic facade: $client->intensity()->list() / ->load(["id" => ...]).
+    // Also serves the deprecated PascalCase alias Intensity() (PHP method
+    // names are case-insensitive).
+    public function intensity($data = null)
     {
         require_once __DIR__ . '/entity/intensity_entity.php';
+        if ($data === null) {
+            if ($this->_intensity === null) {
+                $this->_intensity = new IntensityEntity($this, null);
+            }
+            return $this->_intensity;
+        }
         return new IntensityEntity($this, $data);
     }
 
 
-    public function IntensityFactor($data = null)
+    private $_intensity_factor = null;
+
+    // Idiomatic facade: $client->intensity_factor()->list() / ->load(["id" => ...]).
+    // Also serves the deprecated PascalCase alias IntensityFactor() (PHP method
+    // names are case-insensitive).
+    public function intensity_factor($data = null)
     {
         require_once __DIR__ . '/entity/intensity_factor_entity.php';
+        if ($data === null) {
+            if ($this->_intensity_factor === null) {
+                $this->_intensity_factor = new IntensityFactorEntity($this, null);
+            }
+            return $this->_intensity_factor;
+        }
         return new IntensityFactorEntity($this, $data);
     }
 
 
-    public function IntensityList($data = null)
+    private $_intensity_list = null;
+
+    // Idiomatic facade: $client->intensity_list()->list() / ->load(["id" => ...]).
+    // Also serves the deprecated PascalCase alias IntensityList() (PHP method
+    // names are case-insensitive).
+    public function intensity_list($data = null)
     {
         require_once __DIR__ . '/entity/intensity_list_entity.php';
+        if ($data === null) {
+            if ($this->_intensity_list === null) {
+                $this->_intensity_list = new IntensityListEntity($this, null);
+            }
+            return $this->_intensity_list;
+        }
         return new IntensityListEntity($this, $data);
     }
 
 
-    public function Regional($data = null)
+    private $_regional = null;
+
+    // Idiomatic facade: $client->regional()->list() / ->load(["id" => ...]).
+    // Also serves the deprecated PascalCase alias Regional() (PHP method
+    // names are case-insensitive).
+    public function regional($data = null)
     {
         require_once __DIR__ . '/entity/regional_entity.php';
+        if ($data === null) {
+            if ($this->_regional === null) {
+                $this->_regional = new RegionalEntity($this, null);
+            }
+            return $this->_regional;
+        }
         return new RegionalEntity($this, $data);
     }
 
 
-    public function RegionalIntensity($data = null)
+    private $_regional_intensity = null;
+
+    // Idiomatic facade: $client->regional_intensity()->list() / ->load(["id" => ...]).
+    // Also serves the deprecated PascalCase alias RegionalIntensity() (PHP method
+    // names are case-insensitive).
+    public function regional_intensity($data = null)
     {
         require_once __DIR__ . '/entity/regional_intensity_entity.php';
+        if ($data === null) {
+            if ($this->_regional_intensity === null) {
+                $this->_regional_intensity = new RegionalIntensityEntity($this, null);
+            }
+            return $this->_regional_intensity;
+        }
         return new RegionalIntensityEntity($this, $data);
     }
 
 
-    public function RegionalIntensityList($data = null)
+    private $_regional_intensity_list = null;
+
+    // Idiomatic facade: $client->regional_intensity_list()->list() / ->load(["id" => ...]).
+    // Also serves the deprecated PascalCase alias RegionalIntensityList() (PHP method
+    // names are case-insensitive).
+    public function regional_intensity_list($data = null)
     {
         require_once __DIR__ . '/entity/regional_intensity_list_entity.php';
+        if ($data === null) {
+            if ($this->_regional_intensity_list === null) {
+                $this->_regional_intensity_list = new RegionalIntensityListEntity($this, null);
+            }
+            return $this->_regional_intensity_list;
+        }
         return new RegionalIntensityListEntity($this, $data);
     }
 
 
-    public function Stat($data = null)
+    private $_stat = null;
+
+    // Idiomatic facade: $client->stat()->list() / ->load(["id" => ...]).
+    // Also serves the deprecated PascalCase alias Stat() (PHP method
+    // names are case-insensitive).
+    public function stat($data = null)
     {
         require_once __DIR__ . '/entity/stat_entity.php';
+        if ($data === null) {
+            if ($this->_stat === null) {
+                $this->_stat = new StatEntity($this, null);
+            }
+            return $this->_stat;
+        }
         return new StatEntity($this, $data);
     }
 

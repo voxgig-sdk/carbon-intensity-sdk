@@ -144,16 +144,23 @@ class CarbonIntensitySDK:
 
         _, err = utility.prepare_auth(ctx)
         if err is not None:
-            return None, err
+            raise err
 
-        return utility.make_fetch_def(ctx)
+        fetchdef, err = utility.make_fetch_def(ctx)
+        if err is not None:
+            raise err
+
+        return fetchdef
 
     def direct(self, fetchargs=None):
         utility = self._utility
 
-        fetchdef, err = self.prepare(fetchargs)
-        if err is not None:
-            return {"ok": False, "err": err}, None
+        try:
+            fetchdef = self.prepare(fetchargs)
+        except Exception as err:
+            # direct() is the raw-HTTP escape hatch: it never raises, it
+            # returns a result object callers branch on via result["ok"].
+            return {"ok": False, "err": err}
 
         if fetchargs is None:
             fetchargs = {}
@@ -170,13 +177,13 @@ class CarbonIntensitySDK:
         fetched, fetch_err = utility.fetcher(ctx, url, fetchdef)
 
         if fetch_err is not None:
-            return {"ok": False, "err": fetch_err}, None
+            return {"ok": False, "err": fetch_err}
 
         if fetched is None:
             return {
                 "ok": False,
                 "err": ctx.make_error("direct_no_response", "response: undefined"),
-            }, None
+            }
 
         if isinstance(fetched, dict):
             status = helpers.to_int(vs.getprop(fetched, "status"))
@@ -205,55 +212,154 @@ class CarbonIntensitySDK:
                 "status": status,
                 "headers": headers,
                 "data": json_data,
-            }, None
+            }
 
         return {
             "ok": False,
             "err": ctx.make_error("direct_invalid", "invalid response type"),
-        }, None
+        }
 
+
+    @property
+    def generation(self):
+        """Idiomatic facade: client.generation.list() / client.generation.load({"id": ...})."""
+        from entity.generation_entity import GenerationEntity
+        cached = getattr(self, "_generation", None)
+        if cached is None:
+            cached = GenerationEntity(self, None)
+            self._generation = cached
+        return cached
 
     def Generation(self, data=None):
+        # Deprecated: use client.generation instead.
         from entity.generation_entity import GenerationEntity
         return GenerationEntity(self, data)
 
 
+    @property
+    def generation_list(self):
+        """Idiomatic facade: client.generation_list.list() / client.generation_list.load({"id": ...})."""
+        from entity.generation_list_entity import GenerationListEntity
+        cached = getattr(self, "_generation_list", None)
+        if cached is None:
+            cached = GenerationListEntity(self, None)
+            self._generation_list = cached
+        return cached
+
     def GenerationList(self, data=None):
+        # Deprecated: use client.generation_list instead.
         from entity.generation_list_entity import GenerationListEntity
         return GenerationListEntity(self, data)
 
 
+    @property
+    def intensity(self):
+        """Idiomatic facade: client.intensity.list() / client.intensity.load({"id": ...})."""
+        from entity.intensity_entity import IntensityEntity
+        cached = getattr(self, "_intensity", None)
+        if cached is None:
+            cached = IntensityEntity(self, None)
+            self._intensity = cached
+        return cached
+
     def Intensity(self, data=None):
+        # Deprecated: use client.intensity instead.
         from entity.intensity_entity import IntensityEntity
         return IntensityEntity(self, data)
 
 
+    @property
+    def intensity_factor(self):
+        """Idiomatic facade: client.intensity_factor.list() / client.intensity_factor.load({"id": ...})."""
+        from entity.intensity_factor_entity import IntensityFactorEntity
+        cached = getattr(self, "_intensity_factor", None)
+        if cached is None:
+            cached = IntensityFactorEntity(self, None)
+            self._intensity_factor = cached
+        return cached
+
     def IntensityFactor(self, data=None):
+        # Deprecated: use client.intensity_factor instead.
         from entity.intensity_factor_entity import IntensityFactorEntity
         return IntensityFactorEntity(self, data)
 
 
+    @property
+    def intensity_list(self):
+        """Idiomatic facade: client.intensity_list.list() / client.intensity_list.load({"id": ...})."""
+        from entity.intensity_list_entity import IntensityListEntity
+        cached = getattr(self, "_intensity_list", None)
+        if cached is None:
+            cached = IntensityListEntity(self, None)
+            self._intensity_list = cached
+        return cached
+
     def IntensityList(self, data=None):
+        # Deprecated: use client.intensity_list instead.
         from entity.intensity_list_entity import IntensityListEntity
         return IntensityListEntity(self, data)
 
 
+    @property
+    def regional(self):
+        """Idiomatic facade: client.regional.list() / client.regional.load({"id": ...})."""
+        from entity.regional_entity import RegionalEntity
+        cached = getattr(self, "_regional", None)
+        if cached is None:
+            cached = RegionalEntity(self, None)
+            self._regional = cached
+        return cached
+
     def Regional(self, data=None):
+        # Deprecated: use client.regional instead.
         from entity.regional_entity import RegionalEntity
         return RegionalEntity(self, data)
 
 
+    @property
+    def regional_intensity(self):
+        """Idiomatic facade: client.regional_intensity.list() / client.regional_intensity.load({"id": ...})."""
+        from entity.regional_intensity_entity import RegionalIntensityEntity
+        cached = getattr(self, "_regional_intensity", None)
+        if cached is None:
+            cached = RegionalIntensityEntity(self, None)
+            self._regional_intensity = cached
+        return cached
+
     def RegionalIntensity(self, data=None):
+        # Deprecated: use client.regional_intensity instead.
         from entity.regional_intensity_entity import RegionalIntensityEntity
         return RegionalIntensityEntity(self, data)
 
 
+    @property
+    def regional_intensity_list(self):
+        """Idiomatic facade: client.regional_intensity_list.list() / client.regional_intensity_list.load({"id": ...})."""
+        from entity.regional_intensity_list_entity import RegionalIntensityListEntity
+        cached = getattr(self, "_regional_intensity_list", None)
+        if cached is None:
+            cached = RegionalIntensityListEntity(self, None)
+            self._regional_intensity_list = cached
+        return cached
+
     def RegionalIntensityList(self, data=None):
+        # Deprecated: use client.regional_intensity_list instead.
         from entity.regional_intensity_list_entity import RegionalIntensityListEntity
         return RegionalIntensityListEntity(self, data)
 
 
+    @property
+    def stat(self):
+        """Idiomatic facade: client.stat.list() / client.stat.load({"id": ...})."""
+        from entity.stat_entity import StatEntity
+        cached = getattr(self, "_stat", None)
+        if cached is None:
+            cached = StatEntity(self, None)
+            self._stat = cached
+        return cached
+
     def Stat(self, data=None):
+        # Deprecated: use client.stat instead.
         from entity.stat_entity import StatEntity
         return StatEntity(self, data)
 

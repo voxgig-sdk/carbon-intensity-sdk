@@ -20,7 +20,6 @@ Create a new SDK client instance.
 | Name | Type | Description |
 | --- | --- | --- |
 | `$options` | `array` | SDK configuration options. |
-| `$options["apikey"]` | `string` | API key for authentication. |
 | `$options["base"]` | `string` | Base URL for API requests. |
 | `$options["prefix"]` | `string` | URL prefix appended after base. |
 | `$options["suffix"]` | `string` | URL suffix appended after path. |
@@ -88,7 +87,10 @@ Return a copy of the SDK utility object.
 
 #### `direct(array $fetchargs = []): array`
 
-Make a direct HTTP request to any API endpoint. Returns `[$result, $err]`.
+Make a direct HTTP request to any API endpoint. This is the raw-HTTP escape
+hatch: it does **not** throw. It returns a result array
+`["ok" => bool, "status" => int, "headers" => array, "data" => mixed]`, or
+`["ok" => false, "err" => \Exception]` on failure. Branch on `$result["ok"]`.
 
 **Parameters:**
 
@@ -102,11 +104,12 @@ Make a direct HTTP request to any API endpoint. Returns `[$result, $err]`.
 | `$fetchargs["body"]` | `mixed` | Request body (arrays are JSON-serialized). |
 | `$fetchargs["ctrl"]` | `array` | Control options. |
 
-**Returns:** `array [$result, $err]`
+**Returns:** `array` — the result dict (see above); never throws.
 
-#### `prepare(array $fetchargs = []): array`
+#### `prepare(array $fetchargs = []): mixed`
 
-Prepare a fetch definition without sending the request. Returns `[$fetchdef, $err]`.
+Prepare a fetch definition without sending the request. Returns the
+`$fetchdef` array. Throws on error.
 
 
 ---
@@ -114,7 +117,7 @@ Prepare a fetch definition without sending the request. Returns `[$fetchdef, $er
 ## GenerationEntity
 
 ```php
-$generation = $client->Generation();
+$generation = $client->generation();
 ```
 
 ### Fields
@@ -127,12 +130,12 @@ $generation = $client->Generation();
 
 ### Operations
 
-#### `list(array $reqmatch, ?array $ctrl = null): array`
+#### `list(array $reqmatch, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array. Throws on error.
 
 ```php
-[$results, $err] = $client->Generation()->list([]);
+$results = $client->generation()->list([]);
 ```
 
 ### Common Methods
@@ -168,7 +171,7 @@ Return the entity name.
 ## GenerationListEntity
 
 ```php
-$generation_list = $client->GenerationList();
+$generation_list = $client->generation_list();
 ```
 
 ### Fields
@@ -181,12 +184,12 @@ $generation_list = $client->GenerationList();
 
 ### Operations
 
-#### `list(array $reqmatch, ?array $ctrl = null): array`
+#### `list(array $reqmatch, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array. Throws on error.
 
 ```php
-[$results, $err] = $client->GenerationList()->list([]);
+$results = $client->generation_list()->list([]);
 ```
 
 ### Common Methods
@@ -222,7 +225,7 @@ Return the entity name.
 ## IntensityEntity
 
 ```php
-$intensity = $client->Intensity();
+$intensity = $client->intensity();
 ```
 
 ### Fields
@@ -236,20 +239,20 @@ $intensity = $client->Intensity();
 
 ### Operations
 
-#### `list(array $reqmatch, ?array $ctrl = null): array`
+#### `list(array $reqmatch, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array. Throws on error.
 
 ```php
-[$results, $err] = $client->Intensity()->list([]);
+$results = $client->intensity()->list([]);
 ```
 
-#### `load(array $reqmatch, ?array $ctrl = null): array`
+#### `load(array $reqmatch, ?array $ctrl = null): mixed`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Throws on error.
 
 ```php
-[$result, $err] = $client->Intensity()->load(["id" => "intensity_id"]);
+$result = $client->intensity()->load(["id" => "intensity_id"]);
 ```
 
 ### Common Methods
@@ -285,7 +288,7 @@ Return the entity name.
 ## IntensityFactorEntity
 
 ```php
-$intensity_factor = $client->IntensityFactor();
+$intensity_factor = $client->intensity_factor();
 ```
 
 ### Fields
@@ -309,12 +312,12 @@ $intensity_factor = $client->IntensityFactor();
 
 ### Operations
 
-#### `list(array $reqmatch, ?array $ctrl = null): array`
+#### `list(array $reqmatch, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array. Throws on error.
 
 ```php
-[$results, $err] = $client->IntensityFactor()->list([]);
+$results = $client->intensity_factor()->list([]);
 ```
 
 ### Common Methods
@@ -350,7 +353,7 @@ Return the entity name.
 ## IntensityListEntity
 
 ```php
-$intensity_list = $client->IntensityList();
+$intensity_list = $client->intensity_list();
 ```
 
 ### Fields
@@ -364,20 +367,20 @@ $intensity_list = $client->IntensityList();
 
 ### Operations
 
-#### `list(array $reqmatch, ?array $ctrl = null): array`
+#### `list(array $reqmatch, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array. Throws on error.
 
 ```php
-[$results, $err] = $client->IntensityList()->list([]);
+$results = $client->intensity_list()->list([]);
 ```
 
-#### `load(array $reqmatch, ?array $ctrl = null): array`
+#### `load(array $reqmatch, ?array $ctrl = null): mixed`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Throws on error.
 
 ```php
-[$result, $err] = $client->IntensityList()->load(["id" => "intensity_list_id"]);
+$result = $client->intensity_list()->load(["id" => "intensity_list_id"]);
 ```
 
 ### Common Methods
@@ -413,7 +416,7 @@ Return the entity name.
 ## RegionalEntity
 
 ```php
-$regional = $client->Regional();
+$regional = $client->regional();
 ```
 
 ### Fields
@@ -428,12 +431,12 @@ $regional = $client->Regional();
 
 ### Operations
 
-#### `list(array $reqmatch, ?array $ctrl = null): array`
+#### `list(array $reqmatch, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array. Throws on error.
 
 ```php
-[$results, $err] = $client->Regional()->list([]);
+$results = $client->regional()->list([]);
 ```
 
 ### Common Methods
@@ -469,7 +472,7 @@ Return the entity name.
 ## RegionalIntensityEntity
 
 ```php
-$regional_intensity = $client->RegionalIntensity();
+$regional_intensity = $client->regional_intensity();
 ```
 
 ### Fields
@@ -484,20 +487,20 @@ $regional_intensity = $client->RegionalIntensity();
 
 ### Operations
 
-#### `list(array $reqmatch, ?array $ctrl = null): array`
+#### `list(array $reqmatch, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array. Throws on error.
 
 ```php
-[$results, $err] = $client->RegionalIntensity()->list([]);
+$results = $client->regional_intensity()->list([]);
 ```
 
-#### `load(array $reqmatch, ?array $ctrl = null): array`
+#### `load(array $reqmatch, ?array $ctrl = null): mixed`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Throws on error.
 
 ```php
-[$result, $err] = $client->RegionalIntensity()->load(["id" => "regional_intensity_id"]);
+$result = $client->regional_intensity()->load(["id" => "regional_intensity_id"]);
 ```
 
 ### Common Methods
@@ -533,7 +536,7 @@ Return the entity name.
 ## RegionalIntensityListEntity
 
 ```php
-$regional_intensity_list = $client->RegionalIntensityList();
+$regional_intensity_list = $client->regional_intensity_list();
 ```
 
 ### Fields
@@ -548,20 +551,20 @@ $regional_intensity_list = $client->RegionalIntensityList();
 
 ### Operations
 
-#### `list(array $reqmatch, ?array $ctrl = null): array`
+#### `list(array $reqmatch, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array. Throws on error.
 
 ```php
-[$results, $err] = $client->RegionalIntensityList()->list([]);
+$results = $client->regional_intensity_list()->list([]);
 ```
 
-#### `load(array $reqmatch, ?array $ctrl = null): array`
+#### `load(array $reqmatch, ?array $ctrl = null): mixed`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Throws on error.
 
 ```php
-[$result, $err] = $client->RegionalIntensityList()->load(["id" => "regional_intensity_list_id"]);
+$result = $client->regional_intensity_list()->load(["id" => "regional_intensity_list_id"]);
 ```
 
 ### Common Methods
@@ -597,7 +600,7 @@ Return the entity name.
 ## StatEntity
 
 ```php
-$stat = $client->Stat();
+$stat = $client->stat();
 ```
 
 ### Fields
@@ -610,12 +613,12 @@ $stat = $client->Stat();
 
 ### Operations
 
-#### `list(array $reqmatch, ?array $ctrl = null): array`
+#### `list(array $reqmatch, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array. Throws on error.
 
 ```php
-[$results, $err] = $client->Stat()->list([]);
+$results = $client->stat()->list([]);
 ```
 
 ### Common Methods

@@ -50,8 +50,7 @@ class IntensityFactorEntityTest extends TestCase
         $intensity_factor_ref01_ent = $client->IntensityFactor(null);
         $intensity_factor_ref01_match = [];
 
-        [$intensity_factor_ref01_list_result, $err] = $intensity_factor_ref01_ent->list($intensity_factor_ref01_match, null);
-        $this->assertNull($err);
+        $intensity_factor_ref01_list_result = $intensity_factor_ref01_ent->list($intensity_factor_ref01_match, null);
         $this->assertIsArray($intensity_factor_ref01_list_result);
 
     }
@@ -86,7 +85,6 @@ function intensity_factor_basic_setup($extra)
         "CARBONINTENSITY_TEST_INTENSITY_FACTOR_ENTID" => $idmap,
         "CARBONINTENSITY_TEST_LIVE" => "FALSE",
         "CARBONINTENSITY_TEST_EXPLAIN" => "FALSE",
-        "CARBONINTENSITY_APIKEY" => "NONE",
     ]);
 
     $idmap_resolved = Helpers::to_map(
@@ -98,7 +96,6 @@ function intensity_factor_basic_setup($extra)
     if ($env["CARBONINTENSITY_TEST_LIVE"] === "TRUE") {
         $merged_opts = Vs::merge([
             [
-                "apikey" => $env["CARBONINTENSITY_APIKEY"],
             ],
             $extra ?? [],
         ]);

@@ -45,6 +45,7 @@ class IntensityFactorEntity
     end
   end
 
+  # @return [IntensityFactor, Hash] the current IntensityFactor data
   def data_get
     @_utility.feature_hook.call(@_entctx, "GetData")
     VoxgigStruct.clone(@_data)
@@ -57,6 +58,7 @@ class IntensityFactorEntity
     end
   end
 
+  # @return [Hash] the current match filter (any subset of IntensityFactor fields)
   def match_get
     @_utility.feature_hook.call(@_entctx, "GetMatch")
     VoxgigStruct.clone(@_match)
@@ -65,6 +67,11 @@ class IntensityFactorEntity
   
 
   
+  # List IntensityFactor items matching the given filter.
+  #
+  # @param reqmatch [IntensityFactorListMatch, Hash, nil] match filter (any subset of IntensityFactor fields)
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [Array<IntensityFactor>, Array] the matching IntensityFactor items; raises CarbonIntensityError on failure
   def list(reqmatch, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({

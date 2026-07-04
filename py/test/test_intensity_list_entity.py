@@ -50,14 +50,12 @@ class TestIntensityListEntity:
         intensity_list_ref01_ent = client.IntensityList(None)
         intensity_list_ref01_match = {}
 
-        intensity_list_ref01_list_result, err = intensity_list_ref01_ent.list(intensity_list_ref01_match, None)
-        assert err is None
+        intensity_list_ref01_list_result = intensity_list_ref01_ent.list(intensity_list_ref01_match, None)
         assert isinstance(intensity_list_ref01_list_result, list)
 
         # LOAD
         intensity_list_ref01_match_dt0 = {}
-        intensity_list_ref01_data_dt0_loaded, err = intensity_list_ref01_ent.load(intensity_list_ref01_match_dt0, None)
-        assert err is None
+        intensity_list_ref01_data_dt0_loaded = intensity_list_ref01_ent.load(intensity_list_ref01_match_dt0, None)
         assert intensity_list_ref01_data_dt0_loaded is not None
 
 
@@ -98,7 +96,6 @@ def _intensity_list_basic_setup(extra):
         "CARBONINTENSITY_TEST_INTENSITY_LIST_ENTID": idmap,
         "CARBONINTENSITY_TEST_LIVE": "FALSE",
         "CARBONINTENSITY_TEST_EXPLAIN": "FALSE",
-        "CARBONINTENSITY_APIKEY": "NONE",
     })
 
     idmap_resolved = helpers.to_map(
@@ -109,7 +106,6 @@ def _intensity_list_basic_setup(extra):
     if env.get("CARBONINTENSITY_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
             {
-                "apikey": env.get("CARBONINTENSITY_APIKEY"),
             },
             extra or {},
         ])

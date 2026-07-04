@@ -9,9 +9,12 @@ The TypeScript SDK for the CarbonIntensity API — a type-safe, entity-oriented 
 
 
 ## Install
-```bash
-npm install @voxgig-sdk/carbon-intensity
-```
+This package is not yet published to npm. Install it from the GitHub
+release tag (`ts/vX.Y.Z`):
+
+- Releases: [https://github.com/voxgig-sdk/carbon-intensity-sdk/releases](https://github.com/voxgig-sdk/carbon-intensity-sdk/releases)
+
+
 ## Tutorial: your first API call
 
 This tutorial walks through creating a client, listing entities, and
@@ -20,17 +23,15 @@ loading a specific record.
 ### 1. Create a client
 
 ```ts
-import { CarbonIntensitySDK } from 'carbon-intensity'
+import { CarbonIntensitySDK } from '@voxgig-sdk/carbon-intensity'
 
-const client = new CarbonIntensitySDK({
-  apikey: process.env.CARBON-INTENSITY_APIKEY,
-})
+const client = new CarbonIntensitySDK()
 ```
 
 ### 2. List generations
 
 ```ts
-const result = await client.Generation().list()
+const result = await client.generation.list()
 
 if (result.ok) {
   for (const item of result.data) {
@@ -81,7 +82,7 @@ Create a mock client for unit testing — no server required:
 ```ts
 const client = CarbonIntensitySDK.test()
 
-const result = await client.Planet().load({ id: 'test01' })
+const result = await client.generation.load({ id: 'test01' })
 // result.ok === true
 // result.data contains mock response data
 ```
@@ -89,7 +90,7 @@ const result = await client.Planet().load({ id: 'test01' })
 You can also use the instance method:
 
 ```ts
-const client = new CarbonIntensitySDK({ apikey: '...' })
+const client = new CarbonIntensitySDK()
 const testClient = client.tester()
 ```
 
@@ -98,7 +99,7 @@ const testClient = client.tester()
 Entity instances remember their last match and data:
 
 ```ts
-const entity = client.Planet()
+const entity = client.generation
 
 // First call sets internal match
 await entity.load({ id: 'example' })
@@ -125,7 +126,6 @@ const logger = {
 }
 
 const client = new CarbonIntensitySDK({
-  apikey: '...',
   extend: [logger],
 })
 ```
@@ -135,8 +135,7 @@ const client = new CarbonIntensitySDK({
 Create a `.env.local` file at the project root:
 
 ```
-CARBON-INTENSITY_TEST_LIVE=TRUE
-CARBON-INTENSITY_APIKEY=<your-key>
+CARBON_INTENSITY_TEST_LIVE=TRUE
 ```
 
 Then run:
@@ -154,7 +153,6 @@ cd ts && npm test
 
 ```ts
 new CarbonIntensitySDK(options?: {
-  apikey?: string
   base?: string
   prefix?: string
   suffix?: string
@@ -165,7 +163,6 @@ new CarbonIntensitySDK(options?: {
 
 | Option | Type | Description |
 | --- | --- | --- |
-| `apikey` | `string` | API key for authentication. |
 | `base` | `string` | Base URL of the API server. |
 | `prefix` | `string` | URL path prefix prepended to all requests. |
 | `suffix` | `string` | URL path suffix appended to all requests. |
@@ -393,7 +390,7 @@ API path: `/intensity/stats/{from}/{to}/{block}`
 
 ### Generation
 
-Create an instance: `const generation = client.Generation()`
+Create an instance: `const generation = client.generation`
 
 #### Operations
 
@@ -412,13 +409,13 @@ Create an instance: `const generation = client.Generation()`
 #### Example: List
 
 ```ts
-const generations = await client.Generation().list()
+const generations = await client.generation.list()
 ```
 
 
 ### GenerationList
 
-Create an instance: `const generation_list = client.GenerationList()`
+Create an instance: `const generation_list = client.generation_list`
 
 #### Operations
 
@@ -437,13 +434,13 @@ Create an instance: `const generation_list = client.GenerationList()`
 #### Example: List
 
 ```ts
-const generation_lists = await client.GenerationList().list()
+const generation_lists = await client.generation_list.list()
 ```
 
 
 ### Intensity
 
-Create an instance: `const intensity = client.Intensity()`
+Create an instance: `const intensity = client.intensity`
 
 #### Operations
 
@@ -464,19 +461,19 @@ Create an instance: `const intensity = client.Intensity()`
 #### Example: Load
 
 ```ts
-const intensity = await client.Intensity().load({ id: 'intensity_id' })
+const intensity = await client.intensity.load({ id: 'intensity_id' })
 ```
 
 #### Example: List
 
 ```ts
-const intensitys = await client.Intensity().list()
+const intensitys = await client.intensity.list()
 ```
 
 
 ### IntensityFactor
 
-Create an instance: `const intensity_factor = client.IntensityFactor()`
+Create an instance: `const intensity_factor = client.intensity_factor`
 
 #### Operations
 
@@ -506,13 +503,13 @@ Create an instance: `const intensity_factor = client.IntensityFactor()`
 #### Example: List
 
 ```ts
-const intensity_factors = await client.IntensityFactor().list()
+const intensity_factors = await client.intensity_factor.list()
 ```
 
 
 ### IntensityList
 
-Create an instance: `const intensity_list = client.IntensityList()`
+Create an instance: `const intensity_list = client.intensity_list`
 
 #### Operations
 
@@ -533,19 +530,19 @@ Create an instance: `const intensity_list = client.IntensityList()`
 #### Example: Load
 
 ```ts
-const intensity_list = await client.IntensityList().load({ id: 'intensity_list_id' })
+const intensity_list = await client.intensity_list.load({ id: 'intensity_list_id' })
 ```
 
 #### Example: List
 
 ```ts
-const intensity_lists = await client.IntensityList().list()
+const intensity_lists = await client.intensity_list.list()
 ```
 
 
 ### Regional
 
-Create an instance: `const regional = client.Regional()`
+Create an instance: `const regional = client.regional`
 
 #### Operations
 
@@ -566,13 +563,13 @@ Create an instance: `const regional = client.Regional()`
 #### Example: List
 
 ```ts
-const regionals = await client.Regional().list()
+const regionals = await client.regional.list()
 ```
 
 
 ### RegionalIntensity
 
-Create an instance: `const regional_intensity = client.RegionalIntensity()`
+Create an instance: `const regional_intensity = client.regional_intensity`
 
 #### Operations
 
@@ -594,19 +591,19 @@ Create an instance: `const regional_intensity = client.RegionalIntensity()`
 #### Example: Load
 
 ```ts
-const regional_intensity = await client.RegionalIntensity().load({ id: 'regional_intensity_id' })
+const regional_intensity = await client.regional_intensity.load({ id: 'regional_intensity_id' })
 ```
 
 #### Example: List
 
 ```ts
-const regional_intensitys = await client.RegionalIntensity().list()
+const regional_intensitys = await client.regional_intensity.list()
 ```
 
 
 ### RegionalIntensityList
 
-Create an instance: `const regional_intensity_list = client.RegionalIntensityList()`
+Create an instance: `const regional_intensity_list = client.regional_intensity_list`
 
 #### Operations
 
@@ -628,19 +625,19 @@ Create an instance: `const regional_intensity_list = client.RegionalIntensityLis
 #### Example: Load
 
 ```ts
-const regional_intensity_list = await client.RegionalIntensityList().load({ id: 'regional_intensity_list_id' })
+const regional_intensity_list = await client.regional_intensity_list.load({ id: 'regional_intensity_list_id' })
 ```
 
 #### Example: List
 
 ```ts
-const regional_intensity_lists = await client.RegionalIntensityList().list()
+const regional_intensity_lists = await client.regional_intensity_list.list()
 ```
 
 
 ### Stat
 
-Create an instance: `const stat = client.Stat()`
+Create an instance: `const stat = client.stat`
 
 #### Operations
 
@@ -659,7 +656,7 @@ Create an instance: `const stat = client.Stat()`
 #### Example: List
 
 ```ts
-const stats = await client.Stat().list()
+const stats = await client.stat.list()
 ```
 
 
@@ -720,7 +717,7 @@ carbon-intensity/
 Import the SDK from the package root:
 
 ```ts
-import { CarbonIntensitySDK } from 'carbon-intensity'
+import { CarbonIntensitySDK } from '@voxgig-sdk/carbon-intensity'
 ```
 
 ### Entity state
@@ -730,11 +727,11 @@ stores the returned data and match criteria internally. Subsequent
 calls on the same instance can rely on this state.
 
 ```ts
-const moon = client.Moon()
-await moon.load({ planet_id: 'earth', id: 'luna' })
+const generation = client.generation
+await generation.load({ id: "example_id" })
 
-// moon.data() now returns the loaded moon data
-// moon.match() returns { planet_id: 'earth', id: 'luna' }
+// generation.data() now returns the loaded generation data
+// generation.match() returns { id: "example_id" }
 ```
 
 Call `make()` to create a fresh instance with the same configuration

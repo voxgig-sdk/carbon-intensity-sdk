@@ -14,9 +14,14 @@ import type {
   Control,
 } from '../types'
 
+import type {
+  RegionalIntensity,
+  RegionalIntensityLoadMatch,
+  RegionalIntensityListMatch,
+} from '../CarbonIntensityTypes'
 
 // TODO: needs Entity superclass
-class RegionalIntensityEntity extends CarbonIntensityEntityBase {
+class RegionalIntensityEntity extends CarbonIntensityEntityBase<RegionalIntensity> {
 
   constructor(client: CarbonIntensitySDK, entopts: any) {
     super(client, entopts)
@@ -32,7 +37,7 @@ class RegionalIntensityEntity extends CarbonIntensityEntityBase {
 
 
 
-  async load(this: any, reqmatch?: any, ctrl?: Control) {
+  async load(this: any, reqmatch?: RegionalIntensityLoadMatch, ctrl?: Control): Promise<RegionalIntensity> {
 
     const utility = this._utility
 
@@ -136,14 +141,16 @@ class RegionalIntensityEntity extends CarbonIntensityEntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<RegionalIntensity> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }
 
 
 
-  async list(this: any, reqmatch?: any, ctrl?: Control) {
+  async list(this: any, reqmatch?: RegionalIntensityListMatch, ctrl?: Control): Promise<RegionalIntensity[]> {
 
     const utility = this._utility
 
@@ -243,7 +250,9 @@ class RegionalIntensityEntity extends CarbonIntensityEntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<RegionalIntensity[]> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }

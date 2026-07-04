@@ -45,6 +45,7 @@ class StatEntity
     end
   end
 
+  # @return [Stat, Hash] the current Stat data
   def data_get
     @_utility.feature_hook.call(@_entctx, "GetData")
     VoxgigStruct.clone(@_data)
@@ -57,6 +58,7 @@ class StatEntity
     end
   end
 
+  # @return [Hash] the current match filter (any subset of Stat fields)
   def match_get
     @_utility.feature_hook.call(@_entctx, "GetMatch")
     VoxgigStruct.clone(@_match)
@@ -65,6 +67,11 @@ class StatEntity
   
 
   
+  # List Stat items matching the given filter.
+  #
+  # @param reqmatch [StatListMatch, Hash, nil] match filter (any subset of Stat fields)
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [Array<Stat>, Array] the matching Stat items; raises CarbonIntensityError on failure
   def list(reqmatch, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({

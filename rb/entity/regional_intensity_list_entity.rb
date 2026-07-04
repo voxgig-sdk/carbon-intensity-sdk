@@ -45,6 +45,7 @@ class RegionalIntensityListEntity
     end
   end
 
+  # @return [RegionalIntensityList, Hash] the current RegionalIntensityList data
   def data_get
     @_utility.feature_hook.call(@_entctx, "GetData")
     VoxgigStruct.clone(@_data)
@@ -57,12 +58,18 @@ class RegionalIntensityListEntity
     end
   end
 
+  # @return [Hash] the current match filter (any subset of RegionalIntensityList fields)
   def match_get
     @_utility.feature_hook.call(@_entctx, "GetMatch")
     VoxgigStruct.clone(@_match)
   end
 
   
+  # Load a single RegionalIntensityList.
+  #
+  # @param reqmatch [RegionalIntensityListLoadMatch, Hash, nil] match criteria (id/query fields)
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [RegionalIntensityList, Hash] the loaded RegionalIntensityList; raises CarbonIntensityError on failure
   def load(reqmatch, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({
@@ -86,6 +93,11 @@ class RegionalIntensityListEntity
 
 
   
+  # List RegionalIntensityList items matching the given filter.
+  #
+  # @param reqmatch [RegionalIntensityListListMatch, Hash, nil] match filter (any subset of RegionalIntensityList fields)
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [Array<RegionalIntensityList>, Array] the matching RegionalIntensityList items; raises CarbonIntensityError on failure
   def list(reqmatch, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({

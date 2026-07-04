@@ -50,14 +50,12 @@ class TestRegionalIntensityEntity:
         regional_intensity_ref01_ent = client.RegionalIntensity(None)
         regional_intensity_ref01_match = {}
 
-        regional_intensity_ref01_list_result, err = regional_intensity_ref01_ent.list(regional_intensity_ref01_match, None)
-        assert err is None
+        regional_intensity_ref01_list_result = regional_intensity_ref01_ent.list(regional_intensity_ref01_match, None)
         assert isinstance(regional_intensity_ref01_list_result, list)
 
         # LOAD
         regional_intensity_ref01_match_dt0 = {}
-        regional_intensity_ref01_data_dt0_loaded, err = regional_intensity_ref01_ent.load(regional_intensity_ref01_match_dt0, None)
-        assert err is None
+        regional_intensity_ref01_data_dt0_loaded = regional_intensity_ref01_ent.load(regional_intensity_ref01_match_dt0, None)
         assert regional_intensity_ref01_data_dt0_loaded is not None
 
 
@@ -98,7 +96,6 @@ def _regional_intensity_basic_setup(extra):
         "CARBONINTENSITY_TEST_REGIONAL_INTENSITY_ENTID": idmap,
         "CARBONINTENSITY_TEST_LIVE": "FALSE",
         "CARBONINTENSITY_TEST_EXPLAIN": "FALSE",
-        "CARBONINTENSITY_APIKEY": "NONE",
     })
 
     idmap_resolved = helpers.to_map(
@@ -109,7 +106,6 @@ def _regional_intensity_basic_setup(extra):
     if env.get("CARBONINTENSITY_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
             {
-                "apikey": env.get("CARBONINTENSITY_APIKEY"),
             },
             extra or {},
         ])

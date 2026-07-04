@@ -85,6 +85,27 @@ func (e *IntensityEntity) Match(args ...any) any {
 	return out
 }
 
+// DataTyped is the statically-typed accessor for this entity's data. With no
+// argument it returns the current data as an Intensity; with an argument it
+// sets the data and returns the stored value. It delegates to the untyped Data
+// (identical runtime) and converts at the typed boundary.
+func (e *IntensityEntity) DataTyped(data ...Intensity) Intensity {
+	if len(data) > 0 {
+		return typedFrom[Intensity](e.Data(asMap(data[0])))
+	}
+	return typedFrom[Intensity](e.Data())
+}
+
+// MatchTyped mirrors DataTyped for the entity's match filter. The match is a
+// partial of the entity, so it round-trips through Intensity (all fields
+// optional at the wire level).
+func (e *IntensityEntity) MatchTyped(match ...Intensity) Intensity {
+	if len(match) > 0 {
+		return typedFrom[Intensity](e.Match(asMap(match[0])))
+	}
+	return typedFrom[Intensity](e.Match())
+}
+
 
 func (e *IntensityEntity) Load(reqmatch map[string]any, ctrl map[string]any) (any, error) {
 	utility := e.utility
@@ -111,6 +132,17 @@ func (e *IntensityEntity) Load(reqmatch map[string]any, ctrl map[string]any) (an
 	})
 }
 
+// LoadTyped is the statically-typed variant of Load: it takes an
+// IntensityLoadMatch and returns an Intensity. It delegates to the untyped
+// Load (identical runtime) and converts at the typed boundary.
+func (e *IntensityEntity) LoadTyped(reqmatch IntensityLoadMatch, ctrl map[string]any) (Intensity, error) {
+	res, err := e.Load(asMap(reqmatch), ctrl)
+	if err != nil {
+		return Intensity{}, err
+	}
+	return typedFrom[Intensity](res), nil
+}
+
 
 
 
@@ -131,6 +163,17 @@ func (e *IntensityEntity) List(reqmatch map[string]any, ctrl map[string]any) (an
 			}
 		}
 	})
+}
+
+// ListTyped is the statically-typed variant of List: it takes an
+// IntensityListMatch and returns []Intensity. It delegates to the untyped
+// List (identical runtime) and converts at the typed boundary.
+func (e *IntensityEntity) ListTyped(reqmatch IntensityListMatch, ctrl map[string]any) ([]Intensity, error) {
+	res, err := e.List(asMap(reqmatch), ctrl)
+	if err != nil {
+		return nil, err
+	}
+	return typedSliceFrom[Intensity](res), nil
 }
 
 

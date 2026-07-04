@@ -20,7 +20,6 @@ Create a new SDK client instance.
 | Name | Type | Description |
 | --- | --- | --- |
 | `options` | `dict` | SDK configuration options. |
-| `options["apikey"]` | `str` | API key for authentication. |
 | `options["base"]` | `str` | Base URL for API requests. |
 | `options["prefix"]` | `str` | URL prefix appended after base. |
 | `options["suffix"]` | `str` | URL suffix appended after path. |
@@ -86,9 +85,9 @@ Return a deep copy of the current SDK options.
 
 Return a copy of the SDK utility object.
 
-#### `direct(fetchargs=None) -> tuple`
+#### `direct(fetchargs=None) -> dict`
 
-Make a direct HTTP request to any API endpoint. Returns `(result, err)`.
+Make a direct HTTP request to any API endpoint. Returns a result `dict` with `ok`, `status`, `headers`, and `data` (or `err` on failure). This escape hatch never raises — branch on `result["ok"]`.
 
 **Parameters:**
 
@@ -101,11 +100,11 @@ Make a direct HTTP request to any API endpoint. Returns `(result, err)`.
 | `fetchargs["headers"]` | `dict` | Request headers (merged with defaults). |
 | `fetchargs["body"]` | `any` | Request body (dicts are JSON-serialized). |
 
-**Returns:** `(result_dict, err)`
+**Returns:** `result_dict`
 
-#### `prepare(fetchargs=None) -> tuple`
+#### `prepare(fetchargs=None) -> dict`
 
-Prepare a fetch definition without sending. Returns `(fetchdef, err)`.
+Prepare a fetch definition without sending. Returns the `fetchdef` and raises on error.
 
 
 ---
@@ -113,7 +112,7 @@ Prepare a fetch definition without sending. Returns `(fetchdef, err)`.
 ## GenerationEntity
 
 ```python
-generation = client.Generation()
+generation = client.generation
 ```
 
 ### Fields
@@ -126,12 +125,12 @@ generation = client.Generation()
 
 ### Operations
 
-#### `list(reqmatch, ctrl=None) -> tuple`
+#### `list(reqmatch, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns a list and raises on error.
 
 ```python
-results, err = client.Generation().list({})
+results = client.generation.list({})
 ```
 
 ### Common Methods
@@ -166,7 +165,7 @@ Return the entity name.
 ## GenerationListEntity
 
 ```python
-generation_list = client.GenerationList()
+generation_list = client.generation_list
 ```
 
 ### Fields
@@ -179,12 +178,12 @@ generation_list = client.GenerationList()
 
 ### Operations
 
-#### `list(reqmatch, ctrl=None) -> tuple`
+#### `list(reqmatch, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns a list and raises on error.
 
 ```python
-results, err = client.GenerationList().list({})
+results = client.generation_list.list({})
 ```
 
 ### Common Methods
@@ -219,7 +218,7 @@ Return the entity name.
 ## IntensityEntity
 
 ```python
-intensity = client.Intensity()
+intensity = client.intensity
 ```
 
 ### Fields
@@ -233,20 +232,20 @@ intensity = client.Intensity()
 
 ### Operations
 
-#### `list(reqmatch, ctrl=None) -> tuple`
+#### `list(reqmatch, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns a list and raises on error.
 
 ```python
-results, err = client.Intensity().list({})
+results = client.intensity.list({})
 ```
 
-#### `load(reqmatch, ctrl=None) -> tuple`
+#### `load(reqmatch, ctrl=None) -> dict`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result, err = client.Intensity().load({"id": "intensity_id"})
+result = client.intensity.load({"id": "intensity_id"})
 ```
 
 ### Common Methods
@@ -281,7 +280,7 @@ Return the entity name.
 ## IntensityFactorEntity
 
 ```python
-intensity_factor = client.IntensityFactor()
+intensity_factor = client.intensity_factor
 ```
 
 ### Fields
@@ -305,12 +304,12 @@ intensity_factor = client.IntensityFactor()
 
 ### Operations
 
-#### `list(reqmatch, ctrl=None) -> tuple`
+#### `list(reqmatch, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns a list and raises on error.
 
 ```python
-results, err = client.IntensityFactor().list({})
+results = client.intensity_factor.list({})
 ```
 
 ### Common Methods
@@ -345,7 +344,7 @@ Return the entity name.
 ## IntensityListEntity
 
 ```python
-intensity_list = client.IntensityList()
+intensity_list = client.intensity_list
 ```
 
 ### Fields
@@ -359,20 +358,20 @@ intensity_list = client.IntensityList()
 
 ### Operations
 
-#### `list(reqmatch, ctrl=None) -> tuple`
+#### `list(reqmatch, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns a list and raises on error.
 
 ```python
-results, err = client.IntensityList().list({})
+results = client.intensity_list.list({})
 ```
 
-#### `load(reqmatch, ctrl=None) -> tuple`
+#### `load(reqmatch, ctrl=None) -> dict`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result, err = client.IntensityList().load({"id": "intensity_list_id"})
+result = client.intensity_list.load({"id": "intensity_list_id"})
 ```
 
 ### Common Methods
@@ -407,7 +406,7 @@ Return the entity name.
 ## RegionalEntity
 
 ```python
-regional = client.Regional()
+regional = client.regional
 ```
 
 ### Fields
@@ -422,12 +421,12 @@ regional = client.Regional()
 
 ### Operations
 
-#### `list(reqmatch, ctrl=None) -> tuple`
+#### `list(reqmatch, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns a list and raises on error.
 
 ```python
-results, err = client.Regional().list({})
+results = client.regional.list({})
 ```
 
 ### Common Methods
@@ -462,7 +461,7 @@ Return the entity name.
 ## RegionalIntensityEntity
 
 ```python
-regional_intensity = client.RegionalIntensity()
+regional_intensity = client.regional_intensity
 ```
 
 ### Fields
@@ -477,20 +476,20 @@ regional_intensity = client.RegionalIntensity()
 
 ### Operations
 
-#### `list(reqmatch, ctrl=None) -> tuple`
+#### `list(reqmatch, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns a list and raises on error.
 
 ```python
-results, err = client.RegionalIntensity().list({})
+results = client.regional_intensity.list({})
 ```
 
-#### `load(reqmatch, ctrl=None) -> tuple`
+#### `load(reqmatch, ctrl=None) -> dict`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result, err = client.RegionalIntensity().load({"id": "regional_intensity_id"})
+result = client.regional_intensity.load({"id": "regional_intensity_id"})
 ```
 
 ### Common Methods
@@ -525,7 +524,7 @@ Return the entity name.
 ## RegionalIntensityListEntity
 
 ```python
-regional_intensity_list = client.RegionalIntensityList()
+regional_intensity_list = client.regional_intensity_list
 ```
 
 ### Fields
@@ -540,20 +539,20 @@ regional_intensity_list = client.RegionalIntensityList()
 
 ### Operations
 
-#### `list(reqmatch, ctrl=None) -> tuple`
+#### `list(reqmatch, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns a list and raises on error.
 
 ```python
-results, err = client.RegionalIntensityList().list({})
+results = client.regional_intensity_list.list({})
 ```
 
-#### `load(reqmatch, ctrl=None) -> tuple`
+#### `load(reqmatch, ctrl=None) -> dict`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result, err = client.RegionalIntensityList().load({"id": "regional_intensity_list_id"})
+result = client.regional_intensity_list.load({"id": "regional_intensity_list_id"})
 ```
 
 ### Common Methods
@@ -588,7 +587,7 @@ Return the entity name.
 ## StatEntity
 
 ```python
-stat = client.Stat()
+stat = client.stat
 ```
 
 ### Fields
@@ -601,12 +600,12 @@ stat = client.Stat()
 
 ### Operations
 
-#### `list(reqmatch, ctrl=None) -> tuple`
+#### `list(reqmatch, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns a list and raises on error.
 
 ```python
-results, err = client.Stat().list({})
+results = client.stat.list({})
 ```
 
 ### Common Methods

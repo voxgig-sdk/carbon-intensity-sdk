@@ -50,8 +50,7 @@ class GenerationEntityTest extends TestCase
         $generation_ref01_ent = $client->Generation(null);
         $generation_ref01_match = [];
 
-        [$generation_ref01_list_result, $err] = $generation_ref01_ent->list($generation_ref01_match, null);
-        $this->assertNull($err);
+        $generation_ref01_list_result = $generation_ref01_ent->list($generation_ref01_match, null);
         $this->assertIsArray($generation_ref01_list_result);
 
     }
@@ -86,7 +85,6 @@ function generation_basic_setup($extra)
         "CARBONINTENSITY_TEST_GENERATION_ENTID" => $idmap,
         "CARBONINTENSITY_TEST_LIVE" => "FALSE",
         "CARBONINTENSITY_TEST_EXPLAIN" => "FALSE",
-        "CARBONINTENSITY_APIKEY" => "NONE",
     ]);
 
     $idmap_resolved = Helpers::to_map(
@@ -98,7 +96,6 @@ function generation_basic_setup($extra)
     if ($env["CARBONINTENSITY_TEST_LIVE"] === "TRUE") {
         $merged_opts = Vs::merge([
             [
-                "apikey" => $env["CARBONINTENSITY_APIKEY"],
             ],
             $extra ?? [],
         ]);

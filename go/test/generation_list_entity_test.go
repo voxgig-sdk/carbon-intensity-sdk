@@ -121,7 +121,6 @@ func generation_listBasicSetup(extra map[string]any) *entityTestSetup {
 		"CARBONINTENSITY_TEST_GENERATION_LIST_ENTID": idmap,
 		"CARBONINTENSITY_TEST_LIVE":      "FALSE",
 		"CARBONINTENSITY_TEST_EXPLAIN":   "FALSE",
-		"CARBONINTENSITY_APIKEY":         "NONE",
 	})
 
 	idmapResolved := core.ToMapAny(env["CARBONINTENSITY_TEST_GENERATION_LIST_ENTID"])
@@ -132,7 +131,6 @@ func generation_listBasicSetup(extra map[string]any) *entityTestSetup {
 	if env["CARBONINTENSITY_TEST_LIVE"] == "TRUE" {
 		mergedOpts := vs.Merge([]any{
 			map[string]any{
-				"apikey": env["CARBONINTENSITY_APIKEY"],
 			},
 			extra,
 		})

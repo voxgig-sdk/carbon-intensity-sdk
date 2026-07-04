@@ -14,9 +14,13 @@ import type {
   Control,
 } from '../types'
 
+import type {
+  GenerationList,
+  GenerationListListMatch,
+} from '../CarbonIntensityTypes'
 
 // TODO: needs Entity superclass
-class GenerationListEntity extends CarbonIntensityEntityBase {
+class GenerationListEntity extends CarbonIntensityEntityBase<GenerationList> {
 
   constructor(client: CarbonIntensitySDK, entopts: any) {
     super(client, entopts)
@@ -33,7 +37,7 @@ class GenerationListEntity extends CarbonIntensityEntityBase {
 
 
 
-  async list(this: any, reqmatch?: any, ctrl?: Control) {
+  async list(this: any, reqmatch?: GenerationListListMatch, ctrl?: Control): Promise<GenerationList[]> {
 
     const utility = this._utility
 
@@ -133,7 +137,9 @@ class GenerationListEntity extends CarbonIntensityEntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<GenerationList[]> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }

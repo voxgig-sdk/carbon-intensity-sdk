@@ -81,6 +81,10 @@ end
 
 
 
+---@param reqmatch IntensityFactorListMatch
+---@param ctrl? table
+---@return IntensityFactor[]
+---@return string? err
 function IntensityFactorEntity:list(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({

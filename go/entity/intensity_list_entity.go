@@ -85,6 +85,27 @@ func (e *IntensityListEntity) Match(args ...any) any {
 	return out
 }
 
+// DataTyped is the statically-typed accessor for this entity's data. With no
+// argument it returns the current data as an IntensityList; with an argument it
+// sets the data and returns the stored value. It delegates to the untyped Data
+// (identical runtime) and converts at the typed boundary.
+func (e *IntensityListEntity) DataTyped(data ...IntensityList) IntensityList {
+	if len(data) > 0 {
+		return typedFrom[IntensityList](e.Data(asMap(data[0])))
+	}
+	return typedFrom[IntensityList](e.Data())
+}
+
+// MatchTyped mirrors DataTyped for the entity's match filter. The match is a
+// partial of the entity, so it round-trips through IntensityList (all fields
+// optional at the wire level).
+func (e *IntensityListEntity) MatchTyped(match ...IntensityList) IntensityList {
+	if len(match) > 0 {
+		return typedFrom[IntensityList](e.Match(asMap(match[0])))
+	}
+	return typedFrom[IntensityList](e.Match())
+}
+
 
 func (e *IntensityListEntity) Load(reqmatch map[string]any, ctrl map[string]any) (any, error) {
 	utility := e.utility
@@ -111,6 +132,17 @@ func (e *IntensityListEntity) Load(reqmatch map[string]any, ctrl map[string]any)
 	})
 }
 
+// LoadTyped is the statically-typed variant of Load: it takes an
+// IntensityListLoadMatch and returns an IntensityList. It delegates to the untyped
+// Load (identical runtime) and converts at the typed boundary.
+func (e *IntensityListEntity) LoadTyped(reqmatch IntensityListLoadMatch, ctrl map[string]any) (IntensityList, error) {
+	res, err := e.Load(asMap(reqmatch), ctrl)
+	if err != nil {
+		return IntensityList{}, err
+	}
+	return typedFrom[IntensityList](res), nil
+}
+
 
 
 
@@ -131,6 +163,17 @@ func (e *IntensityListEntity) List(reqmatch map[string]any, ctrl map[string]any)
 			}
 		}
 	})
+}
+
+// ListTyped is the statically-typed variant of List: it takes an
+// IntensityListListMatch and returns []IntensityList. It delegates to the untyped
+// List (identical runtime) and converts at the typed boundary.
+func (e *IntensityListEntity) ListTyped(reqmatch IntensityListListMatch, ctrl map[string]any) ([]IntensityList, error) {
+	res, err := e.List(asMap(reqmatch), ctrl)
+	if err != nil {
+		return nil, err
+	}
+	return typedSliceFrom[IntensityList](res), nil
 }
 
 

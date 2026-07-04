@@ -38,10 +38,6 @@ class Config {
   options = {
     base: 'https://api.carbonintensity.org.uk',
 
-    auth: {
-      prefix: 'Bearer',
-    },
-
     headers: {
       "content-type": "application/json"
     },
@@ -120,7 +116,8 @@ class Config {
                     "name": "from",
                     "orig": "from",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 0
                   },
                   {
                     "active": true,
@@ -128,7 +125,8 @@ class Config {
                     "name": "to",
                     "orig": "to",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 1
                   }
                 ]
               },
@@ -218,7 +216,8 @@ class Config {
                     "name": "from",
                     "orig": "from",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 0
                   }
                 ]
               },
@@ -299,7 +298,8 @@ class Config {
                     "name": "date",
                     "orig": "date",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 0
                   },
                   {
                     "active": true,
@@ -307,7 +307,8 @@ class Config {
                     "name": "period",
                     "orig": "period",
                     "reqd": true,
-                    "type": "`$INTEGER`"
+                    "type": "`$INTEGER`",
+                    "index$": 1
                   }
                 ]
               },
@@ -341,7 +342,8 @@ class Config {
                     "name": "from",
                     "orig": "from",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 0
                   },
                   {
                     "active": true,
@@ -349,7 +351,8 @@ class Config {
                     "name": "to",
                     "orig": "to",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 1
                   }
                 ]
               },
@@ -404,7 +407,8 @@ class Config {
                     "name": "id",
                     "orig": "from",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 0
                   }
                 ]
               },
@@ -623,7 +627,8 @@ class Config {
                     "name": "from",
                     "orig": "from",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 0
                   }
                 ]
               },
@@ -655,7 +660,8 @@ class Config {
                     "name": "from",
                     "orig": "from",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 0
                   }
                 ]
               },
@@ -687,7 +693,8 @@ class Config {
                     "name": "from",
                     "orig": "from",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 0
                   }
                 ]
               },
@@ -742,7 +749,8 @@ class Config {
                     "name": "date",
                     "orig": "date",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 0
                   }
                 ]
               },
@@ -955,7 +963,8 @@ class Config {
                     "name": "postcode",
                     "orig": "postcode",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 0
                   }
                 ]
               },
@@ -987,7 +996,8 @@ class Config {
                     "name": "regionid",
                     "orig": "regionid",
                     "reqd": true,
-                    "type": "`$INTEGER`"
+                    "type": "`$INTEGER`",
+                    "index$": 0
                   }
                 ]
               },
@@ -1078,7 +1088,8 @@ class Config {
                     "name": "from",
                     "orig": "from",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 0
                   },
                   {
                     "active": true,
@@ -1086,7 +1097,8 @@ class Config {
                     "name": "to",
                     "orig": "to",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 1
                   }
                 ]
               },
@@ -1120,7 +1132,8 @@ class Config {
                     "name": "from",
                     "orig": "from",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 0
                   }
                 ]
               },
@@ -1153,7 +1166,8 @@ class Config {
                     "name": "from",
                     "orig": "from",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 0
                   }
                 ]
               },
@@ -1186,7 +1200,8 @@ class Config {
                     "name": "from",
                     "orig": "from",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 0
                   }
                 ]
               },
@@ -1226,7 +1241,8 @@ class Config {
                     "name": "intensity_id",
                     "orig": "from",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 0
                   },
                   {
                     "active": true,
@@ -1234,7 +1250,8 @@ class Config {
                     "name": "postcode",
                     "orig": "postcode",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 1
                   },
                   {
                     "active": true,
@@ -1242,7 +1259,8 @@ class Config {
                     "name": "to",
                     "orig": "to",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 2
                   }
                 ]
               },
@@ -1284,7 +1302,8 @@ class Config {
                     "name": "intensity_id",
                     "orig": "from",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 0
                   },
                   {
                     "active": true,
@@ -1292,7 +1311,8 @@ class Config {
                     "name": "regionid",
                     "orig": "regionid",
                     "reqd": true,
-                    "type": "`$INTEGER`"
+                    "type": "`$INTEGER`",
+                    "index$": 1
                   },
                   {
                     "active": true,
@@ -1300,7 +1320,8 @@ class Config {
                     "name": "to",
                     "orig": "to",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 2
                   }
                 ]
               },
@@ -1342,7 +1363,8 @@ class Config {
                     "name": "intensity_id",
                     "orig": "from",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 0
                   },
                   {
                     "active": true,
@@ -1350,7 +1372,8 @@ class Config {
                     "name": "postcode",
                     "orig": "postcode",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 1
                   }
                 ]
               },
@@ -1391,7 +1414,8 @@ class Config {
                     "name": "intensity_id",
                     "orig": "from",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 0
                   },
                   {
                     "active": true,
@@ -1399,7 +1423,8 @@ class Config {
                     "name": "postcode",
                     "orig": "postcode",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 1
                   }
                 ]
               },
@@ -1440,7 +1465,8 @@ class Config {
                     "name": "intensity_id",
                     "orig": "from",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 0
                   },
                   {
                     "active": true,
@@ -1448,7 +1474,8 @@ class Config {
                     "name": "postcode",
                     "orig": "postcode",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 1
                   }
                 ]
               },
@@ -1489,7 +1516,8 @@ class Config {
                     "name": "intensity_id",
                     "orig": "from",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 0
                   },
                   {
                     "active": true,
@@ -1497,7 +1525,8 @@ class Config {
                     "name": "regionid",
                     "orig": "regionid",
                     "reqd": true,
-                    "type": "`$INTEGER`"
+                    "type": "`$INTEGER`",
+                    "index$": 1
                   }
                 ]
               },
@@ -1538,7 +1567,8 @@ class Config {
                     "name": "intensity_id",
                     "orig": "from",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 0
                   },
                   {
                     "active": true,
@@ -1546,7 +1576,8 @@ class Config {
                     "name": "regionid",
                     "orig": "regionid",
                     "reqd": true,
-                    "type": "`$INTEGER`"
+                    "type": "`$INTEGER`",
+                    "index$": 1
                   }
                 ]
               },
@@ -1587,7 +1618,8 @@ class Config {
                     "name": "intensity_id",
                     "orig": "from",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 0
                   },
                   {
                     "active": true,
@@ -1595,7 +1627,8 @@ class Config {
                     "name": "regionid",
                     "orig": "regionid",
                     "reqd": true,
-                    "type": "`$INTEGER`"
+                    "type": "`$INTEGER`",
+                    "index$": 1
                   }
                 ]
               },
@@ -1686,7 +1719,8 @@ class Config {
                     "name": "block",
                     "orig": "block",
                     "reqd": true,
-                    "type": "`$INTEGER`"
+                    "type": "`$INTEGER`",
+                    "index$": 0
                   },
                   {
                     "active": true,
@@ -1694,7 +1728,8 @@ class Config {
                     "name": "from",
                     "orig": "from",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 1
                   },
                   {
                     "active": true,
@@ -1702,7 +1737,8 @@ class Config {
                     "name": "to",
                     "orig": "to",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 2
                   }
                 ]
               },
@@ -1738,7 +1774,8 @@ class Config {
                     "name": "from",
                     "orig": "from",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 0
                   },
                   {
                     "active": true,
@@ -1746,7 +1783,8 @@ class Config {
                     "name": "to",
                     "orig": "to",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 1
                   }
                 ]
               },

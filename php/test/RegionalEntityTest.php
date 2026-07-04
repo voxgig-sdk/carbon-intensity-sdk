@@ -50,8 +50,7 @@ class RegionalEntityTest extends TestCase
         $regional_ref01_ent = $client->Regional(null);
         $regional_ref01_match = [];
 
-        [$regional_ref01_list_result, $err] = $regional_ref01_ent->list($regional_ref01_match, null);
-        $this->assertNull($err);
+        $regional_ref01_list_result = $regional_ref01_ent->list($regional_ref01_match, null);
         $this->assertIsArray($regional_ref01_list_result);
 
     }
@@ -86,7 +85,6 @@ function regional_basic_setup($extra)
         "CARBONINTENSITY_TEST_REGIONAL_ENTID" => $idmap,
         "CARBONINTENSITY_TEST_LIVE" => "FALSE",
         "CARBONINTENSITY_TEST_EXPLAIN" => "FALSE",
-        "CARBONINTENSITY_APIKEY" => "NONE",
     ]);
 
     $idmap_resolved = Helpers::to_map(
@@ -98,7 +96,6 @@ function regional_basic_setup($extra)
     if ($env["CARBONINTENSITY_TEST_LIVE"] === "TRUE") {
         $merged_opts = Vs::merge([
             [
-                "apikey" => $env["CARBONINTENSITY_APIKEY"],
             ],
             $extra ?? [],
         ]);

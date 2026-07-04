@@ -244,54 +244,171 @@ end
 
 
 
+-- Idiomatic facade: client:generation():list() / client:generation():load({ id = ... })
+function CarbonIntensitySDK:generation(data)
+  local EntityMod = require("entity.generation_entity")
+  if data == nil then
+    if self._generation == nil then
+      self._generation = EntityMod.new(self, nil)
+    end
+    return self._generation
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:generation() instead.
 function CarbonIntensitySDK:Generation(data)
   local EntityMod = require("entity.generation_entity")
   return EntityMod.new(self, data)
 end
 
 
+-- Idiomatic facade: client:generation_list():list() / client:generation_list():load({ id = ... })
+function CarbonIntensitySDK:generation_list(data)
+  local EntityMod = require("entity.generation_list_entity")
+  if data == nil then
+    if self._generation_list == nil then
+      self._generation_list = EntityMod.new(self, nil)
+    end
+    return self._generation_list
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:generation_list() instead.
 function CarbonIntensitySDK:GenerationList(data)
   local EntityMod = require("entity.generation_list_entity")
   return EntityMod.new(self, data)
 end
 
 
+-- Idiomatic facade: client:intensity():list() / client:intensity():load({ id = ... })
+function CarbonIntensitySDK:intensity(data)
+  local EntityMod = require("entity.intensity_entity")
+  if data == nil then
+    if self._intensity == nil then
+      self._intensity = EntityMod.new(self, nil)
+    end
+    return self._intensity
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:intensity() instead.
 function CarbonIntensitySDK:Intensity(data)
   local EntityMod = require("entity.intensity_entity")
   return EntityMod.new(self, data)
 end
 
 
+-- Idiomatic facade: client:intensity_factor():list() / client:intensity_factor():load({ id = ... })
+function CarbonIntensitySDK:intensity_factor(data)
+  local EntityMod = require("entity.intensity_factor_entity")
+  if data == nil then
+    if self._intensity_factor == nil then
+      self._intensity_factor = EntityMod.new(self, nil)
+    end
+    return self._intensity_factor
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:intensity_factor() instead.
 function CarbonIntensitySDK:IntensityFactor(data)
   local EntityMod = require("entity.intensity_factor_entity")
   return EntityMod.new(self, data)
 end
 
 
+-- Idiomatic facade: client:intensity_list():list() / client:intensity_list():load({ id = ... })
+function CarbonIntensitySDK:intensity_list(data)
+  local EntityMod = require("entity.intensity_list_entity")
+  if data == nil then
+    if self._intensity_list == nil then
+      self._intensity_list = EntityMod.new(self, nil)
+    end
+    return self._intensity_list
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:intensity_list() instead.
 function CarbonIntensitySDK:IntensityList(data)
   local EntityMod = require("entity.intensity_list_entity")
   return EntityMod.new(self, data)
 end
 
 
+-- Idiomatic facade: client:regional():list() / client:regional():load({ id = ... })
+function CarbonIntensitySDK:regional(data)
+  local EntityMod = require("entity.regional_entity")
+  if data == nil then
+    if self._regional == nil then
+      self._regional = EntityMod.new(self, nil)
+    end
+    return self._regional
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:regional() instead.
 function CarbonIntensitySDK:Regional(data)
   local EntityMod = require("entity.regional_entity")
   return EntityMod.new(self, data)
 end
 
 
+-- Idiomatic facade: client:regional_intensity():list() / client:regional_intensity():load({ id = ... })
+function CarbonIntensitySDK:regional_intensity(data)
+  local EntityMod = require("entity.regional_intensity_entity")
+  if data == nil then
+    if self._regional_intensity == nil then
+      self._regional_intensity = EntityMod.new(self, nil)
+    end
+    return self._regional_intensity
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:regional_intensity() instead.
 function CarbonIntensitySDK:RegionalIntensity(data)
   local EntityMod = require("entity.regional_intensity_entity")
   return EntityMod.new(self, data)
 end
 
 
+-- Idiomatic facade: client:regional_intensity_list():list() / client:regional_intensity_list():load({ id = ... })
+function CarbonIntensitySDK:regional_intensity_list(data)
+  local EntityMod = require("entity.regional_intensity_list_entity")
+  if data == nil then
+    if self._regional_intensity_list == nil then
+      self._regional_intensity_list = EntityMod.new(self, nil)
+    end
+    return self._regional_intensity_list
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:regional_intensity_list() instead.
 function CarbonIntensitySDK:RegionalIntensityList(data)
   local EntityMod = require("entity.regional_intensity_list_entity")
   return EntityMod.new(self, data)
 end
 
 
+-- Idiomatic facade: client:stat():list() / client:stat():load({ id = ... })
+function CarbonIntensitySDK:stat(data)
+  local EntityMod = require("entity.stat_entity")
+  if data == nil then
+    if self._stat == nil then
+      self._stat = EntityMod.new(self, nil)
+    end
+    return self._stat
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:stat() instead.
 function CarbonIntensitySDK:Stat(data)
   local EntityMod = require("entity.stat_entity")
   return EntityMod.new(self, data)

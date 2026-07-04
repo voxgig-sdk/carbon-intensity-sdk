@@ -33,7 +33,7 @@ class IntensityListDirectTest < Minitest::Test
       params["from"] = "direct01"
     end
 
-    result, err = client.direct({
+    result = client.direct({
       "path" => "intensity/{from}/fw24h",
       "method" => "GET",
       "params" => params,
@@ -42,8 +42,8 @@ class IntensityListDirectTest < Minitest::Test
       # Live mode is lenient: synthetic IDs frequently 4xx and the list-
       # response shape varies wildly across public APIs. Skip rather than
       # fail when the call doesn't return a usable list.
-      if !err.nil?
-        skip("list call failed (likely synthetic IDs against live API): #{err}")
+      if !result["err"].nil?
+        skip("list call failed (likely synthetic IDs against live API): #{result["err"]}")
         return
       end
       unless result["ok"]
@@ -56,7 +56,7 @@ class IntensityListDirectTest < Minitest::Test
         return
       end
     else
-      assert_nil err
+      assert_nil result["err"]
       assert result["ok"]
       assert_equal 200, Helpers.to_int(result["status"])
       assert result["data"].is_a?(Array)
@@ -84,7 +84,7 @@ class IntensityListDirectTest < Minitest::Test
       params["date"] = "direct01"
     end
 
-    result, err = client.direct({
+    result = client.direct({
       "path" => "intensity/date/{date}",
       "method" => "GET",
       "params" => params,
@@ -94,8 +94,8 @@ class IntensityListDirectTest < Minitest::Test
       # Live mode is lenient: synthetic IDs frequently 4xx. Skip rather
       # than fail when the load endpoint isn't reachable with the IDs
       # we can construct from setup.idmap.
-      if !err.nil?
-        skip("load call failed (likely synthetic IDs against live API): #{err}")
+      if !result["err"].nil?
+        skip("load call failed (likely synthetic IDs against live API): #{result["err"]}")
         return
       end
       unless result["ok"]
@@ -108,7 +108,7 @@ class IntensityListDirectTest < Minitest::Test
         return
       end
     else
-      assert_nil err
+      assert_nil result["err"]
       assert result["ok"]
       assert_equal 200, Helpers.to_int(result["status"])
       assert !result["data"].nil?
@@ -130,14 +130,12 @@ def intensity_list_direct_setup(mockres)
   env = Runner.env_override({
     "CARBONINTENSITY_TEST_INTENSITY_LIST_ENTID" => {},
     "CARBONINTENSITY_TEST_LIVE" => "FALSE",
-    "CARBONINTENSITY_APIKEY" => "NONE",
   })
 
   live = env["CARBONINTENSITY_TEST_LIVE"] == "TRUE"
 
   if live
     merged_opts = {
-      "apikey" => env["CARBONINTENSITY_APIKEY"],
     }
     client = CarbonIntensitySDK.new(merged_opts)
     return {

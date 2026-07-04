@@ -55,6 +55,9 @@ class RegionalIntensityEntity
         return new RegionalIntensityEntity($this->_client, $opts);
     }
 
+    /**
+     * @param RegionalIntensity|array $args RegionalIntensity data (assoc-array) to store.
+     */
     public function data_set($args): void
     {
         if ($args) {
@@ -63,12 +66,18 @@ class RegionalIntensityEntity
         }
     }
 
+    /**
+     * @return RegionalIntensity|array The current RegionalIntensity data as an assoc-array.
+     */
     public function data_get()
     {
         ($this->_utility->feature_hook)($this->_entctx, "GetData");
         return Struct::clone($this->_data);
     }
 
+    /**
+     * @param array $args Match filter (any subset of RegionalIntensity fields).
+     */
     public function match_set($args): void
     {
         if ($args) {
@@ -77,6 +86,9 @@ class RegionalIntensityEntity
         }
     }
 
+    /**
+     * @return array The current match filter (any subset of RegionalIntensity fields).
+     */
     public function match_get()
     {
         ($this->_utility->feature_hook)($this->_entctx, "GetMatch");
@@ -84,7 +96,16 @@ class RegionalIntensityEntity
     }
 
     
-    public function load($reqmatch, $ctrl = null): array
+    /**
+     * Load a single RegionalIntensity.
+     *
+     * @param RegionalIntensityLoadMatch|array|null $reqmatch Match criteria (id/query
+     *   fields) as an assoc-array; a typed RegionalIntensityLoadMatch names the shape.
+     * @param mixed $ctrl Optional per-call control overrides.
+     * @return RegionalIntensity|array The loaded RegionalIntensity as an assoc-array at the
+     *   SDK boundary; throws CarbonIntensityError on failure (item-5 convention).
+     */
+    public function load(?array $reqmatch = null, $ctrl = null): mixed
     {
         $utility = $this->_utility;
         $ctx = ($utility->make_context)([
@@ -110,7 +131,16 @@ class RegionalIntensityEntity
 
 
     
-    public function list($reqmatch, $ctrl = null): array
+    /**
+     * List RegionalIntensity items matching the given filter.
+     *
+     * @param RegionalIntensityListMatch|array|null $reqmatch Match filter (any subset
+     *   of RegionalIntensity fields) as an assoc-array; RegionalIntensityListMatch names the shape.
+     * @param mixed $ctrl Optional per-call control overrides.
+     * @return RegionalIntensity[]|array A list of RegionalIntensity items as assoc-arrays at
+     *   the SDK boundary; throws CarbonIntensityError on failure (item-5 convention).
+     */
+    public function list(?array $reqmatch = null, $ctrl = null): mixed
     {
         $utility = $this->_utility;
         $ctx = ($utility->make_context)([
@@ -138,7 +168,7 @@ class RegionalIntensityEntity
 
     
 
-    private function _run_op($ctx, callable $post_done): array
+    private function _run_op($ctx, callable $post_done): mixed
     {
         $utility = $this->_utility;
 

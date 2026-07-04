@@ -18,7 +18,6 @@ Create a new SDK client instance.
 | Name | Type | Description |
 | --- | --- | --- |
 | `options` | `object` | SDK configuration options. |
-| `options.apikey` | `string` | API key for authentication. |
 | `options.base` | `string` | Base URL for API requests. |
 | `options.prefix` | `string` | URL prefix appended after base. |
 | `options.suffix` | `string` | URL suffix appended after path. |
@@ -206,7 +205,7 @@ Alias for `CarbonIntensitySDK.test()`.
 ## GenerationEntity
 
 ```ts
-const generation = client.Generation()
+const generation = client.generation
 ```
 
 ### Fields
@@ -224,7 +223,7 @@ const generation = client.Generation()
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.Generation().list()
+const results = await client.generation.list()
 ```
 
 ### Common Methods
@@ -258,7 +257,7 @@ Return a copy of the entity options.
 ## GenerationListEntity
 
 ```ts
-const generation_list = client.GenerationList()
+const generation_list = client.generation_list
 ```
 
 ### Fields
@@ -276,7 +275,7 @@ const generation_list = client.GenerationList()
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.GenerationList().list()
+const results = await client.generation_list.list()
 ```
 
 ### Common Methods
@@ -310,7 +309,7 @@ Return a copy of the entity options.
 ## IntensityEntity
 
 ```ts
-const intensity = client.Intensity()
+const intensity = client.intensity
 ```
 
 ### Fields
@@ -329,7 +328,7 @@ const intensity = client.Intensity()
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.Intensity().list()
+const results = await client.intensity.list()
 ```
 
 #### `load(match: object, ctrl?: object)`
@@ -337,7 +336,7 @@ const results = await client.Intensity().list()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.Intensity().load({ id: 'intensity_id' })
+const result = await client.intensity.load({ id: 'intensity_id' })
 ```
 
 ### Common Methods
@@ -371,7 +370,7 @@ Return a copy of the entity options.
 ## IntensityFactorEntity
 
 ```ts
-const intensity_factor = client.IntensityFactor()
+const intensity_factor = client.intensity_factor
 ```
 
 ### Fields
@@ -400,7 +399,7 @@ const intensity_factor = client.IntensityFactor()
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.IntensityFactor().list()
+const results = await client.intensity_factor.list()
 ```
 
 ### Common Methods
@@ -434,7 +433,7 @@ Return a copy of the entity options.
 ## IntensityListEntity
 
 ```ts
-const intensity_list = client.IntensityList()
+const intensity_list = client.intensity_list
 ```
 
 ### Fields
@@ -453,7 +452,7 @@ const intensity_list = client.IntensityList()
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.IntensityList().list()
+const results = await client.intensity_list.list()
 ```
 
 #### `load(match: object, ctrl?: object)`
@@ -461,7 +460,7 @@ const results = await client.IntensityList().list()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.IntensityList().load({ id: 'intensity_list_id' })
+const result = await client.intensity_list.load({ id: 'intensity_list_id' })
 ```
 
 ### Common Methods
@@ -495,7 +494,7 @@ Return a copy of the entity options.
 ## RegionalEntity
 
 ```ts
-const regional = client.Regional()
+const regional = client.regional
 ```
 
 ### Fields
@@ -515,7 +514,7 @@ const regional = client.Regional()
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.Regional().list()
+const results = await client.regional.list()
 ```
 
 ### Common Methods
@@ -549,7 +548,7 @@ Return a copy of the entity options.
 ## RegionalIntensityEntity
 
 ```ts
-const regional_intensity = client.RegionalIntensity()
+const regional_intensity = client.regional_intensity
 ```
 
 ### Fields
@@ -569,7 +568,7 @@ const regional_intensity = client.RegionalIntensity()
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.RegionalIntensity().list()
+const results = await client.regional_intensity.list()
 ```
 
 #### `load(match: object, ctrl?: object)`
@@ -577,7 +576,7 @@ const results = await client.RegionalIntensity().list()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.RegionalIntensity().load({ id: 'regional_intensity_id' })
+const result = await client.regional_intensity.load({ id: 'regional_intensity_id' })
 ```
 
 ### Common Methods
@@ -611,7 +610,7 @@ Return a copy of the entity options.
 ## RegionalIntensityListEntity
 
 ```ts
-const regional_intensity_list = client.RegionalIntensityList()
+const regional_intensity_list = client.regional_intensity_list
 ```
 
 ### Fields
@@ -631,7 +630,7 @@ const regional_intensity_list = client.RegionalIntensityList()
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.RegionalIntensityList().list()
+const results = await client.regional_intensity_list.list()
 ```
 
 #### `load(match: object, ctrl?: object)`
@@ -639,7 +638,7 @@ const results = await client.RegionalIntensityList().list()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.RegionalIntensityList().load({ id: 'regional_intensity_list_id' })
+const result = await client.regional_intensity_list.load({ id: 'regional_intensity_list_id' })
 ```
 
 ### Common Methods
@@ -673,7 +672,7 @@ Return a copy of the entity options.
 ## StatEntity
 
 ```ts
-const stat = client.Stat()
+const stat = client.stat
 ```
 
 ### Fields
@@ -691,7 +690,7 @@ const stat = client.Stat()
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.Stat().list()
+const results = await client.stat.list()
 ```
 
 ### Common Methods

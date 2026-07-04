@@ -13,6 +13,9 @@ require_relative 'config'
 require_relative 'feature/base_feature'
 require_relative 'features'
 
+# Load typed models (Struct value objects).
+require_relative 'CarbonIntensity_types'
+
 
 class CarbonIntensitySDK
   attr_accessor :mode, :features, :options
@@ -131,7 +134,7 @@ class CarbonIntensitySDK
     end
 
     _, err = utility.prepare_auth.call(ctx)
-    return nil, err if err
+    raise err if err
 
     utility.make_fetch_def.call(ctx)
   end
@@ -139,8 +142,14 @@ class CarbonIntensitySDK
   def direct(fetchargs = {})
     utility = @_utility
 
-    fetchdef, err = prepare(fetchargs)
-    return { "ok" => false, "err" => err }, nil if err
+    # direct() is the raw-HTTP escape hatch: it always returns a result hash
+    # ({ "ok" => ..., ... }) and never raises. prepare() raises on error, so
+    # trap that and surface it in the hash.
+    begin
+      fetchdef = prepare(fetchargs)
+    rescue CarbonIntensityError => err
+      return { "ok" => false, "err" => err }
+    end
 
     fetchargs ||= {}
     ctrl = CarbonIntensityHelpers.to_map(VoxgigStruct.getprop(fetchargs, "ctrl")) || {}
@@ -153,13 +162,13 @@ class CarbonIntensitySDK
     url = fetchdef["url"] || ""
     fetched, fetch_err = utility.fetcher.call(ctx, url, fetchdef)
 
-    return { "ok" => false, "err" => fetch_err }, nil if fetch_err
+    return { "ok" => false, "err" => fetch_err } if fetch_err
 
     if fetched.nil?
       return {
         "ok" => false,
         "err" => ctx.make_error("direct_no_response", "response: undefined"),
-      }, nil
+      }
     end
 
     if fetched.is_a?(Hash)
@@ -189,64 +198,127 @@ class CarbonIntensitySDK
         "status" => status,
         "headers" => headers,
         "data" => json_data,
-      }, nil
+      }
     end
 
     return {
       "ok" => false,
       "err" => ctx.make_error("direct_invalid", "invalid response type"),
-    }, nil
+    }
   end
 
 
+  # Idiomatic facade: client.generation.list / client.generation.load({ "id" => ... })
+  def generation
+    require_relative 'entity/generation_entity'
+    @generation ||= GenerationEntity.new(self, nil)
+  end
+
+  # Deprecated: use client.generation instead.
   def Generation(data = nil)
     require_relative 'entity/generation_entity'
     GenerationEntity.new(self, data)
   end
 
 
+  # Idiomatic facade: client.generation_list.list / client.generation_list.load({ "id" => ... })
+  def generation_list
+    require_relative 'entity/generation_list_entity'
+    @generation_list ||= GenerationListEntity.new(self, nil)
+  end
+
+  # Deprecated: use client.generation_list instead.
   def GenerationList(data = nil)
     require_relative 'entity/generation_list_entity'
     GenerationListEntity.new(self, data)
   end
 
 
+  # Idiomatic facade: client.intensity.list / client.intensity.load({ "id" => ... })
+  def intensity
+    require_relative 'entity/intensity_entity'
+    @intensity ||= IntensityEntity.new(self, nil)
+  end
+
+  # Deprecated: use client.intensity instead.
   def Intensity(data = nil)
     require_relative 'entity/intensity_entity'
     IntensityEntity.new(self, data)
   end
 
 
+  # Idiomatic facade: client.intensity_factor.list / client.intensity_factor.load({ "id" => ... })
+  def intensity_factor
+    require_relative 'entity/intensity_factor_entity'
+    @intensity_factor ||= IntensityFactorEntity.new(self, nil)
+  end
+
+  # Deprecated: use client.intensity_factor instead.
   def IntensityFactor(data = nil)
     require_relative 'entity/intensity_factor_entity'
     IntensityFactorEntity.new(self, data)
   end
 
 
+  # Idiomatic facade: client.intensity_list.list / client.intensity_list.load({ "id" => ... })
+  def intensity_list
+    require_relative 'entity/intensity_list_entity'
+    @intensity_list ||= IntensityListEntity.new(self, nil)
+  end
+
+  # Deprecated: use client.intensity_list instead.
   def IntensityList(data = nil)
     require_relative 'entity/intensity_list_entity'
     IntensityListEntity.new(self, data)
   end
 
 
+  # Idiomatic facade: client.regional.list / client.regional.load({ "id" => ... })
+  def regional
+    require_relative 'entity/regional_entity'
+    @regional ||= RegionalEntity.new(self, nil)
+  end
+
+  # Deprecated: use client.regional instead.
   def Regional(data = nil)
     require_relative 'entity/regional_entity'
     RegionalEntity.new(self, data)
   end
 
 
+  # Idiomatic facade: client.regional_intensity.list / client.regional_intensity.load({ "id" => ... })
+  def regional_intensity
+    require_relative 'entity/regional_intensity_entity'
+    @regional_intensity ||= RegionalIntensityEntity.new(self, nil)
+  end
+
+  # Deprecated: use client.regional_intensity instead.
   def RegionalIntensity(data = nil)
     require_relative 'entity/regional_intensity_entity'
     RegionalIntensityEntity.new(self, data)
   end
 
 
+  # Idiomatic facade: client.regional_intensity_list.list / client.regional_intensity_list.load({ "id" => ... })
+  def regional_intensity_list
+    require_relative 'entity/regional_intensity_list_entity'
+    @regional_intensity_list ||= RegionalIntensityListEntity.new(self, nil)
+  end
+
+  # Deprecated: use client.regional_intensity_list instead.
   def RegionalIntensityList(data = nil)
     require_relative 'entity/regional_intensity_list_entity'
     RegionalIntensityListEntity.new(self, data)
   end
 
 
+  # Idiomatic facade: client.stat.list / client.stat.load({ "id" => ... })
+  def stat
+    require_relative 'entity/stat_entity'
+    @stat ||= StatEntity.new(self, nil)
+  end
+
+  # Deprecated: use client.stat instead.
   def Stat(data = nil)
     require_relative 'entity/stat_entity'
     StatEntity.new(self, data)

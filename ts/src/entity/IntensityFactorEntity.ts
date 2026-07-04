@@ -14,9 +14,13 @@ import type {
   Control,
 } from '../types'
 
+import type {
+  IntensityFactor,
+  IntensityFactorListMatch,
+} from '../CarbonIntensityTypes'
 
 // TODO: needs Entity superclass
-class IntensityFactorEntity extends CarbonIntensityEntityBase {
+class IntensityFactorEntity extends CarbonIntensityEntityBase<IntensityFactor> {
 
   constructor(client: CarbonIntensitySDK, entopts: any) {
     super(client, entopts)
@@ -33,7 +37,7 @@ class IntensityFactorEntity extends CarbonIntensityEntityBase {
 
 
 
-  async list(this: any, reqmatch?: any, ctrl?: Control) {
+  async list(this: any, reqmatch?: IntensityFactorListMatch, ctrl?: Control): Promise<IntensityFactor[]> {
 
     const utility = this._utility
 
@@ -133,7 +137,9 @@ class IntensityFactorEntity extends CarbonIntensityEntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<IntensityFactor[]> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }

@@ -85,6 +85,27 @@ func (e *RegionalIntensityEntity) Match(args ...any) any {
 	return out
 }
 
+// DataTyped is the statically-typed accessor for this entity's data. With no
+// argument it returns the current data as an RegionalIntensity; with an argument it
+// sets the data and returns the stored value. It delegates to the untyped Data
+// (identical runtime) and converts at the typed boundary.
+func (e *RegionalIntensityEntity) DataTyped(data ...RegionalIntensity) RegionalIntensity {
+	if len(data) > 0 {
+		return typedFrom[RegionalIntensity](e.Data(asMap(data[0])))
+	}
+	return typedFrom[RegionalIntensity](e.Data())
+}
+
+// MatchTyped mirrors DataTyped for the entity's match filter. The match is a
+// partial of the entity, so it round-trips through RegionalIntensity (all fields
+// optional at the wire level).
+func (e *RegionalIntensityEntity) MatchTyped(match ...RegionalIntensity) RegionalIntensity {
+	if len(match) > 0 {
+		return typedFrom[RegionalIntensity](e.Match(asMap(match[0])))
+	}
+	return typedFrom[RegionalIntensity](e.Match())
+}
+
 
 func (e *RegionalIntensityEntity) Load(reqmatch map[string]any, ctrl map[string]any) (any, error) {
 	utility := e.utility
@@ -111,6 +132,17 @@ func (e *RegionalIntensityEntity) Load(reqmatch map[string]any, ctrl map[string]
 	})
 }
 
+// LoadTyped is the statically-typed variant of Load: it takes an
+// RegionalIntensityLoadMatch and returns an RegionalIntensity. It delegates to the untyped
+// Load (identical runtime) and converts at the typed boundary.
+func (e *RegionalIntensityEntity) LoadTyped(reqmatch RegionalIntensityLoadMatch, ctrl map[string]any) (RegionalIntensity, error) {
+	res, err := e.Load(asMap(reqmatch), ctrl)
+	if err != nil {
+		return RegionalIntensity{}, err
+	}
+	return typedFrom[RegionalIntensity](res), nil
+}
+
 
 
 
@@ -131,6 +163,17 @@ func (e *RegionalIntensityEntity) List(reqmatch map[string]any, ctrl map[string]
 			}
 		}
 	})
+}
+
+// ListTyped is the statically-typed variant of List: it takes an
+// RegionalIntensityListMatch and returns []RegionalIntensity. It delegates to the untyped
+// List (identical runtime) and converts at the typed boundary.
+func (e *RegionalIntensityEntity) ListTyped(reqmatch RegionalIntensityListMatch, ctrl map[string]any) ([]RegionalIntensity, error) {
+	res, err := e.List(asMap(reqmatch), ctrl)
+	if err != nil {
+		return nil, err
+	}
+	return typedSliceFrom[RegionalIntensity](res), nil
 }
 
 

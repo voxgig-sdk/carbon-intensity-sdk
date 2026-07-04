@@ -53,8 +53,7 @@ class StatEntityTest extends TestCase
             "to" => $setup["idmap"]["to01"],
         ];
 
-        [$stat_ref01_list_result, $err] = $stat_ref01_ent->list($stat_ref01_match, null);
-        $this->assertNull($err);
+        $stat_ref01_list_result = $stat_ref01_ent->list($stat_ref01_match, null);
         $this->assertIsArray($stat_ref01_list_result);
 
     }
@@ -89,7 +88,6 @@ function stat_basic_setup($extra)
         "CARBONINTENSITY_TEST_STAT_ENTID" => $idmap,
         "CARBONINTENSITY_TEST_LIVE" => "FALSE",
         "CARBONINTENSITY_TEST_EXPLAIN" => "FALSE",
-        "CARBONINTENSITY_APIKEY" => "NONE",
     ]);
 
     $idmap_resolved = Helpers::to_map(
@@ -101,7 +99,6 @@ function stat_basic_setup($extra)
     if ($env["CARBONINTENSITY_TEST_LIVE"] === "TRUE") {
         $merged_opts = Vs::merge([
             [
-                "apikey" => $env["CARBONINTENSITY_APIKEY"],
             ],
             $extra ?? [],
         ]);

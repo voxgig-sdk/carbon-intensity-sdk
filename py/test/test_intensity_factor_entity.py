@@ -50,8 +50,7 @@ class TestIntensityFactorEntity:
         intensity_factor_ref01_ent = client.IntensityFactor(None)
         intensity_factor_ref01_match = {}
 
-        intensity_factor_ref01_list_result, err = intensity_factor_ref01_ent.list(intensity_factor_ref01_match, None)
-        assert err is None
+        intensity_factor_ref01_list_result = intensity_factor_ref01_ent.list(intensity_factor_ref01_match, None)
         assert isinstance(intensity_factor_ref01_list_result, list)
 
 
@@ -92,7 +91,6 @@ def _intensity_factor_basic_setup(extra):
         "CARBONINTENSITY_TEST_INTENSITY_FACTOR_ENTID": idmap,
         "CARBONINTENSITY_TEST_LIVE": "FALSE",
         "CARBONINTENSITY_TEST_EXPLAIN": "FALSE",
-        "CARBONINTENSITY_APIKEY": "NONE",
     })
 
     idmap_resolved = helpers.to_map(
@@ -103,7 +101,6 @@ def _intensity_factor_basic_setup(extra):
     if env.get("CARBONINTENSITY_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
             {
-                "apikey": env.get("CARBONINTENSITY_APIKEY"),
             },
             extra or {},
         ])

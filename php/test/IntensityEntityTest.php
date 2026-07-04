@@ -50,14 +50,12 @@ class IntensityEntityTest extends TestCase
         $intensity_ref01_ent = $client->Intensity(null);
         $intensity_ref01_match = [];
 
-        [$intensity_ref01_list_result, $err] = $intensity_ref01_ent->list($intensity_ref01_match, null);
-        $this->assertNull($err);
+        $intensity_ref01_list_result = $intensity_ref01_ent->list($intensity_ref01_match, null);
         $this->assertIsArray($intensity_ref01_list_result);
 
         // LOAD
         $intensity_ref01_match_dt0 = [];
-        [$intensity_ref01_data_dt0_loaded, $err] = $intensity_ref01_ent->load($intensity_ref01_match_dt0, null);
-        $this->assertNull($err);
+        $intensity_ref01_data_dt0_loaded = $intensity_ref01_ent->load($intensity_ref01_match_dt0, null);
         $this->assertNotNull($intensity_ref01_data_dt0_loaded);
 
     }
@@ -92,7 +90,6 @@ function intensity_basic_setup($extra)
         "CARBONINTENSITY_TEST_INTENSITY_ENTID" => $idmap,
         "CARBONINTENSITY_TEST_LIVE" => "FALSE",
         "CARBONINTENSITY_TEST_EXPLAIN" => "FALSE",
-        "CARBONINTENSITY_APIKEY" => "NONE",
     ]);
 
     $idmap_resolved = Helpers::to_map(
@@ -104,7 +101,6 @@ function intensity_basic_setup($extra)
     if ($env["CARBONINTENSITY_TEST_LIVE"] === "TRUE") {
         $merged_opts = Vs::merge([
             [
-                "apikey" => $env["CARBONINTENSITY_APIKEY"],
             ],
             $extra ?? [],
         ]);

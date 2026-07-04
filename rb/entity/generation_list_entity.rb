@@ -45,6 +45,7 @@ class GenerationListEntity
     end
   end
 
+  # @return [GenerationList, Hash] the current GenerationList data
   def data_get
     @_utility.feature_hook.call(@_entctx, "GetData")
     VoxgigStruct.clone(@_data)
@@ -57,6 +58,7 @@ class GenerationListEntity
     end
   end
 
+  # @return [Hash] the current match filter (any subset of GenerationList fields)
   def match_get
     @_utility.feature_hook.call(@_entctx, "GetMatch")
     VoxgigStruct.clone(@_match)
@@ -65,6 +67,11 @@ class GenerationListEntity
   
 
   
+  # List GenerationList items matching the given filter.
+  #
+  # @param reqmatch [GenerationListListMatch, Hash, nil] match filter (any subset of GenerationList fields)
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [Array<GenerationList>, Array] the matching GenerationList items; raises CarbonIntensityError on failure
   def list(reqmatch, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({

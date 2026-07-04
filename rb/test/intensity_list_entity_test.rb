@@ -43,14 +43,12 @@ class IntensityListEntityTest < Minitest::Test
     intensity_list_ref01_ent = client.IntensityList(nil)
     intensity_list_ref01_match = {}
 
-    intensity_list_ref01_list_result, err = intensity_list_ref01_ent.list(intensity_list_ref01_match, nil)
-    assert_nil err
+    intensity_list_ref01_list_result = intensity_list_ref01_ent.list(intensity_list_ref01_match, nil)
     assert intensity_list_ref01_list_result.is_a?(Array)
 
     # LOAD
     intensity_list_ref01_match_dt0 = {}
-    intensity_list_ref01_data_dt0_loaded, err = intensity_list_ref01_ent.load(intensity_list_ref01_match_dt0, nil)
-    assert_nil err
+    intensity_list_ref01_data_dt0_loaded = intensity_list_ref01_ent.load(intensity_list_ref01_match_dt0, nil)
     assert !intensity_list_ref01_data_dt0_loaded.nil?
 
   end
@@ -89,7 +87,6 @@ def intensity_list_basic_setup(extra)
     "CARBONINTENSITY_TEST_INTENSITY_LIST_ENTID" => idmap,
     "CARBONINTENSITY_TEST_LIVE" => "FALSE",
     "CARBONINTENSITY_TEST_EXPLAIN" => "FALSE",
-    "CARBONINTENSITY_APIKEY" => "NONE",
   })
 
   idmap_resolved = Helpers.to_map(
@@ -101,7 +98,6 @@ def intensity_list_basic_setup(extra)
   if env["CARBONINTENSITY_TEST_LIVE"] == "TRUE"
     merged_opts = Vs.merge([
       {
-        "apikey" => env["CARBONINTENSITY_APIKEY"],
       },
       extra || {},
     ])
