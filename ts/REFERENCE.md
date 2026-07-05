@@ -212,9 +212,9 @@ const generation = client.Generation()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `from` | ``$STRING`` | No |  |
-| `generationmix` | ``$ARRAY`` | No |  |
-| `to` | ``$STRING`` | No |  |
+| `from` | `string` | No |  |
+| `generationmix` | `any[]` | No |  |
+| `to` | `string` | No |  |
 
 ### Operations
 
@@ -264,9 +264,9 @@ const generation_list = client.GenerationList()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `from` | ``$STRING`` | No |  |
-| `generationmix` | ``$ARRAY`` | No |  |
-| `to` | ``$STRING`` | No |  |
+| `from` | `string` | No |  |
+| `generationmix` | `any[]` | No |  |
+| `to` | `string` | No |  |
 
 ### Operations
 
@@ -316,10 +316,10 @@ const intensity = client.Intensity()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `data` | ``$ARRAY`` | No |  |
-| `from` | ``$STRING`` | No |  |
-| `intensity` | ``$OBJECT`` | No |  |
-| `to` | ``$STRING`` | No |  |
+| `data` | `any[]` | No |  |
+| `from` | `string` | No |  |
+| `intensity` | `Record<string, any>` | No |  |
+| `to` | `string` | No |  |
 
 ### Operations
 
@@ -377,20 +377,20 @@ const intensity_factor = client.IntensityFactor()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `biomass` | ``$INTEGER`` | No |  |
-| `coal` | ``$INTEGER`` | No |  |
-| `dutch_import` | ``$INTEGER`` | No |  |
-| `french_import` | ``$INTEGER`` | No |  |
-| `gas__combined_cycle` | ``$INTEGER`` | No |  |
-| `gas__open_cycle` | ``$INTEGER`` | No |  |
-| `hydro` | ``$INTEGER`` | No |  |
-| `irish_import` | ``$INTEGER`` | No |  |
-| `nuclear` | ``$INTEGER`` | No |  |
-| `oil` | ``$INTEGER`` | No |  |
-| `other` | ``$INTEGER`` | No |  |
-| `pumped_storage` | ``$INTEGER`` | No |  |
-| `solar` | ``$INTEGER`` | No |  |
-| `wind` | ``$INTEGER`` | No |  |
+| `biomass` | `number` | No |  |
+| `coal` | `number` | No |  |
+| `dutch_import` | `number` | No |  |
+| `french_import` | `number` | No |  |
+| `gas__combined_cycle` | `number` | No |  |
+| `gas__open_cycle` | `number` | No |  |
+| `hydro` | `number` | No |  |
+| `irish_import` | `number` | No |  |
+| `nuclear` | `number` | No |  |
+| `oil` | `number` | No |  |
+| `other` | `number` | No |  |
+| `pumped_storage` | `number` | No |  |
+| `solar` | `number` | No |  |
+| `wind` | `number` | No |  |
 
 ### Operations
 
@@ -440,10 +440,10 @@ const intensity_list = client.IntensityList()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `data` | ``$ARRAY`` | No |  |
-| `from` | ``$STRING`` | No |  |
-| `intensity` | ``$OBJECT`` | No |  |
-| `to` | ``$STRING`` | No |  |
+| `data` | `any[]` | No |  |
+| `from` | `string` | No |  |
+| `intensity` | `Record<string, any>` | No |  |
+| `to` | `string` | No |  |
 
 ### Operations
 
@@ -460,7 +460,7 @@ const results = await client.IntensityList().list()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.IntensityList().load({ id: 'intensity_list_id' })
+const result = await client.IntensityList().load()
 ```
 
 ### Common Methods
@@ -501,11 +501,11 @@ const regional = client.Regional()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `data` | ``$ARRAY`` | No |  |
-| `dnoregion` | ``$STRING`` | No |  |
-| `postcode` | ``$STRING`` | No |  |
-| `regionid` | ``$INTEGER`` | No |  |
-| `shortname` | ``$STRING`` | No |  |
+| `data` | `any[]` | No |  |
+| `dnoregion` | `string` | No |  |
+| `postcode` | `string` | No |  |
+| `regionid` | `number` | No |  |
+| `shortname` | `string` | No |  |
 
 ### Operations
 
@@ -555,11 +555,11 @@ const regional_intensity = client.RegionalIntensity()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `data` | ``$ARRAY`` | No |  |
-| `dnoregion` | ``$STRING`` | No |  |
-| `postcode` | ``$STRING`` | No |  |
-| `regionid` | ``$INTEGER`` | No |  |
-| `shortname` | ``$STRING`` | No |  |
+| `data` | `any[]` | No |  |
+| `dnoregion` | `string` | No |  |
+| `postcode` | `string` | No |  |
+| `regionid` | `number` | No |  |
+| `shortname` | `string` | No |  |
 
 ### Operations
 
@@ -576,7 +576,7 @@ const results = await client.RegionalIntensity().list()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.RegionalIntensity().load({ id: 'regional_intensity_id' })
+const result = await client.RegionalIntensity().load()
 ```
 
 ### Common Methods
@@ -617,11 +617,11 @@ const regional_intensity_list = client.RegionalIntensityList()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `data` | ``$ARRAY`` | No |  |
-| `dnoregion` | ``$STRING`` | No |  |
-| `postcode` | ``$STRING`` | No |  |
-| `regionid` | ``$INTEGER`` | No |  |
-| `shortname` | ``$STRING`` | No |  |
+| `data` | `any[]` | No |  |
+| `dnoregion` | `string` | No |  |
+| `postcode` | `string` | No |  |
+| `regionid` | `number` | No |  |
+| `shortname` | `string` | No |  |
 
 ### Operations
 
@@ -638,7 +638,7 @@ const results = await client.RegionalIntensityList().list()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.RegionalIntensityList().load({ id: 'regional_intensity_list_id' })
+const result = await client.RegionalIntensityList().load()
 ```
 
 ### Common Methods
@@ -679,9 +679,9 @@ const stat = client.Stat()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `from` | ``$STRING`` | No |  |
-| `intensity` | ``$OBJECT`` | No |  |
-| `to` | ``$STRING`` | No |  |
+| `from` | `string` | No |  |
+| `intensity` | `Record<string, any>` | No |  |
+| `to` | `string` | No |  |
 
 ### Operations
 

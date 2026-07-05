@@ -65,8 +65,13 @@ class RegionalIntensityListEntity:
         return vs.clone(self._match)
 
     
-    def load(self, reqmatch: RegionalIntensityListLoadMatch, ctrl=None) -> RegionalIntensityList:
+    def load(self, reqmatch=None, ctrl=None) -> RegionalIntensityList:
         utility = self._utility
+        # reqmatch is optional: an entity with no id-like key loads with no
+        # match. Treat None as an empty match so client.RegionalIntensityList().load()
+        # works with no args.
+        if reqmatch is None:
+            reqmatch = {}
         ctx = utility.make_context({
             "opname": "load",
             "ctrl": ctrl,
@@ -87,8 +92,12 @@ class RegionalIntensityListEntity:
 
 
     
-    def list(self, reqmatch: RegionalIntensityListListMatch, ctrl=None) -> list[RegionalIntensityList]:
+    def list(self, reqmatch=None, ctrl=None) -> list[RegionalIntensityList]:
         utility = self._utility
+        # reqmatch is optional: an omitted match lists all records. Treat None
+        # as an empty match so client.RegionalIntensityList().list() works with no args.
+        if reqmatch is None:
+            reqmatch = {}
         ctx = utility.make_context({
             "opname": "list",
             "ctrl": ctrl,

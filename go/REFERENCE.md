@@ -129,9 +129,9 @@ generation := client.Generation(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `from` | ``$STRING`` | No |  |
-| `generationmix` | ``$ARRAY`` | No |  |
-| `to` | ``$STRING`` | No |  |
+| `from` | `string` | No |  |
+| `generationmix` | `[]any` | No |  |
+| `to` | `string` | No |  |
 
 ### Operations
 
@@ -177,9 +177,9 @@ generation_list := client.GenerationList(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `from` | ``$STRING`` | No |  |
-| `generationmix` | ``$ARRAY`` | No |  |
-| `to` | ``$STRING`` | No |  |
+| `from` | `string` | No |  |
+| `generationmix` | `[]any` | No |  |
+| `to` | `string` | No |  |
 
 ### Operations
 
@@ -225,10 +225,10 @@ intensity := client.Intensity(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `data` | ``$ARRAY`` | No |  |
-| `from` | ``$STRING`` | No |  |
-| `intensity` | ``$OBJECT`` | No |  |
-| `to` | ``$STRING`` | No |  |
+| `data` | `[]any` | No |  |
+| `from` | `string` | No |  |
+| `intensity` | `map[string]any` | No |  |
+| `to` | `string` | No |  |
 
 ### Operations
 
@@ -282,20 +282,20 @@ intensity_factor := client.IntensityFactor(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `biomass` | ``$INTEGER`` | No |  |
-| `coal` | ``$INTEGER`` | No |  |
-| `dutch_import` | ``$INTEGER`` | No |  |
-| `french_import` | ``$INTEGER`` | No |  |
-| `gas__combined_cycle` | ``$INTEGER`` | No |  |
-| `gas__open_cycle` | ``$INTEGER`` | No |  |
-| `hydro` | ``$INTEGER`` | No |  |
-| `irish_import` | ``$INTEGER`` | No |  |
-| `nuclear` | ``$INTEGER`` | No |  |
-| `oil` | ``$INTEGER`` | No |  |
-| `other` | ``$INTEGER`` | No |  |
-| `pumped_storage` | ``$INTEGER`` | No |  |
-| `solar` | ``$INTEGER`` | No |  |
-| `wind` | ``$INTEGER`` | No |  |
+| `biomass` | `int` | No |  |
+| `coal` | `int` | No |  |
+| `dutch_import` | `int` | No |  |
+| `french_import` | `int` | No |  |
+| `gas__combined_cycle` | `int` | No |  |
+| `gas__open_cycle` | `int` | No |  |
+| `hydro` | `int` | No |  |
+| `irish_import` | `int` | No |  |
+| `nuclear` | `int` | No |  |
+| `oil` | `int` | No |  |
+| `other` | `int` | No |  |
+| `pumped_storage` | `int` | No |  |
+| `solar` | `int` | No |  |
+| `wind` | `int` | No |  |
 
 ### Operations
 
@@ -341,10 +341,10 @@ intensity_list := client.IntensityList(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `data` | ``$ARRAY`` | No |  |
-| `from` | ``$STRING`` | No |  |
-| `intensity` | ``$OBJECT`` | No |  |
-| `to` | ``$STRING`` | No |  |
+| `data` | `[]any` | No |  |
+| `from` | `string` | No |  |
+| `intensity` | `map[string]any` | No |  |
+| `to` | `string` | No |  |
 
 ### Operations
 
@@ -361,7 +361,7 @@ results, err := client.IntensityList(nil).List(nil, nil)
 Load a single entity matching the given criteria.
 
 ```go
-result, err := client.IntensityList(nil).Load(map[string]any{"id": "intensity_list_id"}, nil)
+result, err := client.IntensityList(nil).Load(nil, nil)
 ```
 
 ### Common Methods
@@ -398,11 +398,11 @@ regional := client.Regional(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `data` | ``$ARRAY`` | No |  |
-| `dnoregion` | ``$STRING`` | No |  |
-| `postcode` | ``$STRING`` | No |  |
-| `regionid` | ``$INTEGER`` | No |  |
-| `shortname` | ``$STRING`` | No |  |
+| `data` | `[]any` | No |  |
+| `dnoregion` | `string` | No |  |
+| `postcode` | `string` | No |  |
+| `regionid` | `int` | No |  |
+| `shortname` | `string` | No |  |
 
 ### Operations
 
@@ -448,11 +448,11 @@ regional_intensity := client.RegionalIntensity(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `data` | ``$ARRAY`` | No |  |
-| `dnoregion` | ``$STRING`` | No |  |
-| `postcode` | ``$STRING`` | No |  |
-| `regionid` | ``$INTEGER`` | No |  |
-| `shortname` | ``$STRING`` | No |  |
+| `data` | `[]any` | No |  |
+| `dnoregion` | `string` | No |  |
+| `postcode` | `string` | No |  |
+| `regionid` | `int` | No |  |
+| `shortname` | `string` | No |  |
 
 ### Operations
 
@@ -469,7 +469,7 @@ results, err := client.RegionalIntensity(nil).List(nil, nil)
 Load a single entity matching the given criteria.
 
 ```go
-result, err := client.RegionalIntensity(nil).Load(map[string]any{"id": "regional_intensity_id"}, nil)
+result, err := client.RegionalIntensity(nil).Load(nil, nil)
 ```
 
 ### Common Methods
@@ -506,11 +506,11 @@ regional_intensity_list := client.RegionalIntensityList(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `data` | ``$ARRAY`` | No |  |
-| `dnoregion` | ``$STRING`` | No |  |
-| `postcode` | ``$STRING`` | No |  |
-| `regionid` | ``$INTEGER`` | No |  |
-| `shortname` | ``$STRING`` | No |  |
+| `data` | `[]any` | No |  |
+| `dnoregion` | `string` | No |  |
+| `postcode` | `string` | No |  |
+| `regionid` | `int` | No |  |
+| `shortname` | `string` | No |  |
 
 ### Operations
 
@@ -527,7 +527,7 @@ results, err := client.RegionalIntensityList(nil).List(nil, nil)
 Load a single entity matching the given criteria.
 
 ```go
-result, err := client.RegionalIntensityList(nil).Load(map[string]any{"id": "regional_intensity_list_id"}, nil)
+result, err := client.RegionalIntensityList(nil).Load(nil, nil)
 ```
 
 ### Common Methods
@@ -564,9 +564,9 @@ stat := client.Stat(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `from` | ``$STRING`` | No |  |
-| `intensity` | ``$OBJECT`` | No |  |
-| `to` | ``$STRING`` | No |  |
+| `from` | `string` | No |  |
+| `intensity` | `map[string]any` | No |  |
+| `to` | `string` | No |  |
 
 ### Operations
 

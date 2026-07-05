@@ -176,7 +176,7 @@ IntensityFactor = Struct.new(
   keyword_init: true
 )
 
-# Match filter for IntensityFactor#list (any subset of IntensityFactor fields).
+# Request payload for IntensityFactor#list.
 #
 # @!attribute [rw] biomass
 #   @return [Integer, nil]
@@ -301,7 +301,7 @@ Regional = Struct.new(
   keyword_init: true
 )
 
-# Match filter for Regional#list (any subset of Regional fields).
+# Request payload for Regional#list.
 #
 # @!attribute [rw] data
 #   @return [Array, nil]
@@ -364,7 +364,7 @@ RegionalIntensityLoadMatch = Struct.new(
   keyword_init: true
 )
 
-# Match filter for RegionalIntensity#list (any subset of RegionalIntensity fields).
+# Request payload for RegionalIntensity#list.
 #
 # @!attribute [rw] data
 #   @return [Array, nil]

@@ -8,7 +8,7 @@ Complete API reference for the CarbonIntensity Python SDK.
 ### Constructor
 
 ```python
-from carbon-intensity_sdk import CarbonIntensitySDK
+from carbonintensity_sdk import CarbonIntensitySDK
 
 client = CarbonIntensitySDK(options)
 ```
@@ -119,18 +119,18 @@ generation = client.Generation()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `from` | ``$STRING`` | No |  |
-| `generationmix` | ``$ARRAY`` | No |  |
-| `to` | ``$STRING`` | No |  |
+| `from` | `str` | No |  |
+| `generationmix` | `list` | No |  |
+| `to` | `str` | No |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl=None) -> list`
+#### `list(reqmatch=None, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns a list and raises on error.
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.Generation().list({})
+results = client.Generation().list()
 for generation in results:
     print(generation)
 ```
@@ -174,18 +174,18 @@ generation_list = client.GenerationList()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `from` | ``$STRING`` | No |  |
-| `generationmix` | ``$ARRAY`` | No |  |
-| `to` | ``$STRING`` | No |  |
+| `from` | `str` | No |  |
+| `generationmix` | `list` | No |  |
+| `to` | `str` | No |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl=None) -> list`
+#### `list(reqmatch=None, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns a list and raises on error.
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.GenerationList().list({})
+results = client.GenerationList().list()
 for generation_list in results:
     print(generation_list)
 ```
@@ -229,19 +229,19 @@ intensity = client.Intensity()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `data` | ``$ARRAY`` | No |  |
-| `from` | ``$STRING`` | No |  |
-| `intensity` | ``$OBJECT`` | No |  |
-| `to` | ``$STRING`` | No |  |
+| `data` | `list` | No |  |
+| `from` | `str` | No |  |
+| `intensity` | `dict` | No |  |
+| `to` | `str` | No |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl=None) -> list`
+#### `list(reqmatch=None, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns a list and raises on error.
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.Intensity().list({})
+results = client.Intensity().list()
 for intensity in results:
     print(intensity)
 ```
@@ -293,29 +293,29 @@ intensity_factor = client.IntensityFactor()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `biomass` | ``$INTEGER`` | No |  |
-| `coal` | ``$INTEGER`` | No |  |
-| `dutch_import` | ``$INTEGER`` | No |  |
-| `french_import` | ``$INTEGER`` | No |  |
-| `gas__combined_cycle` | ``$INTEGER`` | No |  |
-| `gas__open_cycle` | ``$INTEGER`` | No |  |
-| `hydro` | ``$INTEGER`` | No |  |
-| `irish_import` | ``$INTEGER`` | No |  |
-| `nuclear` | ``$INTEGER`` | No |  |
-| `oil` | ``$INTEGER`` | No |  |
-| `other` | ``$INTEGER`` | No |  |
-| `pumped_storage` | ``$INTEGER`` | No |  |
-| `solar` | ``$INTEGER`` | No |  |
-| `wind` | ``$INTEGER`` | No |  |
+| `biomass` | `int` | No |  |
+| `coal` | `int` | No |  |
+| `dutch_import` | `int` | No |  |
+| `french_import` | `int` | No |  |
+| `gas__combined_cycle` | `int` | No |  |
+| `gas__open_cycle` | `int` | No |  |
+| `hydro` | `int` | No |  |
+| `irish_import` | `int` | No |  |
+| `nuclear` | `int` | No |  |
+| `oil` | `int` | No |  |
+| `other` | `int` | No |  |
+| `pumped_storage` | `int` | No |  |
+| `solar` | `int` | No |  |
+| `wind` | `int` | No |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl=None) -> list`
+#### `list(reqmatch=None, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns a list and raises on error.
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.IntensityFactor().list({})
+results = client.IntensityFactor().list()
 for intensity_factor in results:
     print(intensity_factor)
 ```
@@ -359,19 +359,19 @@ intensity_list = client.IntensityList()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `data` | ``$ARRAY`` | No |  |
-| `from` | ``$STRING`` | No |  |
-| `intensity` | ``$OBJECT`` | No |  |
-| `to` | ``$STRING`` | No |  |
+| `data` | `list` | No |  |
+| `from` | `str` | No |  |
+| `intensity` | `dict` | No |  |
+| `to` | `str` | No |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl=None) -> list`
+#### `list(reqmatch=None, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns a list and raises on error.
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.IntensityList().list({})
+results = client.IntensityList().list()
 for intensity_list in results:
     print(intensity_list)
 ```
@@ -381,7 +381,7 @@ for intensity_list in results:
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.IntensityList().load({"id": "intensity_list_id"})
+result = client.IntensityList().load()
 ```
 
 ### Common Methods
@@ -423,20 +423,20 @@ regional = client.Regional()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `data` | ``$ARRAY`` | No |  |
-| `dnoregion` | ``$STRING`` | No |  |
-| `postcode` | ``$STRING`` | No |  |
-| `regionid` | ``$INTEGER`` | No |  |
-| `shortname` | ``$STRING`` | No |  |
+| `data` | `list` | No |  |
+| `dnoregion` | `str` | No |  |
+| `postcode` | `str` | No |  |
+| `regionid` | `int` | No |  |
+| `shortname` | `str` | No |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl=None) -> list`
+#### `list(reqmatch=None, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns a list and raises on error.
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.Regional().list({})
+results = client.Regional().list()
 for regional in results:
     print(regional)
 ```
@@ -480,20 +480,20 @@ regional_intensity = client.RegionalIntensity()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `data` | ``$ARRAY`` | No |  |
-| `dnoregion` | ``$STRING`` | No |  |
-| `postcode` | ``$STRING`` | No |  |
-| `regionid` | ``$INTEGER`` | No |  |
-| `shortname` | ``$STRING`` | No |  |
+| `data` | `list` | No |  |
+| `dnoregion` | `str` | No |  |
+| `postcode` | `str` | No |  |
+| `regionid` | `int` | No |  |
+| `shortname` | `str` | No |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl=None) -> list`
+#### `list(reqmatch=None, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns a list and raises on error.
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.RegionalIntensity().list({})
+results = client.RegionalIntensity().list()
 for regional_intensity in results:
     print(regional_intensity)
 ```
@@ -503,7 +503,7 @@ for regional_intensity in results:
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.RegionalIntensity().load({"id": "regional_intensity_id"})
+result = client.RegionalIntensity().load()
 ```
 
 ### Common Methods
@@ -545,20 +545,20 @@ regional_intensity_list = client.RegionalIntensityList()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `data` | ``$ARRAY`` | No |  |
-| `dnoregion` | ``$STRING`` | No |  |
-| `postcode` | ``$STRING`` | No |  |
-| `regionid` | ``$INTEGER`` | No |  |
-| `shortname` | ``$STRING`` | No |  |
+| `data` | `list` | No |  |
+| `dnoregion` | `str` | No |  |
+| `postcode` | `str` | No |  |
+| `regionid` | `int` | No |  |
+| `shortname` | `str` | No |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl=None) -> list`
+#### `list(reqmatch=None, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns a list and raises on error.
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.RegionalIntensityList().list({})
+results = client.RegionalIntensityList().list()
 for regional_intensity_list in results:
     print(regional_intensity_list)
 ```
@@ -568,7 +568,7 @@ for regional_intensity_list in results:
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.RegionalIntensityList().load({"id": "regional_intensity_list_id"})
+result = client.RegionalIntensityList().load()
 ```
 
 ### Common Methods
@@ -610,18 +610,18 @@ stat = client.Stat()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `from` | ``$STRING`` | No |  |
-| `intensity` | ``$OBJECT`` | No |  |
-| `to` | ``$STRING`` | No |  |
+| `from` | `str` | No |  |
+| `intensity` | `dict` | No |  |
+| `to` | `str` | No |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl=None) -> list`
+#### `list(reqmatch=None, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns a list and raises on error.
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.Stat().list({})
+results = client.Stat().list()
 for stat in results:
     print(stat)
 ```

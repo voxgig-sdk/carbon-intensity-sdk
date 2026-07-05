@@ -221,55 +221,55 @@ class CarbonIntensitySDK:
 
 
     def Generation(self, data=None) -> "GenerationEntity":
-        """Entity factory: client.Generation().list({}) / client.Generation().load({"id": ...})."""
+        """Entity factory: client.Generation().list() / client.Generation().load({"id": ...})."""
         from entity.generation_entity import GenerationEntity
         return GenerationEntity(self, data)
 
 
     def GenerationList(self, data=None) -> "GenerationListEntity":
-        """Entity factory: client.GenerationList().list({}) / client.GenerationList().load({"id": ...})."""
+        """Entity factory: client.GenerationList().list() / client.GenerationList().load({"id": ...})."""
         from entity.generation_list_entity import GenerationListEntity
         return GenerationListEntity(self, data)
 
 
     def Intensity(self, data=None) -> "IntensityEntity":
-        """Entity factory: client.Intensity().list({}) / client.Intensity().load({"id": ...})."""
+        """Entity factory: client.Intensity().list() / client.Intensity().load({"id": ...})."""
         from entity.intensity_entity import IntensityEntity
         return IntensityEntity(self, data)
 
 
     def IntensityFactor(self, data=None) -> "IntensityFactorEntity":
-        """Entity factory: client.IntensityFactor().list({}) / client.IntensityFactor().load({"id": ...})."""
+        """Entity factory: client.IntensityFactor().list() / client.IntensityFactor().load({"id": ...})."""
         from entity.intensity_factor_entity import IntensityFactorEntity
         return IntensityFactorEntity(self, data)
 
 
     def IntensityList(self, data=None) -> "IntensityListEntity":
-        """Entity factory: client.IntensityList().list({}) / client.IntensityList().load({"id": ...})."""
+        """Entity factory: client.IntensityList().list() / client.IntensityList().load({"id": ...})."""
         from entity.intensity_list_entity import IntensityListEntity
         return IntensityListEntity(self, data)
 
 
     def Regional(self, data=None) -> "RegionalEntity":
-        """Entity factory: client.Regional().list({}) / client.Regional().load({"id": ...})."""
+        """Entity factory: client.Regional().list() / client.Regional().load({"id": ...})."""
         from entity.regional_entity import RegionalEntity
         return RegionalEntity(self, data)
 
 
     def RegionalIntensity(self, data=None) -> "RegionalIntensityEntity":
-        """Entity factory: client.RegionalIntensity().list({}) / client.RegionalIntensity().load({"id": ...})."""
+        """Entity factory: client.RegionalIntensity().list() / client.RegionalIntensity().load({"id": ...})."""
         from entity.regional_intensity_entity import RegionalIntensityEntity
         return RegionalIntensityEntity(self, data)
 
 
     def RegionalIntensityList(self, data=None) -> "RegionalIntensityListEntity":
-        """Entity factory: client.RegionalIntensityList().list({}) / client.RegionalIntensityList().load({"id": ...})."""
+        """Entity factory: client.RegionalIntensityList().list() / client.RegionalIntensityList().load({"id": ...})."""
         from entity.regional_intensity_list_entity import RegionalIntensityListEntity
         return RegionalIntensityListEntity(self, data)
 
 
     def Stat(self, data=None) -> "StatEntity":
-        """Entity factory: client.Stat().list({}) / client.Stat().load({"id": ...})."""
+        """Entity factory: client.Stat().list() / client.Stat().load({"id": ...})."""
         from entity.stat_entity import StatEntity
         return StatEntity(self, data)
 

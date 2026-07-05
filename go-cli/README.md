@@ -17,8 +17,6 @@ go build -o carbon-intensity-cli ./...
 ```sh
 # One-shot: arguments form a single AQL expression
 ./carbon-intensity-cli list generation
-./carbon-intensity-cli load 1 generation
-./carbon-intensity-cli load '{id:1}' generation
 
 # REPL
 ./carbon-intensity-cli
@@ -30,7 +28,6 @@ go build -o carbon-intensity-cli ./...
 |----------|----------------------------------------------|----------------------------|
 | `list`   | `[entity]` · `[query entity]`                | List records               |
 | `load`   | `[entity]` · `[query entity]`                | Load a single record       |
-| `update` | `[entity]` · `[query entity]`                | Update a record            |
 
 `query` is either a Map (`{id:1}`) or a Scalar (`1`, treated as `{id:1}`).
 `entity` is one of the SDK's entity names (auto-quoted as an atom).

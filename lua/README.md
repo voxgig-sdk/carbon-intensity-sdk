@@ -4,6 +4,8 @@
 
 The Lua SDK for the CarbonIntensity API — an entity-oriented client using Lua conventions.
 
+It exposes the API as capitalised, semantic **Entities** — e.g. `client:Generation()` — each with the same small set of operations (`list`, `load`) instead of raw URL paths and query strings. You call meaning, not endpoints, which keeps the cognitive load low.
+
 > Other languages, the CLI, and MCP server live alongside this one — see
 > the [top-level README](../README.md).
 
@@ -41,8 +43,30 @@ local generations, err = client:Generation():list()
 if err then error(err) end
 
 for _, item in ipairs(generations) do
-  print(item["id"], item["name"])
+  print(item["from"])
 end
+```
+
+
+## Error handling
+
+Entity operations return `(value, err)`. Check `err` before using
+the value:
+
+```lua
+local generations, err = client:Generation():list()
+if err then error(err) end
+```
+
+`direct` follows the same `(value, err)` convention:
+
+```lua
+local result, err = client:direct({
+  path = "/api/resource/{id}",
+  method = "GET",
+  params = { id = "example_id" },
+})
+if err then error(err) end
 ```
 
 
@@ -88,8 +112,8 @@ Create a mock client for unit testing — no server required:
 ```lua
 local client = sdk.test()
 
-local result, err = client:Generation():load({ id = "test01" })
--- result is the loaded data; err is set on failure
+local result, err = client:Generation():list()
+-- result is the returned data; err is set on failure
 ```
 
 ### Use a custom fetch function
@@ -185,9 +209,6 @@ All entities share the same interface.
 | --- | --- | --- |
 | `load` | `(reqmatch, ctrl) -> any, err` | Load a single entity by match criteria. |
 | `list` | `(reqmatch, ctrl) -> any, err` | List entities matching the criteria. |
-| `create` | `(reqdata, ctrl) -> any, err` | Create a new entity. |
-| `update` | `(reqdata, ctrl) -> any, err` | Update an existing entity. |
-| `remove` | `(reqmatch, ctrl) -> any, err` | Remove an entity. |
 | `data_get` | `() -> table` | Get entity data. |
 | `data_set` | `(data)` | Set entity data. |
 | `match_get` | `() -> table` | Get entity match criteria. |
@@ -202,12 +223,12 @@ data **directly** — there is no wrapper:
 
 | Operation | `value` |
 | --- | --- |
-| `load` / `create` / `update` / `remove` | the entity record (a `table`) |
+| `load` | the entity record (a `table`) |
 | `list` | an array (`table`) of entity records |
 
 Check `err` first (it is non-`nil` on failure), then use `value`:
 
-    local generation, err = client:Generation():load({ id = "example_id" })
+    local generation, err = client:Generation():load()
     if err then error(err) end
     -- generation is the loaded record
 
@@ -362,9 +383,9 @@ Create an instance: `local generation = client:Generation(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `from` | ``$STRING`` |  |
-| `generationmix` | ``$ARRAY`` |  |
-| `to` | ``$STRING`` |  |
+| `from` | `string` |  |
+| `generationmix` | `table` |  |
+| `to` | `string` |  |
 
 #### Example: List
 
@@ -387,9 +408,9 @@ Create an instance: `local generation_list = client:GenerationList(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `from` | ``$STRING`` |  |
-| `generationmix` | ``$ARRAY`` |  |
-| `to` | ``$STRING`` |  |
+| `from` | `string` |  |
+| `generationmix` | `table` |  |
+| `to` | `string` |  |
 
 #### Example: List
 
@@ -413,10 +434,10 @@ Create an instance: `local intensity = client:Intensity(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `data` | ``$ARRAY`` |  |
-| `from` | ``$STRING`` |  |
-| `intensity` | ``$OBJECT`` |  |
-| `to` | ``$STRING`` |  |
+| `data` | `table` |  |
+| `from` | `string` |  |
+| `intensity` | `table` |  |
+| `to` | `string` |  |
 
 #### Example: Load
 
@@ -445,20 +466,20 @@ Create an instance: `local intensity_factor = client:IntensityFactor(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `biomass` | ``$INTEGER`` |  |
-| `coal` | ``$INTEGER`` |  |
-| `dutch_import` | ``$INTEGER`` |  |
-| `french_import` | ``$INTEGER`` |  |
-| `gas__combined_cycle` | ``$INTEGER`` |  |
-| `gas__open_cycle` | ``$INTEGER`` |  |
-| `hydro` | ``$INTEGER`` |  |
-| `irish_import` | ``$INTEGER`` |  |
-| `nuclear` | ``$INTEGER`` |  |
-| `oil` | ``$INTEGER`` |  |
-| `other` | ``$INTEGER`` |  |
-| `pumped_storage` | ``$INTEGER`` |  |
-| `solar` | ``$INTEGER`` |  |
-| `wind` | ``$INTEGER`` |  |
+| `biomass` | `number` |  |
+| `coal` | `number` |  |
+| `dutch_import` | `number` |  |
+| `french_import` | `number` |  |
+| `gas__combined_cycle` | `number` |  |
+| `gas__open_cycle` | `number` |  |
+| `hydro` | `number` |  |
+| `irish_import` | `number` |  |
+| `nuclear` | `number` |  |
+| `oil` | `number` |  |
+| `other` | `number` |  |
+| `pumped_storage` | `number` |  |
+| `solar` | `number` |  |
+| `wind` | `number` |  |
 
 #### Example: List
 
@@ -482,15 +503,15 @@ Create an instance: `local intensity_list = client:IntensityList(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `data` | ``$ARRAY`` |  |
-| `from` | ``$STRING`` |  |
-| `intensity` | ``$OBJECT`` |  |
-| `to` | ``$STRING`` |  |
+| `data` | `table` |  |
+| `from` | `string` |  |
+| `intensity` | `table` |  |
+| `to` | `string` |  |
 
 #### Example: Load
 
 ```lua
-local intensity_list, err = client:IntensityList():load({ id = "intensity_list_id" })
+local intensity_list, err = client:IntensityList():load()
 ```
 
 #### Example: List
@@ -514,11 +535,11 @@ Create an instance: `local regional = client:Regional(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `data` | ``$ARRAY`` |  |
-| `dnoregion` | ``$STRING`` |  |
-| `postcode` | ``$STRING`` |  |
-| `regionid` | ``$INTEGER`` |  |
-| `shortname` | ``$STRING`` |  |
+| `data` | `table` |  |
+| `dnoregion` | `string` |  |
+| `postcode` | `string` |  |
+| `regionid` | `number` |  |
+| `shortname` | `string` |  |
 
 #### Example: List
 
@@ -542,16 +563,16 @@ Create an instance: `local regional_intensity = client:RegionalIntensity(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `data` | ``$ARRAY`` |  |
-| `dnoregion` | ``$STRING`` |  |
-| `postcode` | ``$STRING`` |  |
-| `regionid` | ``$INTEGER`` |  |
-| `shortname` | ``$STRING`` |  |
+| `data` | `table` |  |
+| `dnoregion` | `string` |  |
+| `postcode` | `string` |  |
+| `regionid` | `number` |  |
+| `shortname` | `string` |  |
 
 #### Example: Load
 
 ```lua
-local regional_intensity, err = client:RegionalIntensity():load({ id = "regional_intensity_id" })
+local regional_intensity, err = client:RegionalIntensity():load()
 ```
 
 #### Example: List
@@ -576,16 +597,16 @@ Create an instance: `local regional_intensity_list = client:RegionalIntensityLis
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `data` | ``$ARRAY`` |  |
-| `dnoregion` | ``$STRING`` |  |
-| `postcode` | ``$STRING`` |  |
-| `regionid` | ``$INTEGER`` |  |
-| `shortname` | ``$STRING`` |  |
+| `data` | `table` |  |
+| `dnoregion` | `string` |  |
+| `postcode` | `string` |  |
+| `regionid` | `number` |  |
+| `shortname` | `string` |  |
 
 #### Example: Load
 
 ```lua
-local regional_intensity_list, err = client:RegionalIntensityList():load({ id = "regional_intensity_list_id" })
+local regional_intensity_list, err = client:RegionalIntensityList():load()
 ```
 
 #### Example: List
@@ -609,9 +630,9 @@ Create an instance: `local stat = client:Stat(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `from` | ``$STRING`` |  |
-| `intensity` | ``$OBJECT`` |  |
-| `to` | ``$STRING`` |  |
+| `from` | `string` |  |
+| `intensity` | `table` |  |
+| `to` | `string` |  |
 
 #### Example: List
 
@@ -620,12 +641,16 @@ local stats, err = client:Stat():list()
 ```
 
 
-## Explanation
+## Advanced
+
+> The sections above cover everyday use. The material below explains the
+> SDK's internals — useful when extending it with custom features, but not
+> needed for normal use.
 
 ### The operation pipeline
 
-Every entity operation (load, list, create, update, remove) follows a
-six-stage pipeline. Each stage fires a feature hook before executing:
+Every entity operation follows a six-stage pipeline. Each stage fires a
+feature hook before executing:
 
 ```
 PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
@@ -642,8 +667,9 @@ PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
 - **PreDone**: Final stage before returning to the caller. Entity
   state (match, data) is updated here.
 
-If any stage returns an error, the pipeline short-circuits and the
-error is returned to the caller as a second return value.
+If any stage errors, the pipeline short-circuits and the error surfaces
+to the caller — see [Error handling](#error-handling) for how that looks
+in this language.
 
 ### Features and hooks
 
@@ -687,14 +713,14 @@ when needed.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `load`, the entity
+Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```lua
 local generation = client:Generation()
-generation:load({ id = "example_id" })
+generation:list()
 
--- generation:data_get() now returns the loaded generation data
+-- generation:data_get() now returns the generation data from the last list
 -- generation:match_get() returns the last match criteria
 ```
 

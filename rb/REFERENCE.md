@@ -8,7 +8,7 @@ Complete API reference for the CarbonIntensity Ruby SDK.
 ### Constructor
 
 ```ruby
-require_relative 'carbon-intensity_sdk'
+require_relative 'CarbonIntensity_sdk'
 
 client = CarbonIntensitySDK.new(options)
 ```
@@ -125,18 +125,18 @@ generation = client.Generation
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `from` | ``$STRING`` | No |  |
-| `generationmix` | ``$ARRAY`` | No |  |
-| `to` | ``$STRING`` | No |  |
+| `from` | `String` | No |  |
+| `generationmix` | `Array` | No |  |
+| `to` | `String` | No |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl = nil) -> Array`
+#### `list(reqmatch = nil, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array. Raises on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Raises on error.
 
 ```ruby
-results = client.Generation.list(nil)
+results = client.Generation.list
 ```
 
 ### Common Methods
@@ -179,18 +179,18 @@ generation_list = client.GenerationList
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `from` | ``$STRING`` | No |  |
-| `generationmix` | ``$ARRAY`` | No |  |
-| `to` | ``$STRING`` | No |  |
+| `from` | `String` | No |  |
+| `generationmix` | `Array` | No |  |
+| `to` | `String` | No |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl = nil) -> Array`
+#### `list(reqmatch = nil, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array. Raises on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Raises on error.
 
 ```ruby
-results = client.GenerationList.list(nil)
+results = client.GenerationList.list
 ```
 
 ### Common Methods
@@ -233,19 +233,19 @@ intensity = client.Intensity
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `data` | ``$ARRAY`` | No |  |
-| `from` | ``$STRING`` | No |  |
-| `intensity` | ``$OBJECT`` | No |  |
-| `to` | ``$STRING`` | No |  |
+| `data` | `Array` | No |  |
+| `from` | `String` | No |  |
+| `intensity` | `Hash` | No |  |
+| `to` | `String` | No |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl = nil) -> Array`
+#### `list(reqmatch = nil, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array. Raises on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Raises on error.
 
 ```ruby
-results = client.Intensity.list(nil)
+results = client.Intensity.list
 ```
 
 #### `load(reqmatch, ctrl = nil) -> result`
@@ -296,29 +296,29 @@ intensity_factor = client.IntensityFactor
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `biomass` | ``$INTEGER`` | No |  |
-| `coal` | ``$INTEGER`` | No |  |
-| `dutch_import` | ``$INTEGER`` | No |  |
-| `french_import` | ``$INTEGER`` | No |  |
-| `gas__combined_cycle` | ``$INTEGER`` | No |  |
-| `gas__open_cycle` | ``$INTEGER`` | No |  |
-| `hydro` | ``$INTEGER`` | No |  |
-| `irish_import` | ``$INTEGER`` | No |  |
-| `nuclear` | ``$INTEGER`` | No |  |
-| `oil` | ``$INTEGER`` | No |  |
-| `other` | ``$INTEGER`` | No |  |
-| `pumped_storage` | ``$INTEGER`` | No |  |
-| `solar` | ``$INTEGER`` | No |  |
-| `wind` | ``$INTEGER`` | No |  |
+| `biomass` | `Integer` | No |  |
+| `coal` | `Integer` | No |  |
+| `dutch_import` | `Integer` | No |  |
+| `french_import` | `Integer` | No |  |
+| `gas__combined_cycle` | `Integer` | No |  |
+| `gas__open_cycle` | `Integer` | No |  |
+| `hydro` | `Integer` | No |  |
+| `irish_import` | `Integer` | No |  |
+| `nuclear` | `Integer` | No |  |
+| `oil` | `Integer` | No |  |
+| `other` | `Integer` | No |  |
+| `pumped_storage` | `Integer` | No |  |
+| `solar` | `Integer` | No |  |
+| `wind` | `Integer` | No |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl = nil) -> Array`
+#### `list(reqmatch = nil, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array. Raises on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Raises on error.
 
 ```ruby
-results = client.IntensityFactor.list(nil)
+results = client.IntensityFactor.list
 ```
 
 ### Common Methods
@@ -361,19 +361,19 @@ intensity_list = client.IntensityList
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `data` | ``$ARRAY`` | No |  |
-| `from` | ``$STRING`` | No |  |
-| `intensity` | ``$OBJECT`` | No |  |
-| `to` | ``$STRING`` | No |  |
+| `data` | `Array` | No |  |
+| `from` | `String` | No |  |
+| `intensity` | `Hash` | No |  |
+| `to` | `String` | No |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl = nil) -> Array`
+#### `list(reqmatch = nil, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array. Raises on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Raises on error.
 
 ```ruby
-results = client.IntensityList.list(nil)
+results = client.IntensityList.list
 ```
 
 #### `load(reqmatch, ctrl = nil) -> result`
@@ -381,7 +381,7 @@ results = client.IntensityList.list(nil)
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.IntensityList.load({ "id" => "intensity_list_id" })
+result = client.IntensityList.load()
 ```
 
 ### Common Methods
@@ -424,20 +424,20 @@ regional = client.Regional
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `data` | ``$ARRAY`` | No |  |
-| `dnoregion` | ``$STRING`` | No |  |
-| `postcode` | ``$STRING`` | No |  |
-| `regionid` | ``$INTEGER`` | No |  |
-| `shortname` | ``$STRING`` | No |  |
+| `data` | `Array` | No |  |
+| `dnoregion` | `String` | No |  |
+| `postcode` | `String` | No |  |
+| `regionid` | `Integer` | No |  |
+| `shortname` | `String` | No |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl = nil) -> Array`
+#### `list(reqmatch = nil, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array. Raises on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Raises on error.
 
 ```ruby
-results = client.Regional.list(nil)
+results = client.Regional.list
 ```
 
 ### Common Methods
@@ -480,20 +480,20 @@ regional_intensity = client.RegionalIntensity
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `data` | ``$ARRAY`` | No |  |
-| `dnoregion` | ``$STRING`` | No |  |
-| `postcode` | ``$STRING`` | No |  |
-| `regionid` | ``$INTEGER`` | No |  |
-| `shortname` | ``$STRING`` | No |  |
+| `data` | `Array` | No |  |
+| `dnoregion` | `String` | No |  |
+| `postcode` | `String` | No |  |
+| `regionid` | `Integer` | No |  |
+| `shortname` | `String` | No |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl = nil) -> Array`
+#### `list(reqmatch = nil, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array. Raises on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Raises on error.
 
 ```ruby
-results = client.RegionalIntensity.list(nil)
+results = client.RegionalIntensity.list
 ```
 
 #### `load(reqmatch, ctrl = nil) -> result`
@@ -501,7 +501,7 @@ results = client.RegionalIntensity.list(nil)
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.RegionalIntensity.load({ "id" => "regional_intensity_id" })
+result = client.RegionalIntensity.load()
 ```
 
 ### Common Methods
@@ -544,20 +544,20 @@ regional_intensity_list = client.RegionalIntensityList
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `data` | ``$ARRAY`` | No |  |
-| `dnoregion` | ``$STRING`` | No |  |
-| `postcode` | ``$STRING`` | No |  |
-| `regionid` | ``$INTEGER`` | No |  |
-| `shortname` | ``$STRING`` | No |  |
+| `data` | `Array` | No |  |
+| `dnoregion` | `String` | No |  |
+| `postcode` | `String` | No |  |
+| `regionid` | `Integer` | No |  |
+| `shortname` | `String` | No |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl = nil) -> Array`
+#### `list(reqmatch = nil, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array. Raises on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Raises on error.
 
 ```ruby
-results = client.RegionalIntensityList.list(nil)
+results = client.RegionalIntensityList.list
 ```
 
 #### `load(reqmatch, ctrl = nil) -> result`
@@ -565,7 +565,7 @@ results = client.RegionalIntensityList.list(nil)
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.RegionalIntensityList.load({ "id" => "regional_intensity_list_id" })
+result = client.RegionalIntensityList.load()
 ```
 
 ### Common Methods
@@ -608,18 +608,18 @@ stat = client.Stat
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `from` | ``$STRING`` | No |  |
-| `intensity` | ``$OBJECT`` | No |  |
-| `to` | ``$STRING`` | No |  |
+| `from` | `String` | No |  |
+| `intensity` | `Hash` | No |  |
+| `to` | `String` | No |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl = nil) -> Array`
+#### `list(reqmatch = nil, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array. Raises on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Raises on error.
 
 ```ruby
-results = client.Stat.list(nil)
+results = client.Stat.list
 ```
 
 ### Common Methods

@@ -84,7 +84,7 @@ class IntensityFactor
     public ?int $wind = null;
 }
 
-/** Match filter for IntensityFactor#list (any subset of IntensityFactor fields). */
+/** Request payload for IntensityFactor#list. */
 class IntensityFactorListMatch
 {
     public ?int $biomass = null;
@@ -134,7 +134,7 @@ class Regional
     public ?string $shortname = null;
 }
 
-/** Match filter for Regional#list (any subset of Regional fields). */
+/** Request payload for Regional#list. */
 class RegionalListMatch
 {
     public ?array $data = null;
@@ -161,7 +161,7 @@ class RegionalIntensityLoadMatch
     public int $regionid;
 }
 
-/** Match filter for RegionalIntensity#list (any subset of RegionalIntensity fields). */
+/** Request payload for RegionalIntensity#list. */
 class RegionalIntensityListMatch
 {
     public ?array $data = null;

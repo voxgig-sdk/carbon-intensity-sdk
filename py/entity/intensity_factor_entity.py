@@ -66,8 +66,12 @@ class IntensityFactorEntity:
     
 
     
-    def list(self, reqmatch: IntensityFactorListMatch, ctrl=None) -> list[IntensityFactor]:
+    def list(self, reqmatch=None, ctrl=None) -> list[IntensityFactor]:
         utility = self._utility
+        # reqmatch is optional: an omitted match lists all records. Treat None
+        # as an empty match so client.IntensityFactor().list() works with no args.
+        if reqmatch is None:
+            reqmatch = {}
         ctx = utility.make_context({
             "opname": "list",
             "ctrl": ctrl,

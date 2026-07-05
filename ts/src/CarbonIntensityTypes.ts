@@ -61,7 +61,22 @@ export interface IntensityFactor {
   wind?: number
 }
 
-export type IntensityFactorListMatch = Partial<IntensityFactor>
+export interface IntensityFactorListMatch {
+  biomass?: number
+  coal?: number
+  dutch_import?: number
+  french_import?: number
+  gas__combined_cycle?: number
+  gas__open_cycle?: number
+  hydro?: number
+  irish_import?: number
+  nuclear?: number
+  oil?: number
+  other?: number
+  pumped_storage?: number
+  solar?: number
+  wind?: number
+}
 
 export interface IntensityList {
   data?: any[]
@@ -86,7 +101,13 @@ export interface Regional {
   shortname?: string
 }
 
-export type RegionalListMatch = Partial<Regional>
+export interface RegionalListMatch {
+  data?: any[]
+  dnoregion?: string
+  postcode?: string
+  regionid?: number
+  shortname?: string
+}
 
 export interface RegionalIntensity {
   data?: any[]
@@ -101,7 +122,13 @@ export interface RegionalIntensityLoadMatch {
   regionid: number
 }
 
-export type RegionalIntensityListMatch = Partial<RegionalIntensity>
+export interface RegionalIntensityListMatch {
+  data?: any[]
+  dnoregion?: string
+  postcode?: string
+  regionid?: number
+  shortname?: string
+}
 
 export interface RegionalIntensityList {
   data?: any[]

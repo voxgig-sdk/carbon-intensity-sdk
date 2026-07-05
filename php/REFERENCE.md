@@ -8,7 +8,7 @@ Complete API reference for the CarbonIntensity PHP SDK.
 ### Constructor
 
 ```php
-require_once __DIR__ . '/carbon-intensity_sdk.php';
+require_once __DIR__ . '/carbonintensity_sdk.php';
 
 $client = new CarbonIntensitySDK($options);
 ```
@@ -77,11 +77,11 @@ Create a new `RegionalIntensityListEntity` instance. Pass `null` for no initial 
 
 Create a new `StatEntity` instance. Pass `null` for no initial data.
 
-#### `optionsMap(): array`
+#### `options_map(): array`
 
 Return a deep copy of the current SDK options.
 
-#### `getUtility(): ProjectNameUtility`
+#### `get_utility(): CarbonIntensityUtility`
 
 Return a copy of the SDK utility object.
 
@@ -124,35 +124,35 @@ $generation = $client->Generation();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `from` | ``$STRING`` | No |  |
-| `generationmix` | ``$ARRAY`` | No |  |
-| `to` | ``$STRING`` | No |  |
+| `from` | `string` | No |  |
+| `generationmix` | `array` | No |  |
+| `to` | `string` | No |  |
 
 ### Operations
 
-#### `list(array $reqmatch, ?array $ctrl = null): mixed`
+#### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
 
 ```php
-$results = $client->Generation()->list([]);
+$results = $client->Generation()->list();
 ```
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -161,7 +161,7 @@ Set the entity match criteria.
 Create a new `GenerationEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 
@@ -178,35 +178,35 @@ $generation_list = $client->GenerationList();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `from` | ``$STRING`` | No |  |
-| `generationmix` | ``$ARRAY`` | No |  |
-| `to` | ``$STRING`` | No |  |
+| `from` | `string` | No |  |
+| `generationmix` | `array` | No |  |
+| `to` | `string` | No |  |
 
 ### Operations
 
-#### `list(array $reqmatch, ?array $ctrl = null): mixed`
+#### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
 
 ```php
-$results = $client->GenerationList()->list([]);
+$results = $client->GenerationList()->list();
 ```
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -215,7 +215,7 @@ Set the entity match criteria.
 Create a new `GenerationListEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 
@@ -232,19 +232,19 @@ $intensity = $client->Intensity();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `data` | ``$ARRAY`` | No |  |
-| `from` | ``$STRING`` | No |  |
-| `intensity` | ``$OBJECT`` | No |  |
-| `to` | ``$STRING`` | No |  |
+| `data` | `array` | No |  |
+| `from` | `string` | No |  |
+| `intensity` | `array` | No |  |
+| `to` | `string` | No |  |
 
 ### Operations
 
-#### `list(array $reqmatch, ?array $ctrl = null): mixed`
+#### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
 
 ```php
-$results = $client->Intensity()->list([]);
+$results = $client->Intensity()->list();
 ```
 
 #### `load(array $reqmatch, ?array $ctrl = null): mixed`
@@ -257,19 +257,19 @@ $result = $client->Intensity()->load(["id" => "intensity_id"]);
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -278,7 +278,7 @@ Set the entity match criteria.
 Create a new `IntensityEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 
@@ -295,46 +295,46 @@ $intensity_factor = $client->IntensityFactor();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `biomass` | ``$INTEGER`` | No |  |
-| `coal` | ``$INTEGER`` | No |  |
-| `dutch_import` | ``$INTEGER`` | No |  |
-| `french_import` | ``$INTEGER`` | No |  |
-| `gas__combined_cycle` | ``$INTEGER`` | No |  |
-| `gas__open_cycle` | ``$INTEGER`` | No |  |
-| `hydro` | ``$INTEGER`` | No |  |
-| `irish_import` | ``$INTEGER`` | No |  |
-| `nuclear` | ``$INTEGER`` | No |  |
-| `oil` | ``$INTEGER`` | No |  |
-| `other` | ``$INTEGER`` | No |  |
-| `pumped_storage` | ``$INTEGER`` | No |  |
-| `solar` | ``$INTEGER`` | No |  |
-| `wind` | ``$INTEGER`` | No |  |
+| `biomass` | `int` | No |  |
+| `coal` | `int` | No |  |
+| `dutch_import` | `int` | No |  |
+| `french_import` | `int` | No |  |
+| `gas__combined_cycle` | `int` | No |  |
+| `gas__open_cycle` | `int` | No |  |
+| `hydro` | `int` | No |  |
+| `irish_import` | `int` | No |  |
+| `nuclear` | `int` | No |  |
+| `oil` | `int` | No |  |
+| `other` | `int` | No |  |
+| `pumped_storage` | `int` | No |  |
+| `solar` | `int` | No |  |
+| `wind` | `int` | No |  |
 
 ### Operations
 
-#### `list(array $reqmatch, ?array $ctrl = null): mixed`
+#### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
 
 ```php
-$results = $client->IntensityFactor()->list([]);
+$results = $client->IntensityFactor()->list();
 ```
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -343,7 +343,7 @@ Set the entity match criteria.
 Create a new `IntensityFactorEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 
@@ -360,19 +360,19 @@ $intensity_list = $client->IntensityList();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `data` | ``$ARRAY`` | No |  |
-| `from` | ``$STRING`` | No |  |
-| `intensity` | ``$OBJECT`` | No |  |
-| `to` | ``$STRING`` | No |  |
+| `data` | `array` | No |  |
+| `from` | `string` | No |  |
+| `intensity` | `array` | No |  |
+| `to` | `string` | No |  |
 
 ### Operations
 
-#### `list(array $reqmatch, ?array $ctrl = null): mixed`
+#### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
 
 ```php
-$results = $client->IntensityList()->list([]);
+$results = $client->IntensityList()->list();
 ```
 
 #### `load(array $reqmatch, ?array $ctrl = null): mixed`
@@ -380,24 +380,24 @@ $results = $client->IntensityList()->list([]);
 Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->IntensityList()->load(["id" => "intensity_list_id"]);
+$result = $client->IntensityList()->load();
 ```
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -406,7 +406,7 @@ Set the entity match criteria.
 Create a new `IntensityListEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 
@@ -423,37 +423,37 @@ $regional = $client->Regional();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `data` | ``$ARRAY`` | No |  |
-| `dnoregion` | ``$STRING`` | No |  |
-| `postcode` | ``$STRING`` | No |  |
-| `regionid` | ``$INTEGER`` | No |  |
-| `shortname` | ``$STRING`` | No |  |
+| `data` | `array` | No |  |
+| `dnoregion` | `string` | No |  |
+| `postcode` | `string` | No |  |
+| `regionid` | `int` | No |  |
+| `shortname` | `string` | No |  |
 
 ### Operations
 
-#### `list(array $reqmatch, ?array $ctrl = null): mixed`
+#### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
 
 ```php
-$results = $client->Regional()->list([]);
+$results = $client->Regional()->list();
 ```
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -462,7 +462,7 @@ Set the entity match criteria.
 Create a new `RegionalEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 
@@ -479,20 +479,20 @@ $regional_intensity = $client->RegionalIntensity();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `data` | ``$ARRAY`` | No |  |
-| `dnoregion` | ``$STRING`` | No |  |
-| `postcode` | ``$STRING`` | No |  |
-| `regionid` | ``$INTEGER`` | No |  |
-| `shortname` | ``$STRING`` | No |  |
+| `data` | `array` | No |  |
+| `dnoregion` | `string` | No |  |
+| `postcode` | `string` | No |  |
+| `regionid` | `int` | No |  |
+| `shortname` | `string` | No |  |
 
 ### Operations
 
-#### `list(array $reqmatch, ?array $ctrl = null): mixed`
+#### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
 
 ```php
-$results = $client->RegionalIntensity()->list([]);
+$results = $client->RegionalIntensity()->list();
 ```
 
 #### `load(array $reqmatch, ?array $ctrl = null): mixed`
@@ -500,24 +500,24 @@ $results = $client->RegionalIntensity()->list([]);
 Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->RegionalIntensity()->load(["id" => "regional_intensity_id"]);
+$result = $client->RegionalIntensity()->load();
 ```
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -526,7 +526,7 @@ Set the entity match criteria.
 Create a new `RegionalIntensityEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 
@@ -543,20 +543,20 @@ $regional_intensity_list = $client->RegionalIntensityList();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `data` | ``$ARRAY`` | No |  |
-| `dnoregion` | ``$STRING`` | No |  |
-| `postcode` | ``$STRING`` | No |  |
-| `regionid` | ``$INTEGER`` | No |  |
-| `shortname` | ``$STRING`` | No |  |
+| `data` | `array` | No |  |
+| `dnoregion` | `string` | No |  |
+| `postcode` | `string` | No |  |
+| `regionid` | `int` | No |  |
+| `shortname` | `string` | No |  |
 
 ### Operations
 
-#### `list(array $reqmatch, ?array $ctrl = null): mixed`
+#### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
 
 ```php
-$results = $client->RegionalIntensityList()->list([]);
+$results = $client->RegionalIntensityList()->list();
 ```
 
 #### `load(array $reqmatch, ?array $ctrl = null): mixed`
@@ -564,24 +564,24 @@ $results = $client->RegionalIntensityList()->list([]);
 Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->RegionalIntensityList()->load(["id" => "regional_intensity_list_id"]);
+$result = $client->RegionalIntensityList()->load();
 ```
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -590,7 +590,7 @@ Set the entity match criteria.
 Create a new `RegionalIntensityListEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 
@@ -607,35 +607,35 @@ $stat = $client->Stat();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `from` | ``$STRING`` | No |  |
-| `intensity` | ``$OBJECT`` | No |  |
-| `to` | ``$STRING`` | No |  |
+| `from` | `string` | No |  |
+| `intensity` | `array` | No |  |
+| `to` | `string` | No |  |
 
 ### Operations
 
-#### `list(array $reqmatch, ?array $ctrl = null): mixed`
+#### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
 
 ```php
-$results = $client->Stat()->list([]);
+$results = $client->Stat()->list();
 ```
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -644,7 +644,7 @@ Set the entity match criteria.
 Create a new `StatEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 

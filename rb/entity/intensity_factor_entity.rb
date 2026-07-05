@@ -69,10 +69,11 @@ class IntensityFactorEntity
   
   # List IntensityFactor items matching the given filter.
   #
-  # @param reqmatch [IntensityFactorListMatch, Hash, nil] match filter (any subset of IntensityFactor fields)
+  # @param reqmatch [IntensityFactorListMatch, Hash, nil] match filter (any subset of
+  #   IntensityFactor fields); defaults to nil, treated as an empty match that lists all.
   # @param ctrl [Object, nil] optional per-call control
   # @return [Array<IntensityFactor>, Array] the matching IntensityFactor items; raises CarbonIntensityError on failure
-  def list(reqmatch, ctrl = nil)
+  def list(reqmatch = nil, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({
       "opname" => "list",
@@ -82,11 +83,23 @@ class IntensityFactorEntity
       "reqmatch" => reqmatch,
     }, @_entctx)
 
-    _run_op(ctx) do
+    records = _run_op(ctx) do
       if ctx.result
         @_match = ctx.result.resmatch if ctx.result.resmatch
       end
     end
+
+    # list yields the BARE Array of records — each an accessible Hash — so
+    # callers can index item["id"] directly, matching py/lua/go. make_result
+    # wraps each entry as an Entity instance for internal use; unwrap those
+    # back to their bare record Hashes here (load/create/etc. are unaffected).
+    if records.is_a?(Array)
+      records = records.map do |item|
+        item.respond_to?(:data_get) ? item.data_get : item
+      end
+    end
+
+    records
   end
 
 

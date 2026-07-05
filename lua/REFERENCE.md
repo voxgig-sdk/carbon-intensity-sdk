@@ -122,9 +122,9 @@ local generation = client:Generation(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `from` | ``$STRING`` | No |  |
-| `generationmix` | ``$ARRAY`` | No |  |
-| `to` | ``$STRING`` | No |  |
+| `from` | `string` | No |  |
+| `generationmix` | `table` | No |  |
+| `to` | `string` | No |  |
 
 ### Operations
 
@@ -176,9 +176,9 @@ local generation_list = client:GenerationList(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `from` | ``$STRING`` | No |  |
-| `generationmix` | ``$ARRAY`` | No |  |
-| `to` | ``$STRING`` | No |  |
+| `from` | `string` | No |  |
+| `generationmix` | `table` | No |  |
+| `to` | `string` | No |  |
 
 ### Operations
 
@@ -230,10 +230,10 @@ local intensity = client:Intensity(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `data` | ``$ARRAY`` | No |  |
-| `from` | ``$STRING`` | No |  |
-| `intensity` | ``$OBJECT`` | No |  |
-| `to` | ``$STRING`` | No |  |
+| `data` | `table` | No |  |
+| `from` | `string` | No |  |
+| `intensity` | `table` | No |  |
+| `to` | `string` | No |  |
 
 ### Operations
 
@@ -293,20 +293,20 @@ local intensity_factor = client:IntensityFactor(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `biomass` | ``$INTEGER`` | No |  |
-| `coal` | ``$INTEGER`` | No |  |
-| `dutch_import` | ``$INTEGER`` | No |  |
-| `french_import` | ``$INTEGER`` | No |  |
-| `gas__combined_cycle` | ``$INTEGER`` | No |  |
-| `gas__open_cycle` | ``$INTEGER`` | No |  |
-| `hydro` | ``$INTEGER`` | No |  |
-| `irish_import` | ``$INTEGER`` | No |  |
-| `nuclear` | ``$INTEGER`` | No |  |
-| `oil` | ``$INTEGER`` | No |  |
-| `other` | ``$INTEGER`` | No |  |
-| `pumped_storage` | ``$INTEGER`` | No |  |
-| `solar` | ``$INTEGER`` | No |  |
-| `wind` | ``$INTEGER`` | No |  |
+| `biomass` | `number` | No |  |
+| `coal` | `number` | No |  |
+| `dutch_import` | `number` | No |  |
+| `french_import` | `number` | No |  |
+| `gas__combined_cycle` | `number` | No |  |
+| `gas__open_cycle` | `number` | No |  |
+| `hydro` | `number` | No |  |
+| `irish_import` | `number` | No |  |
+| `nuclear` | `number` | No |  |
+| `oil` | `number` | No |  |
+| `other` | `number` | No |  |
+| `pumped_storage` | `number` | No |  |
+| `solar` | `number` | No |  |
+| `wind` | `number` | No |  |
 
 ### Operations
 
@@ -358,10 +358,10 @@ local intensity_list = client:IntensityList(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `data` | ``$ARRAY`` | No |  |
-| `from` | ``$STRING`` | No |  |
-| `intensity` | ``$OBJECT`` | No |  |
-| `to` | ``$STRING`` | No |  |
+| `data` | `table` | No |  |
+| `from` | `string` | No |  |
+| `intensity` | `table` | No |  |
+| `to` | `string` | No |  |
 
 ### Operations
 
@@ -378,7 +378,7 @@ local results, err = client:IntensityList():list()
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:IntensityList():load({ id = "intensity_list_id" })
+local result, err = client:IntensityList():load()
 ```
 
 ### Common Methods
@@ -421,11 +421,11 @@ local regional = client:Regional(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `data` | ``$ARRAY`` | No |  |
-| `dnoregion` | ``$STRING`` | No |  |
-| `postcode` | ``$STRING`` | No |  |
-| `regionid` | ``$INTEGER`` | No |  |
-| `shortname` | ``$STRING`` | No |  |
+| `data` | `table` | No |  |
+| `dnoregion` | `string` | No |  |
+| `postcode` | `string` | No |  |
+| `regionid` | `number` | No |  |
+| `shortname` | `string` | No |  |
 
 ### Operations
 
@@ -477,11 +477,11 @@ local regional_intensity = client:RegionalIntensity(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `data` | ``$ARRAY`` | No |  |
-| `dnoregion` | ``$STRING`` | No |  |
-| `postcode` | ``$STRING`` | No |  |
-| `regionid` | ``$INTEGER`` | No |  |
-| `shortname` | ``$STRING`` | No |  |
+| `data` | `table` | No |  |
+| `dnoregion` | `string` | No |  |
+| `postcode` | `string` | No |  |
+| `regionid` | `number` | No |  |
+| `shortname` | `string` | No |  |
 
 ### Operations
 
@@ -498,7 +498,7 @@ local results, err = client:RegionalIntensity():list()
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:RegionalIntensity():load({ id = "regional_intensity_id" })
+local result, err = client:RegionalIntensity():load()
 ```
 
 ### Common Methods
@@ -541,11 +541,11 @@ local regional_intensity_list = client:RegionalIntensityList(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `data` | ``$ARRAY`` | No |  |
-| `dnoregion` | ``$STRING`` | No |  |
-| `postcode` | ``$STRING`` | No |  |
-| `regionid` | ``$INTEGER`` | No |  |
-| `shortname` | ``$STRING`` | No |  |
+| `data` | `table` | No |  |
+| `dnoregion` | `string` | No |  |
+| `postcode` | `string` | No |  |
+| `regionid` | `number` | No |  |
+| `shortname` | `string` | No |  |
 
 ### Operations
 
@@ -562,7 +562,7 @@ local results, err = client:RegionalIntensityList():list()
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:RegionalIntensityList():load({ id = "regional_intensity_list_id" })
+local result, err = client:RegionalIntensityList():load()
 ```
 
 ### Common Methods
@@ -605,9 +605,9 @@ local stat = client:Stat(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `from` | ``$STRING`` | No |  |
-| `intensity` | ``$OBJECT`` | No |  |
-| `to` | ``$STRING`` | No |  |
+| `from` | `string` | No |  |
+| `intensity` | `table` | No |  |
+| `to` | `string` | No |  |
 
 ### Operations
 

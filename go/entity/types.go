@@ -72,8 +72,7 @@ type IntensityFactor struct {
 	Wind *int `json:"wind,omitempty"`
 }
 
-// IntensityFactorListMatch mirrors the intensity_factor fields as an all-optional match
-// filter (Go analog of Partial<IntensityFactor>).
+// IntensityFactorListMatch is the typed request payload for IntensityFactor.ListTyped.
 type IntensityFactorListMatch struct {
 	Biomass *int `json:"biomass,omitempty"`
 	Coal *int `json:"coal,omitempty"`
@@ -118,8 +117,7 @@ type Regional struct {
 	Shortname *string `json:"shortname,omitempty"`
 }
 
-// RegionalListMatch mirrors the regional fields as an all-optional match
-// filter (Go analog of Partial<Regional>).
+// RegionalListMatch is the typed request payload for Regional.ListTyped.
 type RegionalListMatch struct {
 	Data *[]any `json:"data,omitempty"`
 	Dnoregion *string `json:"dnoregion,omitempty"`
@@ -143,8 +141,7 @@ type RegionalIntensityLoadMatch struct {
 	Regionid int `json:"regionid"`
 }
 
-// RegionalIntensityListMatch mirrors the regional_intensity fields as an all-optional match
-// filter (Go analog of Partial<RegionalIntensity>).
+// RegionalIntensityListMatch is the typed request payload for RegionalIntensity.ListTyped.
 type RegionalIntensityListMatch struct {
 	Data *[]any `json:"data,omitempty"`
 	Dnoregion *string `json:"dnoregion,omitempty"`

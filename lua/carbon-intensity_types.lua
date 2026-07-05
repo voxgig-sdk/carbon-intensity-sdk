@@ -55,6 +55,20 @@
 ---@field wind? number
 
 ---@class IntensityFactorListMatch
+---@field biomass? number
+---@field coal? number
+---@field dutch_import? number
+---@field french_import? number
+---@field gas__combined_cycle? number
+---@field gas__open_cycle? number
+---@field hydro? number
+---@field irish_import? number
+---@field nuclear? number
+---@field oil? number
+---@field other? number
+---@field pumped_storage? number
+---@field solar? number
+---@field wind? number
 
 ---@class IntensityList
 ---@field data? table
@@ -76,6 +90,11 @@
 ---@field shortname? string
 
 ---@class RegionalListMatch
+---@field data? table
+---@field dnoregion? string
+---@field postcode? string
+---@field regionid? number
+---@field shortname? string
 
 ---@class RegionalIntensity
 ---@field data? table
@@ -89,6 +108,11 @@
 ---@field regionid number
 
 ---@class RegionalIntensityListMatch
+---@field data? table
+---@field dnoregion? string
+---@field postcode? string
+---@field regionid? number
+---@field shortname? string
 
 ---@class RegionalIntensityList
 ---@field data? table
