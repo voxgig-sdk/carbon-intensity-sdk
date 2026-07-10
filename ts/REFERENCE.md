@@ -460,7 +460,7 @@ const results = await client.IntensityList().list()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.IntensityList().load()
+const result = await client.IntensityList().load({ date: 'date' })
 ```
 
 ### Common Methods
@@ -638,7 +638,7 @@ const results = await client.RegionalIntensityList().list()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.RegionalIntensityList().load()
+const result = await client.RegionalIntensityList().load({ intensity_id: 'intensity_id' })
 ```
 
 ### Common Methods

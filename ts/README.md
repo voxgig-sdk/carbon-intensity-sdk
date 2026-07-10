@@ -45,6 +45,22 @@ for (const generation of generations) {
 }
 ```
 
+### 3. Load an intensitylist
+
+IntensityList is nested under date, so provide the `date`.
+`load()` returns the entity directly and throws on failure:
+
+```ts
+try {
+  const intensitylist = await client.IntensityList().load({
+    date: 'example_date',
+  })
+  console.log(intensitylist)
+} catch (err) {
+  console.error('load failed:', err)
+}
+```
+
 
 ## Error handling
 
@@ -564,7 +580,7 @@ Create an instance: `const intensity_list = client.IntensityList()`
 #### Example: Load
 
 ```ts
-const intensity_list = await client.IntensityList().load()
+const intensity_list = await client.IntensityList().load({ date: 'date' })
 ```
 
 #### Example: List
@@ -659,7 +675,7 @@ Create an instance: `const regional_intensity_list = client.RegionalIntensityLis
 #### Example: Load
 
 ```ts
-const regional_intensity_list = await client.RegionalIntensityList().load()
+const regional_intensity_list = await client.RegionalIntensityList().load({ intensity_id: 'intensity_id' })
 ```
 
 #### Example: List

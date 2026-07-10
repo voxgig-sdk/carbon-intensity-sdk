@@ -6,9 +6,6 @@
     },
     "kit": {
       "config": {
-        "auth": {
-          "prefix": "Bearer"
-        },
         "docs_order": [
           "ts",
           "py",
@@ -2105,15 +2102,18 @@
           "name": "CC BY 4.0",
           "url": "https://creativecommons.org/licenses/by/4.0/"
         },
+        "meta_source": "https://www.freepublicapis.com",
         "servers": [
           {
             "description": "Production server",
             "url": "https://api.carbonintensity.org.uk"
           }
         ],
+        "summary": "Official API for Carbon Intensity in Great Britain provided by National Grid ESO.",
         "termsOfService": "https://api.carbonintensity.org.uk/terms",
         "title": "Carbon Intensity API",
-        "version": "1.0.0"
+        "version": "1.0.0",
+        "website": "https://api.carbonintensity.org.uk/"
       },
       "option": {},
       "target": {
@@ -2166,6 +2166,9 @@
           },
           "name": "go-cli",
           "phase": {
+            "agentguide": {
+              "active": false
+            },
             "entity": {
               "active": false
             },
@@ -2216,6 +2219,9 @@
           },
           "name": "go-mcp",
           "phase": {
+            "agentguide": {
+              "active": false
+            },
             "entity": {
               "active": false
             },

@@ -381,7 +381,7 @@ for intensity_list in results:
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.IntensityList().load()
+result = client.IntensityList().load({"date": "date"})
 ```
 
 ### Common Methods
@@ -568,7 +568,7 @@ for regional_intensity_list in results:
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.RegionalIntensityList().load()
+result = client.RegionalIntensityList().load({"intensity_id": "intensity_id"})
 ```
 
 ### Common Methods

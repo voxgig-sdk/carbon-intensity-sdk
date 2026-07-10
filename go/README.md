@@ -429,7 +429,7 @@ fmt.Println(generations) // the array of records
 
 ### GenerationList
 
-Create an instance: `generation_list := client.GenerationList(nil)`
+Create an instance: `generationList := client.GenerationList(nil)`
 
 #### Operations
 
@@ -448,11 +448,11 @@ Create an instance: `generation_list := client.GenerationList(nil)`
 #### Example: List
 
 ```go
-generation_lists, err := client.GenerationList(nil).List(nil, nil)
+generationLists, err := client.GenerationList(nil).List(nil, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(generation_lists) // the array of records
+fmt.Println(generationLists) // the array of records
 ```
 
 
@@ -499,7 +499,7 @@ fmt.Println(intensitys) // the array of records
 
 ### IntensityFactor
 
-Create an instance: `intensity_factor := client.IntensityFactor(nil)`
+Create an instance: `intensityFactor := client.IntensityFactor(nil)`
 
 #### Operations
 
@@ -529,17 +529,17 @@ Create an instance: `intensity_factor := client.IntensityFactor(nil)`
 #### Example: List
 
 ```go
-intensity_factors, err := client.IntensityFactor(nil).List(nil, nil)
+intensityFactors, err := client.IntensityFactor(nil).List(nil, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(intensity_factors) // the array of records
+fmt.Println(intensityFactors) // the array of records
 ```
 
 
 ### IntensityList
 
-Create an instance: `intensity_list := client.IntensityList(nil)`
+Create an instance: `intensityList := client.IntensityList(nil)`
 
 #### Operations
 
@@ -560,21 +560,21 @@ Create an instance: `intensity_list := client.IntensityList(nil)`
 #### Example: Load
 
 ```go
-intensity_list, err := client.IntensityList(nil).Load(nil, nil)
+intensityList, err := client.IntensityList(nil).Load(map[string]any{"date": "date"}, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(intensity_list) // the loaded record
+fmt.Println(intensityList) // the loaded record
 ```
 
 #### Example: List
 
 ```go
-intensity_lists, err := client.IntensityList(nil).List(nil, nil)
+intensityLists, err := client.IntensityList(nil).List(nil, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(intensity_lists) // the array of records
+fmt.Println(intensityLists) // the array of records
 ```
 
 
@@ -611,7 +611,7 @@ fmt.Println(regionals) // the array of records
 
 ### RegionalIntensity
 
-Create an instance: `regional_intensity := client.RegionalIntensity(nil)`
+Create an instance: `regionalIntensity := client.RegionalIntensity(nil)`
 
 #### Operations
 
@@ -633,27 +633,27 @@ Create an instance: `regional_intensity := client.RegionalIntensity(nil)`
 #### Example: Load
 
 ```go
-regional_intensity, err := client.RegionalIntensity(nil).Load(nil, nil)
+regionalIntensity, err := client.RegionalIntensity(nil).Load(nil, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(regional_intensity) // the loaded record
+fmt.Println(regionalIntensity) // the loaded record
 ```
 
 #### Example: List
 
 ```go
-regional_intensitys, err := client.RegionalIntensity(nil).List(nil, nil)
+regionalIntensitys, err := client.RegionalIntensity(nil).List(nil, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(regional_intensitys) // the array of records
+fmt.Println(regionalIntensitys) // the array of records
 ```
 
 
 ### RegionalIntensityList
 
-Create an instance: `regional_intensity_list := client.RegionalIntensityList(nil)`
+Create an instance: `regionalIntensityList := client.RegionalIntensityList(nil)`
 
 #### Operations
 
@@ -675,21 +675,21 @@ Create an instance: `regional_intensity_list := client.RegionalIntensityList(nil
 #### Example: Load
 
 ```go
-regional_intensity_list, err := client.RegionalIntensityList(nil).Load(nil, nil)
+regionalIntensityList, err := client.RegionalIntensityList(nil).Load(map[string]any{"intensity_id": "intensity_id"}, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(regional_intensity_list) // the loaded record
+fmt.Println(regionalIntensityList) // the loaded record
 ```
 
 #### Example: List
 
 ```go
-regional_intensity_lists, err := client.RegionalIntensityList(nil).List(nil, nil)
+regionalIntensityLists, err := client.RegionalIntensityList(nil).List(nil, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(regional_intensity_lists) // the array of records
+fmt.Println(regionalIntensityLists) // the array of records
 ```
 
 

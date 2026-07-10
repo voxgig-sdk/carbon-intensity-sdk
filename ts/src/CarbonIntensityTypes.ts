@@ -12,8 +12,8 @@ export interface Generation {
 }
 
 export interface GenerationListMatch {
-  from: string
-  to: string
+  from?: string
+  to?: string
 }
 
 export interface GenerationList {
@@ -38,10 +38,10 @@ export interface IntensityLoadMatch {
 }
 
 export interface IntensityListMatch {
-  date: string
-  period: number
-  from: string
-  to: string
+  date?: string
+  period?: number
+  from?: string
+  to?: string
 }
 
 export interface IntensityFactor {
@@ -90,7 +90,7 @@ export interface IntensityListLoadMatch {
 }
 
 export interface IntensityListListMatch {
-  from: string
+  from?: string
 }
 
 export interface Regional {
@@ -118,8 +118,8 @@ export interface RegionalIntensity {
 }
 
 export interface RegionalIntensityLoadMatch {
-  postcode: string
-  regionid: number
+  postcode?: string
+  regionid?: number
 }
 
 export interface RegionalIntensityListMatch {
@@ -140,14 +140,14 @@ export interface RegionalIntensityList {
 
 export interface RegionalIntensityListLoadMatch {
   intensity_id: string
-  postcode: string
-  to: string
-  regionid: number
+  postcode?: string
+  to?: string
+  regionid?: number
 }
 
 export interface RegionalIntensityListListMatch {
   from: string
-  to: string
+  to?: string
 }
 
 export interface Stat {
@@ -157,7 +157,7 @@ export interface Stat {
 }
 
 export interface StatListMatch {
-  block: number
+  block?: number
   from: string
   to: string
 }

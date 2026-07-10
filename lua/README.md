@@ -47,6 +47,16 @@ for _, item in ipairs(generations) do
 end
 ```
 
+### 3. Load an intensitylist
+
+IntensityList is nested under date, so provide the `date`.
+
+```lua
+local intensitylist, err = client:IntensityList():load({ date = "example_date" })
+if err then error(err) end
+print(intensitylist)
+```
+
 
 ## Error handling
 
@@ -511,7 +521,7 @@ Create an instance: `local intensity_list = client:IntensityList(nil)`
 #### Example: Load
 
 ```lua
-local intensity_list, err = client:IntensityList():load()
+local intensity_list, err = client:IntensityList():load({ date = "date" })
 ```
 
 #### Example: List
@@ -606,7 +616,7 @@ Create an instance: `local regional_intensity_list = client:RegionalIntensityLis
 #### Example: Load
 
 ```lua
-local regional_intensity_list, err = client:RegionalIntensityList():load()
+local regional_intensity_list, err = client:RegionalIntensityList():load({ intensity_id = "intensity_id" })
 ```
 
 #### Example: List

@@ -20,10 +20,10 @@ main: {
           url: "https://api.carbonintensity.org.uk"
         }
       ]
+      summary: "Official API for Carbon Intensity in Great Britain provided by National Grid ESO."
       termsOfService: "https://api.carbonintensity.org.uk/terms"
       title: "Carbon Intensity API"
       version: "1.0.0"
+      website: "https://api.carbonintensity.org.uk/"
     }
   }
-}
-

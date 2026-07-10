@@ -21,7 +21,7 @@ class Generation(TypedDict, total=False):
     to: str
 
 
-class GenerationListMatch(TypedDict):
+class GenerationListMatch(TypedDict, total=False):
     to: str
 
 
@@ -44,7 +44,7 @@ class IntensityLoadMatch(TypedDict):
     id: str
 
 
-class IntensityListMatch(TypedDict):
+class IntensityListMatch(TypedDict, total=False):
     date: str
     period: int
     to: str
@@ -122,7 +122,7 @@ class RegionalIntensity(TypedDict, total=False):
     shortname: str
 
 
-class RegionalIntensityLoadMatch(TypedDict):
+class RegionalIntensityLoadMatch(TypedDict, total=False):
     postcode: str
     regionid: int
 
@@ -143,14 +143,17 @@ class RegionalIntensityList(TypedDict, total=False):
     shortname: str
 
 
-class RegionalIntensityListLoadMatch(TypedDict):
+class RegionalIntensityListLoadMatchRequired(TypedDict):
     intensity_id: str
+
+
+class RegionalIntensityListLoadMatch(RegionalIntensityListLoadMatchRequired, total=False):
     postcode: str
     to: str
     regionid: int
 
 
-class RegionalIntensityListListMatch(TypedDict):
+class RegionalIntensityListListMatch(TypedDict, total=False):
     to: str
 
 
@@ -159,6 +162,9 @@ class Stat(TypedDict, total=False):
     to: str
 
 
-class StatListMatch(TypedDict):
-    block: int
+class StatListMatchRequired(TypedDict):
     to: str
+
+
+class StatListMatch(StatListMatchRequired, total=False):
+    block: int

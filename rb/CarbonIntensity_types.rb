@@ -28,10 +28,10 @@ Generation = Struct.new(
 # Request payload for Generation#list.
 #
 # @!attribute [rw] from
-#   @return [String]
+#   @return [String, nil]
 #
 # @!attribute [rw] to
-#   @return [String]
+#   @return [String, nil]
 GenerationListMatch = Struct.new(
   :from,
   :to,
@@ -97,16 +97,16 @@ IntensityLoadMatch = Struct.new(
 # Request payload for Intensity#list.
 #
 # @!attribute [rw] date
-#   @return [String]
+#   @return [String, nil]
 #
 # @!attribute [rw] period
-#   @return [Integer]
+#   @return [Integer, nil]
 #
 # @!attribute [rw] from
-#   @return [String]
+#   @return [String, nil]
 #
 # @!attribute [rw] to
-#   @return [String]
+#   @return [String, nil]
 IntensityListMatch = Struct.new(
   :date,
   :period,
@@ -270,7 +270,7 @@ IntensityListLoadMatch = Struct.new(
 # Request payload for IntensityList#list.
 #
 # @!attribute [rw] from
-#   @return [String]
+#   @return [String, nil]
 IntensityListListMatch = Struct.new(
   :from,
   keyword_init: true
@@ -354,10 +354,10 @@ RegionalIntensity = Struct.new(
 # Request payload for RegionalIntensity#load.
 #
 # @!attribute [rw] postcode
-#   @return [String]
+#   @return [String, nil]
 #
 # @!attribute [rw] regionid
-#   @return [Integer]
+#   @return [Integer, nil]
 RegionalIntensityLoadMatch = Struct.new(
   :postcode,
   :regionid,
@@ -420,13 +420,13 @@ RegionalIntensityList = Struct.new(
 #   @return [String]
 #
 # @!attribute [rw] postcode
-#   @return [String]
+#   @return [String, nil]
 #
 # @!attribute [rw] to
-#   @return [String]
+#   @return [String, nil]
 #
 # @!attribute [rw] regionid
-#   @return [Integer]
+#   @return [Integer, nil]
 RegionalIntensityListLoadMatch = Struct.new(
   :intensity_id,
   :postcode,
@@ -441,7 +441,7 @@ RegionalIntensityListLoadMatch = Struct.new(
 #   @return [String]
 #
 # @!attribute [rw] to
-#   @return [String]
+#   @return [String, nil]
 RegionalIntensityListListMatch = Struct.new(
   :from,
   :to,
@@ -468,7 +468,7 @@ Stat = Struct.new(
 # Request payload for Stat#list.
 #
 # @!attribute [rw] block
-#   @return [Integer]
+#   @return [Integer, nil]
 #
 # @!attribute [rw] from
 #   @return [String]

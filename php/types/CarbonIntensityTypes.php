@@ -23,8 +23,8 @@ class Generation
 /** Request payload for Generation#list. */
 class GenerationListMatch
 {
-    public string $from;
-    public string $to;
+    public ?string $from = null;
+    public ?string $to = null;
 }
 
 /** GenerationList entity data model. */
@@ -59,10 +59,10 @@ class IntensityLoadMatch
 /** Request payload for Intensity#list. */
 class IntensityListMatch
 {
-    public string $date;
-    public int $period;
-    public string $from;
-    public string $to;
+    public ?string $date = null;
+    public ?int $period = null;
+    public ?string $from = null;
+    public ?string $to = null;
 }
 
 /** IntensityFactor entity data model. */
@@ -121,7 +121,7 @@ class IntensityListLoadMatch
 /** Request payload for IntensityList#list. */
 class IntensityListListMatch
 {
-    public string $from;
+    public ?string $from = null;
 }
 
 /** Regional entity data model. */
@@ -157,8 +157,8 @@ class RegionalIntensity
 /** Request payload for RegionalIntensity#load. */
 class RegionalIntensityLoadMatch
 {
-    public string $postcode;
-    public int $regionid;
+    public ?string $postcode = null;
+    public ?int $regionid = null;
 }
 
 /** Request payload for RegionalIntensity#list. */
@@ -185,16 +185,16 @@ class RegionalIntensityList
 class RegionalIntensityListLoadMatch
 {
     public string $intensity_id;
-    public string $postcode;
-    public string $to;
-    public int $regionid;
+    public ?string $postcode = null;
+    public ?string $to = null;
+    public ?int $regionid = null;
 }
 
 /** Request payload for RegionalIntensityList#list. */
 class RegionalIntensityListListMatch
 {
     public string $from;
-    public string $to;
+    public ?string $to = null;
 }
 
 /** Stat entity data model. */
@@ -208,7 +208,7 @@ class Stat
 /** Request payload for Stat#list. */
 class StatListMatch
 {
-    public int $block;
+    public ?int $block = null;
     public string $from;
     public string $to;
 }

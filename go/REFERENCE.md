@@ -123,6 +123,7 @@ same parameters as `Direct()`.
 
 ```go
 generation := client.Generation(nil)
+fmt.Println(generation.GetName()) // "generation"
 ```
 
 ### Fields
@@ -141,6 +142,10 @@ List entities matching the given criteria. Returns an array.
 
 ```go
 results, err := client.Generation(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(results)
 ```
 
 ### Common Methods
@@ -170,7 +175,8 @@ Return the entity name.
 ## GenerationListEntity
 
 ```go
-generation_list := client.GenerationList(nil)
+generationList := client.GenerationList(nil)
+fmt.Println(generationList.GetName()) // "generation_list"
 ```
 
 ### Fields
@@ -189,6 +195,10 @@ List entities matching the given criteria. Returns an array.
 
 ```go
 results, err := client.GenerationList(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(results)
 ```
 
 ### Common Methods
@@ -219,6 +229,7 @@ Return the entity name.
 
 ```go
 intensity := client.Intensity(nil)
+fmt.Println(intensity.GetName()) // "intensity"
 ```
 
 ### Fields
@@ -238,6 +249,10 @@ List entities matching the given criteria. Returns an array.
 
 ```go
 results, err := client.Intensity(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(results)
 ```
 
 #### `Load(reqmatch, ctrl map[string]any) (any, error)`
@@ -246,6 +261,10 @@ Load a single entity matching the given criteria.
 
 ```go
 result, err := client.Intensity(nil).Load(map[string]any{"id": "intensity_id"}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
 ```
 
 ### Common Methods
@@ -275,7 +294,8 @@ Return the entity name.
 ## IntensityFactorEntity
 
 ```go
-intensity_factor := client.IntensityFactor(nil)
+intensityFactor := client.IntensityFactor(nil)
+fmt.Println(intensityFactor.GetName()) // "intensity_factor"
 ```
 
 ### Fields
@@ -305,6 +325,10 @@ List entities matching the given criteria. Returns an array.
 
 ```go
 results, err := client.IntensityFactor(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(results)
 ```
 
 ### Common Methods
@@ -334,7 +358,8 @@ Return the entity name.
 ## IntensityListEntity
 
 ```go
-intensity_list := client.IntensityList(nil)
+intensityList := client.IntensityList(nil)
+fmt.Println(intensityList.GetName()) // "intensity_list"
 ```
 
 ### Fields
@@ -354,6 +379,10 @@ List entities matching the given criteria. Returns an array.
 
 ```go
 results, err := client.IntensityList(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(results)
 ```
 
 #### `Load(reqmatch, ctrl map[string]any) (any, error)`
@@ -361,7 +390,11 @@ results, err := client.IntensityList(nil).List(nil, nil)
 Load a single entity matching the given criteria.
 
 ```go
-result, err := client.IntensityList(nil).Load(nil, nil)
+result, err := client.IntensityList(nil).Load(map[string]any{"date": "date"}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
 ```
 
 ### Common Methods
@@ -392,6 +425,7 @@ Return the entity name.
 
 ```go
 regional := client.Regional(nil)
+fmt.Println(regional.GetName()) // "regional"
 ```
 
 ### Fields
@@ -412,6 +446,10 @@ List entities matching the given criteria. Returns an array.
 
 ```go
 results, err := client.Regional(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(results)
 ```
 
 ### Common Methods
@@ -441,7 +479,8 @@ Return the entity name.
 ## RegionalIntensityEntity
 
 ```go
-regional_intensity := client.RegionalIntensity(nil)
+regionalIntensity := client.RegionalIntensity(nil)
+fmt.Println(regionalIntensity.GetName()) // "regional_intensity"
 ```
 
 ### Fields
@@ -462,6 +501,10 @@ List entities matching the given criteria. Returns an array.
 
 ```go
 results, err := client.RegionalIntensity(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(results)
 ```
 
 #### `Load(reqmatch, ctrl map[string]any) (any, error)`
@@ -470,6 +513,10 @@ Load a single entity matching the given criteria.
 
 ```go
 result, err := client.RegionalIntensity(nil).Load(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
 ```
 
 ### Common Methods
@@ -499,7 +546,8 @@ Return the entity name.
 ## RegionalIntensityListEntity
 
 ```go
-regional_intensity_list := client.RegionalIntensityList(nil)
+regionalIntensityList := client.RegionalIntensityList(nil)
+fmt.Println(regionalIntensityList.GetName()) // "regional_intensity_list"
 ```
 
 ### Fields
@@ -520,6 +568,10 @@ List entities matching the given criteria. Returns an array.
 
 ```go
 results, err := client.RegionalIntensityList(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(results)
 ```
 
 #### `Load(reqmatch, ctrl map[string]any) (any, error)`
@@ -527,7 +579,11 @@ results, err := client.RegionalIntensityList(nil).List(nil, nil)
 Load a single entity matching the given criteria.
 
 ```go
-result, err := client.RegionalIntensityList(nil).Load(nil, nil)
+result, err := client.RegionalIntensityList(nil).Load(map[string]any{"intensity_id": "intensity_id"}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
 ```
 
 ### Common Methods
@@ -558,6 +614,7 @@ Return the entity name.
 
 ```go
 stat := client.Stat(nil)
+fmt.Println(stat.GetName()) // "stat"
 ```
 
 ### Fields
@@ -576,6 +633,10 @@ List entities matching the given criteria. Returns an array.
 
 ```go
 results, err := client.Stat(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(results)
 ```
 
 ### Common Methods

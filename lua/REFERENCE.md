@@ -378,7 +378,7 @@ local results, err = client:IntensityList():list()
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:IntensityList():load()
+local result, err = client:IntensityList():load({ date = "date" })
 ```
 
 ### Common Methods
@@ -562,7 +562,7 @@ local results, err = client:RegionalIntensityList():list()
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:RegionalIntensityList():load()
+local result, err = client:RegionalIntensityList():load({ intensity_id = "intensity_id" })
 ```
 
 ### Common Methods

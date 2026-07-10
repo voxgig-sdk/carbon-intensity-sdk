@@ -50,6 +50,19 @@ except Exception as err:
     print(f"list failed: {err}")
 ```
 
+### 3. Load an intensitylist
+
+IntensityList is nested under date, so provide the `date`.
+`load()` returns the bare record (a `dict`) and raises on error.
+
+```python
+try:
+    intensitylist = client.IntensityList().load({"date": "example_date"})
+    print(intensitylist)
+except Exception as err:
+    print(f"load failed: {err}")
+```
+
 
 ## Error handling
 
@@ -521,7 +534,7 @@ Create an instance: `intensity_list = client.IntensityList()`
 #### Example: Load
 
 ```python
-intensity_list = client.IntensityList().load()
+intensity_list = client.IntensityList().load({"date": "date"})
 ```
 
 #### Example: List
@@ -616,7 +629,7 @@ Create an instance: `regional_intensity_list = client.RegionalIntensityList()`
 #### Example: Load
 
 ```python
-regional_intensity_list = client.RegionalIntensityList().load()
+regional_intensity_list = client.RegionalIntensityList().load({"intensity_id": "intensity_id"})
 ```
 
 #### Example: List

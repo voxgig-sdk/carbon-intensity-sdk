@@ -12,8 +12,8 @@
 ---@field to? string
 
 ---@class GenerationListMatch
----@field from string
----@field to string
+---@field from? string
+---@field to? string
 
 ---@class GenerationList
 ---@field from? string
@@ -33,10 +33,10 @@
 ---@field id string
 
 ---@class IntensityListMatch
----@field date string
----@field period number
----@field from string
----@field to string
+---@field date? string
+---@field period? number
+---@field from? string
+---@field to? string
 
 ---@class IntensityFactor
 ---@field biomass? number
@@ -80,7 +80,7 @@
 ---@field date string
 
 ---@class IntensityListListMatch
----@field from string
+---@field from? string
 
 ---@class Regional
 ---@field data? table
@@ -104,8 +104,8 @@
 ---@field shortname? string
 
 ---@class RegionalIntensityLoadMatch
----@field postcode string
----@field regionid number
+---@field postcode? string
+---@field regionid? number
 
 ---@class RegionalIntensityListMatch
 ---@field data? table
@@ -123,13 +123,13 @@
 
 ---@class RegionalIntensityListLoadMatch
 ---@field intensity_id string
----@field postcode string
----@field to string
----@field regionid number
+---@field postcode? string
+---@field to? string
+---@field regionid? number
 
 ---@class RegionalIntensityListListMatch
 ---@field from string
----@field to string
+---@field to? string
 
 ---@class Stat
 ---@field from? string
@@ -137,7 +137,7 @@
 ---@field to? string
 
 ---@class StatListMatch
----@field block number
+---@field block? number
 ---@field from string
 ---@field to string
 
