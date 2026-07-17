@@ -1,4 +1,4 @@
--- ProjectName SDK exists test
+-- CarbonIntensity SDK exists test
 
 local sdk = require("carbon-intensity_sdk")
 
