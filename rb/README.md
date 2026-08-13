@@ -50,7 +50,7 @@ IntensityList is nested under date, so provide the `date`.
 
 ```ruby
 begin
-  # load returns the bare IntensityList record (raises on error).
+  # load returns the ENTITY — call data_get for the IntensityList record (raises on error).
   intensitylist = client.IntensityList.load({ "date" => "example_date" })
   puts intensitylist
 rescue => err
@@ -65,7 +65,7 @@ Entity operations raise on failure, so rescue them:
 
 ```ruby
 begin
-  generations = client.Generation.list()
+  intensitylists = client.IntensityList.list()
 rescue => err
   warn "list failed: #{err}"
 end
@@ -133,9 +133,10 @@ Create a mock client for unit testing — no server required:
 ```ruby
 client = CarbonIntensitySDK.test
 
-# Entity ops return the bare mock record (raises on error).
-generation = client.Generation.list()
-puts generation
+# Entity ops return the ENTITY (raises on error);
+# call data_get for the mock record.
+intensitylist = client.IntensityList.list()
+puts intensitylist
 ```
 
 ### Use a custom fetch function
@@ -296,20 +297,20 @@ API path: `/intensity/date/{date}/{period}`
 
 | Field | Description |
 | --- | --- |
-| `biomass` |  |
-| `coal` |  |
-| `dutch_import` |  |
-| `french_import` |  |
-| `gas__combined_cycle` |  |
-| `gas__open_cycle` |  |
-| `hydro` |  |
-| `irish_import` |  |
-| `nuclear` |  |
-| `oil` |  |
-| `other` |  |
-| `pumped_storage` |  |
-| `solar` |  |
-| `wind` |  |
+| `Biomass` |  |
+| `Coal` |  |
+| `DutchImports` |  |
+| `FrenchImports` |  |
+| `GasCombinedCycle` |  |
+| `GasOpenCycle` |  |
+| `Hydro` |  |
+| `IrishImports` |  |
+| `Nuclear` |  |
+| `Oil` |  |
+| `Other` |  |
+| `PumpedStorage` |  |
+| `Solar` |  |
+| `Wind` |  |
 
 Operations: List.
 
@@ -462,7 +463,7 @@ Create an instance: `intensity = client.Intensity`
 #### Example: Load
 
 ```ruby
-# load returns the bare Intensity record (raises on error).
+# load returns the ENTITY — call data_get for the Intensity record (raises on error).
 intensity = client.Intensity.load({ "id" => "intensity_id" })
 ```
 
@@ -488,20 +489,20 @@ Create an instance: `intensity_factor = client.IntensityFactor`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `biomass` | `Integer` |  |
-| `coal` | `Integer` |  |
-| `dutch_import` | `Integer` |  |
-| `french_import` | `Integer` |  |
-| `gas__combined_cycle` | `Integer` |  |
-| `gas__open_cycle` | `Integer` |  |
-| `hydro` | `Integer` |  |
-| `irish_import` | `Integer` |  |
-| `nuclear` | `Integer` |  |
-| `oil` | `Integer` |  |
-| `other` | `Integer` |  |
-| `pumped_storage` | `Integer` |  |
-| `solar` | `Integer` |  |
-| `wind` | `Integer` |  |
+| `Biomass` | `Integer` |  |
+| `Coal` | `Integer` |  |
+| `DutchImports` | `Integer` |  |
+| `FrenchImports` | `Integer` |  |
+| `GasCombinedCycle` | `Integer` |  |
+| `GasOpenCycle` | `Integer` |  |
+| `Hydro` | `Integer` |  |
+| `IrishImports` | `Integer` |  |
+| `Nuclear` | `Integer` |  |
+| `Oil` | `Integer` |  |
+| `Other` | `Integer` |  |
+| `PumpedStorage` | `Integer` |  |
+| `Solar` | `Integer` |  |
+| `Wind` | `Integer` |  |
 
 #### Example: List
 
@@ -534,7 +535,7 @@ Create an instance: `intensity_list = client.IntensityList`
 #### Example: Load
 
 ```ruby
-# load returns the bare IntensityList record (raises on error).
+# load returns the ENTITY — call data_get for the IntensityList record (raises on error).
 intensity_list = client.IntensityList.load({ "date" => "date" })
 ```
 
@@ -598,7 +599,7 @@ Create an instance: `regional_intensity = client.RegionalIntensity`
 #### Example: Load
 
 ```ruby
-# load returns the bare RegionalIntensity record (raises on error).
+# load returns the ENTITY — call data_get for the RegionalIntensity record (raises on error).
 regional_intensity = client.RegionalIntensity.load()
 ```
 
@@ -634,7 +635,7 @@ Create an instance: `regional_intensity_list = client.RegionalIntensityList`
 #### Example: Load
 
 ```ruby
-# load returns the bare RegionalIntensityList record (raises on error).
+# load returns the ENTITY — call data_get for the RegionalIntensityList record (raises on error).
 regional_intensity_list = client.RegionalIntensityList.load({ "intensity_id" => "intensity_id" })
 ```
 
@@ -748,11 +749,11 @@ Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```ruby
-generation = client.Generation
-generation.list()
+intensitylist = client.IntensityList
+intensitylist.list()
 
-# generation.data_get now returns the generation data from the last list
-# generation.match_get returns the last match criteria
+# intensitylist.data_get now returns the intensitylist data from the last list
+# intensitylist.match_get returns the last match criteria
 ```
 
 Call `make` to create a fresh instance with the same configuration

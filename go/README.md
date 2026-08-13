@@ -68,12 +68,12 @@ Every entity operation returns `(value, error)`. Check `err` before
 using the value — there is no exception to catch:
 
 ```go
-generations, err := client.Generation(nil).List(nil, nil)
+intensitylists, err := client.IntensityList(nil).List(nil, nil)
 if err != nil {
     // handle err
     return
 }
-_ = generations
+_ = intensitylists
 ```
 
 `Direct` follows the same `(value, error)` convention:
@@ -137,13 +137,13 @@ Create a mock client for unit testing — no server required:
 ```go
 client := sdk.Test()
 
-generation, err := client.Generation(nil).List(
+intensityList, err := client.IntensityList(nil).List(
     nil, nil,
 )
 if err != nil {
     panic(err)
 }
-fmt.Println(generation) // the returned mock data
+fmt.Println(intensityList) // the returned mock data
 ```
 
 ### Use a custom fetch function
@@ -307,20 +307,20 @@ API path: `/intensity/date/{date}/{period}`
 
 | Field | Description |
 | --- | --- |
-| `"biomass"` |  |
-| `"coal"` |  |
-| `"dutch_import"` |  |
-| `"french_import"` |  |
-| `"gas__combined_cycle"` |  |
-| `"gas__open_cycle"` |  |
-| `"hydro"` |  |
-| `"irish_import"` |  |
-| `"nuclear"` |  |
-| `"oil"` |  |
-| `"other"` |  |
-| `"pumped_storage"` |  |
-| `"solar"` |  |
-| `"wind"` |  |
+| `"Biomass"` |  |
+| `"Coal"` |  |
+| `"DutchImports"` |  |
+| `"FrenchImports"` |  |
+| `"GasCombinedCycle"` |  |
+| `"GasOpenCycle"` |  |
+| `"Hydro"` |  |
+| `"IrishImports"` |  |
+| `"Nuclear"` |  |
+| `"Oil"` |  |
+| `"Other"` |  |
+| `"PumpedStorage"` |  |
+| `"Solar"` |  |
+| `"Wind"` |  |
 
 Operations: List.
 
@@ -511,20 +511,20 @@ Create an instance: `intensityFactor := client.IntensityFactor(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `biomass` | `int` |  |
-| `coal` | `int` |  |
-| `dutch_import` | `int` |  |
-| `french_import` | `int` |  |
-| `gas__combined_cycle` | `int` |  |
-| `gas__open_cycle` | `int` |  |
-| `hydro` | `int` |  |
-| `irish_import` | `int` |  |
-| `nuclear` | `int` |  |
-| `oil` | `int` |  |
-| `other` | `int` |  |
-| `pumped_storage` | `int` |  |
-| `solar` | `int` |  |
-| `wind` | `int` |  |
+| `Biomass` | `int` |  |
+| `Coal` | `int` |  |
+| `DutchImports` | `int` |  |
+| `FrenchImports` | `int` |  |
+| `GasCombinedCycle` | `int` |  |
+| `GasOpenCycle` | `int` |  |
+| `Hydro` | `int` |  |
+| `IrishImports` | `int` |  |
+| `Nuclear` | `int` |  |
+| `Oil` | `int` |  |
+| `Other` | `int` |  |
+| `PumpedStorage` | `int` |  |
+| `Solar` | `int` |  |
+| `Wind` | `int` |  |
 
 #### Example: List
 
@@ -795,11 +795,11 @@ Entity instances are stateful. After a successful `List`, the entity
 stores the returned data and match criteria internally.
 
 ```go
-generation := client.Generation(nil)
-generation.List(nil, nil)
+intensitylist := client.IntensityList(nil)
+intensitylist.List(nil, nil)
 
-// generation.Data() now returns the generation data from the last list
-// generation.Match() returns the last match criteria
+// intensitylist.Data() now returns the intensitylist data from the last list
+// intensitylist.Match() returns the last match criteria
 ```
 
 Call `Make()` to create a fresh instance with the same configuration

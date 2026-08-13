@@ -293,20 +293,20 @@ local intensity_factor = client:IntensityFactor(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `biomass` | `number` | No |  |
-| `coal` | `number` | No |  |
-| `dutch_import` | `number` | No |  |
-| `french_import` | `number` | No |  |
-| `gas__combined_cycle` | `number` | No |  |
-| `gas__open_cycle` | `number` | No |  |
-| `hydro` | `number` | No |  |
-| `irish_import` | `number` | No |  |
-| `nuclear` | `number` | No |  |
-| `oil` | `number` | No |  |
-| `other` | `number` | No |  |
-| `pumped_storage` | `number` | No |  |
-| `solar` | `number` | No |  |
-| `wind` | `number` | No |  |
+| `Biomass` | `number` | No |  |
+| `Coal` | `number` | No |  |
+| `DutchImports` | `number` | No |  |
+| `FrenchImports` | `number` | No |  |
+| `GasCombinedCycle` | `number` | No |  |
+| `GasOpenCycle` | `number` | No |  |
+| `Hydro` | `number` | No |  |
+| `IrishImports` | `number` | No |  |
+| `Nuclear` | `number` | No |  |
+| `Oil` | `number` | No |  |
+| `Other` | `number` | No |  |
+| `PumpedStorage` | `number` | No |  |
+| `Solar` | `number` | No |  |
+| `Wind` | `number` | No |  |
 
 ### Operations
 

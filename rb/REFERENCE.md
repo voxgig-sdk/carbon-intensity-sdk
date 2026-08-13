@@ -296,20 +296,20 @@ intensity_factor = client.IntensityFactor
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `biomass` | `Integer` | No |  |
-| `coal` | `Integer` | No |  |
-| `dutch_import` | `Integer` | No |  |
-| `french_import` | `Integer` | No |  |
-| `gas__combined_cycle` | `Integer` | No |  |
-| `gas__open_cycle` | `Integer` | No |  |
-| `hydro` | `Integer` | No |  |
-| `irish_import` | `Integer` | No |  |
-| `nuclear` | `Integer` | No |  |
-| `oil` | `Integer` | No |  |
-| `other` | `Integer` | No |  |
-| `pumped_storage` | `Integer` | No |  |
-| `solar` | `Integer` | No |  |
-| `wind` | `Integer` | No |  |
+| `Biomass` | `Integer` | No |  |
+| `Coal` | `Integer` | No |  |
+| `DutchImports` | `Integer` | No |  |
+| `FrenchImports` | `Integer` | No |  |
+| `GasCombinedCycle` | `Integer` | No |  |
+| `GasOpenCycle` | `Integer` | No |  |
+| `Hydro` | `Integer` | No |  |
+| `IrishImports` | `Integer` | No |  |
+| `Nuclear` | `Integer` | No |  |
+| `Oil` | `Integer` | No |  |
+| `Other` | `Integer` | No |  |
+| `PumpedStorage` | `Integer` | No |  |
+| `Solar` | `Integer` | No |  |
+| `Wind` | `Integer` | No |  |
 
 ### Operations
 

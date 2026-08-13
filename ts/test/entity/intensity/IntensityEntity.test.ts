@@ -26,8 +26,8 @@ import {
 describe('IntensityEntity', async () => {
 
   // Per-test live pacing. Delay is read from sdk-test-control.json's
-  // `test.live.delayMs`; only sleeps when CARBONINTENSITY_TEST_LIVE=TRUE.
-  afterEach(liveDelay('CARBONINTENSITY_TEST_LIVE'))
+  // `test.live.delayMs`; only sleeps when CARBON_INTENSITY_TEST_LIVE=TRUE.
+  afterEach(liveDelay('CARBON_INTENSITY_TEST_LIVE'))
 
   test('instance', async () => {
     const testsdk = CarbonIntensitySDK.test()
@@ -63,7 +63,7 @@ describe('IntensityEntity', async () => {
     const intensity_ref01_ent = client.Intensity()
     const intensity_ref01_match: any = {}
 
-    const intensity_ref01_list = await intensity_ref01_ent.list(intensity_ref01_match)
+    const intensity_ref01_list = (await intensity_ref01_ent.list(intensity_ref01_match)).map((e: any) => e.data())
 
 
 

@@ -37,7 +37,7 @@ class StatEntity extends CarbonIntensityEntityBase<Stat> {
 
 
 
-  async list(this: any, reqmatch?: StatListMatch, ctrl?: Control): Promise<Stat[]> {
+  async list(this: any, reqmatch?: StatListMatch, ctrl?: Control): Promise<StatEntity[]> {
 
     const utility = this._utility
 

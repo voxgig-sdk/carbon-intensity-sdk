@@ -26,8 +26,8 @@ import {
 describe('StatEntity', async () => {
 
   // Per-test live pacing. Delay is read from sdk-test-control.json's
-  // `test.live.delayMs`; only sleeps when CARBONINTENSITY_TEST_LIVE=TRUE.
-  afterEach(liveDelay('CARBONINTENSITY_TEST_LIVE'))
+  // `test.live.delayMs`; only sleeps when CARBON_INTENSITY_TEST_LIVE=TRUE.
+  afterEach(liveDelay('CARBON_INTENSITY_TEST_LIVE'))
 
   test('instance', async () => {
     const testsdk = CarbonIntensitySDK.test()
@@ -65,7 +65,7 @@ describe('StatEntity', async () => {
     stat_ref01_match['from'] = setup.idmap['from01']
     stat_ref01_match['to'] = setup.idmap['to01']
 
-    const stat_ref01_list = await stat_ref01_ent.list(stat_ref01_match)
+    const stat_ref01_list = (await stat_ref01_ent.list(stat_ref01_match)).map((e: any) => e.data())
 
 
   })

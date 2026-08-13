@@ -275,7 +275,7 @@ const generation_list = client.GenerationList()
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.GenerationList().list()
+const results = await client.GenerationList().list({ from: "example" })
 ```
 
 ### Common Methods
@@ -377,20 +377,20 @@ const intensity_factor = client.IntensityFactor()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `biomass` | `number` | No |  |
-| `coal` | `number` | No |  |
-| `dutch_import` | `number` | No |  |
-| `french_import` | `number` | No |  |
-| `gas__combined_cycle` | `number` | No |  |
-| `gas__open_cycle` | `number` | No |  |
-| `hydro` | `number` | No |  |
-| `irish_import` | `number` | No |  |
-| `nuclear` | `number` | No |  |
-| `oil` | `number` | No |  |
-| `other` | `number` | No |  |
-| `pumped_storage` | `number` | No |  |
-| `solar` | `number` | No |  |
-| `wind` | `number` | No |  |
+| `Biomass` | `number` | No |  |
+| `Coal` | `number` | No |  |
+| `DutchImports` | `number` | No |  |
+| `FrenchImports` | `number` | No |  |
+| `GasCombinedCycle` | `number` | No |  |
+| `GasOpenCycle` | `number` | No |  |
+| `Hydro` | `number` | No |  |
+| `IrishImports` | `number` | No |  |
+| `Nuclear` | `number` | No |  |
+| `Oil` | `number` | No |  |
+| `Other` | `number` | No |  |
+| `PumpedStorage` | `number` | No |  |
+| `Solar` | `number` | No |  |
+| `Wind` | `number` | No |  |
 
 ### Operations
 
@@ -630,7 +630,7 @@ const regional_intensity_list = client.RegionalIntensityList()
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.RegionalIntensityList().list()
+const results = await client.RegionalIntensityList().list({ from: "example" })
 ```
 
 #### `load(match: object, ctrl?: object)`
@@ -690,7 +690,7 @@ const stat = client.Stat()
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.Stat().list()
+const results = await client.Stat().list({ from: "example", to: "example" })
 ```
 
 ### Common Methods

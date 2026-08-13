@@ -23,8 +23,8 @@ module CarbonIntensityTestRunner
   end
 
   def self.env_override(m)
-    live = getenv("CARBONINTENSITY_TEST_LIVE")
-    override = getenv("CARBONINTENSITY_TEST_OVERRIDE")
+    live = getenv("CARBON_INTENSITY_TEST_LIVE")
+    override = getenv("CARBON_INTENSITY_TEST_OVERRIDE")
 
     if live == "TRUE" || override == "TRUE"
       m.each_key do |key|
@@ -44,8 +44,8 @@ module CarbonIntensityTestRunner
       end
     end
 
-    explain = getenv("CARBONINTENSITY_TEST_EXPLAIN")
-    m["CARBONINTENSITY_TEST_EXPLAIN"] = explain if explain && !explain.empty?
+    explain = getenv("CARBON_INTENSITY_TEST_EXPLAIN")
+    m["CARBON_INTENSITY_TEST_EXPLAIN"] = explain if explain && !explain.empty?
 
     m
   end

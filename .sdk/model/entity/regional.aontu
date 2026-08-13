@@ -45,7 +45,7 @@ main: kit: entity: regional: {
           ]
           transform: {
             req: "`reqdata`"
-            res: "`body`"
+            res: "`body.data`"
           }
         }
       ]

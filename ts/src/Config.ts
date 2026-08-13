@@ -21,7 +21,7 @@ class Config {
 
 
   main = {
-    name: 'ProjectName',
+    name: 'CarbonIntensity',
   }
 
 
@@ -130,6 +130,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/generation/{from}/{to}",
               "parts": [
@@ -145,13 +146,14 @@ class Config {
               },
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.data`"
               },
               "index$": 0
             },
             {
               "active": true,
               "args": {},
+              "kind": "http",
               "method": "GET",
               "orig": "/generation",
               "parts": [
@@ -160,7 +162,7 @@ class Config {
               "select": {},
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.data`"
               },
               "index$": 1
             }
@@ -221,6 +223,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/generation/{from}/pt24h",
               "parts": [
@@ -235,7 +238,7 @@ class Config {
               },
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.data`"
               },
               "index$": 0
             }
@@ -312,6 +315,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/intensity/date/{date}/{period}",
               "parts": [
@@ -328,7 +332,7 @@ class Config {
               },
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.data`"
               },
               "index$": 0
             },
@@ -356,6 +360,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/intensity/{from}/{to}",
               "parts": [
@@ -371,13 +376,14 @@ class Config {
               },
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.data`"
               },
               "index$": 1
             },
             {
               "active": true,
               "args": {},
+              "kind": "http",
               "method": "GET",
               "orig": "/intensity",
               "parts": [
@@ -386,7 +392,7 @@ class Config {
               "select": {},
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.data`"
               },
               "index$": 2
             }
@@ -412,6 +418,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/intensity/{from}",
               "parts": [
@@ -453,98 +460,98 @@ class Config {
       "fields": [
         {
           "active": true,
-          "name": "biomass",
+          "name": "Biomass",
           "req": false,
           "type": "`$INTEGER`",
           "index$": 0
         },
         {
           "active": true,
-          "name": "coal",
+          "name": "Coal",
           "req": false,
           "type": "`$INTEGER`",
           "index$": 1
         },
         {
           "active": true,
-          "name": "dutch_import",
+          "name": "DutchImports",
           "req": false,
           "type": "`$INTEGER`",
           "index$": 2
         },
         {
           "active": true,
-          "name": "french_import",
+          "name": "FrenchImports",
           "req": false,
           "type": "`$INTEGER`",
           "index$": 3
         },
         {
           "active": true,
-          "name": "gas__combined_cycle",
+          "name": "GasCombinedCycle",
           "req": false,
           "type": "`$INTEGER`",
           "index$": 4
         },
         {
           "active": true,
-          "name": "gas__open_cycle",
+          "name": "GasOpenCycle",
           "req": false,
           "type": "`$INTEGER`",
           "index$": 5
         },
         {
           "active": true,
-          "name": "hydro",
+          "name": "Hydro",
           "req": false,
           "type": "`$INTEGER`",
           "index$": 6
         },
         {
           "active": true,
-          "name": "irish_import",
+          "name": "IrishImports",
           "req": false,
           "type": "`$INTEGER`",
           "index$": 7
         },
         {
           "active": true,
-          "name": "nuclear",
+          "name": "Nuclear",
           "req": false,
           "type": "`$INTEGER`",
           "index$": 8
         },
         {
           "active": true,
-          "name": "oil",
+          "name": "Oil",
           "req": false,
           "type": "`$INTEGER`",
           "index$": 9
         },
         {
           "active": true,
-          "name": "other",
+          "name": "Other",
           "req": false,
           "type": "`$INTEGER`",
           "index$": 10
         },
         {
           "active": true,
-          "name": "pumped_storage",
+          "name": "PumpedStorage",
           "req": false,
           "type": "`$INTEGER`",
           "index$": 11
         },
         {
           "active": true,
-          "name": "solar",
+          "name": "Solar",
           "req": false,
           "type": "`$INTEGER`",
           "index$": 12
         },
         {
           "active": true,
-          "name": "wind",
+          "name": "Wind",
           "req": false,
           "type": "`$INTEGER`",
           "index$": 13
@@ -559,6 +566,7 @@ class Config {
             {
               "active": true,
               "args": {},
+              "kind": "http",
               "method": "GET",
               "orig": "/intensity/factors",
               "parts": [
@@ -568,7 +576,7 @@ class Config {
               "select": {},
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.data`"
               },
               "index$": 0
             }
@@ -632,6 +640,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/intensity/{from}/fw24h",
               "parts": [
@@ -646,7 +655,7 @@ class Config {
               },
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.data`"
               },
               "index$": 0
             },
@@ -665,6 +674,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/intensity/{from}/fw48h",
               "parts": [
@@ -679,7 +689,7 @@ class Config {
               },
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.data`"
               },
               "index$": 1
             },
@@ -698,6 +708,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/intensity/{from}/pt24h",
               "parts": [
@@ -712,13 +723,14 @@ class Config {
               },
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.data`"
               },
               "index$": 2
             },
             {
               "active": true,
               "args": {},
+              "kind": "http",
               "method": "GET",
               "orig": "/intensity/date",
               "parts": [
@@ -728,7 +740,7 @@ class Config {
               "select": {},
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.data`"
               },
               "index$": 3
             }
@@ -754,6 +766,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/intensity/date/{date}",
               "parts": [
@@ -834,6 +847,7 @@ class Config {
             {
               "active": true,
               "args": {},
+              "kind": "http",
               "method": "GET",
               "orig": "/regional",
               "parts": [
@@ -842,7 +856,7 @@ class Config {
               "select": {},
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.data`"
               },
               "index$": 0
             }
@@ -901,6 +915,7 @@ class Config {
             {
               "active": true,
               "args": {},
+              "kind": "http",
               "method": "GET",
               "orig": "/regional/england",
               "parts": [
@@ -910,13 +925,14 @@ class Config {
               "select": {},
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.data`"
               },
               "index$": 0
             },
             {
               "active": true,
               "args": {},
+              "kind": "http",
               "method": "GET",
               "orig": "/regional/scotland",
               "parts": [
@@ -926,13 +942,14 @@ class Config {
               "select": {},
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.data`"
               },
               "index$": 1
             },
             {
               "active": true,
               "args": {},
+              "kind": "http",
               "method": "GET",
               "orig": "/regional/wales",
               "parts": [
@@ -942,7 +959,7 @@ class Config {
               "select": {},
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.data`"
               },
               "index$": 2
             }
@@ -968,6 +985,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/regional/postcode/{postcode}",
               "parts": [
@@ -1001,6 +1019,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/regional/regionid/{regionid}",
               "parts": [
@@ -1102,6 +1121,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/regional/intensity/{from}/{to}",
               "parts": [
@@ -1118,7 +1138,7 @@ class Config {
               },
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.data`"
               },
               "index$": 0
             },
@@ -1137,6 +1157,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/regional/intensity/{from}/fw24h",
               "parts": [
@@ -1152,7 +1173,7 @@ class Config {
               },
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.data`"
               },
               "index$": 1
             },
@@ -1171,6 +1192,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/regional/intensity/{from}/fw48h",
               "parts": [
@@ -1186,7 +1208,7 @@ class Config {
               },
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.data`"
               },
               "index$": 2
             },
@@ -1205,6 +1227,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/regional/intensity/{from}/pt24h",
               "parts": [
@@ -1220,7 +1243,7 @@ class Config {
               },
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.data`"
               },
               "index$": 3
             }
@@ -1264,6 +1287,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/regional/intensity/{from}/{to}/postcode/{postcode}",
               "parts": [
@@ -1325,6 +1349,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/regional/intensity/{from}/{to}/regionid/{regionid}",
               "parts": [
@@ -1377,6 +1402,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/regional/intensity/{from}/fw24h/postcode/{postcode}",
               "parts": [
@@ -1428,6 +1454,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/regional/intensity/{from}/fw48h/postcode/{postcode}",
               "parts": [
@@ -1479,6 +1506,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/regional/intensity/{from}/pt24h/postcode/{postcode}",
               "parts": [
@@ -1530,6 +1558,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/regional/intensity/{from}/fw24h/regionid/{regionid}",
               "parts": [
@@ -1581,6 +1610,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/regional/intensity/{from}/fw48h/regionid/{regionid}",
               "parts": [
@@ -1632,6 +1662,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/regional/intensity/{from}/pt24h/regionid/{regionid}",
               "parts": [
@@ -1742,6 +1773,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/intensity/stats/{from}/{to}/{block}",
               "parts": [
@@ -1760,7 +1792,7 @@ class Config {
               },
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.data`"
               },
               "index$": 0
             },
@@ -1788,6 +1820,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/intensity/stats/{from}/{to}",
               "parts": [
@@ -1804,7 +1837,7 @@ class Config {
               },
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.data`"
               },
               "index$": 1
             }

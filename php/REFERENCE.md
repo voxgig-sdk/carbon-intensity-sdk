@@ -295,20 +295,20 @@ $intensity_factor = $client->IntensityFactor();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `biomass` | `int` | No |  |
-| `coal` | `int` | No |  |
-| `dutch_import` | `int` | No |  |
-| `french_import` | `int` | No |  |
-| `gas__combined_cycle` | `int` | No |  |
-| `gas__open_cycle` | `int` | No |  |
-| `hydro` | `int` | No |  |
-| `irish_import` | `int` | No |  |
-| `nuclear` | `int` | No |  |
-| `oil` | `int` | No |  |
-| `other` | `int` | No |  |
-| `pumped_storage` | `int` | No |  |
-| `solar` | `int` | No |  |
-| `wind` | `int` | No |  |
+| `Biomass` | `int` | No |  |
+| `Coal` | `int` | No |  |
+| `DutchImports` | `int` | No |  |
+| `FrenchImports` | `int` | No |  |
+| `GasCombinedCycle` | `int` | No |  |
+| `GasOpenCycle` | `int` | No |  |
+| `Hydro` | `int` | No |  |
+| `IrishImports` | `int` | No |  |
+| `Nuclear` | `int` | No |  |
+| `Oil` | `int` | No |  |
+| `Other` | `int` | No |  |
+| `PumpedStorage` | `int` | No |  |
+| `Solar` | `int` | No |  |
+| `Wind` | `int` | No |  |
 
 ### Operations
 

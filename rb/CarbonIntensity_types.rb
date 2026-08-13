@@ -117,123 +117,123 @@ IntensityListMatch = Struct.new(
 
 # IntensityFactor entity data model.
 #
-# @!attribute [rw] biomass
+# @!attribute [rw] Biomass
 #   @return [Integer, nil]
 #
-# @!attribute [rw] coal
+# @!attribute [rw] Coal
 #   @return [Integer, nil]
 #
-# @!attribute [rw] dutch_import
+# @!attribute [rw] DutchImports
 #   @return [Integer, nil]
 #
-# @!attribute [rw] french_import
+# @!attribute [rw] FrenchImports
 #   @return [Integer, nil]
 #
-# @!attribute [rw] gas__combined_cycle
+# @!attribute [rw] GasCombinedCycle
 #   @return [Integer, nil]
 #
-# @!attribute [rw] gas__open_cycle
+# @!attribute [rw] GasOpenCycle
 #   @return [Integer, nil]
 #
-# @!attribute [rw] hydro
+# @!attribute [rw] Hydro
 #   @return [Integer, nil]
 #
-# @!attribute [rw] irish_import
+# @!attribute [rw] IrishImports
 #   @return [Integer, nil]
 #
-# @!attribute [rw] nuclear
+# @!attribute [rw] Nuclear
 #   @return [Integer, nil]
 #
-# @!attribute [rw] oil
+# @!attribute [rw] Oil
 #   @return [Integer, nil]
 #
-# @!attribute [rw] other
+# @!attribute [rw] Other
 #   @return [Integer, nil]
 #
-# @!attribute [rw] pumped_storage
+# @!attribute [rw] PumpedStorage
 #   @return [Integer, nil]
 #
-# @!attribute [rw] solar
+# @!attribute [rw] Solar
 #   @return [Integer, nil]
 #
-# @!attribute [rw] wind
+# @!attribute [rw] Wind
 #   @return [Integer, nil]
 IntensityFactor = Struct.new(
-  :biomass,
-  :coal,
-  :dutch_import,
-  :french_import,
-  :gas__combined_cycle,
-  :gas__open_cycle,
-  :hydro,
-  :irish_import,
-  :nuclear,
-  :oil,
-  :other,
-  :pumped_storage,
-  :solar,
-  :wind,
+  :Biomass,
+  :Coal,
+  :DutchImports,
+  :FrenchImports,
+  :GasCombinedCycle,
+  :GasOpenCycle,
+  :Hydro,
+  :IrishImports,
+  :Nuclear,
+  :Oil,
+  :Other,
+  :PumpedStorage,
+  :Solar,
+  :Wind,
   keyword_init: true
 )
 
 # Request payload for IntensityFactor#list.
 #
-# @!attribute [rw] biomass
+# @!attribute [rw] Biomass
 #   @return [Integer, nil]
 #
-# @!attribute [rw] coal
+# @!attribute [rw] Coal
 #   @return [Integer, nil]
 #
-# @!attribute [rw] dutch_import
+# @!attribute [rw] DutchImports
 #   @return [Integer, nil]
 #
-# @!attribute [rw] french_import
+# @!attribute [rw] FrenchImports
 #   @return [Integer, nil]
 #
-# @!attribute [rw] gas__combined_cycle
+# @!attribute [rw] GasCombinedCycle
 #   @return [Integer, nil]
 #
-# @!attribute [rw] gas__open_cycle
+# @!attribute [rw] GasOpenCycle
 #   @return [Integer, nil]
 #
-# @!attribute [rw] hydro
+# @!attribute [rw] Hydro
 #   @return [Integer, nil]
 #
-# @!attribute [rw] irish_import
+# @!attribute [rw] IrishImports
 #   @return [Integer, nil]
 #
-# @!attribute [rw] nuclear
+# @!attribute [rw] Nuclear
 #   @return [Integer, nil]
 #
-# @!attribute [rw] oil
+# @!attribute [rw] Oil
 #   @return [Integer, nil]
 #
-# @!attribute [rw] other
+# @!attribute [rw] Other
 #   @return [Integer, nil]
 #
-# @!attribute [rw] pumped_storage
+# @!attribute [rw] PumpedStorage
 #   @return [Integer, nil]
 #
-# @!attribute [rw] solar
+# @!attribute [rw] Solar
 #   @return [Integer, nil]
 #
-# @!attribute [rw] wind
+# @!attribute [rw] Wind
 #   @return [Integer, nil]
 IntensityFactorListMatch = Struct.new(
-  :biomass,
-  :coal,
-  :dutch_import,
-  :french_import,
-  :gas__combined_cycle,
-  :gas__open_cycle,
-  :hydro,
-  :irish_import,
-  :nuclear,
-  :oil,
-  :other,
-  :pumped_storage,
-  :solar,
-  :wind,
+  :Biomass,
+  :Coal,
+  :DutchImports,
+  :FrenchImports,
+  :GasCombinedCycle,
+  :GasOpenCycle,
+  :Hydro,
+  :IrishImports,
+  :Nuclear,
+  :Oil,
+  :Other,
+  :PumpedStorage,
+  :Solar,
+  :Wind,
   keyword_init: true
 )
 

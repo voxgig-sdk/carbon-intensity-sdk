@@ -1,4 +1,4 @@
-# ProjectName SDK exists test
+# CarbonIntensity SDK exists test
 
 import pytest
 from carbonintensity_sdk import CarbonIntensitySDK

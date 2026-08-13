@@ -6,72 +6,72 @@ main: kit: entity: intensity_factor: {
 
   fields: [
     {
-      name: "biomass"
+      name: "Biomass"
       req: false
       type: "`$INTEGER`"
     }
     {
-      name: "coal"
+      name: "Coal"
       req: false
       type: "`$INTEGER`"
     }
     {
-      name: "dutch_import"
+      name: "DutchImports"
       req: false
       type: "`$INTEGER`"
     }
     {
-      name: "french_import"
+      name: "FrenchImports"
       req: false
       type: "`$INTEGER`"
     }
     {
-      name: "gas__combined_cycle"
+      name: "GasCombinedCycle"
       req: false
       type: "`$INTEGER`"
     }
     {
-      name: "gas__open_cycle"
+      name: "GasOpenCycle"
       req: false
       type: "`$INTEGER`"
     }
     {
-      name: "hydro"
+      name: "Hydro"
       req: false
       type: "`$INTEGER`"
     }
     {
-      name: "irish_import"
+      name: "IrishImports"
       req: false
       type: "`$INTEGER`"
     }
     {
-      name: "nuclear"
+      name: "Nuclear"
       req: false
       type: "`$INTEGER`"
     }
     {
-      name: "oil"
+      name: "Oil"
       req: false
       type: "`$INTEGER`"
     }
     {
-      name: "other"
+      name: "Other"
       req: false
       type: "`$INTEGER`"
     }
     {
-      name: "pumped_storage"
+      name: "PumpedStorage"
       req: false
       type: "`$INTEGER`"
     }
     {
-      name: "solar"
+      name: "Solar"
       req: false
       type: "`$INTEGER`"
     }
     {
-      name: "wind"
+      name: "Wind"
       req: false
       type: "`$INTEGER`"
     }
@@ -91,7 +91,7 @@ main: kit: entity: intensity_factor: {
           ]
           transform: {
             req: "`reqdata`"
-            res: "`body`"
+            res: "`body.data`"
           }
         }
       ]

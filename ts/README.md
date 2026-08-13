@@ -35,7 +35,9 @@ const client = new CarbonIntensitySDK()
 
 ### 2. List generation records
 
-`list()` resolves to an array of Generation objects — iterate it directly:
+`list()` resolves to an array of Generation ENTITIES — every operation
+resolves to entities, not raw records. Iterate them directly, and call
+`.data()` on one for the record it holds:
 
 ```ts
 const generations = await client.Generation().list()
@@ -68,8 +70,8 @@ Entity operations reject on failure, so wrap them in `try` / `catch`:
 
 ```ts
 try {
-  const generations = await client.Generation().list()
-  console.log(generations)
+  const intensitylists = await client.IntensityList().list()
+  console.log(intensitylists)
 } catch (err) {
   console.error('list failed:', err)
 }
@@ -135,9 +137,10 @@ Create a mock client for unit testing — no server required:
 ```ts
 const client = CarbonIntensitySDK.test()
 
-const generation = await client.Generation().list()
-// generation is a bare entity populated with mock response data
-console.log(generation)
+const intensitylist = await client.IntensityList().list()
+// intensitylist is the entity, populated with mock response data
+// — call intensitylist.data() for the record itself
+console.log(intensitylist)
 ```
 
 You can also use the instance method:
@@ -152,7 +155,7 @@ const testClient = client.tester()
 Entity instances remember their last match and data:
 
 ```ts
-const entity = client.Generation()
+const entity = client.IntensityList()
 
 // First call runs the operation and stores its result
 await entity.list()
@@ -347,20 +350,20 @@ API path: `/intensity/date/{date}/{period}`
 
 | Field | Description |
 | --- | --- |
-| `biomass` |  |
-| `coal` |  |
-| `dutch_import` |  |
-| `french_import` |  |
-| `gas__combined_cycle` |  |
-| `gas__open_cycle` |  |
-| `hydro` |  |
-| `irish_import` |  |
-| `nuclear` |  |
-| `oil` |  |
-| `other` |  |
-| `pumped_storage` |  |
-| `solar` |  |
-| `wind` |  |
+| `Biomass` |  |
+| `Coal` |  |
+| `DutchImports` |  |
+| `FrenchImports` |  |
+| `GasCombinedCycle` |  |
+| `GasOpenCycle` |  |
+| `Hydro` |  |
+| `IrishImports` |  |
+| `Nuclear` |  |
+| `Oil` |  |
+| `Other` |  |
+| `PumpedStorage` |  |
+| `Solar` |  |
+| `Wind` |  |
 
 Operations: list.
 
@@ -484,7 +487,7 @@ Create an instance: `const generation_list = client.GenerationList()`
 #### Example: List
 
 ```ts
-const generation_lists = await client.GenerationList().list()
+const generation_lists = await client.GenerationList().list({ from: "example" })
 ```
 
 
@@ -535,20 +538,20 @@ Create an instance: `const intensity_factor = client.IntensityFactor()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `biomass` | `number` |  |
-| `coal` | `number` |  |
-| `dutch_import` | `number` |  |
-| `french_import` | `number` |  |
-| `gas__combined_cycle` | `number` |  |
-| `gas__open_cycle` | `number` |  |
-| `hydro` | `number` |  |
-| `irish_import` | `number` |  |
-| `nuclear` | `number` |  |
-| `oil` | `number` |  |
-| `other` | `number` |  |
-| `pumped_storage` | `number` |  |
-| `solar` | `number` |  |
-| `wind` | `number` |  |
+| `Biomass` | `number` |  |
+| `Coal` | `number` |  |
+| `DutchImports` | `number` |  |
+| `FrenchImports` | `number` |  |
+| `GasCombinedCycle` | `number` |  |
+| `GasOpenCycle` | `number` |  |
+| `Hydro` | `number` |  |
+| `IrishImports` | `number` |  |
+| `Nuclear` | `number` |  |
+| `Oil` | `number` |  |
+| `Other` | `number` |  |
+| `PumpedStorage` | `number` |  |
+| `Solar` | `number` |  |
+| `Wind` | `number` |  |
 
 #### Example: List
 
@@ -681,7 +684,7 @@ const regional_intensity_list = await client.RegionalIntensityList().load({ inte
 #### Example: List
 
 ```ts
-const regional_intensity_lists = await client.RegionalIntensityList().list()
+const regional_intensity_lists = await client.RegionalIntensityList().list({ from: "example" })
 ```
 
 
@@ -706,7 +709,7 @@ Create an instance: `const stat = client.Stat()`
 #### Example: List
 
 ```ts
-const stats = await client.Stat().list()
+const stats = await client.Stat().list({ from: "example", to: "example" })
 ```
 
 
@@ -779,11 +782,11 @@ stores the returned data and match criteria internally. Subsequent
 calls on the same instance can rely on this state.
 
 ```ts
-const generation = client.Generation()
-await generation.list()
+const intensitylist = client.IntensityList()
+await intensitylist.list()
 
-// generation.data() now returns the generation data from the last `list`
-// generation.match() returns the last match criteria
+// intensitylist.data() now returns the intensitylist data from the last `list`
+// intensitylist.match() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

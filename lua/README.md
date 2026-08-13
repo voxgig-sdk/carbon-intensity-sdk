@@ -64,7 +64,7 @@ Entity operations return `(value, err)`. Check `err` before using
 the value:
 
 ```lua
-local generations, err = client:Generation():list()
+local intensitylists, err = client:IntensityList():list()
 if err then error(err) end
 ```
 
@@ -122,7 +122,7 @@ Create a mock client for unit testing — no server required:
 ```lua
 local client = sdk.test()
 
-local result, err = client:Generation():list()
+local result, err = client:IntensityList():list()
 -- result is the returned data; err is set on failure
 ```
 
@@ -238,9 +238,9 @@ data **directly** — there is no wrapper:
 
 Check `err` first (it is non-`nil` on failure), then use `value`:
 
-    local generation, err = client:Generation():load()
+    local intensity, err = client:Intensity():load({ id = "example_id" })
     if err then error(err) end
-    -- generation is the loaded record
+    -- intensity is the loaded record
 
 Only `direct()` returns a response envelope — a `table` with `ok`,
 `status`, `headers`, and `data` keys.
@@ -288,20 +288,20 @@ API path: `/intensity/date/{date}/{period}`
 
 | Field | Description |
 | --- | --- |
-| `biomass` |  |
-| `coal` |  |
-| `dutch_import` |  |
-| `french_import` |  |
-| `gas__combined_cycle` |  |
-| `gas__open_cycle` |  |
-| `hydro` |  |
-| `irish_import` |  |
-| `nuclear` |  |
-| `oil` |  |
-| `other` |  |
-| `pumped_storage` |  |
-| `solar` |  |
-| `wind` |  |
+| `Biomass` |  |
+| `Coal` |  |
+| `DutchImports` |  |
+| `FrenchImports` |  |
+| `GasCombinedCycle` |  |
+| `GasOpenCycle` |  |
+| `Hydro` |  |
+| `IrishImports` |  |
+| `Nuclear` |  |
+| `Oil` |  |
+| `Other` |  |
+| `PumpedStorage` |  |
+| `Solar` |  |
+| `Wind` |  |
 
 Operations: List.
 
@@ -476,20 +476,20 @@ Create an instance: `local intensity_factor = client:IntensityFactor(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `biomass` | `number` |  |
-| `coal` | `number` |  |
-| `dutch_import` | `number` |  |
-| `french_import` | `number` |  |
-| `gas__combined_cycle` | `number` |  |
-| `gas__open_cycle` | `number` |  |
-| `hydro` | `number` |  |
-| `irish_import` | `number` |  |
-| `nuclear` | `number` |  |
-| `oil` | `number` |  |
-| `other` | `number` |  |
-| `pumped_storage` | `number` |  |
-| `solar` | `number` |  |
-| `wind` | `number` |  |
+| `Biomass` | `number` |  |
+| `Coal` | `number` |  |
+| `DutchImports` | `number` |  |
+| `FrenchImports` | `number` |  |
+| `GasCombinedCycle` | `number` |  |
+| `GasOpenCycle` | `number` |  |
+| `Hydro` | `number` |  |
+| `IrishImports` | `number` |  |
+| `Nuclear` | `number` |  |
+| `Oil` | `number` |  |
+| `Other` | `number` |  |
+| `PumpedStorage` | `number` |  |
+| `Solar` | `number` |  |
+| `Wind` | `number` |  |
 
 #### Example: List
 
@@ -727,11 +727,11 @@ Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```lua
-local generation = client:Generation()
-generation:list()
+local intensitylist = client:IntensityList()
+intensitylist:list()
 
--- generation:data_get() now returns the generation data from the last list
--- generation:match_get() returns the last match criteria
+-- intensitylist:data_get() now returns the intensitylist data from the last list
+-- intensitylist:match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

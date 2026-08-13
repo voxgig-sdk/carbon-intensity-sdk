@@ -51,7 +51,7 @@ IntensityList is nested under date, so provide the `date`.
 
 ```php
 try {
-    // load() returns the bare IntensityList record (throws on error).
+    // load() returns the ENTITY — call data_get() for the IntensityList record (throws on error).
     $intensitylist = $client->IntensityList()->load(["date" => "example_date"]);
     print_r($intensitylist);
 } catch (\Throwable $err) {
@@ -67,7 +67,7 @@ Entity operations throw a `\Throwable` on failure, so wrap them in
 
 ```php
 try {
-    $generations = $client->Generation()->list();
+    $intensitylists = $client->IntensityList()->list();
 } catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
 }
@@ -139,9 +139,10 @@ Create a mock client for unit testing — no server required:
 ```php
 $client = CarbonIntensitySDK::test();
 
-// Entity ops return the bare mock record (throws on error).
-$generation = $client->Generation()->list();
-print_r($generation);
+// Entity ops return the ENTITY (throws on error);
+// call data_get() for the mock record.
+$intensitylist = $client->IntensityList()->list();
+print_r($intensitylist);
 ```
 
 ### Use a custom fetch function
@@ -247,7 +248,7 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the bare result data (an `array` for single-entity
+Entity operations return the ENTITY (call data_get() for the record) (an `array` for single-entity
 ops, a `list` for `list`) and throw on error. Wrap calls in
 `try`/`catch` to handle failures.
 
@@ -306,20 +307,20 @@ API path: `/intensity/date/{date}/{period}`
 
 | Field | Description |
 | --- | --- |
-| `biomass` |  |
-| `coal` |  |
-| `dutch_import` |  |
-| `french_import` |  |
-| `gas__combined_cycle` |  |
-| `gas__open_cycle` |  |
-| `hydro` |  |
-| `irish_import` |  |
-| `nuclear` |  |
-| `oil` |  |
-| `other` |  |
-| `pumped_storage` |  |
-| `solar` |  |
-| `wind` |  |
+| `Biomass` |  |
+| `Coal` |  |
+| `DutchImports` |  |
+| `FrenchImports` |  |
+| `GasCombinedCycle` |  |
+| `GasOpenCycle` |  |
+| `Hydro` |  |
+| `IrishImports` |  |
+| `Nuclear` |  |
+| `Oil` |  |
+| `Other` |  |
+| `PumpedStorage` |  |
+| `Solar` |  |
+| `Wind` |  |
 
 Operations: List.
 
@@ -472,7 +473,7 @@ Create an instance: `$intensity = $client->Intensity();`
 #### Example: Load
 
 ```php
-// load() returns the bare Intensity record (throws on error).
+// load() returns the ENTITY — call data_get() for the Intensity record (throws on error).
 $intensity = $client->Intensity()->load(["id" => "intensity_id"]);
 ```
 
@@ -498,20 +499,20 @@ Create an instance: `$intensity_factor = $client->IntensityFactor();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `biomass` | `int` |  |
-| `coal` | `int` |  |
-| `dutch_import` | `int` |  |
-| `french_import` | `int` |  |
-| `gas__combined_cycle` | `int` |  |
-| `gas__open_cycle` | `int` |  |
-| `hydro` | `int` |  |
-| `irish_import` | `int` |  |
-| `nuclear` | `int` |  |
-| `oil` | `int` |  |
-| `other` | `int` |  |
-| `pumped_storage` | `int` |  |
-| `solar` | `int` |  |
-| `wind` | `int` |  |
+| `Biomass` | `int` |  |
+| `Coal` | `int` |  |
+| `DutchImports` | `int` |  |
+| `FrenchImports` | `int` |  |
+| `GasCombinedCycle` | `int` |  |
+| `GasOpenCycle` | `int` |  |
+| `Hydro` | `int` |  |
+| `IrishImports` | `int` |  |
+| `Nuclear` | `int` |  |
+| `Oil` | `int` |  |
+| `Other` | `int` |  |
+| `PumpedStorage` | `int` |  |
+| `Solar` | `int` |  |
+| `Wind` | `int` |  |
 
 #### Example: List
 
@@ -544,7 +545,7 @@ Create an instance: `$intensity_list = $client->IntensityList();`
 #### Example: Load
 
 ```php
-// load() returns the bare IntensityList record (throws on error).
+// load() returns the ENTITY — call data_get() for the IntensityList record (throws on error).
 $intensity_list = $client->IntensityList()->load(["date" => "date"]);
 ```
 
@@ -608,7 +609,7 @@ Create an instance: `$regional_intensity = $client->RegionalIntensity();`
 #### Example: Load
 
 ```php
-// load() returns the bare RegionalIntensity record (throws on error).
+// load() returns the ENTITY — call data_get() for the RegionalIntensity record (throws on error).
 $regional_intensity = $client->RegionalIntensity()->load();
 ```
 
@@ -644,7 +645,7 @@ Create an instance: `$regional_intensity_list = $client->RegionalIntensityList()
 #### Example: Load
 
 ```php
-// load() returns the bare RegionalIntensityList record (throws on error).
+// load() returns the ENTITY — call data_get() for the RegionalIntensityList record (throws on error).
 $regional_intensity_list = $client->RegionalIntensityList()->load(["intensity_id" => "intensity_id"]);
 ```
 
@@ -758,11 +759,11 @@ Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```php
-$generation = $client->Generation();
-$generation->list();
+$intensitylist = $client->IntensityList();
+$intensitylist->list();
 
-// $generation->data_get() now returns the generation data from the last list
-// $generation->match_get() returns the last match criteria
+// $intensitylist->data_get() now returns the intensitylist data from the last list
+// $intensitylist->match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

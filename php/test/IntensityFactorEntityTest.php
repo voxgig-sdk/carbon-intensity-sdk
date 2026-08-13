@@ -72,7 +72,7 @@ class IntensityFactorEntityTest extends TestCase
         // The basic flow consumes synthetic IDs from the fixture. In live mode
         // without an *_ENTID env override, those IDs hit the live API and 4xx.
         if (!empty($setup["synthetic_only"])) {
-            $this->markTestSkipped("live entity test uses synthetic IDs from fixture — set CARBONINTENSITY_TEST_INTENSITY_FACTOR_ENTID JSON to run live");
+            $this->markTestSkipped("live entity test uses synthetic IDs from fixture — set CARBON_INTENSITY_TEST_INTENSITY_FACTOR_ENTID JSON to run live");
             return;
         }
         $client = $setup["client"];
@@ -117,22 +117,22 @@ function intensity_factor_basic_setup($extra)
     // Detect ENTID env override before envOverride consumes it. When live
     // mode is on without a real override, the basic test runs against synthetic
     // IDs from the fixture and 4xx's. Surface this so the test can skip.
-    $entid_env_raw = getenv("CARBONINTENSITY_TEST_INTENSITY_FACTOR_ENTID");
+    $entid_env_raw = getenv("CARBON_INTENSITY_TEST_INTENSITY_FACTOR_ENTID");
     $idmap_overridden = $entid_env_raw !== false && str_starts_with(trim($entid_env_raw), "{");
 
     $env = Runner::env_override([
-        "CARBONINTENSITY_TEST_INTENSITY_FACTOR_ENTID" => $idmap,
-        "CARBONINTENSITY_TEST_LIVE" => "FALSE",
-        "CARBONINTENSITY_TEST_EXPLAIN" => "FALSE",
+        "CARBON_INTENSITY_TEST_INTENSITY_FACTOR_ENTID" => $idmap,
+        "CARBON_INTENSITY_TEST_LIVE" => "FALSE",
+        "CARBON_INTENSITY_TEST_EXPLAIN" => "FALSE",
     ]);
 
     $idmap_resolved = Helpers::to_map(
-        $env["CARBONINTENSITY_TEST_INTENSITY_FACTOR_ENTID"]);
+        $env["CARBON_INTENSITY_TEST_INTENSITY_FACTOR_ENTID"]);
     if ($idmap_resolved === null) {
         $idmap_resolved = Helpers::to_map($idmap);
     }
 
-    if ($env["CARBONINTENSITY_TEST_LIVE"] === "TRUE") {
+    if ($env["CARBON_INTENSITY_TEST_LIVE"] === "TRUE") {
         $merged_opts = Vs::merge([
             [
             ],
@@ -141,13 +141,13 @@ function intensity_factor_basic_setup($extra)
         $client = new CarbonIntensitySDK(Helpers::to_map($merged_opts));
     }
 
-    $live = $env["CARBONINTENSITY_TEST_LIVE"] === "TRUE";
+    $live = $env["CARBON_INTENSITY_TEST_LIVE"] === "TRUE";
     return [
         "client" => $client,
         "data" => $entity_data,
         "idmap" => $idmap_resolved,
         "env" => $env,
-        "explain" => $env["CARBONINTENSITY_TEST_EXPLAIN"] === "TRUE",
+        "explain" => $env["CARBON_INTENSITY_TEST_EXPLAIN"] === "TRUE",
         "live" => $live,
         "synthetic_only" => $live && !$idmap_overridden,
         "now" => (int)(microtime(true) * 1000),

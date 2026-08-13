@@ -142,11 +142,11 @@ function regional_intensity_list_direct_setup($mockres)
     $calls = new \ArrayObject();
 
     $env = Runner::env_override([
-        "CARBONINTENSITY_TEST_REGIONAL_INTENSITY_LIST_ENTID" => [],
-        "CARBONINTENSITY_TEST_LIVE" => "FALSE",
+        "CARBON_INTENSITY_TEST_REGIONAL_INTENSITY_LIST_ENTID" => [],
+        "CARBON_INTENSITY_TEST_LIVE" => "FALSE",
     ]);
 
-    $live = $env["CARBONINTENSITY_TEST_LIVE"] === "TRUE";
+    $live = $env["CARBON_INTENSITY_TEST_LIVE"] === "TRUE";
 
     if ($live) {
         $merged_opts = [

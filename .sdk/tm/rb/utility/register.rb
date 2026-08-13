@@ -24,6 +24,7 @@ require_relative 'prepare_method'
 require_relative 'prepare_params'
 require_relative 'prepare_path'
 require_relative 'prepare_query'
+require_relative 'graphql'
 require_relative 'result_basic'
 require_relative 'result_body'
 require_relative 'result_headers'
@@ -55,6 +56,8 @@ CarbonIntensityUtility.registrar = ->(u) {
   u.prepare_params = CarbonIntensityUtilities::PrepareParams
   u.prepare_path = CarbonIntensityUtilities::PreparePath
   u.prepare_query = CarbonIntensityUtilities::PrepareQuery
+  u.graphql_body = CarbonIntensityUtilities::GraphqlBody
+  u.graphql_errors = CarbonIntensityUtilities::GraphqlErrors
   u.result_basic = CarbonIntensityUtilities::ResultBasic
   u.result_body = CarbonIntensityUtilities::ResultBody
   u.result_headers = CarbonIntensityUtilities::ResultHeaders

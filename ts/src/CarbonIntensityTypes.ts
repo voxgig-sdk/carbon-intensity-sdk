@@ -45,37 +45,37 @@ export interface IntensityListMatch {
 }
 
 export interface IntensityFactor {
-  biomass?: number
-  coal?: number
-  dutch_import?: number
-  french_import?: number
-  gas__combined_cycle?: number
-  gas__open_cycle?: number
-  hydro?: number
-  irish_import?: number
-  nuclear?: number
-  oil?: number
-  other?: number
-  pumped_storage?: number
-  solar?: number
-  wind?: number
+  Biomass?: number
+  Coal?: number
+  DutchImports?: number
+  FrenchImports?: number
+  GasCombinedCycle?: number
+  GasOpenCycle?: number
+  Hydro?: number
+  IrishImports?: number
+  Nuclear?: number
+  Oil?: number
+  Other?: number
+  PumpedStorage?: number
+  Solar?: number
+  Wind?: number
 }
 
 export interface IntensityFactorListMatch {
-  biomass?: number
-  coal?: number
-  dutch_import?: number
-  french_import?: number
-  gas__combined_cycle?: number
-  gas__open_cycle?: number
-  hydro?: number
-  irish_import?: number
-  nuclear?: number
-  oil?: number
-  other?: number
-  pumped_storage?: number
-  solar?: number
-  wind?: number
+  Biomass?: number
+  Coal?: number
+  DutchImports?: number
+  FrenchImports?: number
+  GasCombinedCycle?: number
+  GasOpenCycle?: number
+  Hydro?: number
+  IrishImports?: number
+  Nuclear?: number
+  Oil?: number
+  Other?: number
+  PumpedStorage?: number
+  Solar?: number
+  Wind?: number
 }
 
 export interface IntensityList {

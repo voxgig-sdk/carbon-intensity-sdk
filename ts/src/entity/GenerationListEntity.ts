@@ -37,7 +37,7 @@ class GenerationListEntity extends CarbonIntensityEntityBase<GenerationList> {
 
 
 
-  async list(this: any, reqmatch?: GenerationListListMatch, ctrl?: Control): Promise<GenerationList[]> {
+  async list(this: any, reqmatch?: GenerationListListMatch, ctrl?: Control): Promise<GenerationListEntity[]> {
 
     const utility = this._utility
 

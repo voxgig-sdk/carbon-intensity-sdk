@@ -23,6 +23,7 @@ require_once __DIR__ . '/MakeUrl.php';
 require_once __DIR__ . '/Param.php';
 require_once __DIR__ . '/PrepareAuth.php';
 require_once __DIR__ . '/PrepareBody.php';
+require_once __DIR__ . '/Graphql.php';
 require_once __DIR__ . '/PrepareHeaders.php';
 require_once __DIR__ . '/PrepareMethod.php';
 require_once __DIR__ . '/PrepareParams.php';
@@ -59,6 +60,8 @@ CarbonIntensityUtility::setRegistrar(function (CarbonIntensityUtility $u): void 
     $u->prepare_params = [CarbonIntensityPrepareParams::class, 'call'];
     $u->prepare_path = [CarbonIntensityPreparePath::class, 'call'];
     $u->prepare_query = [CarbonIntensityPrepareQuery::class, 'call'];
+    $u->graphql_body = [CarbonIntensityGraphql::class, 'body'];
+    $u->graphql_errors = [CarbonIntensityGraphql::class, 'errors'];
     $u->result_basic = [CarbonIntensityResultBasic::class, 'call'];
     $u->result_body = [CarbonIntensityResultBody::class, 'call'];
     $u->result_headers = [CarbonIntensityResultHeaders::class, 'call'];

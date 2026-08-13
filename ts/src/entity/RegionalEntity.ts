@@ -37,7 +37,7 @@ class RegionalEntity extends CarbonIntensityEntityBase<Regional> {
 
 
 
-  async list(this: any, reqmatch?: RegionalListMatch, ctrl?: Control): Promise<Regional[]> {
+  async list(this: any, reqmatch?: RegionalListMatch, ctrl?: Control): Promise<RegionalEntity[]> {
 
     const utility = this._utility
 

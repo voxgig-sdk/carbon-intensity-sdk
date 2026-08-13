@@ -37,7 +37,7 @@ class IntensityFactorEntity extends CarbonIntensityEntityBase<IntensityFactor> {
 
 
 
-  async list(this: any, reqmatch?: IntensityFactorListMatch, ctrl?: Control): Promise<IntensityFactor[]> {
+  async list(this: any, reqmatch?: IntensityFactorListMatch, ctrl?: Control): Promise<IntensityFactorEntity[]> {
 
     const utility = this._utility
 

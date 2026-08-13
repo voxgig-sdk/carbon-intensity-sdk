@@ -68,39 +68,39 @@ class IntensityListMatch
 /** IntensityFactor entity data model. */
 class IntensityFactor
 {
-    public ?int $biomass = null;
-    public ?int $coal = null;
-    public ?int $dutch_import = null;
-    public ?int $french_import = null;
-    public ?int $gas__combined_cycle = null;
-    public ?int $gas__open_cycle = null;
-    public ?int $hydro = null;
-    public ?int $irish_import = null;
-    public ?int $nuclear = null;
-    public ?int $oil = null;
-    public ?int $other = null;
-    public ?int $pumped_storage = null;
-    public ?int $solar = null;
-    public ?int $wind = null;
+    public ?int $Biomass = null;
+    public ?int $Coal = null;
+    public ?int $DutchImports = null;
+    public ?int $FrenchImports = null;
+    public ?int $GasCombinedCycle = null;
+    public ?int $GasOpenCycle = null;
+    public ?int $Hydro = null;
+    public ?int $IrishImports = null;
+    public ?int $Nuclear = null;
+    public ?int $Oil = null;
+    public ?int $Other = null;
+    public ?int $PumpedStorage = null;
+    public ?int $Solar = null;
+    public ?int $Wind = null;
 }
 
 /** Request payload for IntensityFactor#list. */
 class IntensityFactorListMatch
 {
-    public ?int $biomass = null;
-    public ?int $coal = null;
-    public ?int $dutch_import = null;
-    public ?int $french_import = null;
-    public ?int $gas__combined_cycle = null;
-    public ?int $gas__open_cycle = null;
-    public ?int $hydro = null;
-    public ?int $irish_import = null;
-    public ?int $nuclear = null;
-    public ?int $oil = null;
-    public ?int $other = null;
-    public ?int $pumped_storage = null;
-    public ?int $solar = null;
-    public ?int $wind = null;
+    public ?int $Biomass = null;
+    public ?int $Coal = null;
+    public ?int $DutchImports = null;
+    public ?int $FrenchImports = null;
+    public ?int $GasCombinedCycle = null;
+    public ?int $GasOpenCycle = null;
+    public ?int $Hydro = null;
+    public ?int $IrishImports = null;
+    public ?int $Nuclear = null;
+    public ?int $Oil = null;
+    public ?int $Other = null;
+    public ?int $PumpedStorage = null;
+    public ?int $Solar = null;
+    public ?int $Wind = null;
 }
 
 /** IntensityList entity data model. */

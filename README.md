@@ -38,18 +38,27 @@ network, and no credentials:
 ### TypeScript
 
 ```ts
-const client = CarbonIntensitySDK.test()
-const generations = await client.Generation().list()
-// generations is an array of bare Generation records populated with mock data
-console.log(generations)
+// The offline mock starts EMPTY — seed it with the records the test needs.
+// Shape: { entity: { <entity-name>: { <id>: <record> } } }
+const client = CarbonIntensitySDK.test({
+  entity: {
+    intensity_list: {
+      test01: { id: 'test01' },
+    },
+  },
+})
+const intensitylists = await client.IntensityList().list()
+// intensitylists is an array of IntensityList entities, populated with mock data
+// — call intensitylists[0].data() for the record itself
+console.log(intensitylists)
 ```
 
 ### Python
 
 ```python
 client = CarbonIntensitySDK.test()
-generations = client.Generation().list()
-print(generations)
+intensitylists = client.IntensityList().list()
+print(intensitylists)
 ```
 
 ### PHP
@@ -57,16 +66,16 @@ print(generations)
 ```php
 // Seed fixture data so offline calls resolve without a live server.
 $client = CarbonIntensitySDK::test([
-    "entity" => ["generation" => ["test01" => []]],
+    "entity" => ["intensitylist" => ["test01" => []]],
 ]);
-$generations = $client->Generation()->list();
+$intensitylists = $client->IntensityList()->list();
 ```
 
 ### Golang
 
 ```go
 client := sdk.Test()
-result, err := client.Generation(nil).List(
+result, err := client.IntensityList(nil).List(
     nil, nil,
 )
 ```
@@ -76,16 +85,16 @@ result, err := client.Generation(nil).List(
 ```ruby
 # Seed fixture data so offline calls resolve without a live server.
 client = CarbonIntensitySDK.test({
-  "entity" => { "generation" => { "test01" => {} } },
+  "entity" => { "intensitylist" => { "test01" => {} } },
 })
-generations = client.Generation.list()
+intensitylists = client.IntensityList.list()
 ```
 
 ### Lua
 
 ```lua
 local client = sdk.test()
-local results, err = client:Generation():list()
+local results, err = client:IntensityList():list()
 ```
 
 ## Packages
@@ -110,7 +119,7 @@ import { CarbonIntensitySDK } from '@voxgig-sdk/carbon-intensity'
 
 const client = new CarbonIntensitySDK()
 
-// List all generations (returns Generation[])
+// List all generations (returns GenerationEntity[] — .data() for the record)
 const generations = await client.Generation().list()
 for (const generation of generations) {
   console.log(generation)
@@ -366,6 +375,9 @@ Pass custom features via the `extend` option at construction time.
 
 This SDK is generated from the upstream OpenAPI specification. It is an
 unofficial client and is not affiliated with the API provider.
+
+The OpenAPI spec(s) this SDK was generated from are kept in the
+[`.sdk/def/`](.sdk/def/) folder.
 
 - Upstream API: [https://api.carbonintensity.org.uk](https://api.carbonintensity.org.uk)
 

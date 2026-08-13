@@ -134,11 +134,11 @@ function intensity_direct_setup(mockres)
   local calls = {}
 
   local env = runner.env_override({
-    ["CARBONINTENSITY_TEST_INTENSITY_ENTID"] = {},
-    ["CARBONINTENSITY_TEST_LIVE"] = "FALSE",
+    ["CARBON_INTENSITY_TEST_INTENSITY_ENTID"] = {},
+    ["CARBON_INTENSITY_TEST_LIVE"] = "FALSE",
   })
 
-  local live = env["CARBONINTENSITY_TEST_LIVE"] == "TRUE"
+  local live = env["CARBON_INTENSITY_TEST_LIVE"] == "TRUE"
 
   if live then
     local merged_opts = {

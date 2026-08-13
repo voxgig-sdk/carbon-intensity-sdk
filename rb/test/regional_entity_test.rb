@@ -62,7 +62,7 @@ class RegionalEntityTest < Minitest::Test
     # The basic flow consumes synthetic IDs from the fixture. In live mode
     # without an *_ENTID env override, those IDs hit the live API and 4xx.
     if setup[:synthetic_only]
-      skip "live entity test uses synthetic IDs from fixture — set CARBONINTENSITY_TEST_REGIONAL_ENTID JSON to run live"
+      skip "live entity test uses synthetic IDs from fixture — set CARBON_INTENSITY_TEST_REGIONAL_ENTID JSON to run live"
       return
     end
     client = setup[:client]
@@ -111,22 +111,22 @@ def regional_basic_setup(extra)
   # Detect ENTID env override before envOverride consumes it. When live
   # mode is on without a real override, the basic test runs against synthetic
   # IDs from the fixture and 4xx's. Surface this so the test can skip.
-  entid_env_raw = ENV["CARBONINTENSITY_TEST_REGIONAL_ENTID"]
+  entid_env_raw = ENV["CARBON_INTENSITY_TEST_REGIONAL_ENTID"]
   idmap_overridden = !entid_env_raw.nil? && entid_env_raw.strip.start_with?("{")
 
   env = Runner.env_override({
-    "CARBONINTENSITY_TEST_REGIONAL_ENTID" => idmap,
-    "CARBONINTENSITY_TEST_LIVE" => "FALSE",
-    "CARBONINTENSITY_TEST_EXPLAIN" => "FALSE",
+    "CARBON_INTENSITY_TEST_REGIONAL_ENTID" => idmap,
+    "CARBON_INTENSITY_TEST_LIVE" => "FALSE",
+    "CARBON_INTENSITY_TEST_EXPLAIN" => "FALSE",
   })
 
   idmap_resolved = Helpers.to_map(
-    env["CARBONINTENSITY_TEST_REGIONAL_ENTID"])
+    env["CARBON_INTENSITY_TEST_REGIONAL_ENTID"])
   if idmap_resolved.nil?
     idmap_resolved = Helpers.to_map(idmap)
   end
 
-  if env["CARBONINTENSITY_TEST_LIVE"] == "TRUE"
+  if env["CARBON_INTENSITY_TEST_LIVE"] == "TRUE"
     merged_opts = Vs.merge([
       {
       },
@@ -135,13 +135,13 @@ def regional_basic_setup(extra)
     client = CarbonIntensitySDK.new(Helpers.to_map(merged_opts))
   end
 
-  live = env["CARBONINTENSITY_TEST_LIVE"] == "TRUE"
+  live = env["CARBON_INTENSITY_TEST_LIVE"] == "TRUE"
   {
     client: client,
     data: entity_data,
     idmap: idmap_resolved,
     env: env,
-    explain: env["CARBONINTENSITY_TEST_EXPLAIN"] == "TRUE",
+    explain: env["CARBON_INTENSITY_TEST_EXPLAIN"] == "TRUE",
     live: live,
     synthetic_only: live && !idmap_overridden,
     now: (Time.now.to_f * 1000).to_i,

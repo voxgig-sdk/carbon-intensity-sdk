@@ -154,8 +154,29 @@ class CarbonIntensitySDK {
   }
 
 
+  // Raw endpoint access is operator-controllable, like every entity op.
+  // Blocking it means denying BOTH the 'direct' and 'graphql' tokens, since
+  // either one reaches the same endpoint.
   async direct(fetchargs?: any) {
+    if (!this._options.allow.op.includes('direct')) {
+      return {
+        ok: false,
+        err: new Error('CarbonIntensitySDK: direct: operation not allowed by' +
+          ' SDK option allow.op value: "' + this._options.allow.op + '"'),
+      }
+    }
+
+    return this._rawRequest(fetchargs)
+  }
+
+
+  // Ungated request path shared by direct() and graphql(), each of which
+  // checks its own allow.op token first. Private, rather than a flag on
+  // fetchargs: a caller-supplied marker would let anyone opt straight back
+  // out of the gate by passing it.
+  async _rawRequest(fetchargs?: any) {
     const utility = this._utility
+
     const fetcher = utility.fetcher
     const makeContext = utility.makeContext
 
@@ -216,66 +237,138 @@ class CarbonIntensitySDK {
 
 
 
+  // Raw GraphQL access: the pressure valve that makes the generated
+  // surface's deliberate omissions (per-call selection sets, typed filter
+  // builders, batching, subscriptions) livable — the whole schema stays
+  // reachable.
+  //
+  // Thin wrapper over the same prepare/fetch path `direct` uses, with the
+  // one thing raw `direct` cannot do for GraphQL: a GraphQL failure rides
+  // HTTP 200 as a top-level `errors` array, so status alone would report a
+  // failed query as ok.
+  //
+  // NOTE: like `direct`, this bypasses the feature pipeline — no retry,
+  // ratelimit or paging features apply.
+  async graphql(query: string, variables?: any, ctrl?: any) {
+    const options = this._options
+
+    if (!options.allow.op.includes('graphql')) {
+      return {
+        ok: false,
+        err: new Error('CarbonIntensitySDK: graphql: operation not allowed by' +
+          ' SDK option allow.op value: "' + options.allow.op + '"'),
+      }
+    }
+
+    const res: any = await this._rawRequest({
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: { query, variables: variables || {} },
+      ctrl,
+    })
+
+    if (res instanceof Error) {
+      return res
+    }
+
+    // Errors are read BEFORE any status check: a GraphQL parse or validation
+    // failure comes back as HTTP 400 carrying the standard { errors: [...] }
+    // body, and the raw path represents a non-2xx as { ok: false } with no
+    // err — so returning early on status would discard the server's own
+    // diagnostics, which are the only useful part of that response.
+    const errors = null == res.data ? undefined : res.data.errors
+
+    if (null != errors && Array.isArray(errors) && 0 < errors.length) {
+      const first = errors[0] || {}
+      const err: any = new Error('CarbonIntensitySDK: graphql: ' +
+        (first.message || 'graphql error'))
+      err.graphql = errors
+      return { ok: false, status: res.status, headers: res.headers, err, data: res.data }
+    }
+
+    return res
+  }
+
+
+
   // Entity access: `client.Generation().list()` / `client.Generation().load({ id })`.
-  Generation(data?: any) {
+  // The argument is the entity OPTIONS object (passed to the entity
+  // constructor as entopts), not initial entity data.
+  Generation(entopts?: Record<string, any>) {
     const self = this
-    return new GenerationEntity(self,data)
+    return new GenerationEntity(self, entopts)
   }
 
 
   // Entity access: `client.GenerationList().list()` / `client.GenerationList().load({ id })`.
-  GenerationList(data?: any) {
+  // The argument is the entity OPTIONS object (passed to the entity
+  // constructor as entopts), not initial entity data.
+  GenerationList(entopts?: Record<string, any>) {
     const self = this
-    return new GenerationListEntity(self,data)
+    return new GenerationListEntity(self, entopts)
   }
 
 
   // Entity access: `client.Intensity().list()` / `client.Intensity().load({ id })`.
-  Intensity(data?: any) {
+  // The argument is the entity OPTIONS object (passed to the entity
+  // constructor as entopts), not initial entity data.
+  Intensity(entopts?: Record<string, any>) {
     const self = this
-    return new IntensityEntity(self,data)
+    return new IntensityEntity(self, entopts)
   }
 
 
   // Entity access: `client.IntensityFactor().list()` / `client.IntensityFactor().load({ id })`.
-  IntensityFactor(data?: any) {
+  // The argument is the entity OPTIONS object (passed to the entity
+  // constructor as entopts), not initial entity data.
+  IntensityFactor(entopts?: Record<string, any>) {
     const self = this
-    return new IntensityFactorEntity(self,data)
+    return new IntensityFactorEntity(self, entopts)
   }
 
 
   // Entity access: `client.IntensityList().list()` / `client.IntensityList().load({ id })`.
-  IntensityList(data?: any) {
+  // The argument is the entity OPTIONS object (passed to the entity
+  // constructor as entopts), not initial entity data.
+  IntensityList(entopts?: Record<string, any>) {
     const self = this
-    return new IntensityListEntity(self,data)
+    return new IntensityListEntity(self, entopts)
   }
 
 
   // Entity access: `client.Regional().list()` / `client.Regional().load({ id })`.
-  Regional(data?: any) {
+  // The argument is the entity OPTIONS object (passed to the entity
+  // constructor as entopts), not initial entity data.
+  Regional(entopts?: Record<string, any>) {
     const self = this
-    return new RegionalEntity(self,data)
+    return new RegionalEntity(self, entopts)
   }
 
 
   // Entity access: `client.RegionalIntensity().list()` / `client.RegionalIntensity().load({ id })`.
-  RegionalIntensity(data?: any) {
+  // The argument is the entity OPTIONS object (passed to the entity
+  // constructor as entopts), not initial entity data.
+  RegionalIntensity(entopts?: Record<string, any>) {
     const self = this
-    return new RegionalIntensityEntity(self,data)
+    return new RegionalIntensityEntity(self, entopts)
   }
 
 
   // Entity access: `client.RegionalIntensityList().list()` / `client.RegionalIntensityList().load({ id })`.
-  RegionalIntensityList(data?: any) {
+  // The argument is the entity OPTIONS object (passed to the entity
+  // constructor as entopts), not initial entity data.
+  RegionalIntensityList(entopts?: Record<string, any>) {
     const self = this
-    return new RegionalIntensityListEntity(self,data)
+    return new RegionalIntensityListEntity(self, entopts)
   }
 
 
   // Entity access: `client.Stat().list()` / `client.Stat().load({ id })`.
-  Stat(data?: any) {
+  // The argument is the entity OPTIONS object (passed to the entity
+  // constructor as entopts), not initial entity data.
+  Stat(entopts?: Record<string, any>) {
     const self = this
-    return new StatEntity(self,data)
+    return new StatEntity(self, entopts)
   }
 
 

@@ -8,24 +8,29 @@ guide: {
   entity: generation: {
     path: "/generation": {
       op: list: method: *GET
+      op: list: transform: res: *("`body.data`")|top
     }
     path: "/generation/{from}/{to}": {
       op: list: method: *GET
+      op: list: transform: res: *("`body.data`")|top
     }
   }
 
   entity: generation_list: {
     path: "/generation/{from}/pt24h": {
       op: list: method: *GET
+      op: list: transform: res: *("`body.data`")|top
     }
   }
 
   entity: intensity: {
     path: "/intensity": {
       op: list: method: *GET
+      op: list: transform: res: *("`body.data`")|top
     }
     path: "/intensity/date/{date}/{period}": {
       op: list: method: *GET
+      op: list: transform: res: *("`body.data`")|top
     }
     path: "/intensity/{from}": {
       rename: param: "from": *"id"
@@ -33,42 +38,50 @@ guide: {
     }
     path: "/intensity/{from}/{to}": {
       op: list: method: *GET
+      op: list: transform: res: *("`body.data`")|top
     }
   }
 
   entity: intensity_factor: {
     path: "/intensity/factors": {
       op: list: method: *GET
+      op: list: transform: res: *("`body.data`")|top
     }
   }
 
   entity: intensity_list: {
     path: "/intensity/date": {
       op: list: method: *GET
+      op: list: transform: res: *("`body.data`")|top
     }
     path: "/intensity/date/{date}": {
       op: load: method: *GET
     }
     path: "/intensity/{from}/fw24h": {
       op: list: method: *GET
+      op: list: transform: res: *("`body.data`")|top
     }
     path: "/intensity/{from}/fw48h": {
       op: list: method: *GET
+      op: list: transform: res: *("`body.data`")|top
     }
     path: "/intensity/{from}/pt24h": {
       op: list: method: *GET
+      op: list: transform: res: *("`body.data`")|top
     }
   }
 
   entity: regional: {
     path: "/regional": {
       op: list: method: *GET
+      op: list: transform: res: *("`body.data`")|top
     }
   }
 
   entity: regional_intensity: {
     path: "/regional/england": {
       op: list: method: *GET
+      op: list: transform: res: *("`body.data`")|top
     }
     path: "/regional/postcode/{postcode}": {
       op: load: method: *GET
@@ -78,15 +91,18 @@ guide: {
     }
     path: "/regional/scotland": {
       op: list: method: *GET
+      op: list: transform: res: *("`body.data`")|top
     }
     path: "/regional/wales": {
       op: list: method: *GET
+      op: list: transform: res: *("`body.data`")|top
     }
   }
 
   entity: regional_intensity_list: {
     path: "/regional/intensity/{from}/fw24h": {
       op: list: method: *GET
+      op: list: transform: res: *("`body.data`")|top
     }
     path: "/regional/intensity/{from}/fw24h/postcode/{postcode}": {
       rename: param: "from": *"intensity_id"
@@ -98,6 +114,7 @@ guide: {
     }
     path: "/regional/intensity/{from}/fw48h": {
       op: list: method: *GET
+      op: list: transform: res: *("`body.data`")|top
     }
     path: "/regional/intensity/{from}/fw48h/postcode/{postcode}": {
       rename: param: "from": *"intensity_id"
@@ -109,6 +126,7 @@ guide: {
     }
     path: "/regional/intensity/{from}/pt24h": {
       op: list: method: *GET
+      op: list: transform: res: *("`body.data`")|top
     }
     path: "/regional/intensity/{from}/pt24h/postcode/{postcode}": {
       rename: param: "from": *"intensity_id"
@@ -120,6 +138,7 @@ guide: {
     }
     path: "/regional/intensity/{from}/{to}": {
       op: list: method: *GET
+      op: list: transform: res: *("`body.data`")|top
     }
     path: "/regional/intensity/{from}/{to}/postcode/{postcode}": {
       rename: param: "from": *"intensity_id"
@@ -134,9 +153,11 @@ guide: {
   entity: stat: {
     path: "/intensity/stats/{from}/{to}": {
       op: list: method: *GET
+      op: list: transform: res: *("`body.data`")|top
     }
     path: "/intensity/stats/{from}/{to}/{block}": {
       op: list: method: *GET
+      op: list: transform: res: *("`body.data`")|top
     }
   }
 

@@ -39,36 +39,36 @@
 ---@field to? string
 
 ---@class IntensityFactor
----@field biomass? number
----@field coal? number
----@field dutch_import? number
----@field french_import? number
----@field gas__combined_cycle? number
----@field gas__open_cycle? number
----@field hydro? number
----@field irish_import? number
----@field nuclear? number
----@field oil? number
----@field other? number
----@field pumped_storage? number
----@field solar? number
----@field wind? number
+---@field Biomass? number
+---@field Coal? number
+---@field DutchImports? number
+---@field FrenchImports? number
+---@field GasCombinedCycle? number
+---@field GasOpenCycle? number
+---@field Hydro? number
+---@field IrishImports? number
+---@field Nuclear? number
+---@field Oil? number
+---@field Other? number
+---@field PumpedStorage? number
+---@field Solar? number
+---@field Wind? number
 
 ---@class IntensityFactorListMatch
----@field biomass? number
----@field coal? number
----@field dutch_import? number
----@field french_import? number
----@field gas__combined_cycle? number
----@field gas__open_cycle? number
----@field hydro? number
----@field irish_import? number
----@field nuclear? number
----@field oil? number
----@field other? number
----@field pumped_storage? number
----@field solar? number
----@field wind? number
+---@field Biomass? number
+---@field Coal? number
+---@field DutchImports? number
+---@field FrenchImports? number
+---@field GasCombinedCycle? number
+---@field GasOpenCycle? number
+---@field Hydro? number
+---@field IrishImports? number
+---@field Nuclear? number
+---@field Oil? number
+---@field Other? number
+---@field PumpedStorage? number
+---@field Solar? number
+---@field Wind? number
 
 ---@class IntensityList
 ---@field data? table

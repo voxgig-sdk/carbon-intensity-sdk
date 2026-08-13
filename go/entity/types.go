@@ -6,7 +6,11 @@
 // @voxgig/apidef VALID_CANON). Do not edit by hand.
 package entity
 
-import "encoding/json"
+import (
+	"encoding/json"
+
+	"github.com/voxgig-sdk/carbon-intensity-sdk/go/core"
+)
 
 // Generation is the typed data model for the generation entity.
 type Generation struct {
@@ -56,38 +60,38 @@ type IntensityListMatch struct {
 
 // IntensityFactor is the typed data model for the intensity_factor entity.
 type IntensityFactor struct {
-	Biomass *int `json:"biomass,omitempty"`
-	Coal *int `json:"coal,omitempty"`
-	DutchImport *int `json:"dutch_import,omitempty"`
-	FrenchImport *int `json:"french_import,omitempty"`
-	GasCombinedCycle *int `json:"gas__combined_cycle,omitempty"`
-	GasOpenCycle *int `json:"gas__open_cycle,omitempty"`
-	Hydro *int `json:"hydro,omitempty"`
-	IrishImport *int `json:"irish_import,omitempty"`
-	Nuclear *int `json:"nuclear,omitempty"`
-	Oil *int `json:"oil,omitempty"`
-	Other *int `json:"other,omitempty"`
-	PumpedStorage *int `json:"pumped_storage,omitempty"`
-	Solar *int `json:"solar,omitempty"`
-	Wind *int `json:"wind,omitempty"`
+	Biomass *int `json:"Biomass,omitempty"`
+	Coal *int `json:"Coal,omitempty"`
+	DutchImports *int `json:"DutchImports,omitempty"`
+	FrenchImports *int `json:"FrenchImports,omitempty"`
+	GasCombinedCycle *int `json:"GasCombinedCycle,omitempty"`
+	GasOpenCycle *int `json:"GasOpenCycle,omitempty"`
+	Hydro *int `json:"Hydro,omitempty"`
+	IrishImports *int `json:"IrishImports,omitempty"`
+	Nuclear *int `json:"Nuclear,omitempty"`
+	Oil *int `json:"Oil,omitempty"`
+	Other *int `json:"Other,omitempty"`
+	PumpedStorage *int `json:"PumpedStorage,omitempty"`
+	Solar *int `json:"Solar,omitempty"`
+	Wind *int `json:"Wind,omitempty"`
 }
 
 // IntensityFactorListMatch is the typed request payload for IntensityFactor.ListTyped.
 type IntensityFactorListMatch struct {
-	Biomass *int `json:"biomass,omitempty"`
-	Coal *int `json:"coal,omitempty"`
-	DutchImport *int `json:"dutch_import,omitempty"`
-	FrenchImport *int `json:"french_import,omitempty"`
-	GasCombinedCycle *int `json:"gas__combined_cycle,omitempty"`
-	GasOpenCycle *int `json:"gas__open_cycle,omitempty"`
-	Hydro *int `json:"hydro,omitempty"`
-	IrishImport *int `json:"irish_import,omitempty"`
-	Nuclear *int `json:"nuclear,omitempty"`
-	Oil *int `json:"oil,omitempty"`
-	Other *int `json:"other,omitempty"`
-	PumpedStorage *int `json:"pumped_storage,omitempty"`
-	Solar *int `json:"solar,omitempty"`
-	Wind *int `json:"wind,omitempty"`
+	Biomass *int `json:"Biomass,omitempty"`
+	Coal *int `json:"Coal,omitempty"`
+	DutchImports *int `json:"DutchImports,omitempty"`
+	FrenchImports *int `json:"FrenchImports,omitempty"`
+	GasCombinedCycle *int `json:"GasCombinedCycle,omitempty"`
+	GasOpenCycle *int `json:"GasOpenCycle,omitempty"`
+	Hydro *int `json:"Hydro,omitempty"`
+	IrishImports *int `json:"IrishImports,omitempty"`
+	Nuclear *int `json:"Nuclear,omitempty"`
+	Oil *int `json:"Oil,omitempty"`
+	Other *int `json:"Other,omitempty"`
+	PumpedStorage *int `json:"PumpedStorage,omitempty"`
+	Solar *int `json:"Solar,omitempty"`
+	Wind *int `json:"Wind,omitempty"`
 }
 
 // IntensityList is the typed data model for the intensity_list entity.
@@ -199,12 +203,26 @@ func asMap(v any) map[string]any {
 	return out
 }
 
-// typedFrom decodes a runtime value (a map[string]any produced by the op
-// pipeline) into a typed model T via a JSON round-trip. On any error it
-// returns the zero value of T; the op's own (value, error) tuple carries the
-// real error.
+// entityData unwraps an entity to its data map.
+//
+// Operations resolve to the ENTITY, not the raw data (see AGENTS.md), and an
+// entity's fields are UNEXPORTED — marshalling one directly yields `{}`, so
+// every typed accessor would silently hand back a zero-valued struct. The
+// typed boundary therefore takes the data hop first.
+func entityData(v any) any {
+	if ent, ok := v.(core.Entity); ok {
+		return ent.Data()
+	}
+	return v
+}
+
+// typedFrom decodes a runtime value (an entity, or the map[string]any the op
+// pipeline produced) into a typed model T via a JSON round-trip. On any error
+// it returns the zero value of T; the op's own (value, error) tuple carries
+// the real error.
 func typedFrom[T any](v any) T {
 	var out T
+	v = entityData(v)
 	if v == nil {
 		return out
 	}
@@ -216,12 +234,20 @@ func typedFrom[T any](v any) T {
 	return out
 }
 
-// typedSliceFrom decodes a runtime list value ([]any of maps) into a typed
-// slice []T via a JSON round-trip, for list ops.
+// typedSliceFrom decodes a runtime list value into a typed slice []T via a
+// JSON round-trip, for list ops. `list` resolves to a slice of ENTITY
+// instances, so each element takes the data hop.
 func typedSliceFrom[T any](v any) []T {
 	var out []T
 	if v == nil {
 		return out
+	}
+	if list, ok := v.([]any); ok {
+		unwrapped := make([]any, 0, len(list))
+		for _, item := range list {
+			unwrapped = append(unwrapped, entityData(item))
+		}
+		v = unwrapped
 	}
 	b, err := json.Marshal(v)
 	if err != nil {

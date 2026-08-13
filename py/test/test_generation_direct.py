@@ -3,9 +3,9 @@
 import json
 import pytest
 
-from utility.voxgig_struct import voxgig_struct as vs
+from carbonintensity_sdk.utility.voxgig_struct import voxgig_struct as vs
 from carbonintensity_sdk import CarbonIntensitySDK
-from core import helpers
+from carbonintensity_sdk.core import helpers
 from test import runner
 
 
@@ -74,11 +74,11 @@ def _generation_direct_setup(mockres):
     calls = []
 
     env = runner.env_override({
-        "CARBONINTENSITY_TEST_GENERATION_ENTID": {},
-        "CARBONINTENSITY_TEST_LIVE": "FALSE",
+        "CARBON_INTENSITY_TEST_GENERATION_ENTID": {},
+        "CARBON_INTENSITY_TEST_LIVE": "FALSE",
     })
 
-    live = env.get("CARBONINTENSITY_TEST_LIVE") == "TRUE"
+    live = env.get("CARBON_INTENSITY_TEST_LIVE") == "TRUE"
 
     if live:
         merged_opts = {

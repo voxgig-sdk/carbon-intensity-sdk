@@ -16,11 +16,11 @@
 import pytest
 
 from projectname_sdk import CarbonIntensitySDK
-from core.error import CarbonIntensityError
-from core.result import CarbonIntensityResult
-from core.response import CarbonIntensityResponse
-from core.spec import CarbonIntensitySpec
-from feature.base_feature import CarbonIntensityBaseFeature
+from projectname_sdk.core.error import CarbonIntensityError
+from projectname_sdk.core.result import CarbonIntensityResult
+from projectname_sdk.core.response import CarbonIntensityResponse
+from projectname_sdk.core.spec import CarbonIntensitySpec
+from projectname_sdk.feature.base_feature import CarbonIntensityBaseFeature
 
 
 def _client():

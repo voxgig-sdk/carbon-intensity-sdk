@@ -14,12 +14,12 @@ from __future__ import annotations
 
 from urllib.parse import quote
 
-from config import make_config
-from features import _make_feature
-from core.control import CarbonIntensityControl
-from core.error import CarbonIntensityError
-from core.result import CarbonIntensityResult
-from core.spec import CarbonIntensitySpec
+from projectname_sdk.config import make_config
+from projectname_sdk.features import _make_feature
+from projectname_sdk.core.control import CarbonIntensityControl
+from projectname_sdk.core.error import CarbonIntensityError
+from projectname_sdk.core.result import CarbonIntensityResult
+from projectname_sdk.core.spec import CarbonIntensitySpec
 
 
 # True when this SDK was generated with the named feature.

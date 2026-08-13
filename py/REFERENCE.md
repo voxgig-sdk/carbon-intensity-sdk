@@ -185,7 +185,7 @@ generation_list = client.GenerationList()
 List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.GenerationList().list()
+results = client.GenerationList().list({"from": "example"})
 for generation_list in results:
     print(generation_list)
 ```
@@ -293,20 +293,20 @@ intensity_factor = client.IntensityFactor()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `biomass` | `int` | No |  |
-| `coal` | `int` | No |  |
-| `dutch_import` | `int` | No |  |
-| `french_import` | `int` | No |  |
-| `gas__combined_cycle` | `int` | No |  |
-| `gas__open_cycle` | `int` | No |  |
-| `hydro` | `int` | No |  |
-| `irish_import` | `int` | No |  |
-| `nuclear` | `int` | No |  |
-| `oil` | `int` | No |  |
-| `other` | `int` | No |  |
-| `pumped_storage` | `int` | No |  |
-| `solar` | `int` | No |  |
-| `wind` | `int` | No |  |
+| `Biomass` | `int` | No |  |
+| `Coal` | `int` | No |  |
+| `DutchImports` | `int` | No |  |
+| `FrenchImports` | `int` | No |  |
+| `GasCombinedCycle` | `int` | No |  |
+| `GasOpenCycle` | `int` | No |  |
+| `Hydro` | `int` | No |  |
+| `IrishImports` | `int` | No |  |
+| `Nuclear` | `int` | No |  |
+| `Oil` | `int` | No |  |
+| `Other` | `int` | No |  |
+| `PumpedStorage` | `int` | No |  |
+| `Solar` | `int` | No |  |
+| `Wind` | `int` | No |  |
 
 ### Operations
 
@@ -558,7 +558,7 @@ regional_intensity_list = client.RegionalIntensityList()
 List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.RegionalIntensityList().list()
+results = client.RegionalIntensityList().list({"from": "example"})
 for regional_intensity_list in results:
     print(regional_intensity_list)
 ```
@@ -621,7 +621,7 @@ stat = client.Stat()
 List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.Stat().list()
+results = client.Stat().list({"from": "example", "to": "example"})
 for stat in results:
     print(stat)
 ```

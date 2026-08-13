@@ -53,7 +53,7 @@ except Exception as err:
 ### 3. Load an intensitylist
 
 IntensityList is nested under date, so provide the `date`.
-`load()` returns the bare record (a `dict`) and raises on error.
+`load()` returns the ENTITY — call data_get() for the record — and raises on error.
 
 ```python
 try:
@@ -70,8 +70,8 @@ Entity operations raise on failure, so wrap them in `try` / `except`:
 
 ```python
 try:
-    generations = client.Generation().list()
-    print(generations)
+    intensitylists = client.IntensityList().list()
+    print(intensitylists)
 except Exception as err:
     print(f"list failed: {err}")
 ```
@@ -137,9 +137,10 @@ Create a mock client for unit testing — no server required:
 ```python
 client = CarbonIntensitySDK.test()
 
-# Entity ops return the bare record and raise on error.
-generation = client.Generation().list()
-# generation contains the mock response record
+# Entity ops return the ENTITY and raises on error;
+# call data_get() for the record.
+intensitylist = client.IntensityList().list()
+# intensitylist contains the mock response record
 ```
 
 ### Use a custom fetch function
@@ -242,7 +243,7 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the bare result data (a `dict` for single-entity
+Entity operations return the ENTITY (call data_get() for the record) (a `dict` for single-entity
 ops, a `list` for `list`) and raise on error. Wrap calls in
 `try`/`except` to handle failures.
 
@@ -301,20 +302,20 @@ API path: `/intensity/date/{date}/{period}`
 
 | Field | Description |
 | --- | --- |
-| `biomass` |  |
-| `coal` |  |
-| `dutch_import` |  |
-| `french_import` |  |
-| `gas__combined_cycle` |  |
-| `gas__open_cycle` |  |
-| `hydro` |  |
-| `irish_import` |  |
-| `nuclear` |  |
-| `oil` |  |
-| `other` |  |
-| `pumped_storage` |  |
-| `solar` |  |
-| `wind` |  |
+| `Biomass` |  |
+| `Coal` |  |
+| `DutchImports` |  |
+| `FrenchImports` |  |
+| `GasCombinedCycle` |  |
+| `GasOpenCycle` |  |
+| `Hydro` |  |
+| `IrishImports` |  |
+| `Nuclear` |  |
+| `Oil` |  |
+| `Other` |  |
+| `PumpedStorage` |  |
+| `Solar` |  |
+| `Wind` |  |
 
 Operations: List.
 
@@ -438,7 +439,7 @@ Create an instance: `generation_list = client.GenerationList()`
 #### Example: List
 
 ```python
-generation_lists = client.GenerationList().list()
+generation_lists = client.GenerationList().list({"from": "example"})
 ```
 
 
@@ -489,20 +490,20 @@ Create an instance: `intensity_factor = client.IntensityFactor()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `biomass` | `int` |  |
-| `coal` | `int` |  |
-| `dutch_import` | `int` |  |
-| `french_import` | `int` |  |
-| `gas__combined_cycle` | `int` |  |
-| `gas__open_cycle` | `int` |  |
-| `hydro` | `int` |  |
-| `irish_import` | `int` |  |
-| `nuclear` | `int` |  |
-| `oil` | `int` |  |
-| `other` | `int` |  |
-| `pumped_storage` | `int` |  |
-| `solar` | `int` |  |
-| `wind` | `int` |  |
+| `Biomass` | `int` |  |
+| `Coal` | `int` |  |
+| `DutchImports` | `int` |  |
+| `FrenchImports` | `int` |  |
+| `GasCombinedCycle` | `int` |  |
+| `GasOpenCycle` | `int` |  |
+| `Hydro` | `int` |  |
+| `IrishImports` | `int` |  |
+| `Nuclear` | `int` |  |
+| `Oil` | `int` |  |
+| `Other` | `int` |  |
+| `PumpedStorage` | `int` |  |
+| `Solar` | `int` |  |
+| `Wind` | `int` |  |
 
 #### Example: List
 
@@ -635,7 +636,7 @@ regional_intensity_list = client.RegionalIntensityList().load({"intensity_id": "
 #### Example: List
 
 ```python
-regional_intensity_lists = client.RegionalIntensityList().list()
+regional_intensity_lists = client.RegionalIntensityList().list({"from": "example"})
 ```
 
 
@@ -660,7 +661,7 @@ Create an instance: `stat = client.Stat()`
 #### Example: List
 
 ```python
-stats = client.Stat().list()
+stats = client.Stat().list({"from": "example", "to": "example"})
 ```
 
 
@@ -739,11 +740,11 @@ Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```python
-generation = client.Generation()
-generation.list()
+intensitylist = client.IntensityList()
+intensitylist.list()
 
-# generation.data_get() now returns the generation data from the last list
-# generation.match_get() returns the last match criteria
+# intensitylist.data_get() now returns the intensitylist data from the last list
+# intensitylist.match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

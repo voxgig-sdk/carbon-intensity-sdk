@@ -85,11 +85,11 @@ function generation_direct_setup($mockres)
     $calls = new \ArrayObject();
 
     $env = Runner::env_override([
-        "CARBONINTENSITY_TEST_GENERATION_ENTID" => [],
-        "CARBONINTENSITY_TEST_LIVE" => "FALSE",
+        "CARBON_INTENSITY_TEST_GENERATION_ENTID" => [],
+        "CARBON_INTENSITY_TEST_LIVE" => "FALSE",
     ]);
 
-    $live = $env["CARBONINTENSITY_TEST_LIVE"] === "TRUE";
+    $live = $env["CARBON_INTENSITY_TEST_LIVE"] === "TRUE";
 
     if ($live) {
         $merged_opts = [

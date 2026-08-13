@@ -19,11 +19,15 @@ import {
 describe('RegionalDirect', async () => {
 
   // Per-test live pacing. Delay is read from sdk-test-control.json's
-  // `test.live.delayMs`; only sleeps when CARBONINTENSITY_TEST_LIVE=TRUE.
-  afterEach(liveDelay('CARBONINTENSITY_TEST_LIVE'))
+  // `test.live.delayMs`; only sleeps when CARBON_INTENSITY_TEST_LIVE=TRUE.
+  afterEach(liveDelay('CARBON_INTENSITY_TEST_LIVE'))
 
   test('direct-exists', async () => {
     const sdk = new CarbonIntensitySDK({
+      // Concrete base: a live construction must satisfy any server
+      // variables a templated base URL declares; overriding base with a
+      // literal (as the direct flow tests do) sidesteps the requirement.
+      base: 'http://localhost:8080',
       system: { fetch: async () => ({}) }
     })
     assert('function' === typeof sdk.direct)
@@ -77,17 +81,17 @@ function directSetup(mockres?: any) {
   const calls: any[] = []
 
   const env = envOverride({
-    'CARBONINTENSITY_TEST_REGIONAL_ENTID': {},
-    'CARBONINTENSITY_TEST_LIVE': 'FALSE',
+    'CARBON_INTENSITY_TEST_REGIONAL_ENTID': {},
+    'CARBON_INTENSITY_TEST_LIVE': 'FALSE',
   })
 
-  const live = 'TRUE' === env.CARBONINTENSITY_TEST_LIVE
+  const live = 'TRUE' === env.CARBON_INTENSITY_TEST_LIVE
 
   if (live) {
     const client = new CarbonIntensitySDK({
     })
 
-    let idmap: any = env['CARBONINTENSITY_TEST_REGIONAL_ENTID']
+    let idmap: any = env['CARBON_INTENSITY_TEST_REGIONAL_ENTID']
     if ('string' === typeof idmap && idmap.startsWith('{')) {
       idmap = JSON.parse(idmap)
     }

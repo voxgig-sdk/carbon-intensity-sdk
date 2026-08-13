@@ -53,7 +53,7 @@ main: kit: entity: generation_list: {
           }
           transform: {
             req: "`reqdata`"
-            res: "`body`"
+            res: "`body.data`"
           }
         }
       ]

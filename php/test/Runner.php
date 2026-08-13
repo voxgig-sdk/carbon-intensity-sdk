@@ -43,8 +43,8 @@ class CarbonIntensityTestRunner
 
     public static function env_override(array $m): array
     {
-        $live = self::getenv('CARBONINTENSITY_TEST_LIVE');
-        $override = self::getenv('CARBONINTENSITY_TEST_OVERRIDE');
+        $live = self::getenv('CARBON_INTENSITY_TEST_LIVE');
+        $override = self::getenv('CARBON_INTENSITY_TEST_OVERRIDE');
 
         if ($live === 'TRUE' || $override === 'TRUE') {
             foreach (array_keys($m) as $key) {
@@ -63,9 +63,9 @@ class CarbonIntensityTestRunner
             }
         }
 
-        $explain = self::getenv('CARBONINTENSITY_TEST_EXPLAIN');
+        $explain = self::getenv('CARBON_INTENSITY_TEST_EXPLAIN');
         if ($explain !== null && $explain !== '') {
-            $m['CARBONINTENSITY_TEST_EXPLAIN'] = $explain;
+            $m['CARBON_INTENSITY_TEST_EXPLAIN'] = $explain;
         }
 
         return $m;
