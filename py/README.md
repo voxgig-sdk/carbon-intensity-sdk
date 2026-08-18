@@ -50,15 +50,15 @@ except Exception as err:
     print(f"list failed: {err}")
 ```
 
-### 3. Load an intensitylist
+### 3. Load a generation
 
-IntensityList is nested under date, so provide the `date`.
+Generation is nested under from, so provide the `from`.
 `load()` returns the ENTITY — call data_get() for the record — and raises on error.
 
 ```python
 try:
-    intensitylist = client.IntensityList().load({"date": "example_date"})
-    print(intensitylist)
+    generation = client.Generation().load({"from": "example_from", "to": "example_to"})
+    print(generation)
 except Exception as err:
     print(f"load failed: {err}")
 ```
@@ -265,13 +265,14 @@ On error, `ok` is `False` and `err` contains the error value.
 
 | Field | Description |
 | --- | --- |
+| `data` |  |
 | `from` |  |
 | `generationmix` |  |
 | `to` |  |
 
-Operations: List.
+Operations: List, Load.
 
-API path: `/generation/{from}/{to}`
+API path: `/generation`
 
 #### GenerationList
 
@@ -296,7 +297,7 @@ API path: `/generation/{from}/pt24h`
 
 Operations: List, Load.
 
-API path: `/intensity/date/{date}/{period}`
+API path: `/intensity`
 
 #### IntensityFactor
 
@@ -374,17 +375,15 @@ API path: `/regional/england`
 
 Operations: List, Load.
 
-API path: `/regional/intensity/{from}/{to}`
+API path: `/regional/intensity/{from}/fw24h`
 
 #### Stat
 
 | Field | Description |
 | --- | --- |
-| `from` |  |
-| `intensity` |  |
-| `to` |  |
+| `data` |  |
 
-Operations: List.
+Operations: Load.
 
 API path: `/intensity/stats/{from}/{to}/{block}`
 
@@ -402,14 +401,22 @@ Create an instance: `generation = client.Generation()`
 | Method | Description |
 | --- | --- |
 | `list()` | List entities, optionally matching the given criteria. |
+| `load(match)` | Load a single entity by match criteria. |
 
 #### Fields
 
 | Field | Type | Description |
 | --- | --- | --- |
+| `data` | `list` |  |
 | `from` | `str` |  |
 | `generationmix` | `list` |  |
 | `to` | `str` |  |
+
+#### Example: Load
+
+```python
+generation = client.Generation().load({"from": "from", "to": "to"})
+```
 
 #### Example: List
 
@@ -596,7 +603,7 @@ Create an instance: `regional_intensity = client.RegionalIntensity()`
 #### Example: Load
 
 ```python
-regional_intensity = client.RegionalIntensity().load()
+regional_intensity = client.RegionalIntensity().load({"postcode": "postcode"})
 ```
 
 #### Example: List
@@ -630,7 +637,7 @@ Create an instance: `regional_intensity_list = client.RegionalIntensityList()`
 #### Example: Load
 
 ```python
-regional_intensity_list = client.RegionalIntensityList().load({"intensity_id": "intensity_id"})
+regional_intensity_list = client.RegionalIntensityList().load({"from": "from", "to": "to"})
 ```
 
 #### Example: List
@@ -648,20 +655,18 @@ Create an instance: `stat = client.Stat()`
 
 | Method | Description |
 | --- | --- |
-| `list()` | List entities, optionally matching the given criteria. |
+| `load(match)` | Load a single entity by match criteria. |
 
 #### Fields
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `from` | `str` |  |
-| `intensity` | `dict` |  |
-| `to` | `str` |  |
+| `data` | `list` |  |
 
-#### Example: List
+#### Example: Load
 
 ```python
-stats = client.Stat().list({"from": "example", "to": "example"})
+stat = client.Stat().load({"from": "from", "to": "to"})
 ```
 
 

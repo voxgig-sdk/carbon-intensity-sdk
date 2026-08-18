@@ -16,32 +16,13 @@ class IntensityDirectTest < Minitest::Test
       skip(_reason || "skipped via sdk-test-control.json")
       return
     end
-    if setup[:live]
-      ["date01", "period01"].each do |_live_key|
-        if setup[:idmap][_live_key].nil?
-          skip "live test needs #{_live_key} via *_ENTID env var (synthetic IDs only)"
-          return
-        end
-      end
-    end
     client = setup[:client]
 
-    params = {}
-    if setup[:live]
-      params["date"] = setup[:idmap]["date01"]
-    else
-      params["date"] = "direct01"
-    end
-    if setup[:live]
-      params["period"] = setup[:idmap]["period01"]
-    else
-      params["period"] = "direct01"
-    end
 
     result = client.direct({
-      "path" => "intensity/date/{date}/{period}",
+      "path" => "intensity",
       "method" => "GET",
-      "params" => params,
+      "params" => {},
     })
     if setup[:live]
       # Live mode is lenient: synthetic IDs frequently 4xx and the list-
@@ -86,11 +67,12 @@ class IntensityDirectTest < Minitest::Test
     params = {}
     query = {}
     unless setup[:live]
-      params["id"] = "direct01"
+      params["date"] = "direct01"
+      params["period"] = "direct02"
     end
 
     result = client.direct({
-      "path" => "intensity/{id}",
+      "path" => "intensity/date/{date}/{period}",
       "method" => "GET",
       "params" => params,
       "query" => query,

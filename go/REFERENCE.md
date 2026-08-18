@@ -130,6 +130,7 @@ fmt.Println(generation.GetName()) // "generation"
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
+| `data` | `[]any` | No |  |
 | `from` | `string` | No |  |
 | `generationmix` | `[]any` | No |  |
 | `to` | `string` | No |  |
@@ -146,6 +147,18 @@ if err != nil {
     panic(err)
 }
 fmt.Println(results)
+```
+
+#### `Load(reqmatch, ctrl map[string]any) (any, error)`
+
+Load a single entity matching the given criteria.
+
+```go
+result, err := client.Generation(nil).Load(map[string]any{"from": "from", "to": "to"}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
 ```
 
 ### Common Methods
@@ -512,7 +525,7 @@ fmt.Println(results)
 Load a single entity matching the given criteria.
 
 ```go
-result, err := client.RegionalIntensity(nil).Load(nil, nil)
+result, err := client.RegionalIntensity(nil).Load(map[string]any{"postcode": "postcode"}, nil)
 if err != nil {
     panic(err)
 }
@@ -579,7 +592,7 @@ fmt.Println(results)
 Load a single entity matching the given criteria.
 
 ```go
-result, err := client.RegionalIntensityList(nil).Load(map[string]any{"intensity_id": "intensity_id"}, nil)
+result, err := client.RegionalIntensityList(nil).Load(map[string]any{"from": "from", "to": "to"}, nil)
 if err != nil {
     panic(err)
 }
@@ -621,22 +634,20 @@ fmt.Println(stat.GetName()) // "stat"
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `from` | `string` | No |  |
-| `intensity` | `map[string]any` | No |  |
-| `to` | `string` | No |  |
+| `data` | `[]any` | No |  |
 
 ### Operations
 
-#### `List(reqmatch, ctrl map[string]any) (any, error)`
+#### `Load(reqmatch, ctrl map[string]any) (any, error)`
 
-List entities matching the given criteria. Returns an array.
+Load a single entity matching the given criteria.
 
 ```go
-results, err := client.Stat(nil).List(nil, nil)
+result, err := client.Stat(nil).Load(map[string]any{"from": "from", "to": "to"}, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(results)
+fmt.Println(result)
 ```
 
 ### Common Methods

@@ -2,31 +2,32 @@
   "existing": {
     "stat": {
       "STAT00": {
-        "from": "s1e",
-        "intensity": {},
-        "to": "s20",
-        "block": "BLOCK01"
+        "data": [],
+        "block": "BLOCK01",
+        "from": "FROM01",
+        "to": "TO01",
+        "id": "STAT00"
       },
       "STAT01": {
-        "from": "s3c",
-        "intensity": {},
-        "to": "s3e",
-        "block": "BLOCK01"
+        "data": [],
+        "block": "BLOCK01",
+        "from": "FROM01",
+        "to": "TO01",
+        "id": "STAT01"
       },
       "STAT02": {
-        "from": "s5a",
-        "intensity": {},
-        "to": "s5c",
-        "block": "BLOCK01"
+        "data": [],
+        "block": "BLOCK01",
+        "from": "FROM01",
+        "to": "TO01",
+        "id": "STAT02"
       }
     }
   },
   "new": {
     "stat": {
       "stat_ref01": {
-        "from": "s78",
-        "intensity": {},
-        "to": "s7a"
+        "data": []
       }
     }
   }

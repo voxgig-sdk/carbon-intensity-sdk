@@ -40,7 +40,7 @@ class GenerationListEntityTest extends TestCase
         $this->assertCount(3, $seen);
 
         // Inbound: streaming active -> yields each item from the feature.
-        $cfg = CarbonIntensityConfig::make_config();
+        $cfg = CarbonIntensityConfig::shared_config();
         if (isset($cfg["feature"]) && is_array($cfg["feature"]) && isset($cfg["feature"]["streaming"])) {
             $sdk = CarbonIntensitySDK::test($seed, ["feature" => ["streaming" => ["active" => true]]]);
             $got = [];

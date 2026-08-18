@@ -28,7 +28,7 @@ class CarbonIntensitySDK
     utility = CarbonIntensityUtility.new
     @_utility = utility
 
-    config = CarbonIntensityConfig.make_config
+    config = CarbonIntensityConfig.shared_config
 
     @_rootctx = utility.make_context.call({
       "client" => self,

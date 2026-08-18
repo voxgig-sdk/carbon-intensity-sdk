@@ -18,7 +18,7 @@ describe("RegionalIntensityListDirect", function()
       return
     end
     if setup.live then
-      for _, _live_key in ipairs({"from01", "to01"}) do
+      for _, _live_key in ipairs({"from01"}) do
         if setup.idmap[_live_key] == nil then
           pending("live test needs " .. _live_key .. " via *_ENTID env var (synthetic IDs only)")
           return
@@ -33,14 +33,9 @@ describe("RegionalIntensityListDirect", function()
     else
       params["from"] = "direct01"
     end
-    if setup.live then
-      params["to"] = setup.idmap["to01"]
-    else
-      params["to"] = "direct01"
-    end
 
     local result, err = client:direct({
-      path = "regional/intensity/{from}/{to}",
+      path = "regional/intensity/{from}/fw24h",
       method = "GET",
       params = params,
     })

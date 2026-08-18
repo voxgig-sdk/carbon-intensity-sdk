@@ -6,13 +6,21 @@
 // @voxgig/apidef VALID_CANON). Do not edit by hand.
 
 export interface Generation {
+  data?: any[]
   from?: string
   generationmix?: any[]
   to?: string
 }
 
+export interface GenerationLoadMatch {
+  from: string
+  to: string
+}
+
 export interface GenerationListMatch {
+  data?: any[]
   from?: string
+  generationmix?: any[]
   to?: string
 }
 
@@ -38,9 +46,9 @@ export interface IntensityLoadMatch {
 }
 
 export interface IntensityListMatch {
-  date?: string
-  period?: number
+  data?: any[]
   from?: string
+  intensity?: Record<string, any>
   to?: string
 }
 
@@ -90,7 +98,10 @@ export interface IntensityListLoadMatch {
 }
 
 export interface IntensityListListMatch {
+  data?: any[]
   from?: string
+  intensity?: Record<string, any>
+  to?: string
 }
 
 export interface Regional {
@@ -118,8 +129,7 @@ export interface RegionalIntensity {
 }
 
 export interface RegionalIntensityLoadMatch {
-  postcode?: string
-  regionid?: number
+  postcode: string
 }
 
 export interface RegionalIntensityListMatch {
@@ -139,24 +149,19 @@ export interface RegionalIntensityList {
 }
 
 export interface RegionalIntensityListLoadMatch {
-  intensity_id: string
-  postcode?: string
-  to?: string
-  regionid?: number
+  from: string
+  to: string
 }
 
 export interface RegionalIntensityListListMatch {
   from: string
-  to?: string
 }
 
 export interface Stat {
-  from?: string
-  intensity?: Record<string, any>
-  to?: string
+  data?: any[]
 }
 
-export interface StatListMatch {
+export interface StatLoadMatch {
   block?: number
   from: string
   to: string

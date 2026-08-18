@@ -42,8 +42,8 @@ class TestGenerationEntity:
         assert len(seen) == 3
 
         # Inbound: streaming active -> yields each item from the feature.
-        from carbonintensity_sdk.config import make_config
-        cfg = make_config()
+        from carbonintensity_sdk.config import shared_config
+        cfg = shared_config()
         if isinstance(cfg.get("feature"), dict) and "streaming" in cfg["feature"]:
             sdk = CarbonIntensitySDK.test(
                 seed, {"feature": {"streaming": {"active": True}}})
@@ -61,7 +61,7 @@ class TestGenerationEntity:
         # multiple ops; skipping any one skips the whole flow (steps depend
         # on each other).
         _live = setup.get("live", False)
-        for _op in ["list"]:
+        for _op in ["list", "load"]:
             _skip, _reason = runner.is_control_skipped("entityOp", "generation." + _op, "live" if _live else "unit")
             if _skip:
                 pytest.skip(_reason or "skipped via sdk-test-control.json")
@@ -87,6 +87,11 @@ class TestGenerationEntity:
         generation_ref01_list_result = generation_ref01_ent.list(generation_ref01_match, None)
         assert isinstance(generation_ref01_list_result, list)
 
+        # LOAD
+        generation_ref01_match_dt0 = {}
+        generation_ref01_data_dt0_loaded = generation_ref01_ent.load(generation_ref01_match_dt0, None)
+        assert generation_ref01_data_dt0_loaded is not None
+
 
 
 def _generation_basic_setup(extra):
@@ -105,7 +110,7 @@ def _generation_basic_setup(extra):
 
     # Generate idmap via transform.
     idmap = vs.transform(
-        ["generation01", "generation02", "generation03"],
+        ["generation01", "generation02", "generation03", "from01"],
         {
             "`$PACK`": ["", {
                 "`$KEY`": "`$COPY`",

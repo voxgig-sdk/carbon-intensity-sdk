@@ -125,11 +125,12 @@ for (const generation of generations) {
   console.log(generation)
 }
 
-// Load a specific intensitylist (returns a IntensityList)
-const intensitylist = await client.IntensityList().load({
-  date: 'example_date',
+// Load a specific generation (returns a Generation)
+const generation = await client.Generation().load({
+  from: 'example_from',
+  to: 'example_to',
 })
-console.log(intensitylist)
+console.log(generation)
 ```
 
 See the [TypeScript README](ts/README.md) for the full guide.
@@ -170,15 +171,15 @@ The API exposes 9 entities:
 
 | Entity | Description | API path |
 | --- | --- | --- |
-| **Generation** | The Generation entity (list). | `/generation/{from}/{to}` |
+| **Generation** | The Generation entity (list, load). | `/generation` |
 | **GenerationList** | The GenerationList entity (list). | `/generation/{from}/pt24h` |
-| **Intensity** | The Intensity entity (list, load). | `/intensity/date/{date}/{period}` |
+| **Intensity** | The Intensity entity (list, load). | `/intensity` |
 | **IntensityFactor** | The IntensityFactor entity (list). | `/intensity/factors` |
 | **IntensityList** | The IntensityList entity (list, load). | `/intensity/{from}/fw24h` |
 | **Regional** | The Regional entity (list). | `/regional` |
 | **RegionalIntensity** | The RegionalIntensity entity (list, load). | `/regional/england` |
-| **RegionalIntensityList** | The RegionalIntensityList entity (list, load). | `/regional/intensity/{from}/{to}` |
-| **Stat** | The Stat entity (list). | `/intensity/stats/{from}/{to}/{block}` |
+| **RegionalIntensityList** | The RegionalIntensityList entity (list, load). | `/regional/intensity/{from}/fw24h` |
+| **Stat** | The Stat entity (load). | `/intensity/stats/{from}/{to}/{block}` |
 
 The operations available across these entities are **load**, **list** — see each entity's
 own list above for exactly which it supports.
@@ -196,6 +197,10 @@ client = CarbonIntensitySDK()
 generations = client.Generation().list()
 for generation in generations:
     print(generation)
+
+# Load a specific generation (returns the record, raises on error)
+generation = client.Generation().load({"from": "example_from", "to": "example_to"})
+print(generation)
 ```
 
 ### PHP
@@ -209,6 +214,10 @@ $client = new CarbonIntensitySDK();
 // List all generations (returns an array; throws on error)
 $generations = $client->Generation()->list();
 print_r($generations);
+
+// Load a specific generation (returns the ENTITY; call data_get() for the record; throws on error)
+$generation = $client->Generation()->load(["from" => "example_from", "to" => "example_to"]);
+print_r($generation);
 ```
 
 ### Golang
@@ -225,14 +234,14 @@ if err != nil {
 }
 fmt.Println(generations)
 
-// Load a specific intensitylist
-intensityList, err := client.IntensityList(nil).Load(
-    map[string]any{"date": "example_date"}, nil,
+// Load a specific generation
+generation, err := client.Generation(nil).Load(
+    map[string]any{"from": "example_from", "to": "example_to"}, nil,
 )
 if err != nil {
     panic(err)
 }
-fmt.Println(intensityList)
+fmt.Println(generation)
 ```
 
 ### Ruby
@@ -245,6 +254,10 @@ client = CarbonIntensitySDK.new
 # List all generations (returns an Array; raises on error)
 generations = client.Generation.list
 puts generations
+
+# Load a specific generation (returns the ENTITY; call data_get for the record)
+generation = client.Generation.load({ "from" => "example_from", "to" => "example_to" })
+puts generation
 ```
 
 ### Lua
@@ -257,6 +270,10 @@ local client = sdk.new()
 -- List all generations
 local generations, err = client:Generation():list()
 print(generations)
+
+-- Load a specific generation
+local generation, err = client:Generation():load({ from = "example_from", to = "example_to" })
+print(generation)
 ```
 
 ## Direct and prepare

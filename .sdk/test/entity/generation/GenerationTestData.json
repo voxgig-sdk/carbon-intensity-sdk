@@ -2,28 +2,35 @@
   "existing": {
     "generation": {
       "GENERATION00": {
-        "from": "s1e",
+        "data": [],
+        "from": "s29",
         "generationmix": [],
-        "to": "s20"
+        "to": "s2b",
+        "id": "GENERATION00"
       },
       "GENERATION01": {
-        "from": "s3c",
+        "data": [],
+        "from": "s51",
         "generationmix": [],
-        "to": "s3e"
+        "to": "s53",
+        "id": "GENERATION01"
       },
       "GENERATION02": {
-        "from": "s5a",
+        "data": [],
+        "from": "s79",
         "generationmix": [],
-        "to": "s5c"
+        "to": "s7b",
+        "id": "GENERATION02"
       }
     }
   },
   "new": {
     "generation": {
       "generation_ref01": {
-        "from": "s78",
+        "data": [],
+        "from": "sa1",
         "generationmix": [],
-        "to": "s7a"
+        "to": "sa3"
       }
     }
   }

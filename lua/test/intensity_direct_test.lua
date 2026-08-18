@@ -17,32 +17,13 @@ describe("IntensityDirect", function()
       pending(_reason or "skipped via sdk-test-control.json")
       return
     end
-    if setup.live then
-      for _, _live_key in ipairs({"date01", "period01"}) do
-        if setup.idmap[_live_key] == nil then
-          pending("live test needs " .. _live_key .. " via *_ENTID env var (synthetic IDs only)")
-          return
-        end
-      end
-    end
     local client = setup.client
 
-    local params = {}
-    if setup.live then
-      params["date"] = setup.idmap["date01"]
-    else
-      params["date"] = "direct01"
-    end
-    if setup.live then
-      params["period"] = setup.idmap["period01"]
-    else
-      params["period"] = "direct01"
-    end
 
     local result, err = client:direct({
-      path = "intensity/date/{date}/{period}",
+      path = "intensity",
       method = "GET",
-      params = params,
+      params = {},
     })
     if setup.live then
       -- Live mode is lenient: synthetic IDs frequently 4xx and the list-
@@ -87,11 +68,12 @@ describe("IntensityDirect", function()
     local params = {}
     local query = {}
     if not setup.live then
-      params["id"] = "direct01"
+      params["date"] = "direct01"
+      params["period"] = "direct02"
     end
 
     local result, err = client:direct({
-      path = "intensity/{id}",
+      path = "intensity/date/{date}/{period}",
       method = "GET",
       params = params,
       query = query,

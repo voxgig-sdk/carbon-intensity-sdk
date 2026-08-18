@@ -119,6 +119,7 @@ generation = client.Generation()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
+| `data` | `list` | No |  |
 | `from` | `str` | No |  |
 | `generationmix` | `list` | No |  |
 | `to` | `str` | No |  |
@@ -133,6 +134,14 @@ List entities matching the given criteria. The match is optional — call `list(
 results = client.Generation().list()
 for generation in results:
     print(generation)
+```
+
+#### `load(reqmatch, ctrl=None) -> dict`
+
+Load a single entity matching the given criteria. Returns the entity data and raises on error.
+
+```python
+result = client.Generation().load({"from": "from", "to": "to"})
 ```
 
 ### Common Methods
@@ -503,7 +512,7 @@ for regional_intensity in results:
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.RegionalIntensity().load()
+result = client.RegionalIntensity().load({"postcode": "postcode"})
 ```
 
 ### Common Methods
@@ -568,7 +577,7 @@ for regional_intensity_list in results:
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.RegionalIntensityList().load({"intensity_id": "intensity_id"})
+result = client.RegionalIntensityList().load({"from": "from", "to": "to"})
 ```
 
 ### Common Methods
@@ -610,20 +619,16 @@ stat = client.Stat()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `from` | `str` | No |  |
-| `intensity` | `dict` | No |  |
-| `to` | `str` | No |  |
+| `data` | `list` | No |  |
 
 ### Operations
 
-#### `list(reqmatch=None, ctrl=None) -> list`
+#### `load(reqmatch, ctrl=None) -> dict`
 
-List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
+Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-results = client.Stat().list({"from": "example", "to": "example"})
-for stat in results:
-    print(stat)
+result = client.Stat().load({"from": "from", "to": "to"})
 ```
 
 ### Common Methods

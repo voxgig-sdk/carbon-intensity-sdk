@@ -40,7 +40,7 @@ class CarbonIntensitySDK
         $utility = new CarbonIntensityUtility();
         $this->_utility = $utility;
 
-        $config = CarbonIntensityConfig::make_config();
+        $config = CarbonIntensityConfig::shared_config();
 
         $this->_rootctx = ($utility->make_context)([
             "client" => $this,

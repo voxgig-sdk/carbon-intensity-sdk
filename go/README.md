@@ -58,6 +58,13 @@ func main() {
     for _, item := range generations.([]any) {
         fmt.Println(item)
     }
+
+    // Load a single generation — the value is the loaded record.
+    generation, err := client.Generation(nil).Load(map[string]any{"from": "example_from", "to": "example_to"}, nil)
+    if err != nil {
+        panic(err)
+    }
+    fmt.Println(generation)
 }
 ```
 
@@ -270,13 +277,14 @@ Only `Direct()` returns a response envelope — a `map[string]any` with
 
 | Field | Description |
 | --- | --- |
+| `"data"` |  |
 | `"from"` |  |
 | `"generationmix"` |  |
 | `"to"` |  |
 
-Operations: List.
+Operations: List, Load.
 
-API path: `/generation/{from}/{to}`
+API path: `/generation`
 
 #### GenerationList
 
@@ -301,7 +309,7 @@ API path: `/generation/{from}/pt24h`
 
 Operations: List, Load.
 
-API path: `/intensity/date/{date}/{period}`
+API path: `/intensity`
 
 #### IntensityFactor
 
@@ -379,17 +387,15 @@ API path: `/regional/england`
 
 Operations: List, Load.
 
-API path: `/regional/intensity/{from}/{to}`
+API path: `/regional/intensity/{from}/fw24h`
 
 #### Stat
 
 | Field | Description |
 | --- | --- |
-| `"from"` |  |
-| `"intensity"` |  |
-| `"to"` |  |
+| `"data"` |  |
 
-Operations: List.
+Operations: Load.
 
 API path: `/intensity/stats/{from}/{to}/{block}`
 
@@ -407,14 +413,26 @@ Create an instance: `generation := client.Generation(nil)`
 | Method | Description |
 | --- | --- |
 | `List(match, ctrl)` | List entities matching the criteria. |
+| `Load(match, ctrl)` | Load a single entity by match criteria. |
 
 #### Fields
 
 | Field | Type | Description |
 | --- | --- | --- |
+| `data` | `[]any` |  |
 | `from` | `string` |  |
 | `generationmix` | `[]any` |  |
 | `to` | `string` |  |
+
+#### Example: Load
+
+```go
+generation, err := client.Generation(nil).Load(map[string]any{"from": "from", "to": "to"}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(generation) // the loaded record
+```
 
 #### Example: List
 
@@ -633,7 +651,7 @@ Create an instance: `regionalIntensity := client.RegionalIntensity(nil)`
 #### Example: Load
 
 ```go
-regionalIntensity, err := client.RegionalIntensity(nil).Load(nil, nil)
+regionalIntensity, err := client.RegionalIntensity(nil).Load(map[string]any{"postcode": "postcode"}, nil)
 if err != nil {
     panic(err)
 }
@@ -675,7 +693,7 @@ Create an instance: `regionalIntensityList := client.RegionalIntensityList(nil)`
 #### Example: Load
 
 ```go
-regionalIntensityList, err := client.RegionalIntensityList(nil).Load(map[string]any{"intensity_id": "intensity_id"}, nil)
+regionalIntensityList, err := client.RegionalIntensityList(nil).Load(map[string]any{"from": "from", "to": "to"}, nil)
 if err != nil {
     panic(err)
 }
@@ -701,24 +719,22 @@ Create an instance: `stat := client.Stat(nil)`
 
 | Method | Description |
 | --- | --- |
-| `List(match, ctrl)` | List entities matching the criteria. |
+| `Load(match, ctrl)` | Load a single entity by match criteria. |
 
 #### Fields
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `from` | `string` |  |
-| `intensity` | `map[string]any` |  |
-| `to` | `string` |  |
+| `data` | `[]any` |  |
 
-#### Example: List
+#### Example: Load
 
 ```go
-stats, err := client.Stat(nil).List(nil, nil)
+stat, err := client.Stat(nil).Load(map[string]any{"from": "from", "to": "to"}, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(stats) // the array of records
+fmt.Println(stat) // the loaded record
 ```
 
 

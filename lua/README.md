@@ -47,14 +47,14 @@ for _, item in ipairs(generations) do
 end
 ```
 
-### 3. Load an intensitylist
+### 3. Load a generation
 
-IntensityList is nested under date, so provide the `date`.
+Generation is nested under from, so provide the `from`.
 
 ```lua
-local intensitylist, err = client:IntensityList():load({ date = "example_date" })
+local generation, err = client:Generation():load({ from = "example_from", to = "example_to" })
 if err then error(err) end
-print(intensitylist)
+print(generation)
 ```
 
 
@@ -238,9 +238,9 @@ data **directly** — there is no wrapper:
 
 Check `err` first (it is non-`nil` on failure), then use `value`:
 
-    local intensity, err = client:Intensity():load({ id = "example_id" })
+    local generation, err = client:Generation():load()
     if err then error(err) end
-    -- intensity is the loaded record
+    -- generation is the loaded record
 
 Only `direct()` returns a response envelope — a `table` with `ok`,
 `status`, `headers`, and `data` keys.
@@ -251,13 +251,14 @@ Only `direct()` returns a response envelope — a `table` with `ok`,
 
 | Field | Description |
 | --- | --- |
+| `data` |  |
 | `from` |  |
 | `generationmix` |  |
 | `to` |  |
 
-Operations: List.
+Operations: List, Load.
 
-API path: `/generation/{from}/{to}`
+API path: `/generation`
 
 #### GenerationList
 
@@ -282,7 +283,7 @@ API path: `/generation/{from}/pt24h`
 
 Operations: List, Load.
 
-API path: `/intensity/date/{date}/{period}`
+API path: `/intensity`
 
 #### IntensityFactor
 
@@ -360,17 +361,15 @@ API path: `/regional/england`
 
 Operations: List, Load.
 
-API path: `/regional/intensity/{from}/{to}`
+API path: `/regional/intensity/{from}/fw24h`
 
 #### Stat
 
 | Field | Description |
 | --- | --- |
-| `from` |  |
-| `intensity` |  |
-| `to` |  |
+| `data` |  |
 
-Operations: List.
+Operations: Load.
 
 API path: `/intensity/stats/{from}/{to}/{block}`
 
@@ -388,14 +387,22 @@ Create an instance: `local generation = client:Generation(nil)`
 | Method | Description |
 | --- | --- |
 | `list(match)` | List entities matching the criteria. |
+| `load(match)` | Load a single entity by match criteria. |
 
 #### Fields
 
 | Field | Type | Description |
 | --- | --- | --- |
+| `data` | `table` |  |
 | `from` | `string` |  |
 | `generationmix` | `table` |  |
 | `to` | `string` |  |
+
+#### Example: Load
+
+```lua
+local generation, err = client:Generation():load({ from = "from", to = "to" })
+```
 
 #### Example: List
 
@@ -582,7 +589,7 @@ Create an instance: `local regional_intensity = client:RegionalIntensity(nil)`
 #### Example: Load
 
 ```lua
-local regional_intensity, err = client:RegionalIntensity():load()
+local regional_intensity, err = client:RegionalIntensity():load({ postcode = "postcode" })
 ```
 
 #### Example: List
@@ -616,7 +623,7 @@ Create an instance: `local regional_intensity_list = client:RegionalIntensityLis
 #### Example: Load
 
 ```lua
-local regional_intensity_list, err = client:RegionalIntensityList():load({ intensity_id = "intensity_id" })
+local regional_intensity_list, err = client:RegionalIntensityList():load({ from = "from", to = "to" })
 ```
 
 #### Example: List
@@ -634,20 +641,18 @@ Create an instance: `local stat = client:Stat(nil)`
 
 | Method | Description |
 | --- | --- |
-| `list(match)` | List entities matching the criteria. |
+| `load(match)` | Load a single entity by match criteria. |
 
 #### Fields
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `from` | `string` |  |
-| `intensity` | `table` |  |
-| `to` | `string` |  |
+| `data` | `table` |  |
 
-#### Example: List
+#### Example: Load
 
 ```lua
-local stats, err = client:Stat():list()
+local stat, err = client:Stat():load({ from = "from", to = "to" })
 ```
 
 

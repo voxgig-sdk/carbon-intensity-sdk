@@ -17,6 +17,29 @@ main: kit: flow: BasicGenerationFlow:
         }
       ]
     }
+
+    {
+      input: {
+        ref: "generation_ref01",
+        srcdatavar: "generation_ref01_data",
+        suffix: "_dt0"
+      }
+
+      match: {
+        from: "from01",
+        id: "generation01"
+      }
+
+      op: "load",
+      valid: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-generation_ref01"
+          }
+        }
+      ]
+    }
   ],
   "key$": "BasicGenerationFlow"
 }

@@ -22,7 +22,7 @@ class TestRegionalIntensityListDirect:
             pytest.skip(_reason or "skipped via sdk-test-control.json")
             return
         if setup["live"]:
-            for _live_key in ["from01", "to01"]:
+            for _live_key in ["from01"]:
                 if setup["idmap"].get(_live_key) is None:
                     # pytest already imported at module scope
                     pytest.skip(f"live test needs {_live_key} via *_ENTID env var (synthetic IDs only)")
@@ -35,13 +35,9 @@ class TestRegionalIntensityListDirect:
             params["from"] = setup["idmap"]["from01"]
         else:
             params["from"] = "direct01"
-        if setup["live"]:
-            params["to"] = setup["idmap"]["to01"]
-        else:
-            params["to"] = "direct01"
 
         result = client.direct({
-            "path": "regional/intensity/{from}/{to}",
+            "path": "regional/intensity/{from}/fw24h",
             "method": "GET",
             "params": params,
         })

@@ -124,6 +124,7 @@ $generation = $client->Generation();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
+| `data` | `array` | No |  |
 | `from` | `string` | No |  |
 | `generationmix` | `array` | No |  |
 | `to` | `string` | No |  |
@@ -136,6 +137,14 @@ List entities matching the given criteria (call with no argument to list all). R
 
 ```php
 $results = $client->Generation()->list();
+```
+
+#### `load(array $reqmatch, ?array $ctrl = null): mixed`
+
+Load a single entity matching the given criteria. Throws on error.
+
+```php
+$result = $client->Generation()->load(["from" => "from", "to" => "to"]);
 ```
 
 ### Common Methods
@@ -500,7 +509,7 @@ $results = $client->RegionalIntensity()->list();
 Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->RegionalIntensity()->load();
+$result = $client->RegionalIntensity()->load(["postcode" => "postcode"]);
 ```
 
 ### Common Methods
@@ -564,7 +573,7 @@ $results = $client->RegionalIntensityList()->list();
 Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->RegionalIntensityList()->load(["intensity_id" => "intensity_id"]);
+$result = $client->RegionalIntensityList()->load(["from" => "from", "to" => "to"]);
 ```
 
 ### Common Methods
@@ -607,18 +616,16 @@ $stat = $client->Stat();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `from` | `string` | No |  |
-| `intensity` | `array` | No |  |
-| `to` | `string` | No |  |
+| `data` | `array` | No |  |
 
 ### Operations
 
-#### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
+#### `load(array $reqmatch, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
+Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$results = $client->Stat()->list();
+$result = $client->Stat()->load(["from" => "from", "to" => "to"]);
 ```
 
 ### Common Methods

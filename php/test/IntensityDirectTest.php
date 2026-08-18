@@ -21,32 +21,13 @@ class IntensityDirectTest extends TestCase
             $this->markTestSkipped($_reason ?? "skipped via sdk-test-control.json");
             return;
         }
-        if ($setup["live"]) {
-            foreach (["date01", "period01"] as $_liveKey) {
-                if (!isset($setup["idmap"][$_liveKey]) || $setup["idmap"][$_liveKey] === null) {
-                    $this->markTestSkipped("live test needs $_liveKey via *_ENTID env var (synthetic IDs only)");
-                    return;
-                }
-            }
-        }
         $client = $setup["client"];
 
-        $params = [];
-        if ($setup["live"]) {
-            $params["date"] = $setup["idmap"]["date01"];
-        } else {
-            $params["date"] = "direct01";
-        }
-        if ($setup["live"]) {
-            $params["period"] = $setup["idmap"]["period01"];
-        } else {
-            $params["period"] = "direct01";
-        }
 
         $result = $client->direct([
-            "path" => "intensity/date/{date}/{period}",
+            "path" => "intensity",
             "method" => "GET",
-            "params" => $params,
+            "params" => [],
         ]);
         if ($setup["live"]) {
             // Live mode is lenient: synthetic IDs frequently 4xx and the
@@ -92,11 +73,12 @@ class IntensityDirectTest extends TestCase
         $params = [];
         $query = [];
         if (!$setup["live"]) {
-            $params["id"] = "direct01";
+            $params["date"] = "direct01";
+            $params["period"] = "direct02";
         }
 
         $result = $client->direct([
-            "path" => "intensity/{id}",
+            "path" => "intensity/date/{date}/{period}",
             "method" => "GET",
             "params" => $params,
             "query" => $query,

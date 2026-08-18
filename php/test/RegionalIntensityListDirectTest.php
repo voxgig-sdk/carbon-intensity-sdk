@@ -22,7 +22,7 @@ class RegionalIntensityListDirectTest extends TestCase
             return;
         }
         if ($setup["live"]) {
-            foreach (["from01", "to01"] as $_liveKey) {
+            foreach (["from01"] as $_liveKey) {
                 if (!isset($setup["idmap"][$_liveKey]) || $setup["idmap"][$_liveKey] === null) {
                     $this->markTestSkipped("live test needs $_liveKey via *_ENTID env var (synthetic IDs only)");
                     return;
@@ -37,14 +37,9 @@ class RegionalIntensityListDirectTest extends TestCase
         } else {
             $params["from"] = "direct01";
         }
-        if ($setup["live"]) {
-            $params["to"] = $setup["idmap"]["to01"];
-        } else {
-            $params["to"] = "direct01";
-        }
 
         $result = $client->direct([
-            "path" => "regional/intensity/{from}/{to}",
+            "path" => "regional/intensity/{from}/fw24h",
             "method" => "GET",
             "params" => $params,
         ]);

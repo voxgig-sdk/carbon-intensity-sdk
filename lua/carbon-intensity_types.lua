@@ -7,12 +7,19 @@
 -- edit by hand.
 
 ---@class Generation
+---@field data? table
 ---@field from? string
 ---@field generationmix? table
 ---@field to? string
 
+---@class GenerationLoadMatch
+---@field from string
+---@field to string
+
 ---@class GenerationListMatch
+---@field data? table
 ---@field from? string
+---@field generationmix? table
 ---@field to? string
 
 ---@class GenerationList
@@ -33,9 +40,9 @@
 ---@field id string
 
 ---@class IntensityListMatch
----@field date? string
----@field period? number
+---@field data? table
 ---@field from? string
+---@field intensity? table
 ---@field to? string
 
 ---@class IntensityFactor
@@ -80,7 +87,10 @@
 ---@field date string
 
 ---@class IntensityListListMatch
+---@field data? table
 ---@field from? string
+---@field intensity? table
+---@field to? string
 
 ---@class Regional
 ---@field data? table
@@ -104,8 +114,7 @@
 ---@field shortname? string
 
 ---@class RegionalIntensityLoadMatch
----@field postcode? string
----@field regionid? number
+---@field postcode string
 
 ---@class RegionalIntensityListMatch
 ---@field data? table
@@ -122,21 +131,16 @@
 ---@field shortname? string
 
 ---@class RegionalIntensityListLoadMatch
----@field intensity_id string
----@field postcode? string
----@field to? string
----@field regionid? number
+---@field from string
+---@field to string
 
 ---@class RegionalIntensityListListMatch
 ---@field from string
----@field to? string
 
 ---@class Stat
----@field from? string
----@field intensity? table
----@field to? string
+---@field data? table
 
----@class StatListMatch
+---@class StatLoadMatch
 ---@field block? number
 ---@field from string
 ---@field to string

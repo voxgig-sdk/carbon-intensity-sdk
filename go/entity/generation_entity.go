@@ -255,9 +255,43 @@ func (e *GenerationEntity) Stream(action string, args map[string]any, callopts m
 	return out
 }
 
-func (e *GenerationEntity) Load(_ map[string]any, _ map[string]any) (any, error) {
-	return core.UnsupportedOp("load", e.name)
+
+func (e *GenerationEntity) Load(reqmatch map[string]any, ctrl map[string]any) (any, error) {
+	utility := e.utility
+	ctx := utility.MakeContext(map[string]any{
+		"opname":   "load",
+		"ctrl":     ctrl,
+		"match":    e.match,
+		"data":     e.data,
+		"reqmatch": reqmatch,
+	}, e.entctx)
+
+	return e.runOp(ctx, func() {
+		if ctx.Result != nil {
+			if ctx.Result.Resmatch != nil {
+				e.match = ctx.Result.Resmatch
+			}
+			if ctx.Result.Resdata != nil {
+				e.data = core.ToMapAny(vs.Clone(ctx.Result.Resdata))
+				if e.data == nil {
+					e.data = map[string]any{}
+				}
+			}
+		}
+	})
 }
+
+// LoadTyped is the statically-typed variant of Load: it takes an
+// GenerationLoadMatch and returns an Generation. It delegates to the untyped
+// Load (identical runtime) and converts at the typed boundary.
+func (e *GenerationEntity) LoadTyped(reqmatch GenerationLoadMatch, ctrl map[string]any) (Generation, error) {
+	res, err := e.Load(asMap(reqmatch), ctrl)
+	if err != nil {
+		return Generation{}, err
+	}
+	return typedFrom[Generation](res), nil
+}
+
 
 
 

@@ -47,44 +47,6 @@ main: kit: entity: regional_intensity_list: {
                 reqd: true
                 type: "`$STRING`"
               }
-              {
-                kind: "param"
-                name: "to"
-                orig: "to"
-                reqd: true
-                type: "`$STRING`"
-              }
-            ]
-          }
-          method: "GET"
-          orig: "/regional/intensity/{from}/{to}"
-          parts: [
-            "regional"
-            "intensity"
-            "{from}"
-            "{to}"
-          ]
-          select: {
-            exist: [
-              "from"
-              "to"
-            ]
-          }
-          transform: {
-            req: "`reqdata`"
-            res: "`body.data`"
-          }
-        }
-        {
-          args: {
-            params: [
-              {
-                kind: "param"
-                name: "from"
-                orig: "from"
-                reqd: true
-                type: "`$STRING`"
-              }
             ]
           }
           method: "GET"
@@ -268,6 +230,44 @@ main: kit: entity: regional_intensity_list: {
             exist: [
               "intensity_id"
               "regionid"
+              "to"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "from"
+                orig: "from"
+                reqd: true
+                type: "`$STRING`"
+              }
+              {
+                kind: "param"
+                name: "to"
+                orig: "to"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/regional/intensity/{from}/{to}"
+          parts: [
+            "regional"
+            "intensity"
+            "{from}"
+            "{to}"
+          ]
+          select: {
+            exist: [
+              "from"
               "to"
             ]
           }

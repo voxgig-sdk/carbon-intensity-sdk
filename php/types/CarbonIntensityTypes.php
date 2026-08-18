@@ -15,15 +15,25 @@ declare(strict_types=1);
 /** Generation entity data model. */
 class Generation
 {
+    public ?array $data = null;
     public ?string $from = null;
     public ?array $generationmix = null;
     public ?string $to = null;
 }
 
+/** Request payload for Generation#load. */
+class GenerationLoadMatch
+{
+    public string $from;
+    public string $to;
+}
+
 /** Request payload for Generation#list. */
 class GenerationListMatch
 {
+    public ?array $data = null;
     public ?string $from = null;
+    public ?array $generationmix = null;
     public ?string $to = null;
 }
 
@@ -59,9 +69,9 @@ class IntensityLoadMatch
 /** Request payload for Intensity#list. */
 class IntensityListMatch
 {
-    public ?string $date = null;
-    public ?int $period = null;
+    public ?array $data = null;
     public ?string $from = null;
+    public ?array $intensity = null;
     public ?string $to = null;
 }
 
@@ -121,7 +131,10 @@ class IntensityListLoadMatch
 /** Request payload for IntensityList#list. */
 class IntensityListListMatch
 {
+    public ?array $data = null;
     public ?string $from = null;
+    public ?array $intensity = null;
+    public ?string $to = null;
 }
 
 /** Regional entity data model. */
@@ -157,8 +170,7 @@ class RegionalIntensity
 /** Request payload for RegionalIntensity#load. */
 class RegionalIntensityLoadMatch
 {
-    public ?string $postcode = null;
-    public ?int $regionid = null;
+    public string $postcode;
 }
 
 /** Request payload for RegionalIntensity#list. */
@@ -184,29 +196,24 @@ class RegionalIntensityList
 /** Request payload for RegionalIntensityList#load. */
 class RegionalIntensityListLoadMatch
 {
-    public string $intensity_id;
-    public ?string $postcode = null;
-    public ?string $to = null;
-    public ?int $regionid = null;
+    public string $from;
+    public string $to;
 }
 
 /** Request payload for RegionalIntensityList#list. */
 class RegionalIntensityListListMatch
 {
     public string $from;
-    public ?string $to = null;
 }
 
 /** Stat entity data model. */
 class Stat
 {
-    public ?string $from = null;
-    public ?array $intensity = null;
-    public ?string $to = null;
+    public ?array $data = null;
 }
 
-/** Request payload for Stat#list. */
-class StatListMatch
+/** Request payload for Stat#load. */
+class StatLoadMatch
 {
     public ?int $block = null;
     public string $from;

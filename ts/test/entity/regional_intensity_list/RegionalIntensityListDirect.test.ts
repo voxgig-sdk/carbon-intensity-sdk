@@ -45,11 +45,10 @@ describe('RegionalIntensityListDirect', async () => {
     const query: any = {}
     if (setup.live) {
       const listResult: any = await client.direct({
-        path: 'regional/intensity/{from}/{to}',
+        path: 'regional/intensity/{from}/fw24h',
         method: 'GET',
         params: {
         from: setup.idmap['from01'],
-        to: setup.idmap['to01'],
         },
       })
       if (!listResult.ok) {
@@ -103,21 +102,19 @@ describe('RegionalIntensityListDirect', async () => {
   test('direct-list-regional_intensity_list', async (t: any) => {
     const setup = directSetup([{ id: 'direct01' }, { id: 'direct02' }])
     if (maybeSkipControl(t, 'direct', 'direct-list-regional_intensity_list', setup.live)) return
-    if (skipIfMissingIds(t, setup, ["from01","to01"])) return
+    if (skipIfMissingIds(t, setup, ["from01"])) return
     const { client, calls } = setup
 
     const params: any = {}
     const query: any = {}
     if (setup.live) {
       params.from = setup.idmap['from01']
-      params.to = setup.idmap['to01']
     } else {
       params.from = 'direct01'
-      params.to = 'direct02'
     }
 
     const result: any = await client.direct({
-      path: 'regional/intensity/{from}/{to}',
+      path: 'regional/intensity/{from}/fw24h',
       method: 'GET',
       params,
       query,
@@ -144,7 +141,6 @@ describe('RegionalIntensityListDirect', async () => {
       assert(calls.length === 1)
       assert(calls[0].init.method === 'GET')
       assert(calls[0].url.includes('direct01'))
-      assert(calls[0].url.includes('direct02'))
     }
   })
 

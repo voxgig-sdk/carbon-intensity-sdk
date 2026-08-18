@@ -10,59 +10,44 @@ use PHPUnit\Framework\TestCase;
 
 class StatDirectTest extends TestCase
 {
-    public function test_direct_list_stat(): void
+    public function test_direct_load_stat(): void
     {
-        $setup = stat_direct_setup([
-            ["id" => "direct01"],
-            ["id" => "direct02"],
-        ]);
-        [$_shouldSkip, $_reason] = Runner::is_control_skipped("direct", "direct-list-stat", $setup["live"] ? "live" : "unit");
+        $setup = stat_direct_setup(["id" => "direct01"]);
+        [$_shouldSkip, $_reason] = Runner::is_control_skipped("direct", "direct-load-stat", $setup["live"] ? "live" : "unit");
         if ($_shouldSkip) {
             $this->markTestSkipped($_reason ?? "skipped via sdk-test-control.json");
             return;
         }
         if ($setup["live"]) {
-            foreach (["block01", "from01", "to01"] as $_liveKey) {
-                if (!isset($setup["idmap"][$_liveKey]) || $setup["idmap"][$_liveKey] === null) {
-                    $this->markTestSkipped("live test needs $_liveKey via *_ENTID env var (synthetic IDs only)");
-                    return;
-                }
-            }
+            $this->markTestSkipped("live direct-load needs real ID — set *_ENTID env var with real IDs to run");
+            return;
         }
         $client = $setup["client"];
 
         $params = [];
-        if ($setup["live"]) {
-            $params["block"] = $setup["idmap"]["block01"];
-        } else {
+        $query = [];
+        if (!$setup["live"]) {
             $params["block"] = "direct01";
-        }
-        if ($setup["live"]) {
-            $params["from"] = $setup["idmap"]["from01"];
-        } else {
-            $params["from"] = "direct01";
-        }
-        if ($setup["live"]) {
-            $params["to"] = $setup["idmap"]["to01"];
-        } else {
-            $params["to"] = "direct01";
+            $params["from"] = "direct02";
+            $params["to"] = "direct03";
         }
 
         $result = $client->direct([
             "path" => "intensity/stats/{from}/{to}/{block}",
             "method" => "GET",
             "params" => $params,
+            "query" => $query,
         ]);
         if ($setup["live"]) {
-            // Live mode is lenient: synthetic IDs frequently 4xx and the
-            // list-response shape varies wildly across public APIs. Skip
-            // rather than fail when the call doesn't return a usable list.
+            // Live mode is lenient: synthetic IDs frequently 4xx. Skip
+            // rather than fail when the load endpoint isn't reachable
+            // with the IDs we can construct from setup.idmap.
             if (!empty($result["err"])) {
-                $this->markTestSkipped("list call failed (likely synthetic IDs against live API): " . (string)$result["err"]);
+                $this->markTestSkipped("load call failed (likely synthetic IDs against live API): " . (string)$result["err"]);
                 return;
             }
             if (empty($result["ok"])) {
-                $this->markTestSkipped("list call not ok (likely synthetic IDs against live API)");
+                $this->markTestSkipped("load call not ok (likely synthetic IDs against live API)");
                 return;
             }
             $status = Helpers::to_int($result["status"]);
@@ -74,8 +59,10 @@ class StatDirectTest extends TestCase
             $this->assertArrayNotHasKey("err", $result);
             $this->assertTrue($result["ok"]);
             $this->assertEquals(200, Helpers::to_int($result["status"]));
-            $this->assertIsArray($result["data"]);
-            $this->assertCount(2, $result["data"]);
+            $this->assertNotNull($result["data"]);
+            if (is_array($result["data"]) && isset($result["data"]["id"])) {
+                $this->assertEquals("direct01", $result["data"]["id"]);
+            }
             $this->assertCount(1, $setup["calls"]);
         }
     }

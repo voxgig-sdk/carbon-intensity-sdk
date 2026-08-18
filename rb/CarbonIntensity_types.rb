@@ -10,6 +10,9 @@
 
 # Generation entity data model.
 #
+# @!attribute [rw] data
+#   @return [Array, nil]
+#
 # @!attribute [rw] from
 #   @return [String, nil]
 #
@@ -19,21 +22,43 @@
 # @!attribute [rw] to
 #   @return [String, nil]
 Generation = Struct.new(
+  :data,
   :from,
   :generationmix,
   :to,
   keyword_init: true
 )
 
+# Request payload for Generation#load.
+#
+# @!attribute [rw] from
+#   @return [String]
+#
+# @!attribute [rw] to
+#   @return [String]
+GenerationLoadMatch = Struct.new(
+  :from,
+  :to,
+  keyword_init: true
+)
+
 # Request payload for Generation#list.
+#
+# @!attribute [rw] data
+#   @return [Array, nil]
 #
 # @!attribute [rw] from
 #   @return [String, nil]
 #
+# @!attribute [rw] generationmix
+#   @return [Array, nil]
+#
 # @!attribute [rw] to
 #   @return [String, nil]
 GenerationListMatch = Struct.new(
+  :data,
   :from,
+  :generationmix,
   :to,
   keyword_init: true
 )
@@ -96,21 +121,21 @@ IntensityLoadMatch = Struct.new(
 
 # Request payload for Intensity#list.
 #
-# @!attribute [rw] date
-#   @return [String, nil]
-#
-# @!attribute [rw] period
-#   @return [Integer, nil]
+# @!attribute [rw] data
+#   @return [Array, nil]
 #
 # @!attribute [rw] from
 #   @return [String, nil]
 #
+# @!attribute [rw] intensity
+#   @return [Hash, nil]
+#
 # @!attribute [rw] to
 #   @return [String, nil]
 IntensityListMatch = Struct.new(
-  :date,
-  :period,
+  :data,
   :from,
+  :intensity,
   :to,
   keyword_init: true
 )
@@ -269,10 +294,22 @@ IntensityListLoadMatch = Struct.new(
 
 # Request payload for IntensityList#list.
 #
+# @!attribute [rw] data
+#   @return [Array, nil]
+#
 # @!attribute [rw] from
 #   @return [String, nil]
+#
+# @!attribute [rw] intensity
+#   @return [Hash, nil]
+#
+# @!attribute [rw] to
+#   @return [String, nil]
 IntensityListListMatch = Struct.new(
+  :data,
   :from,
+  :intensity,
+  :to,
   keyword_init: true
 )
 
@@ -354,13 +391,9 @@ RegionalIntensity = Struct.new(
 # Request payload for RegionalIntensity#load.
 #
 # @!attribute [rw] postcode
-#   @return [String, nil]
-#
-# @!attribute [rw] regionid
-#   @return [Integer, nil]
+#   @return [String]
 RegionalIntensityLoadMatch = Struct.new(
   :postcode,
-  :regionid,
   keyword_init: true
 )
 
@@ -416,22 +449,14 @@ RegionalIntensityList = Struct.new(
 
 # Request payload for RegionalIntensityList#load.
 #
-# @!attribute [rw] intensity_id
+# @!attribute [rw] from
 #   @return [String]
 #
-# @!attribute [rw] postcode
-#   @return [String, nil]
-#
 # @!attribute [rw] to
-#   @return [String, nil]
-#
-# @!attribute [rw] regionid
-#   @return [Integer, nil]
+#   @return [String]
 RegionalIntensityListLoadMatch = Struct.new(
-  :intensity_id,
-  :postcode,
+  :from,
   :to,
-  :regionid,
   keyword_init: true
 )
 
@@ -439,33 +464,21 @@ RegionalIntensityListLoadMatch = Struct.new(
 #
 # @!attribute [rw] from
 #   @return [String]
-#
-# @!attribute [rw] to
-#   @return [String, nil]
 RegionalIntensityListListMatch = Struct.new(
   :from,
-  :to,
   keyword_init: true
 )
 
 # Stat entity data model.
 #
-# @!attribute [rw] from
-#   @return [String, nil]
-#
-# @!attribute [rw] intensity
-#   @return [Hash, nil]
-#
-# @!attribute [rw] to
-#   @return [String, nil]
+# @!attribute [rw] data
+#   @return [Array, nil]
 Stat = Struct.new(
-  :from,
-  :intensity,
-  :to,
+  :data,
   keyword_init: true
 )
 
-# Request payload for Stat#list.
+# Request payload for Stat#load.
 #
 # @!attribute [rw] block
 #   @return [Integer, nil]
@@ -475,7 +488,7 @@ Stat = Struct.new(
 #
 # @!attribute [rw] to
 #   @return [String]
-StatListMatch = Struct.new(
+StatLoadMatch = Struct.new(
   :block,
   :from,
   :to,

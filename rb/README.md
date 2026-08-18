@@ -37,22 +37,22 @@ begin
   # list returns an Array of Generation records — iterate directly.
   generations = client.Generation.list
   generations.each do |item|
-    puts "#{item["from"]}"
+    puts "#{item["data"]}"
   end
 rescue => err
   warn "list failed: #{err}"
 end
 ```
 
-### 3. Load an intensitylist
+### 3. Load a generation
 
-IntensityList is nested under date, so provide the `date`.
+Generation is nested under from, so provide the `from`.
 
 ```ruby
 begin
-  # load returns the ENTITY — call data_get for the IntensityList record (raises on error).
-  intensitylist = client.IntensityList.load({ "date" => "example_date" })
-  puts intensitylist
+  # load returns the ENTITY — call data_get for the Generation record (raises on error).
+  generation = client.Generation.load({ "from" => "example_from", "to" => "example_to" })
+  puts generation
 rescue => err
   warn "load failed: #{err}"
 end
@@ -260,13 +260,14 @@ returns a result `Hash` with these keys:
 
 | Field | Description |
 | --- | --- |
+| `data` |  |
 | `from` |  |
 | `generationmix` |  |
 | `to` |  |
 
-Operations: List.
+Operations: List, Load.
 
-API path: `/generation/{from}/{to}`
+API path: `/generation`
 
 #### GenerationList
 
@@ -291,7 +292,7 @@ API path: `/generation/{from}/pt24h`
 
 Operations: List, Load.
 
-API path: `/intensity/date/{date}/{period}`
+API path: `/intensity`
 
 #### IntensityFactor
 
@@ -369,17 +370,15 @@ API path: `/regional/england`
 
 Operations: List, Load.
 
-API path: `/regional/intensity/{from}/{to}`
+API path: `/regional/intensity/{from}/fw24h`
 
 #### Stat
 
 | Field | Description |
 | --- | --- |
-| `from` |  |
-| `intensity` |  |
-| `to` |  |
+| `data` |  |
 
-Operations: List.
+Operations: Load.
 
 API path: `/intensity/stats/{from}/{to}/{block}`
 
@@ -397,14 +396,23 @@ Create an instance: `generation = client.Generation`
 | Method | Description |
 | --- | --- |
 | `list(match)` | List entities matching the criteria. |
+| `load(match)` | Load a single entity by match criteria. |
 
 #### Fields
 
 | Field | Type | Description |
 | --- | --- | --- |
+| `data` | `Array` |  |
 | `from` | `String` |  |
 | `generationmix` | `Array` |  |
 | `to` | `String` |  |
+
+#### Example: Load
+
+```ruby
+# load returns the ENTITY — call data_get for the Generation record (raises on error).
+generation = client.Generation.load({ "from" => "from", "to" => "to" })
+```
 
 #### Example: List
 
@@ -600,7 +608,7 @@ Create an instance: `regional_intensity = client.RegionalIntensity`
 
 ```ruby
 # load returns the ENTITY — call data_get for the RegionalIntensity record (raises on error).
-regional_intensity = client.RegionalIntensity.load()
+regional_intensity = client.RegionalIntensity.load({ "postcode" => "postcode" })
 ```
 
 #### Example: List
@@ -636,7 +644,7 @@ Create an instance: `regional_intensity_list = client.RegionalIntensityList`
 
 ```ruby
 # load returns the ENTITY — call data_get for the RegionalIntensityList record (raises on error).
-regional_intensity_list = client.RegionalIntensityList.load({ "intensity_id" => "intensity_id" })
+regional_intensity_list = client.RegionalIntensityList.load({ "from" => "from", "to" => "to" })
 ```
 
 #### Example: List
@@ -655,21 +663,19 @@ Create an instance: `stat = client.Stat`
 
 | Method | Description |
 | --- | --- |
-| `list(match)` | List entities matching the criteria. |
+| `load(match)` | Load a single entity by match criteria. |
 
 #### Fields
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `from` | `String` |  |
-| `intensity` | `Hash` |  |
-| `to` | `String` |  |
+| `data` | `Array` |  |
 
-#### Example: List
+#### Example: Load
 
 ```ruby
-# list returns an Array of Stat records (raises on error).
-stats = client.Stat.list
+# load returns the ENTITY — call data_get for the Stat record (raises on error).
+stat = client.Stat.load({ "from" => "from", "to" => "to" })
 ```
 
 

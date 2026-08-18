@@ -122,6 +122,7 @@ local generation = client:Generation(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
+| `data` | `table` | No |  |
 | `from` | `string` | No |  |
 | `generationmix` | `table` | No |  |
 | `to` | `string` | No |  |
@@ -134,6 +135,14 @@ List entities matching the given criteria. Returns an array.
 
 ```lua
 local results, err = client:Generation():list()
+```
+
+#### `load(reqmatch, ctrl) -> any, err`
+
+Load a single entity matching the given criteria.
+
+```lua
+local result, err = client:Generation():load({ from = "from", to = "to" })
 ```
 
 ### Common Methods
@@ -498,7 +507,7 @@ local results, err = client:RegionalIntensity():list()
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:RegionalIntensity():load()
+local result, err = client:RegionalIntensity():load({ postcode = "postcode" })
 ```
 
 ### Common Methods
@@ -562,7 +571,7 @@ local results, err = client:RegionalIntensityList():list()
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:RegionalIntensityList():load({ intensity_id = "intensity_id" })
+local result, err = client:RegionalIntensityList():load({ from = "from", to = "to" })
 ```
 
 ### Common Methods
@@ -605,18 +614,16 @@ local stat = client:Stat(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `from` | `string` | No |  |
-| `intensity` | `table` | No |  |
-| `to` | `string` | No |  |
+| `data` | `table` | No |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl) -> any, err`
+#### `load(reqmatch, ctrl) -> any, err`
 
-List entities matching the given criteria. Returns an array.
+Load a single entity matching the given criteria.
 
 ```lua
-local results, err = client:Stat():list()
+local result, err = client:Stat():load({ from = "from", to = "to" })
 ```
 
 ### Common Methods

@@ -33,7 +33,7 @@ class GenerationEntityTest < Minitest::Test
     assert_equal 3, seen.length
 
     # Inbound: streaming active -> yields each item from the feature.
-    cfg = CarbonIntensityConfig.make_config
+    cfg = CarbonIntensityConfig.shared_config
     if cfg["feature"].is_a?(Hash) && cfg["feature"].key?("streaming")
       sdk = CarbonIntensitySDK.test(seed, { "feature" => { "streaming" => { "active" => true } } })
       got = []
@@ -52,7 +52,7 @@ class GenerationEntityTest < Minitest::Test
     setup = generation_basic_setup(nil)
     # Per-op sdk-test-control.json skip.
     _live = setup[:live] || false
-    ["list"].each do |_op|
+    ["list", "load"].each do |_op|
       _should_skip, _reason = Runner.is_control_skipped("entityOp", "generation." + _op, _live ? "live" : "unit")
       if _should_skip
         skip(_reason || "skipped via sdk-test-control.json")
@@ -82,6 +82,11 @@ class GenerationEntityTest < Minitest::Test
     generation_ref01_list_result = generation_ref01_ent.list(generation_ref01_match, nil)
     assert generation_ref01_list_result.is_a?(Array)
 
+    # LOAD
+    generation_ref01_match_dt0 = {}
+    generation_ref01_data_dt0_loaded = generation_ref01_ent.load(generation_ref01_match_dt0, nil)
+    assert !generation_ref01_data_dt0_loaded.nil?
+
   end
 end
 
@@ -99,7 +104,7 @@ def generation_basic_setup(extra)
 
   # Generate idmap via transform.
   idmap = Vs.transform(
-    ["generation01", "generation02", "generation03"],
+    ["generation01", "generation02", "generation03", "from01"],
     {
       "`$PACK`" => ["", {
         "`$KEY`" => "`$COPY`",

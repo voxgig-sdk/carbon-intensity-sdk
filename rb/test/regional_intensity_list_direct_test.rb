@@ -17,7 +17,7 @@ class RegionalIntensityListDirectTest < Minitest::Test
       return
     end
     if setup[:live]
-      ["from01", "to01"].each do |_live_key|
+      ["from01"].each do |_live_key|
         if setup[:idmap][_live_key].nil?
           skip "live test needs #{_live_key} via *_ENTID env var (synthetic IDs only)"
           return
@@ -32,14 +32,9 @@ class RegionalIntensityListDirectTest < Minitest::Test
     else
       params["from"] = "direct01"
     end
-    if setup[:live]
-      params["to"] = setup[:idmap]["to01"]
-    else
-      params["to"] = "direct01"
-    end
 
     result = client.direct({
-      "path" => "regional/intensity/{from}/{to}",
+      "path" => "regional/intensity/{from}/fw24h",
       "method" => "GET",
       "params" => params,
     })

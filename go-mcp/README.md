@@ -31,7 +31,7 @@ Tool-call arguments (what an agent sends):
 { "entity": "generation", "query": { } }
 
 // carbon-intensity_load: one record by id
-{ "entity": "intensity", "query": { "id": 1 } }
+{ "entity": "generation", "query": { "id": 1 } }
 ```
 
 > The rest of this guide follows the [Diátaxis](https://diataxis.fr) framework:
@@ -101,7 +101,7 @@ Args: `entity` (required), `query` = `{"id":N}` (required). Returns the single
 record as JSON:
 
 ```jsonc
-{ "entity": "intensity", "query": { "id": 1 } }
+{ "entity": "generation", "query": { "id": 1 } }
 ```
 
 ### Cross-compile release binaries
@@ -173,7 +173,7 @@ curl -sN -X POST http://localhost:18080 \
   -H 'Content-Type: application/json' \
   -H 'Accept: application/json, text/event-stream' \
   -H "Mcp-Session-Id: $SESSION" \
-  -d '{"jsonrpc":"2.0","id":2,"method":"tools/call","params":{"name":"carbon-intensity_load","arguments":{"entity":"intensity","query":{"id":1}}}}'
+  -d '{"jsonrpc":"2.0","id":2,"method":"tools/call","params":{"name":"carbon-intensity_load","arguments":{"entity":"generation","query":{"id":1}}}}'
 ```
 
 ## Explanation

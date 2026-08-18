@@ -8,8 +8,8 @@
         "regionid": "s35",
         "shortname": "s36",
         "from": "FROM01",
-        "to": "TO01",
         "intensity_id": "INTENSITY01",
+        "to": "TO01",
         "id": "REGIONAL_INTENSITY_LIST00"
       },
       "REGIONAL_INTENSITY_LIST01": {
@@ -19,8 +19,8 @@
         "regionid": "s67",
         "shortname": "s68",
         "from": "FROM01",
-        "to": "TO01",
         "intensity_id": "INTENSITY01",
+        "to": "TO01",
         "id": "REGIONAL_INTENSITY_LIST01"
       },
       "REGIONAL_INTENSITY_LIST02": {
@@ -30,8 +30,8 @@
         "regionid": "s99",
         "shortname": "s9a",
         "from": "FROM01",
-        "to": "TO01",
         "intensity_id": "INTENSITY01",
+        "to": "TO01",
         "id": "REGIONAL_INTENSITY_LIST02"
       }
     }

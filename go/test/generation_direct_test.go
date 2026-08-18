@@ -27,32 +27,13 @@ func TestGenerationDirect(t *testing.T) {
 			t.Skip(_reason)
 			return
 		}
-		if setup.live {
-			for _, _liveKey := range []string{"from01", "to01"} {
-				if v := setup.idmap[_liveKey]; v == nil {
-					t.Skipf("live test needs %s via *_ENTID env var (synthetic IDs only)", _liveKey)
-					return
-				}
-			}
-		}
 		client := setup.client
 
-		params := map[string]any{}
-		if setup.live {
-			params["from"] = setup.idmap["from01"]
-		} else {
-			params["from"] = "direct01"
-		}
-		if setup.live {
-			params["to"] = setup.idmap["to01"]
-		} else {
-			params["to"] = "direct02"
-		}
 
 		result, err := client.Direct(map[string]any{
-			"path":   "generation/{from}/{to}",
+			"path":   "generation",
 			"method": "GET",
-			"params": params,
+			"params": map[string]any{},
 		})
 		if setup.live {
 			// Live-mode leniency is a model decision
@@ -88,6 +69,100 @@ func TestGenerationDirect(t *testing.T) {
 				}
 			} else {
 				t.Fatalf("expected data to be an array, got %T", result["data"])
+			}
+
+			if len(*setup.calls) != 1 {
+				t.Fatalf("expected 1 call, got %d", len(*setup.calls))
+			}
+		}
+	})
+
+	t.Run("direct-load-generation", func(t *testing.T) {
+		setup := generationDirectSetup(map[string]any{"id": "direct01"})
+		_mode := "unit"
+		if setup.live {
+			_mode = "live"
+		}
+		if _shouldSkip, _reason := isControlSkipped("direct", "direct-load-generation", _mode); _shouldSkip {
+			if _reason == "" {
+				_reason = "skipped via sdk-test-control.json"
+			}
+			t.Skip(_reason)
+			return
+		}
+		client := setup.client
+
+		params := map[string]any{}
+		query := map[string]any{}
+		if setup.live {
+			listParams := map[string]any{}
+			listResult, listErr := client.Direct(map[string]any{
+				"path":   "generation",
+				"method": "GET",
+				"params": listParams,
+			})
+			if listErr != nil {
+				t.Skipf("list call failed (likely synthetic IDs against live API): %v", listErr)
+			}
+			if listResult["ok"] != true {
+				t.Skipf("list call not ok (likely synthetic IDs against live API): %v", listResult)
+			}
+
+			// Get first entity ID from list
+			listData, _ := listResult["data"].([]any)
+			if len(listData) == 0 {
+				t.Skip("no entities to load in live mode")
+			}
+			firstEnt := core.ToMapAny(listData[0])
+			params["id"] = firstEnt["id"]
+			params["from"] = setup.idmap["from01"]
+			params["to"] = setup.idmap["to01"]
+		} else {
+			params["from"] = "direct01"
+			params["to"] = "direct02"
+		}
+
+		result, err := client.Direct(map[string]any{
+			"path":   "generation/{from}/{to}",
+			"method": "GET",
+			"params": params,
+			"query":  query,
+		})
+		if setup.live {
+			// Live mode is lenient: synthetic IDs frequently 4xx. Skip
+			// rather than fail when the load endpoint isn't reachable with
+			// the IDs we can construct from setup.idmap — unless the model
+			// sets main.kit.test.live.strict.
+			if err != nil {
+				t.Skipf("load call failed (likely synthetic IDs against live API): %v", err)
+			}
+			if result["ok"] != true {
+				t.Skipf("load call not ok (likely synthetic IDs against live API): %v", result)
+			}
+			status := core.ToInt(result["status"])
+			if status < 200 || status >= 300 {
+				t.Skipf("expected 2xx status, got %v", result["status"])
+			}
+		} else {
+			if err != nil {
+				t.Fatalf("direct failed: %v", err)
+			}
+			if result["ok"] != true {
+				t.Fatalf("expected ok to be true, got %v", result["ok"])
+			}
+			if core.ToInt(result["status"]) != 200 {
+				t.Fatalf("expected status 200, got %v", result["status"])
+			}
+			if result["data"] == nil {
+				t.Fatal("expected data to be non-nil")
+			}
+		}
+
+		if !setup.live {
+			if dataMap, ok := result["data"].(map[string]any); ok {
+				if dataMap["id"] != "direct01" {
+					t.Fatalf("expected data.id to be direct01, got %v", dataMap["id"])
+				}
 			}
 
 			if len(*setup.calls) != 1 {

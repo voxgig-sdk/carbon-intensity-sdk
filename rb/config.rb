@@ -1,6 +1,20 @@
 # CarbonIntensity SDK configuration
 
 module CarbonIntensityConfig
+  # Return the process-wide config, built once on first use. The SDK reads
+  # the config on every request and never writes to it, so one instance is
+  # shared by every client rather than rebuilt per client.
+  #
+  # The returned hash is shared: treat it as read-only. Callers that need to
+  # mutate should use make_config, which always returns a fresh copy.
+  def self.shared_config
+    @shared_config ||= make_config
+  end
+
+
+  # Build a fresh, fully materialised config hash. Every call rebuilds the
+  # whole structure, so prefer shared_config unless you need a private copy
+  # you intend to mutate.
   def self.make_config
     {
       "main" => {
@@ -34,25 +48,20 @@ module CarbonIntensityConfig
         "generation" => {
           "fields" => [
             {
-              "active" => true,
-              "name" => "from",
-              "req" => false,
-              "type" => "`$STRING`",
-              "index$" => 0,
-            },
-            {
-              "active" => true,
-              "name" => "generationmix",
-              "req" => false,
+              "name" => "data",
               "type" => "`$ARRAY`",
-              "index$" => 1,
             },
             {
-              "active" => true,
-              "name" => "to",
-              "req" => false,
+              "name" => "from",
               "type" => "`$STRING`",
-              "index$" => 2,
+            },
+            {
+              "name" => "generationmix",
+              "type" => "`$ARRAY`",
+            },
+            {
+              "name" => "to",
+              "type" => "`$STRING`",
             },
           ],
           "name" => "generation",
@@ -62,26 +71,41 @@ module CarbonIntensityConfig
               "name" => "list",
               "points" => [
                 {
-                  "active" => true,
+                  "args" => {},
+                  "kind" => "http",
+                  "method" => "GET",
+                  "orig" => "/generation",
+                  "parts" => [
+                    "generation",
+                  ],
+                  "select" => {},
+                  "transform" => {
+                    "req" => "`reqdata`",
+                    "res" => "`body.data`",
+                  },
+                },
+              ],
+            },
+            "load" => {
+              "input" => "data",
+              "name" => "load",
+              "points" => [
+                {
                   "args" => {
                     "params" => [
                       {
-                        "active" => true,
                         "kind" => "param",
                         "name" => "from",
                         "orig" => "from",
                         "reqd" => true,
                         "type" => "`$STRING`",
-                        "index$" => 0,
                       },
                       {
-                        "active" => true,
                         "kind" => "param",
                         "name" => "to",
                         "orig" => "to",
                         "reqd" => true,
                         "type" => "`$STRING`",
-                        "index$" => 1,
                       },
                     ],
                   },
@@ -101,28 +125,10 @@ module CarbonIntensityConfig
                   },
                   "transform" => {
                     "req" => "`reqdata`",
-                    "res" => "`body.data`",
+                    "res" => "`body`",
                   },
-                  "index$" => 0,
-                },
-                {
-                  "active" => true,
-                  "args" => {},
-                  "kind" => "http",
-                  "method" => "GET",
-                  "orig" => "/generation",
-                  "parts" => [
-                    "generation",
-                  ],
-                  "select" => {},
-                  "transform" => {
-                    "req" => "`reqdata`",
-                    "res" => "`body.data`",
-                  },
-                  "index$" => 1,
                 },
               ],
-              "key$" => "list",
             },
           },
           "relations" => {
@@ -136,25 +142,16 @@ module CarbonIntensityConfig
         "generation_list" => {
           "fields" => [
             {
-              "active" => true,
               "name" => "from",
-              "req" => false,
               "type" => "`$STRING`",
-              "index$" => 0,
             },
             {
-              "active" => true,
               "name" => "generationmix",
-              "req" => false,
               "type" => "`$ARRAY`",
-              "index$" => 1,
             },
             {
-              "active" => true,
               "name" => "to",
-              "req" => false,
               "type" => "`$STRING`",
-              "index$" => 2,
             },
           ],
           "name" => "generation_list",
@@ -164,17 +161,14 @@ module CarbonIntensityConfig
               "name" => "list",
               "points" => [
                 {
-                  "active" => true,
                   "args" => {
                     "params" => [
                       {
-                        "active" => true,
                         "kind" => "param",
                         "name" => "from",
                         "orig" => "from",
                         "reqd" => true,
                         "type" => "`$STRING`",
-                        "index$" => 0,
                       },
                     ],
                   },
@@ -195,10 +189,8 @@ module CarbonIntensityConfig
                     "req" => "`reqdata`",
                     "res" => "`body.data`",
                   },
-                  "index$" => 0,
                 },
               ],
-              "key$" => "list",
             },
           },
           "relations" => {
@@ -212,32 +204,20 @@ module CarbonIntensityConfig
         "intensity" => {
           "fields" => [
             {
-              "active" => true,
               "name" => "data",
-              "req" => false,
               "type" => "`$ARRAY`",
-              "index$" => 0,
             },
             {
-              "active" => true,
               "name" => "from",
-              "req" => false,
               "type" => "`$STRING`",
-              "index$" => 1,
             },
             {
-              "active" => true,
               "name" => "intensity",
-              "req" => false,
               "type" => "`$OBJECT`",
-              "index$" => 2,
             },
             {
-              "active" => true,
               "name" => "to",
-              "req" => false,
               "type" => "`$STRING`",
-              "index$" => 3,
             },
           ],
           "name" => "intensity",
@@ -247,26 +227,41 @@ module CarbonIntensityConfig
               "name" => "list",
               "points" => [
                 {
-                  "active" => true,
+                  "args" => {},
+                  "kind" => "http",
+                  "method" => "GET",
+                  "orig" => "/intensity",
+                  "parts" => [
+                    "intensity",
+                  ],
+                  "select" => {},
+                  "transform" => {
+                    "req" => "`reqdata`",
+                    "res" => "`body.data`",
+                  },
+                },
+              ],
+            },
+            "load" => {
+              "input" => "data",
+              "name" => "load",
+              "points" => [
+                {
                   "args" => {
                     "params" => [
                       {
-                        "active" => true,
                         "kind" => "param",
                         "name" => "date",
                         "orig" => "date",
                         "reqd" => true,
                         "type" => "`$STRING`",
-                        "index$" => 0,
                       },
                       {
-                        "active" => true,
                         "kind" => "param",
                         "name" => "period",
                         "orig" => "period",
                         "reqd" => true,
                         "type" => "`$INTEGER`",
-                        "index$" => 1,
                       },
                     ],
                   },
@@ -287,31 +282,25 @@ module CarbonIntensityConfig
                   },
                   "transform" => {
                     "req" => "`reqdata`",
-                    "res" => "`body.data`",
+                    "res" => "`body`",
                   },
-                  "index$" => 0,
                 },
                 {
-                  "active" => true,
                   "args" => {
                     "params" => [
                       {
-                        "active" => true,
                         "kind" => "param",
                         "name" => "from",
                         "orig" => "from",
                         "reqd" => true,
                         "type" => "`$STRING`",
-                        "index$" => 0,
                       },
                       {
-                        "active" => true,
                         "kind" => "param",
                         "name" => "to",
                         "orig" => "to",
                         "reqd" => true,
                         "type" => "`$STRING`",
-                        "index$" => 1,
                       },
                     ],
                   },
@@ -331,45 +320,18 @@ module CarbonIntensityConfig
                   },
                   "transform" => {
                     "req" => "`reqdata`",
-                    "res" => "`body.data`",
+                    "res" => "`body`",
                   },
-                  "index$" => 1,
                 },
                 {
-                  "active" => true,
-                  "args" => {},
-                  "kind" => "http",
-                  "method" => "GET",
-                  "orig" => "/intensity",
-                  "parts" => [
-                    "intensity",
-                  ],
-                  "select" => {},
-                  "transform" => {
-                    "req" => "`reqdata`",
-                    "res" => "`body.data`",
-                  },
-                  "index$" => 2,
-                },
-              ],
-              "key$" => "list",
-            },
-            "load" => {
-              "input" => "data",
-              "name" => "load",
-              "points" => [
-                {
-                  "active" => true,
                   "args" => {
                     "params" => [
                       {
-                        "active" => true,
                         "kind" => "param",
                         "name" => "id",
                         "orig" => "from",
                         "reqd" => true,
                         "type" => "`$STRING`",
-                        "index$" => 0,
                       },
                     ],
                   },
@@ -394,10 +356,8 @@ module CarbonIntensityConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
-                  "index$" => 0,
                 },
               ],
-              "key$" => "load",
             },
           },
           "relations" => {
@@ -414,102 +374,60 @@ module CarbonIntensityConfig
         "intensity_factor" => {
           "fields" => [
             {
-              "active" => true,
               "name" => "Biomass",
-              "req" => false,
               "type" => "`$INTEGER`",
-              "index$" => 0,
             },
             {
-              "active" => true,
               "name" => "Coal",
-              "req" => false,
               "type" => "`$INTEGER`",
-              "index$" => 1,
             },
             {
-              "active" => true,
               "name" => "DutchImports",
-              "req" => false,
               "type" => "`$INTEGER`",
-              "index$" => 2,
             },
             {
-              "active" => true,
               "name" => "FrenchImports",
-              "req" => false,
               "type" => "`$INTEGER`",
-              "index$" => 3,
             },
             {
-              "active" => true,
               "name" => "GasCombinedCycle",
-              "req" => false,
               "type" => "`$INTEGER`",
-              "index$" => 4,
             },
             {
-              "active" => true,
               "name" => "GasOpenCycle",
-              "req" => false,
               "type" => "`$INTEGER`",
-              "index$" => 5,
             },
             {
-              "active" => true,
               "name" => "Hydro",
-              "req" => false,
               "type" => "`$INTEGER`",
-              "index$" => 6,
             },
             {
-              "active" => true,
               "name" => "IrishImports",
-              "req" => false,
               "type" => "`$INTEGER`",
-              "index$" => 7,
             },
             {
-              "active" => true,
               "name" => "Nuclear",
-              "req" => false,
               "type" => "`$INTEGER`",
-              "index$" => 8,
             },
             {
-              "active" => true,
               "name" => "Oil",
-              "req" => false,
               "type" => "`$INTEGER`",
-              "index$" => 9,
             },
             {
-              "active" => true,
               "name" => "Other",
-              "req" => false,
               "type" => "`$INTEGER`",
-              "index$" => 10,
             },
             {
-              "active" => true,
               "name" => "PumpedStorage",
-              "req" => false,
               "type" => "`$INTEGER`",
-              "index$" => 11,
             },
             {
-              "active" => true,
               "name" => "Solar",
-              "req" => false,
               "type" => "`$INTEGER`",
-              "index$" => 12,
             },
             {
-              "active" => true,
               "name" => "Wind",
-              "req" => false,
               "type" => "`$INTEGER`",
-              "index$" => 13,
             },
           ],
           "name" => "intensity_factor",
@@ -519,7 +437,6 @@ module CarbonIntensityConfig
               "name" => "list",
               "points" => [
                 {
-                  "active" => true,
                   "args" => {},
                   "kind" => "http",
                   "method" => "GET",
@@ -533,10 +450,8 @@ module CarbonIntensityConfig
                     "req" => "`reqdata`",
                     "res" => "`body.data`",
                   },
-                  "index$" => 0,
                 },
               ],
-              "key$" => "list",
             },
           },
           "relations" => {
@@ -546,32 +461,20 @@ module CarbonIntensityConfig
         "intensity_list" => {
           "fields" => [
             {
-              "active" => true,
               "name" => "data",
-              "req" => false,
               "type" => "`$ARRAY`",
-              "index$" => 0,
             },
             {
-              "active" => true,
               "name" => "from",
-              "req" => false,
               "type" => "`$STRING`",
-              "index$" => 1,
             },
             {
-              "active" => true,
               "name" => "intensity",
-              "req" => false,
               "type" => "`$OBJECT`",
-              "index$" => 2,
             },
             {
-              "active" => true,
               "name" => "to",
-              "req" => false,
               "type" => "`$STRING`",
-              "index$" => 3,
             },
           ],
           "name" => "intensity_list",
@@ -581,17 +484,14 @@ module CarbonIntensityConfig
               "name" => "list",
               "points" => [
                 {
-                  "active" => true,
                   "args" => {
                     "params" => [
                       {
-                        "active" => true,
                         "kind" => "param",
                         "name" => "from",
                         "orig" => "from",
                         "reqd" => true,
                         "type" => "`$STRING`",
-                        "index$" => 0,
                       },
                     ],
                   },
@@ -612,20 +512,16 @@ module CarbonIntensityConfig
                     "req" => "`reqdata`",
                     "res" => "`body.data`",
                   },
-                  "index$" => 0,
                 },
                 {
-                  "active" => true,
                   "args" => {
                     "params" => [
                       {
-                        "active" => true,
                         "kind" => "param",
                         "name" => "from",
                         "orig" => "from",
                         "reqd" => true,
                         "type" => "`$STRING`",
-                        "index$" => 0,
                       },
                     ],
                   },
@@ -646,20 +542,16 @@ module CarbonIntensityConfig
                     "req" => "`reqdata`",
                     "res" => "`body.data`",
                   },
-                  "index$" => 1,
                 },
                 {
-                  "active" => true,
                   "args" => {
                     "params" => [
                       {
-                        "active" => true,
                         "kind" => "param",
                         "name" => "from",
                         "orig" => "from",
                         "reqd" => true,
                         "type" => "`$STRING`",
-                        "index$" => 0,
                       },
                     ],
                   },
@@ -680,10 +572,8 @@ module CarbonIntensityConfig
                     "req" => "`reqdata`",
                     "res" => "`body.data`",
                   },
-                  "index$" => 2,
                 },
                 {
-                  "active" => true,
                   "args" => {},
                   "kind" => "http",
                   "method" => "GET",
@@ -697,27 +587,22 @@ module CarbonIntensityConfig
                     "req" => "`reqdata`",
                     "res" => "`body.data`",
                   },
-                  "index$" => 3,
                 },
               ],
-              "key$" => "list",
             },
             "load" => {
               "input" => "data",
               "name" => "load",
               "points" => [
                 {
-                  "active" => true,
                   "args" => {
                     "params" => [
                       {
-                        "active" => true,
                         "kind" => "param",
                         "name" => "date",
                         "orig" => "date",
                         "reqd" => true,
                         "type" => "`$STRING`",
-                        "index$" => 0,
                       },
                     ],
                   },
@@ -738,10 +623,8 @@ module CarbonIntensityConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
-                  "index$" => 0,
                 },
               ],
-              "key$" => "load",
             },
           },
           "relations" => {
@@ -758,39 +641,24 @@ module CarbonIntensityConfig
         "regional" => {
           "fields" => [
             {
-              "active" => true,
               "name" => "data",
-              "req" => false,
               "type" => "`$ARRAY`",
-              "index$" => 0,
             },
             {
-              "active" => true,
               "name" => "dnoregion",
-              "req" => false,
               "type" => "`$STRING`",
-              "index$" => 1,
             },
             {
-              "active" => true,
               "name" => "postcode",
-              "req" => false,
               "type" => "`$STRING`",
-              "index$" => 2,
             },
             {
-              "active" => true,
               "name" => "regionid",
-              "req" => false,
               "type" => "`$INTEGER`",
-              "index$" => 3,
             },
             {
-              "active" => true,
               "name" => "shortname",
-              "req" => false,
               "type" => "`$STRING`",
-              "index$" => 4,
             },
           ],
           "name" => "regional",
@@ -800,7 +668,6 @@ module CarbonIntensityConfig
               "name" => "list",
               "points" => [
                 {
-                  "active" => true,
                   "args" => {},
                   "kind" => "http",
                   "method" => "GET",
@@ -813,10 +680,8 @@ module CarbonIntensityConfig
                     "req" => "`reqdata`",
                     "res" => "`body.data`",
                   },
-                  "index$" => 0,
                 },
               ],
-              "key$" => "list",
             },
           },
           "relations" => {
@@ -826,39 +691,24 @@ module CarbonIntensityConfig
         "regional_intensity" => {
           "fields" => [
             {
-              "active" => true,
               "name" => "data",
-              "req" => false,
               "type" => "`$ARRAY`",
-              "index$" => 0,
             },
             {
-              "active" => true,
               "name" => "dnoregion",
-              "req" => false,
               "type" => "`$STRING`",
-              "index$" => 1,
             },
             {
-              "active" => true,
               "name" => "postcode",
-              "req" => false,
               "type" => "`$STRING`",
-              "index$" => 2,
             },
             {
-              "active" => true,
               "name" => "regionid",
-              "req" => false,
               "type" => "`$INTEGER`",
-              "index$" => 3,
             },
             {
-              "active" => true,
               "name" => "shortname",
-              "req" => false,
               "type" => "`$STRING`",
-              "index$" => 4,
             },
           ],
           "name" => "regional_intensity",
@@ -868,7 +718,6 @@ module CarbonIntensityConfig
               "name" => "list",
               "points" => [
                 {
-                  "active" => true,
                   "args" => {},
                   "kind" => "http",
                   "method" => "GET",
@@ -882,10 +731,8 @@ module CarbonIntensityConfig
                     "req" => "`reqdata`",
                     "res" => "`body.data`",
                   },
-                  "index$" => 0,
                 },
                 {
-                  "active" => true,
                   "args" => {},
                   "kind" => "http",
                   "method" => "GET",
@@ -899,10 +746,8 @@ module CarbonIntensityConfig
                     "req" => "`reqdata`",
                     "res" => "`body.data`",
                   },
-                  "index$" => 1,
                 },
                 {
-                  "active" => true,
                   "args" => {},
                   "kind" => "http",
                   "method" => "GET",
@@ -916,27 +761,22 @@ module CarbonIntensityConfig
                     "req" => "`reqdata`",
                     "res" => "`body.data`",
                   },
-                  "index$" => 2,
                 },
               ],
-              "key$" => "list",
             },
             "load" => {
               "input" => "data",
               "name" => "load",
               "points" => [
                 {
-                  "active" => true,
                   "args" => {
                     "params" => [
                       {
-                        "active" => true,
                         "kind" => "param",
                         "name" => "postcode",
                         "orig" => "postcode",
                         "reqd" => true,
                         "type" => "`$STRING`",
-                        "index$" => 0,
                       },
                     ],
                   },
@@ -957,20 +797,16 @@ module CarbonIntensityConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
-                  "index$" => 0,
                 },
                 {
-                  "active" => true,
                   "args" => {
                     "params" => [
                       {
-                        "active" => true,
                         "kind" => "param",
                         "name" => "regionid",
                         "orig" => "regionid",
                         "reqd" => true,
                         "type" => "`$INTEGER`",
-                        "index$" => 0,
                       },
                     ],
                   },
@@ -991,10 +827,8 @@ module CarbonIntensityConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
-                  "index$" => 1,
                 },
               ],
-              "key$" => "load",
             },
           },
           "relations" => {
@@ -1011,39 +845,24 @@ module CarbonIntensityConfig
         "regional_intensity_list" => {
           "fields" => [
             {
-              "active" => true,
               "name" => "data",
-              "req" => false,
               "type" => "`$ARRAY`",
-              "index$" => 0,
             },
             {
-              "active" => true,
               "name" => "dnoregion",
-              "req" => false,
               "type" => "`$STRING`",
-              "index$" => 1,
             },
             {
-              "active" => true,
               "name" => "postcode",
-              "req" => false,
               "type" => "`$STRING`",
-              "index$" => 2,
             },
             {
-              "active" => true,
               "name" => "regionid",
-              "req" => false,
               "type" => "`$INTEGER`",
-              "index$" => 3,
             },
             {
-              "active" => true,
               "name" => "shortname",
-              "req" => false,
               "type" => "`$STRING`",
-              "index$" => 4,
             },
           ],
           "name" => "regional_intensity_list",
@@ -1053,62 +872,14 @@ module CarbonIntensityConfig
               "name" => "list",
               "points" => [
                 {
-                  "active" => true,
                   "args" => {
                     "params" => [
                       {
-                        "active" => true,
                         "kind" => "param",
                         "name" => "from",
                         "orig" => "from",
                         "reqd" => true,
                         "type" => "`$STRING`",
-                        "index$" => 0,
-                      },
-                      {
-                        "active" => true,
-                        "kind" => "param",
-                        "name" => "to",
-                        "orig" => "to",
-                        "reqd" => true,
-                        "type" => "`$STRING`",
-                        "index$" => 1,
-                      },
-                    ],
-                  },
-                  "kind" => "http",
-                  "method" => "GET",
-                  "orig" => "/regional/intensity/{from}/{to}",
-                  "parts" => [
-                    "regional",
-                    "intensity",
-                    "{from}",
-                    "{to}",
-                  ],
-                  "select" => {
-                    "exist" => [
-                      "from",
-                      "to",
-                    ],
-                  },
-                  "transform" => {
-                    "req" => "`reqdata`",
-                    "res" => "`body.data`",
-                  },
-                  "index$" => 0,
-                },
-                {
-                  "active" => true,
-                  "args" => {
-                    "params" => [
-                      {
-                        "active" => true,
-                        "kind" => "param",
-                        "name" => "from",
-                        "orig" => "from",
-                        "reqd" => true,
-                        "type" => "`$STRING`",
-                        "index$" => 0,
                       },
                     ],
                   },
@@ -1130,20 +901,16 @@ module CarbonIntensityConfig
                     "req" => "`reqdata`",
                     "res" => "`body.data`",
                   },
-                  "index$" => 1,
                 },
                 {
-                  "active" => true,
                   "args" => {
                     "params" => [
                       {
-                        "active" => true,
                         "kind" => "param",
                         "name" => "from",
                         "orig" => "from",
                         "reqd" => true,
                         "type" => "`$STRING`",
-                        "index$" => 0,
                       },
                     ],
                   },
@@ -1165,20 +932,16 @@ module CarbonIntensityConfig
                     "req" => "`reqdata`",
                     "res" => "`body.data`",
                   },
-                  "index$" => 2,
                 },
                 {
-                  "active" => true,
                   "args" => {
                     "params" => [
                       {
-                        "active" => true,
                         "kind" => "param",
                         "name" => "from",
                         "orig" => "from",
                         "reqd" => true,
                         "type" => "`$STRING`",
-                        "index$" => 0,
                       },
                     ],
                   },
@@ -1200,45 +963,36 @@ module CarbonIntensityConfig
                     "req" => "`reqdata`",
                     "res" => "`body.data`",
                   },
-                  "index$" => 3,
                 },
               ],
-              "key$" => "list",
             },
             "load" => {
               "input" => "data",
               "name" => "load",
               "points" => [
                 {
-                  "active" => true,
                   "args" => {
                     "params" => [
                       {
-                        "active" => true,
                         "kind" => "param",
                         "name" => "intensity_id",
                         "orig" => "from",
                         "reqd" => true,
                         "type" => "`$STRING`",
-                        "index$" => 0,
                       },
                       {
-                        "active" => true,
                         "kind" => "param",
                         "name" => "postcode",
                         "orig" => "postcode",
                         "reqd" => true,
                         "type" => "`$STRING`",
-                        "index$" => 1,
                       },
                       {
-                        "active" => true,
                         "kind" => "param",
                         "name" => "to",
                         "orig" => "to",
                         "reqd" => true,
                         "type" => "`$STRING`",
-                        "index$" => 2,
                       },
                     ],
                   },
@@ -1269,38 +1023,30 @@ module CarbonIntensityConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
-                  "index$" => 0,
                 },
                 {
-                  "active" => true,
                   "args" => {
                     "params" => [
                       {
-                        "active" => true,
                         "kind" => "param",
                         "name" => "intensity_id",
                         "orig" => "from",
                         "reqd" => true,
                         "type" => "`$STRING`",
-                        "index$" => 0,
                       },
                       {
-                        "active" => true,
                         "kind" => "param",
                         "name" => "regionid",
                         "orig" => "regionid",
                         "reqd" => true,
                         "type" => "`$INTEGER`",
-                        "index$" => 1,
                       },
                       {
-                        "active" => true,
                         "kind" => "param",
                         "name" => "to",
                         "orig" => "to",
                         "reqd" => true,
                         "type" => "`$STRING`",
-                        "index$" => 2,
                       },
                     ],
                   },
@@ -1331,29 +1077,62 @@ module CarbonIntensityConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
-                  "index$" => 1,
                 },
                 {
-                  "active" => true,
                   "args" => {
                     "params" => [
                       {
-                        "active" => true,
+                        "kind" => "param",
+                        "name" => "from",
+                        "orig" => "from",
+                        "reqd" => true,
+                        "type" => "`$STRING`",
+                      },
+                      {
+                        "kind" => "param",
+                        "name" => "to",
+                        "orig" => "to",
+                        "reqd" => true,
+                        "type" => "`$STRING`",
+                      },
+                    ],
+                  },
+                  "kind" => "http",
+                  "method" => "GET",
+                  "orig" => "/regional/intensity/{from}/{to}",
+                  "parts" => [
+                    "regional",
+                    "intensity",
+                    "{from}",
+                    "{to}",
+                  ],
+                  "select" => {
+                    "exist" => [
+                      "from",
+                      "to",
+                    ],
+                  },
+                  "transform" => {
+                    "req" => "`reqdata`",
+                    "res" => "`body`",
+                  },
+                },
+                {
+                  "args" => {
+                    "params" => [
+                      {
                         "kind" => "param",
                         "name" => "intensity_id",
                         "orig" => "from",
                         "reqd" => true,
                         "type" => "`$STRING`",
-                        "index$" => 0,
                       },
                       {
-                        "active" => true,
                         "kind" => "param",
                         "name" => "postcode",
                         "orig" => "postcode",
                         "reqd" => true,
                         "type" => "`$STRING`",
-                        "index$" => 1,
                       },
                     ],
                   },
@@ -1383,29 +1162,23 @@ module CarbonIntensityConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
-                  "index$" => 2,
                 },
                 {
-                  "active" => true,
                   "args" => {
                     "params" => [
                       {
-                        "active" => true,
                         "kind" => "param",
                         "name" => "intensity_id",
                         "orig" => "from",
                         "reqd" => true,
                         "type" => "`$STRING`",
-                        "index$" => 0,
                       },
                       {
-                        "active" => true,
                         "kind" => "param",
                         "name" => "postcode",
                         "orig" => "postcode",
                         "reqd" => true,
                         "type" => "`$STRING`",
-                        "index$" => 1,
                       },
                     ],
                   },
@@ -1435,29 +1208,23 @@ module CarbonIntensityConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
-                  "index$" => 3,
                 },
                 {
-                  "active" => true,
                   "args" => {
                     "params" => [
                       {
-                        "active" => true,
                         "kind" => "param",
                         "name" => "intensity_id",
                         "orig" => "from",
                         "reqd" => true,
                         "type" => "`$STRING`",
-                        "index$" => 0,
                       },
                       {
-                        "active" => true,
                         "kind" => "param",
                         "name" => "postcode",
                         "orig" => "postcode",
                         "reqd" => true,
                         "type" => "`$STRING`",
-                        "index$" => 1,
                       },
                     ],
                   },
@@ -1487,29 +1254,23 @@ module CarbonIntensityConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
-                  "index$" => 4,
                 },
                 {
-                  "active" => true,
                   "args" => {
                     "params" => [
                       {
-                        "active" => true,
                         "kind" => "param",
                         "name" => "intensity_id",
                         "orig" => "from",
                         "reqd" => true,
                         "type" => "`$STRING`",
-                        "index$" => 0,
                       },
                       {
-                        "active" => true,
                         "kind" => "param",
                         "name" => "regionid",
                         "orig" => "regionid",
                         "reqd" => true,
                         "type" => "`$INTEGER`",
-                        "index$" => 1,
                       },
                     ],
                   },
@@ -1539,29 +1300,23 @@ module CarbonIntensityConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
-                  "index$" => 5,
                 },
                 {
-                  "active" => true,
                   "args" => {
                     "params" => [
                       {
-                        "active" => true,
                         "kind" => "param",
                         "name" => "intensity_id",
                         "orig" => "from",
                         "reqd" => true,
                         "type" => "`$STRING`",
-                        "index$" => 0,
                       },
                       {
-                        "active" => true,
                         "kind" => "param",
                         "name" => "regionid",
                         "orig" => "regionid",
                         "reqd" => true,
                         "type" => "`$INTEGER`",
-                        "index$" => 1,
                       },
                     ],
                   },
@@ -1591,29 +1346,23 @@ module CarbonIntensityConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
-                  "index$" => 6,
                 },
                 {
-                  "active" => true,
                   "args" => {
                     "params" => [
                       {
-                        "active" => true,
                         "kind" => "param",
                         "name" => "intensity_id",
                         "orig" => "from",
                         "reqd" => true,
                         "type" => "`$STRING`",
-                        "index$" => 0,
                       },
                       {
-                        "active" => true,
                         "kind" => "param",
                         "name" => "regionid",
                         "orig" => "regionid",
                         "reqd" => true,
                         "type" => "`$INTEGER`",
-                        "index$" => 1,
                       },
                     ],
                   },
@@ -1643,10 +1392,8 @@ module CarbonIntensityConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
-                  "index$" => 7,
                 },
               ],
-              "key$" => "load",
             },
           },
           "relations" => {
@@ -1668,63 +1415,39 @@ module CarbonIntensityConfig
         "stat" => {
           "fields" => [
             {
-              "active" => true,
-              "name" => "from",
-              "req" => false,
-              "type" => "`$STRING`",
-              "index$" => 0,
-            },
-            {
-              "active" => true,
-              "name" => "intensity",
-              "req" => false,
-              "type" => "`$OBJECT`",
-              "index$" => 1,
-            },
-            {
-              "active" => true,
-              "name" => "to",
-              "req" => false,
-              "type" => "`$STRING`",
-              "index$" => 2,
+              "name" => "data",
+              "type" => "`$ARRAY`",
             },
           ],
           "name" => "stat",
           "op" => {
-            "list" => {
+            "load" => {
               "input" => "data",
-              "name" => "list",
+              "name" => "load",
               "points" => [
                 {
-                  "active" => true,
                   "args" => {
                     "params" => [
                       {
-                        "active" => true,
                         "kind" => "param",
                         "name" => "block",
                         "orig" => "block",
                         "reqd" => true,
                         "type" => "`$INTEGER`",
-                        "index$" => 0,
                       },
                       {
-                        "active" => true,
                         "kind" => "param",
                         "name" => "from",
                         "orig" => "from",
                         "reqd" => true,
                         "type" => "`$STRING`",
-                        "index$" => 1,
                       },
                       {
-                        "active" => true,
                         "kind" => "param",
                         "name" => "to",
                         "orig" => "to",
                         "reqd" => true,
                         "type" => "`$STRING`",
-                        "index$" => 2,
                       },
                     ],
                   },
@@ -1747,31 +1470,25 @@ module CarbonIntensityConfig
                   },
                   "transform" => {
                     "req" => "`reqdata`",
-                    "res" => "`body.data`",
+                    "res" => "`body`",
                   },
-                  "index$" => 0,
                 },
                 {
-                  "active" => true,
                   "args" => {
                     "params" => [
                       {
-                        "active" => true,
                         "kind" => "param",
                         "name" => "from",
                         "orig" => "from",
                         "reqd" => true,
                         "type" => "`$STRING`",
-                        "index$" => 0,
                       },
                       {
-                        "active" => true,
                         "kind" => "param",
                         "name" => "to",
                         "orig" => "to",
                         "reqd" => true,
                         "type" => "`$STRING`",
-                        "index$" => 1,
                       },
                     ],
                   },
@@ -1792,12 +1509,10 @@ module CarbonIntensityConfig
                   },
                   "transform" => {
                     "req" => "`reqdata`",
-                    "res" => "`body.data`",
+                    "res" => "`body`",
                   },
-                  "index$" => 1,
                 },
               ],
-              "key$" => "list",
             },
           },
           "relations" => {

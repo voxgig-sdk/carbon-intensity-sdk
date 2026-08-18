@@ -39,7 +39,7 @@ describe('GenerationEntity', async () => {
   test('basic', async (t) => {
 
     const live = 'TRUE' === process.env.CARBON_INTENSITY_TEST_LIVE
-    for (const op of ['list']) {
+    for (const op of ['list', 'load']) {
       if (maybeSkipControl(t, 'entityOp', 'generation.' + op, live)) return
     }
 
@@ -64,6 +64,7 @@ describe('GenerationEntity', async () => {
     const generation_ref01_match: any = {}
 
     const generation_ref01_list = (await generation_ref01_ent.list(generation_ref01_match)).map((e: any) => e.data())
+
 
 
   })

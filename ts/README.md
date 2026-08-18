@@ -47,17 +47,18 @@ for (const generation of generations) {
 }
 ```
 
-### 3. Load an intensitylist
+### 3. Load a generation
 
-IntensityList is nested under date, so provide the `date`.
+Generation is nested under from, so provide the `from`.
 `load()` returns the entity directly and throws on failure:
 
 ```ts
 try {
-  const intensitylist = await client.IntensityList().load({
-    date: 'example_date',
+  const generation = await client.Generation().load({
+    from: 'example_from',
+    to: 'example_to',
   })
-  console.log(intensitylist)
+  console.log(generation)
 } catch (err) {
   console.error('load failed:', err)
 }
@@ -313,13 +314,14 @@ The `prepare()` method returns:
 
 | Field | Description |
 | --- | --- |
+| `data` |  |
 | `from` |  |
 | `generationmix` |  |
 | `to` |  |
 
-Operations: list.
+Operations: list, load.
 
-API path: `/generation/{from}/{to}`
+API path: `/generation`
 
 #### GenerationList
 
@@ -344,7 +346,7 @@ API path: `/generation/{from}/pt24h`
 
 Operations: list, load.
 
-API path: `/intensity/date/{date}/{period}`
+API path: `/intensity`
 
 #### IntensityFactor
 
@@ -422,17 +424,15 @@ API path: `/regional/england`
 
 Operations: list, load.
 
-API path: `/regional/intensity/{from}/{to}`
+API path: `/regional/intensity/{from}/fw24h`
 
 #### Stat
 
 | Field | Description |
 | --- | --- |
-| `from` |  |
-| `intensity` |  |
-| `to` |  |
+| `data` |  |
 
-Operations: list.
+Operations: load.
 
 API path: `/intensity/stats/{from}/{to}/{block}`
 
@@ -450,14 +450,22 @@ Create an instance: `const generation = client.Generation()`
 | Method | Description |
 | --- | --- |
 | `list(match)` | List entities matching the criteria. |
+| `load(match)` | Load a single entity by match criteria. |
 
 #### Fields
 
 | Field | Type | Description |
 | --- | --- | --- |
+| `data` | `any[]` |  |
 | `from` | `string` |  |
 | `generationmix` | `any[]` |  |
 | `to` | `string` |  |
+
+#### Example: Load
+
+```ts
+const generation = await client.Generation().load({ from: 'from', to: 'to' })
+```
 
 #### Example: List
 
@@ -644,7 +652,7 @@ Create an instance: `const regional_intensity = client.RegionalIntensity()`
 #### Example: Load
 
 ```ts
-const regional_intensity = await client.RegionalIntensity().load()
+const regional_intensity = await client.RegionalIntensity().load({ postcode: 'postcode' })
 ```
 
 #### Example: List
@@ -678,7 +686,7 @@ Create an instance: `const regional_intensity_list = client.RegionalIntensityLis
 #### Example: Load
 
 ```ts
-const regional_intensity_list = await client.RegionalIntensityList().load({ intensity_id: 'intensity_id' })
+const regional_intensity_list = await client.RegionalIntensityList().load({ from: 'from', to: 'to' })
 ```
 
 #### Example: List
@@ -696,20 +704,18 @@ Create an instance: `const stat = client.Stat()`
 
 | Method | Description |
 | --- | --- |
-| `list(match)` | List entities matching the criteria. |
+| `load(match)` | Load a single entity by match criteria. |
 
 #### Fields
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `from` | `string` |  |
-| `intensity` | `Record<string, any>` |  |
-| `to` | `string` |  |
+| `data` | `any[]` |  |
 
-#### Example: List
+#### Example: Load
 
 ```ts
-const stats = await client.Stat().list({ from: "example", to: "example" })
+const stat = await client.Stat().load({ from: 'from', to: 'to' })
 ```
 
 

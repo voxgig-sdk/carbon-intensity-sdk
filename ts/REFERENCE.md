@@ -212,6 +212,7 @@ const generation = client.Generation()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
+| `data` | `any[]` | No |  |
 | `from` | `string` | No |  |
 | `generationmix` | `any[]` | No |  |
 | `to` | `string` | No |  |
@@ -224,6 +225,14 @@ List entities matching the given criteria. Returns an array.
 
 ```ts
 const results = await client.Generation().list()
+```
+
+#### `load(match: object, ctrl?: object)`
+
+Load a single entity matching the given criteria.
+
+```ts
+const result = await client.Generation().load({ from: 'from', to: 'to' })
 ```
 
 ### Common Methods
@@ -576,7 +585,7 @@ const results = await client.RegionalIntensity().list()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.RegionalIntensity().load()
+const result = await client.RegionalIntensity().load({ postcode: 'postcode' })
 ```
 
 ### Common Methods
@@ -638,7 +647,7 @@ const results = await client.RegionalIntensityList().list({ from: "example" })
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.RegionalIntensityList().load({ intensity_id: 'intensity_id' })
+const result = await client.RegionalIntensityList().load({ from: 'from', to: 'to' })
 ```
 
 ### Common Methods
@@ -679,18 +688,16 @@ const stat = client.Stat()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `from` | `string` | No |  |
-| `intensity` | `Record<string, any>` | No |  |
-| `to` | `string` | No |  |
+| `data` | `any[]` | No |  |
 
 ### Operations
 
-#### `list(match: object, ctrl?: object)`
+#### `load(match: object, ctrl?: object)`
 
-List entities matching the given criteria. Returns an array.
+Load a single entity matching the given criteria.
 
 ```ts
-const results = await client.Stat().list({ from: "example", to: "example" })
+const result = await client.Stat().load({ from: 'from', to: 'to' })
 ```
 
 ### Common Methods

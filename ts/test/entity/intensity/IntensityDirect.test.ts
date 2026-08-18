@@ -38,17 +38,17 @@ describe('IntensityDirect', async () => {
   test('direct-load-intensity', async (t: any) => {
     const setup = directSetup({ id: 'direct01' })
     if (maybeSkipControl(t, 'direct', 'direct-load-intensity', setup.live)) return
+    if (skipIfMissingIds(t, setup, ["date01","period01"])) return
     const { client, calls } = setup
 
     const params: any = {}
     const query: any = {}
     if (setup.live) {
       const listResult: any = await client.direct({
-        path: 'intensity/date/{date}/{period}',
+        path: 'intensity',
         method: 'GET',
         params: {
-        date: setup.idmap['date01'],
-        period: setup.idmap['period01'],
+
         },
       })
       if (!listResult.ok) {
@@ -58,18 +58,20 @@ describe('IntensityDirect', async () => {
       if (null == listArr || listArr.length === 0) {
         return // skip: no entities to load in live mode
       }
-      const candidateId = listArr[0]?.id ?? listArr[0]?.id
+      const candidateId = listArr[0]?.date ?? listArr[0]?.id
       if (null == candidateId) {
         return // skip: list response shape does not expose load identifier
       }
-      params.id = candidateId
-
+      params.date = candidateId
+      params.date = setup.idmap['date01']
+      params.period = setup.idmap['period01']
     } else {
-      params.id = 'direct01'
+      params.date = 'direct01'
+      params.period = 'direct02'
     }
 
     const result: any = await client.direct({
-      path: 'intensity/{id}',
+      path: 'intensity/date/{date}/{period}',
       method: 'GET',
       params,
       query,
@@ -90,27 +92,20 @@ describe('IntensityDirect', async () => {
       assert(calls.length === 1)
       assert(calls[0].init.method === 'GET')
       assert(calls[0].url.includes('direct01'))
+      assert(calls[0].url.includes('direct02'))
     }
   })
 
   test('direct-list-intensity', async (t: any) => {
     const setup = directSetup([{ id: 'direct01' }, { id: 'direct02' }])
     if (maybeSkipControl(t, 'direct', 'direct-list-intensity', setup.live)) return
-    if (skipIfMissingIds(t, setup, ["date01","period01"])) return
     const { client, calls } = setup
 
     const params: any = {}
     const query: any = {}
-    if (setup.live) {
-      params.date = setup.idmap['date01']
-      params.period = setup.idmap['period01']
-    } else {
-      params.date = 'direct01'
-      params.period = 'direct02'
-    }
 
     const result: any = await client.direct({
-      path: 'intensity/date/{date}/{period}',
+      path: 'intensity',
       method: 'GET',
       params,
       query,
@@ -136,8 +131,6 @@ describe('IntensityDirect', async () => {
       assert(listArr!.length === 2)
       assert(calls.length === 1)
       assert(calls[0].init.method === 'GET')
-      assert(calls[0].url.includes('direct01'))
-      assert(calls[0].url.includes('direct02'))
     }
   })
 

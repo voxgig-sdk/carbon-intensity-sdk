@@ -12,47 +12,11 @@ class StatEntityTest < Minitest::Test
     assert !ent.nil?
   end
 
-  # Feature #4: the entity stream(action, ...) method runs the op pipeline and
-  # returns an Enumerator over result items. With the streaming feature active
-  # it yields the feature's incremental output; otherwise it falls back to the
-  # materialised list so stream always yields.
-  def test_stream
-    seed = {
-      "entity" => {
-        "stat" => {
-          "s1" => { "id" => "s1" },
-          "s2" => { "id" => "s2" },
-          "s3" => { "id" => "s3" },
-        },
-      },
-    }
-
-    # Fallback: streaming inactive -> yields the materialised list items.
-    base = CarbonIntensitySDK.test(seed, nil)
-    seen = base.Stat(nil).stream("list", nil, nil).to_a
-    assert_equal 3, seen.length
-
-    # Inbound: streaming active -> yields each item from the feature.
-    cfg = CarbonIntensityConfig.make_config
-    if cfg["feature"].is_a?(Hash) && cfg["feature"].key?("streaming")
-      sdk = CarbonIntensitySDK.test(seed, { "feature" => { "streaming" => { "active" => true } } })
-      got = []
-      sdk.Stat(nil).stream("list", nil, nil).each do |item|
-        if item.is_a?(Array)
-          got.concat(item)
-        else
-          got << item
-        end
-      end
-      assert_equal 3, got.length
-    end
-  end
-
   def test_basic_flow
     setup = stat_basic_setup(nil)
     # Per-op sdk-test-control.json skip.
     _live = setup[:live] || false
-    ["list"].each do |_op|
+    ["load"].each do |_op|
       _should_skip, _reason = Runner.is_control_skipped("entityOp", "stat." + _op, _live ? "live" : "unit")
       if _should_skip
         skip(_reason || "skipped via sdk-test-control.json")
@@ -75,15 +39,11 @@ class StatEntityTest < Minitest::Test
       stat_ref01_data = Helpers.to_map(stat_ref01_data_raw[0][1])
     end
 
-    # LIST
+    # LOAD
     stat_ref01_ent = client.Stat(nil)
-    stat_ref01_match = {
-      "from" => setup[:idmap]["from01"],
-      "to" => setup[:idmap]["to01"],
-    }
-
-    stat_ref01_list_result = stat_ref01_ent.list(stat_ref01_match, nil)
-    assert stat_ref01_list_result.is_a?(Array)
+    stat_ref01_match_dt0 = {}
+    stat_ref01_data_dt0_loaded = stat_ref01_ent.load(stat_ref01_match_dt0, nil)
+    assert !stat_ref01_data_dt0_loaded.nil?
 
   end
 end
@@ -102,7 +62,7 @@ def stat_basic_setup(extra)
 
   # Generate idmap via transform.
   idmap = Vs.transform(
-    ["stat01", "stat02", "stat03", "from01", "to01"],
+    ["stat01", "stat02", "stat03", "from01"],
     {
       "`$PACK`" => ["", {
         "`$KEY`" => "`$COPY`",

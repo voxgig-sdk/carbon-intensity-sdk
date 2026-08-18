@@ -27,32 +27,13 @@ func TestIntensityDirect(t *testing.T) {
 			t.Skip(_reason)
 			return
 		}
-		if setup.live {
-			for _, _liveKey := range []string{"date01", "period01"} {
-				if v := setup.idmap[_liveKey]; v == nil {
-					t.Skipf("live test needs %s via *_ENTID env var (synthetic IDs only)", _liveKey)
-					return
-				}
-			}
-		}
 		client := setup.client
 
-		params := map[string]any{}
-		if setup.live {
-			params["date"] = setup.idmap["date01"]
-		} else {
-			params["date"] = "direct01"
-		}
-		if setup.live {
-			params["period"] = setup.idmap["period01"]
-		} else {
-			params["period"] = "direct02"
-		}
 
 		result, err := client.Direct(map[string]any{
-			"path":   "intensity/date/{date}/{period}",
+			"path":   "intensity",
 			"method": "GET",
-			"params": params,
+			"params": map[string]any{},
 		})
 		if setup.live {
 			// Live-mode leniency is a model decision
@@ -93,20 +74,6 @@ func TestIntensityDirect(t *testing.T) {
 			if len(*setup.calls) != 1 {
 				t.Fatalf("expected 1 call, got %d", len(*setup.calls))
 			}
-			call := (*setup.calls)[0]
-			if initMap, ok := call["init"].(map[string]any); ok {
-				if initMap["method"] != "GET" {
-					t.Fatalf("expected method GET, got %v", initMap["method"])
-				}
-			}
-			if url, ok := call["url"].(string); ok {
-				if !strings.Contains(url, "direct01") {
-					t.Fatalf("expected url to contain direct01, got %v", url)
-				}
-				if !strings.Contains(url, "direct02") {
-					t.Fatalf("expected url to contain direct02, got %v", url)
-				}
-			}
 		}
 	})
 
@@ -123,24 +90,14 @@ func TestIntensityDirect(t *testing.T) {
 			t.Skip(_reason)
 			return
 		}
-		if setup.live {
-			for _, _liveKey := range []string{"date01", "period01"} {
-				if v := setup.idmap[_liveKey]; v == nil {
-					t.Skipf("live test needs %s via *_ENTID env var (synthetic IDs only)", _liveKey)
-					return
-				}
-			}
-		}
 		client := setup.client
 
 		params := map[string]any{}
 		query := map[string]any{}
 		if setup.live {
 			listParams := map[string]any{}
-			listParams["date"] = setup.idmap["date01"]
-			listParams["period"] = setup.idmap["period01"]
 			listResult, listErr := client.Direct(map[string]any{
-				"path":   "intensity/date/{date}/{period}",
+				"path":   "intensity",
 				"method": "GET",
 				"params": listParams,
 			})
@@ -158,12 +115,15 @@ func TestIntensityDirect(t *testing.T) {
 			}
 			firstEnt := core.ToMapAny(listData[0])
 			params["id"] = firstEnt["id"]
+			params["date"] = setup.idmap["date01"]
+			params["period"] = setup.idmap["period01"]
 		} else {
-			params["id"] = "direct01"
+			params["date"] = "direct01"
+			params["period"] = "direct02"
 		}
 
 		result, err := client.Direct(map[string]any{
-			"path":   "intensity/{id}",
+			"path":   "intensity/date/{date}/{period}",
 			"method": "GET",
 			"params": params,
 			"query":  query,
@@ -217,6 +177,9 @@ func TestIntensityDirect(t *testing.T) {
 			if url, ok := call["url"].(string); ok {
 				if !strings.Contains(url, "direct01") {
 					t.Fatalf("expected url to contain direct01, got %v", url)
+				}
+				if !strings.Contains(url, "direct02") {
+					t.Fatalf("expected url to contain direct02, got %v", url)
 				}
 			}
 		}

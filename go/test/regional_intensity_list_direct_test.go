@@ -28,7 +28,7 @@ func TestRegionalIntensityListDirect(t *testing.T) {
 			return
 		}
 		if setup.live {
-			for _, _liveKey := range []string{"from01", "to01"} {
+			for _, _liveKey := range []string{"from01"} {
 				if v := setup.idmap[_liveKey]; v == nil {
 					t.Skipf("live test needs %s via *_ENTID env var (synthetic IDs only)", _liveKey)
 					return
@@ -43,14 +43,9 @@ func TestRegionalIntensityListDirect(t *testing.T) {
 		} else {
 			params["from"] = "direct01"
 		}
-		if setup.live {
-			params["to"] = setup.idmap["to01"]
-		} else {
-			params["to"] = "direct02"
-		}
 
 		result, err := client.Direct(map[string]any{
-			"path":   "regional/intensity/{from}/{to}",
+			"path":   "regional/intensity/{from}/fw24h",
 			"method": "GET",
 			"params": params,
 		})
@@ -103,9 +98,6 @@ func TestRegionalIntensityListDirect(t *testing.T) {
 				if !strings.Contains(url, "direct01") {
 					t.Fatalf("expected url to contain direct01, got %v", url)
 				}
-				if !strings.Contains(url, "direct02") {
-					t.Fatalf("expected url to contain direct02, got %v", url)
-				}
 			}
 		}
 	})
@@ -124,7 +116,7 @@ func TestRegionalIntensityListDirect(t *testing.T) {
 			return
 		}
 		if setup.live {
-			for _, _liveKey := range []string{"from01", "to01"} {
+			for _, _liveKey := range []string{"from01"} {
 				if v := setup.idmap[_liveKey]; v == nil {
 					t.Skipf("live test needs %s via *_ENTID env var (synthetic IDs only)", _liveKey)
 					return
@@ -138,9 +130,8 @@ func TestRegionalIntensityListDirect(t *testing.T) {
 		if setup.live {
 			listParams := map[string]any{}
 			listParams["from"] = setup.idmap["from01"]
-			listParams["to"] = setup.idmap["to01"]
 			listResult, listErr := client.Direct(map[string]any{
-				"path":   "regional/intensity/{from}/{to}",
+				"path":   "regional/intensity/{from}/fw24h",
 				"method": "GET",
 				"params": listParams,
 			})

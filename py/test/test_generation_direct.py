@@ -21,29 +21,13 @@ class TestGenerationDirect:
             # pytest already imported at module scope
             pytest.skip(_reason or "skipped via sdk-test-control.json")
             return
-        if setup["live"]:
-            for _live_key in ["from01", "to01"]:
-                if setup["idmap"].get(_live_key) is None:
-                    # pytest already imported at module scope
-                    pytest.skip(f"live test needs {_live_key} via *_ENTID env var (synthetic IDs only)")
-                    return
-
         client = setup["client"]
 
-        params = {}
-        if setup["live"]:
-            params["from"] = setup["idmap"]["from01"]
-        else:
-            params["from"] = "direct01"
-        if setup["live"]:
-            params["to"] = setup["idmap"]["to01"]
-        else:
-            params["to"] = "direct01"
 
         result = client.direct({
-            "path": "generation/{from}/{to}",
+            "path": "generation",
             "method": "GET",
-            "params": params,
+            "params": {},
         })
         if setup["live"]:
             # Live mode is lenient: synthetic IDs frequently 4xx and the
@@ -64,6 +48,54 @@ class TestGenerationDirect:
             assert helpers.to_int(result["status"]) == 200
             assert isinstance(result["data"], list)
             assert len(result["data"]) == 2
+            assert len(setup["calls"]) == 1
+
+    def test_should_direct_load_generation(self):
+        setup = _generation_direct_setup({"id": "direct01"})
+        _skip, _reason = runner.is_control_skipped("direct", "direct-load-generation", "live" if setup["live"] else "unit")
+        if _skip:
+            # pytest already imported at module scope
+            pytest.skip(_reason or "skipped via sdk-test-control.json")
+            return
+        if setup["live"]:
+            # pytest already imported at module scope
+            pytest.skip("live direct-load needs real ID — set *_ENTID env var with real IDs to run")
+            return
+
+        client = setup["client"]
+
+        params = {}
+        query = {}
+        if not setup["live"]:
+            params["from"] = "direct01"
+            params["to"] = "direct02"
+
+        result = client.direct({
+            "path": "generation/{from}/{to}",
+            "method": "GET",
+            "params": params,
+            "query": query,
+        })
+        if setup["live"]:
+            # Live mode is lenient: synthetic IDs frequently 4xx. Skip
+            # rather than fail when the load endpoint isn't reachable
+            # with the IDs we can construct from setup.idmap.
+            if result.get("err") is not None:
+                pytest.skip(f"load call failed (likely synthetic IDs against live API): {result.get('err')}")
+                return
+            if not result.get("ok"):
+                pytest.skip("load call not ok (likely synthetic IDs against live API)")
+                return
+            status = helpers.to_int(result["status"])
+            if status < 200 or status >= 300:
+                pytest.skip(f"expected 2xx status, got {status}")
+                return
+        else:
+            assert result["ok"] is True
+            assert helpers.to_int(result["status"]) == 200
+            assert result["data"] is not None
+            if isinstance(result["data"], dict):
+                assert result["data"]["id"] == "direct01"
             assert len(setup["calls"]) == 1
 
 

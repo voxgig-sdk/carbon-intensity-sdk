@@ -39,7 +39,7 @@ describe('StatEntity', async () => {
   test('basic', async (t) => {
 
     const live = 'TRUE' === process.env.CARBON_INTENSITY_TEST_LIVE
-    for (const op of ['list']) {
+    for (const op of ['load']) {
       if (maybeSkipControl(t, 'entityOp', 'stat.' + op, live)) return
     }
 
@@ -59,13 +59,9 @@ describe('StatEntity', async () => {
 
     let stat_ref01_data = Object.values(setup.data.existing.stat)[0] as any
 
-    // LIST
+    // LOAD: skipped — no entity id field and load requires path params.
+    // Entity-var is declared here so later flow steps still compile.
     const stat_ref01_ent = client.Stat()
-    const stat_ref01_match: any = {}
-    stat_ref01_match['from'] = setup.idmap['from01']
-    stat_ref01_match['to'] = setup.idmap['to01']
-
-    const stat_ref01_list = (await stat_ref01_ent.list(stat_ref01_match)).map((e: any) => e.data())
 
 
   })

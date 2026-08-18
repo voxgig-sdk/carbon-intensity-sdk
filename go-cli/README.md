@@ -20,6 +20,8 @@ export CARBON_INTENSITY_APIKEY=sk_live_xxx
 
 # 4. Each command line is ONE boru expression, run against the API:
 ./carbon-intensity-cli list generation
+./carbon-intensity-cli load 1 generation            # {id:1} shorthand
+./carbon-intensity-cli load '{id:1}' generation       # explicit match map
 ./carbon-intensity-cli list generation_list
 
 # 5. Override the API base URL for a single call
@@ -71,6 +73,16 @@ That is the whole loop: *build → set key → evaluate boru expressions*.
 
 `list <entity>` returns the first page of records. `<entity>` is a bareword —
 it is auto-quoted as an boru atom, so no quotes are needed.
+
+### Load a single record
+
+```sh
+./carbon-intensity-cli load 1 generation          # scalar shorthand for {id:1}
+./carbon-intensity-cli load '{id:1}' generation     # explicit match map
+```
+
+The query is either a **scalar** (`1`, treated as `{id:1}`) or a **match map**
+(`{id:1}`, `{slug:"acme"}`). Quote the map so your shell passes it through intact.
 
 ### Authenticate and choose an environment
 

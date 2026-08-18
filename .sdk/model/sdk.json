@@ -20,9 +20,11 @@
         ],
         "headers": {
           "content-type": "application/json"
-        }
+        },
+        "repr": "auto"
       },
       "contributor": {},
+      "docs": {},
       "entity": {
         "generation": {
           "active": true,
@@ -30,6 +32,12 @@
             "field": {}
           },
           "fields": [
+            {
+              "active": true,
+              "name": "data",
+              "req": false,
+              "type": "`$ARRAY`"
+            },
             {
               "active": true,
               "name": "from",
@@ -54,6 +62,27 @@
             "list": {
               "input": "data",
               "name": "list",
+              "points": [
+                {
+                  "active": true,
+                  "args": {},
+                  "kind": "http",
+                  "method": "GET",
+                  "orig": "/generation",
+                  "parts": [
+                    "generation"
+                  ],
+                  "select": {},
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body.data`"
+                  }
+                }
+              ]
+            },
+            "load": {
+              "input": "data",
+              "name": "load",
               "points": [
                 {
                   "active": true,
@@ -93,22 +122,7 @@
                   },
                   "transform": {
                     "req": "`reqdata`",
-                    "res": "`body.data`"
-                  }
-                },
-                {
-                  "active": true,
-                  "args": {},
-                  "kind": "http",
-                  "method": "GET",
-                  "orig": "/generation",
-                  "parts": [
-                    "generation"
-                  ],
-                  "select": {},
-                  "transform": {
-                    "req": "`reqdata`",
-                    "res": "`body.data`"
+                    "res": "`body`"
                   }
                 }
               ]
@@ -235,6 +249,27 @@
               "points": [
                 {
                   "active": true,
+                  "args": {},
+                  "kind": "http",
+                  "method": "GET",
+                  "orig": "/intensity",
+                  "parts": [
+                    "intensity"
+                  ],
+                  "select": {},
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body.data`"
+                  }
+                }
+              ]
+            },
+            "load": {
+              "input": "data",
+              "name": "load",
+              "points": [
+                {
+                  "active": true,
                   "args": {
                     "params": [
                       {
@@ -272,7 +307,7 @@
                   },
                   "transform": {
                     "req": "`reqdata`",
-                    "res": "`body.data`"
+                    "res": "`body`"
                   }
                 },
                 {
@@ -313,30 +348,9 @@
                   },
                   "transform": {
                     "req": "`reqdata`",
-                    "res": "`body.data`"
+                    "res": "`body`"
                   }
                 },
-                {
-                  "active": true,
-                  "args": {},
-                  "kind": "http",
-                  "method": "GET",
-                  "orig": "/intensity",
-                  "parts": [
-                    "intensity"
-                  ],
-                  "select": {},
-                  "transform": {
-                    "req": "`reqdata`",
-                    "res": "`body.data`"
-                  }
-                }
-              ]
-            },
-            "load": {
-              "input": "data",
-              "name": "load",
-              "points": [
                 {
                   "active": true,
                   "args": {
@@ -1002,48 +1016,6 @@
                         "orig": "from",
                         "reqd": true,
                         "type": "`$STRING`"
-                      },
-                      {
-                        "active": true,
-                        "kind": "param",
-                        "name": "to",
-                        "orig": "to",
-                        "reqd": true,
-                        "type": "`$STRING`"
-                      }
-                    ]
-                  },
-                  "kind": "http",
-                  "method": "GET",
-                  "orig": "/regional/intensity/{from}/{to}",
-                  "parts": [
-                    "regional",
-                    "intensity",
-                    "{from}",
-                    "{to}"
-                  ],
-                  "select": {
-                    "exist": [
-                      "from",
-                      "to"
-                    ]
-                  },
-                  "transform": {
-                    "req": "`reqdata`",
-                    "res": "`body.data`"
-                  }
-                },
-                {
-                  "active": true,
-                  "args": {
-                    "params": [
-                      {
-                        "active": true,
-                        "kind": "param",
-                        "name": "from",
-                        "orig": "from",
-                        "reqd": true,
-                        "type": "`$STRING`"
                       }
                     ]
                   },
@@ -1246,6 +1218,48 @@
                     "exist": [
                       "intensity_id",
                       "regionid",
+                      "to"
+                    ]
+                  },
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  }
+                },
+                {
+                  "active": true,
+                  "args": {
+                    "params": [
+                      {
+                        "active": true,
+                        "kind": "param",
+                        "name": "from",
+                        "orig": "from",
+                        "reqd": true,
+                        "type": "`$STRING`"
+                      },
+                      {
+                        "active": true,
+                        "kind": "param",
+                        "name": "to",
+                        "orig": "to",
+                        "reqd": true,
+                        "type": "`$STRING`"
+                      }
+                    ]
+                  },
+                  "kind": "http",
+                  "method": "GET",
+                  "orig": "/regional/intensity/{from}/{to}",
+                  "parts": [
+                    "regional",
+                    "intensity",
+                    "{from}",
+                    "{to}"
+                  ],
+                  "select": {
+                    "exist": [
+                      "from",
                       "to"
                     ]
                   },
@@ -1575,28 +1589,16 @@
           "fields": [
             {
               "active": true,
-              "name": "from",
+              "name": "data",
               "req": false,
-              "type": "`$STRING`"
-            },
-            {
-              "active": true,
-              "name": "intensity",
-              "req": false,
-              "type": "`$OBJECT`"
-            },
-            {
-              "active": true,
-              "name": "to",
-              "req": false,
-              "type": "`$STRING`"
+              "type": "`$ARRAY`"
             }
           ],
           "name": "stat",
           "op": {
-            "list": {
+            "load": {
               "input": "data",
-              "name": "list",
+              "name": "load",
               "points": [
                 {
                   "active": true,
@@ -1647,7 +1649,7 @@
                   },
                   "transform": {
                     "req": "`reqdata`",
-                    "res": "`body.data`"
+                    "res": "`body`"
                   }
                 },
                 {
@@ -1689,7 +1691,7 @@
                   },
                   "transform": {
                     "req": "`reqdata`",
-                    "res": "`body.data`"
+                    "res": "`body`"
                   }
                 }
               ]
@@ -1707,6 +1709,7 @@
       "feature": {
         "test": {
           "active": true,
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
           "config": {
             "options": {
               "active": false
@@ -1767,6 +1770,8 @@
             }
           },
           "name": "test",
+          "origname": "",
+          "package": "@voxgig/sdkgen",
           "target": {
             "go": {
               "deps": {}
@@ -1818,6 +1823,29 @@
                   "apply": "ItemExists",
                   "def": {
                     "ref": "generation_ref01"
+                  }
+                }
+              ]
+            },
+            {
+              "active": true,
+              "data": {},
+              "input": {
+                "ref": "generation_ref01",
+                "srcdatavar": "generation_ref01_data",
+                "suffix": "_dt0"
+              },
+              "match": {
+                "from": "from01",
+                "id": "generation01"
+              },
+              "op": "load",
+              "spec": [],
+              "valid": [
+                {
+                  "apply": "TextFieldMark",
+                  "def": {
+                    "mark": "Mark01-generation_ref01"
                   }
                 }
               ]
@@ -2110,18 +2138,22 @@
             {
               "active": true,
               "data": {},
-              "input": {},
+              "input": {
+                "ref": "stat_ref01",
+                "srcdatavar": "stat_ref01_data",
+                "suffix": "_dt0"
+              },
               "match": {
                 "from": "from01",
-                "to": "to01"
+                "id": "stat01"
               },
-              "op": "list",
+              "op": "load",
               "spec": [],
               "valid": [
                 {
-                  "apply": "ItemExists",
+                  "apply": "TextFieldMark",
                   "def": {
-                    "ref": "stat_ref01"
+                    "mark": "Mark01-stat_ref01"
                   }
                 }
               ]
@@ -2165,6 +2197,7 @@
             "name": "",
             "url": ""
           },
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
           "comment": {
             "line": "//"
           },
@@ -2183,12 +2216,14 @@
             "path": ""
           },
           "name": "go",
+          "origname": "",
           "output": {
             "adopt": false,
             "path": "",
             "repo": "",
             "sdkrel": ""
           },
+          "package": "@voxgig/sdkgen",
           "publish": {
             "registry": {
               "active": false,
@@ -2222,6 +2257,7 @@
             "name": "",
             "url": ""
           },
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
           "comment": {
             "line": "//"
           },
@@ -2238,12 +2274,14 @@
             "path": ""
           },
           "name": "go-cli",
+          "origname": "",
           "output": {
             "adopt": false,
             "path": "",
             "repo": "",
             "sdkrel": ""
           },
+          "package": "@voxgig/sdkgen",
           "phase": {
             "agentguide": {
               "active": false
@@ -2293,6 +2331,7 @@
             "name": "",
             "url": ""
           },
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
           "comment": {
             "line": "//"
           },
@@ -2309,12 +2348,14 @@
             "path": ""
           },
           "name": "go-mcp",
+          "origname": "",
           "output": {
             "adopt": false,
             "path": "",
             "repo": "",
             "sdkrel": ""
           },
+          "package": "@voxgig/sdkgen",
           "phase": {
             "agentguide": {
               "active": false
@@ -2364,6 +2405,7 @@
             "name": "",
             "url": ""
           },
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
           "comment": {
             "line": "--"
           },
@@ -2386,12 +2428,14 @@
             "path": ""
           },
           "name": "lua",
+          "origname": "",
           "output": {
             "adopt": false,
             "path": "",
             "repo": "",
             "sdkrel": ""
           },
+          "package": "@voxgig/sdkgen",
           "publish": {
             "registry": {
               "active": false,
@@ -2425,6 +2469,7 @@
             "name": "",
             "url": ""
           },
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
           "comment": {
             "line": "//"
           },
@@ -2441,12 +2486,14 @@
             "path": ""
           },
           "name": "php",
+          "origname": "",
           "output": {
             "adopt": false,
             "path": "",
             "repo": "",
             "sdkrel": ""
           },
+          "package": "@voxgig/sdkgen",
           "publish": {
             "registry": {
               "active": false,
@@ -2480,6 +2527,7 @@
             "name": "",
             "url": ""
           },
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
           "comment": {
             "line": "#"
           },
@@ -2502,12 +2550,14 @@
             "path": ""
           },
           "name": "py",
+          "origname": "",
           "output": {
             "adopt": false,
             "path": "",
             "repo": "",
             "sdkrel": ""
           },
+          "package": "@voxgig/sdkgen",
           "publish": {
             "registry": {
               "active": false,
@@ -2541,6 +2591,7 @@
             "name": "",
             "url": ""
           },
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
           "comment": {
             "line": "#"
           },
@@ -2568,12 +2619,14 @@
             "path": ""
           },
           "name": "rb",
+          "origname": "",
           "output": {
             "adopt": false,
             "path": "",
             "repo": "",
             "sdkrel": ""
           },
+          "package": "@voxgig/sdkgen",
           "publish": {
             "registry": {
               "active": false,
@@ -2640,12 +2693,14 @@
             "path": ""
           },
           "name": "ts",
+          "origname": "",
           "output": {
             "adopt": false,
             "path": "",
             "repo": "",
             "sdkrel": ""
           },
+          "package": "@voxgig/sdkgen",
           "publish": {
             "registry": {
               "active": false,

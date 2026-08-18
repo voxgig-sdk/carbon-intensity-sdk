@@ -40,7 +40,7 @@ class GenerationEntityTest extends TestCase
         $this->assertCount(3, $seen);
 
         // Inbound: streaming active -> yields each item from the feature.
-        $cfg = CarbonIntensityConfig::make_config();
+        $cfg = CarbonIntensityConfig::shared_config();
         if (isset($cfg["feature"]) && is_array($cfg["feature"]) && isset($cfg["feature"]["streaming"])) {
             $sdk = CarbonIntensitySDK::test($seed, ["feature" => ["streaming" => ["active" => true]]]);
             $got = [];
@@ -62,7 +62,7 @@ class GenerationEntityTest extends TestCase
         $setup = generation_basic_setup(null);
         // Per-op sdk-test-control.json skip.
         $_live = !empty($setup["live"]);
-        foreach (["list"] as $_op) {
+        foreach (["list", "load"] as $_op) {
             [$_shouldSkip, $_reason] = Runner::is_control_skipped("entityOp", "generation." . $_op, $_live ? "live" : "unit");
             if ($_shouldSkip) {
                 $this->markTestSkipped($_reason ?? "skipped via sdk-test-control.json");
@@ -92,6 +92,11 @@ class GenerationEntityTest extends TestCase
         $generation_ref01_list_result = $generation_ref01_ent->list($generation_ref01_match, null);
         $this->assertIsArray($generation_ref01_list_result);
 
+        // LOAD
+        $generation_ref01_match_dt0 = [];
+        $generation_ref01_data_dt0_loaded = $generation_ref01_ent->load($generation_ref01_match_dt0, null);
+        $this->assertNotNull($generation_ref01_data_dt0_loaded);
+
     }
 }
 
@@ -110,7 +115,7 @@ function generation_basic_setup($extra)
 
     // Generate idmap.
     $idmap = [];
-    foreach (["generation01", "generation02", "generation03"] as $k) {
+    foreach (["generation01", "generation02", "generation03", "from01"] as $k) {
         $idmap[$k] = strtoupper($k);
     }
 

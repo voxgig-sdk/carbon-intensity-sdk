@@ -51,7 +51,7 @@ func TestGenerationEntity(t *testing.T) {
 
 		// Inbound: streaming active -> yields each item from the feature iterator.
 		hasStreaming := false
-		if fm, ok := core.MakeConfig()["feature"].(map[string]any); ok {
+		if fm, ok := core.SharedConfig()["feature"].(map[string]any); ok {
 			_, hasStreaming = fm["streaming"]
 		}
 		if hasStreaming {
@@ -80,7 +80,7 @@ func TestGenerationEntity(t *testing.T) {
 		if setup.live {
 			_mode = "live"
 		}
-		for _, _op := range []string{"list"} {
+		for _, _op := range []string{"list", "load"} {
 			if _shouldSkip, _reason := isControlSkipped("entityOp", "generation." + _op, _mode); _shouldSkip {
 				if _reason == "" {
 					_reason = "skipped via sdk-test-control.json"
@@ -120,6 +120,16 @@ func TestGenerationEntity(t *testing.T) {
 			t.Fatalf("expected list result to be an array, got %T", generationRef01ListResult)
 		}
 
+		// LOAD
+		generationRef01MatchDt0 := map[string]any{}
+		generationRef01DataDt0Loaded, err := generationRef01Ent.Load(generationRef01MatchDt0, nil)
+		if err != nil {
+			t.Fatalf("load failed: %v", err)
+		}
+		if generationRef01DataDt0Loaded == nil {
+			t.Fatal("expected load result to be non-nil")
+		}
+
 	})
 }
 
@@ -148,7 +158,7 @@ func generationBasicSetup(extra map[string]any) *entityTestSetup {
 
 	// Generate idmap via transform, matching TS pattern.
 	idmap := vs.Transform(
-		[]any{"generation01", "generation02", "generation03"},
+		[]any{"generation01", "generation02", "generation03", "from01"},
 		map[string]any{
 			"`$PACK`": []any{"", map[string]any{
 				"`$KEY`": "`$COPY`",

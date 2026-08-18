@@ -7,17 +7,23 @@ main: kit: flow: BasicStatFlow:
   name: "BasicStatFlow",
   step: [
     {
-      match: {
-        from: "from01",
-        to: "to01"
+      input: {
+        ref: "stat_ref01",
+        srcdatavar: "stat_ref01_data",
+        suffix: "_dt0"
       }
 
-      op: "list",
+      match: {
+        from: "from01",
+        id: "stat01"
+      }
+
+      op: "load",
       valid: [
         {
-          apply: "ItemExists",
+          apply: "TextFieldMark",
           def: {
-            ref: "stat_ref01"
+            mark: "Mark01-stat_ref01"
           }
         }
       ]

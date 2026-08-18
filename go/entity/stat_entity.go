@@ -255,16 +255,11 @@ func (e *StatEntity) Stream(action string, args map[string]any, callopts map[str
 	return out
 }
 
-func (e *StatEntity) Load(_ map[string]any, _ map[string]any) (any, error) {
-	return core.UnsupportedOp("load", e.name)
-}
 
-
-
-func (e *StatEntity) List(reqmatch map[string]any, ctrl map[string]any) (any, error) {
+func (e *StatEntity) Load(reqmatch map[string]any, ctrl map[string]any) (any, error) {
 	utility := e.utility
 	ctx := utility.MakeContext(map[string]any{
-		"opname":   "list",
+		"opname":   "load",
 		"ctrl":     ctrl,
 		"match":    e.match,
 		"data":     e.data,
@@ -276,21 +271,32 @@ func (e *StatEntity) List(reqmatch map[string]any, ctrl map[string]any) (any, er
 			if ctx.Result.Resmatch != nil {
 				e.match = ctx.Result.Resmatch
 			}
+			if ctx.Result.Resdata != nil {
+				e.data = core.ToMapAny(vs.Clone(ctx.Result.Resdata))
+				if e.data == nil {
+					e.data = map[string]any{}
+				}
+			}
 		}
 	})
 }
 
-// ListTyped is the statically-typed variant of List: it takes an
-// StatListMatch and returns []Stat. It delegates to the untyped
-// List (identical runtime) and converts at the typed boundary.
-func (e *StatEntity) ListTyped(reqmatch StatListMatch, ctrl map[string]any) ([]Stat, error) {
-	res, err := e.List(asMap(reqmatch), ctrl)
+// LoadTyped is the statically-typed variant of Load: it takes an
+// StatLoadMatch and returns an Stat. It delegates to the untyped
+// Load (identical runtime) and converts at the typed boundary.
+func (e *StatEntity) LoadTyped(reqmatch StatLoadMatch, ctrl map[string]any) (Stat, error) {
+	res, err := e.Load(asMap(reqmatch), ctrl)
 	if err != nil {
-		return nil, err
+		return Stat{}, err
 	}
-	return typedSliceFrom[Stat](res), nil
+	return typedFrom[Stat](res), nil
 }
 
+
+
+func (e *StatEntity) List(_ map[string]any, _ map[string]any) (any, error) {
+	return core.UnsupportedOp("list", e.name)
+}
 
 
 func (e *StatEntity) Create(_ map[string]any, _ map[string]any) (any, error) {

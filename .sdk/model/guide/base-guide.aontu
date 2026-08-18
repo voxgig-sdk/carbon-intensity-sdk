@@ -11,8 +11,7 @@ guide: {
       op: list: transform: res: *("`body.data`")|top
     }
     path: "/generation/{from}/{to}": {
-      op: list: method: *GET
-      op: list: transform: res: *("`body.data`")|top
+      op: load: method: *GET
     }
   }
 
@@ -29,16 +28,14 @@ guide: {
       op: list: transform: res: *("`body.data`")|top
     }
     path: "/intensity/date/{date}/{period}": {
-      op: list: method: *GET
-      op: list: transform: res: *("`body.data`")|top
+      op: load: method: *GET
     }
     path: "/intensity/{from}": {
       rename: param: "from": *"id"
       op: load: method: *GET
     }
     path: "/intensity/{from}/{to}": {
-      op: list: method: *GET
-      op: list: transform: res: *("`body.data`")|top
+      op: load: method: *GET
     }
   }
 
@@ -137,8 +134,7 @@ guide: {
       op: load: method: *GET
     }
     path: "/regional/intensity/{from}/{to}": {
-      op: list: method: *GET
-      op: list: transform: res: *("`body.data`")|top
+      op: load: method: *GET
     }
     path: "/regional/intensity/{from}/{to}/postcode/{postcode}": {
       rename: param: "from": *"intensity_id"
@@ -152,12 +148,10 @@ guide: {
 
   entity: stat: {
     path: "/intensity/stats/{from}/{to}": {
-      op: list: method: *GET
-      op: list: transform: res: *("`body.data`")|top
+      op: load: method: *GET
     }
     path: "/intensity/stats/{from}/{to}/{block}": {
-      op: list: method: *GET
-      op: list: transform: res: *("`body.data`")|top
+      op: load: method: *GET
     }
   }
 

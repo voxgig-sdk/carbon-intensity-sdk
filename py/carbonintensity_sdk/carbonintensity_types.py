@@ -17,11 +17,18 @@ from typing import TypedDict, Any
 
 
 class Generation(TypedDict, total=False):
+    data: list
     generationmix: list
     to: str
 
 
+class GenerationLoadMatch(TypedDict):
+    to: str
+
+
 class GenerationListMatch(TypedDict, total=False):
+    data: list
+    generationmix: list
     to: str
 
 
@@ -45,8 +52,8 @@ class IntensityLoadMatch(TypedDict):
 
 
 class IntensityListMatch(TypedDict, total=False):
-    date: str
-    period: int
+    data: list
+    intensity: dict
     to: str
 
 
@@ -94,8 +101,10 @@ class IntensityListLoadMatch(TypedDict):
     date: str
 
 
-class IntensityListListMatch(TypedDict):
-    pass
+class IntensityListListMatch(TypedDict, total=False):
+    data: list
+    intensity: dict
+    to: str
 
 
 class Regional(TypedDict, total=False):
@@ -122,9 +131,8 @@ class RegionalIntensity(TypedDict, total=False):
     shortname: str
 
 
-class RegionalIntensityLoadMatch(TypedDict, total=False):
+class RegionalIntensityLoadMatch(TypedDict):
     postcode: str
-    regionid: int
 
 
 class RegionalIntensityListMatch(TypedDict, total=False):
@@ -143,28 +151,21 @@ class RegionalIntensityList(TypedDict, total=False):
     shortname: str
 
 
-class RegionalIntensityListLoadMatchRequired(TypedDict):
-    intensity_id: str
-
-
-class RegionalIntensityListLoadMatch(RegionalIntensityListLoadMatchRequired, total=False):
-    postcode: str
+class RegionalIntensityListLoadMatch(TypedDict):
     to: str
-    regionid: int
 
 
-class RegionalIntensityListListMatch(TypedDict, total=False):
-    to: str
+class RegionalIntensityListListMatch(TypedDict):
+    pass
 
 
 class Stat(TypedDict, total=False):
-    intensity: dict
+    data: list
+
+
+class StatLoadMatchRequired(TypedDict):
     to: str
 
 
-class StatListMatchRequired(TypedDict):
-    to: str
-
-
-class StatListMatch(StatListMatchRequired, total=False):
+class StatLoadMatch(StatLoadMatchRequired, total=False):
     block: int

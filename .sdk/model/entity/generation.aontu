@@ -6,6 +6,11 @@ main: kit: entity: generation: {
 
   fields: [
     {
+      name: "data"
+      req: false
+      type: "`$ARRAY`"
+    }
+    {
       name: "from"
       req: false
       type: "`$STRING`"
@@ -26,6 +31,22 @@ main: kit: entity: generation: {
   op: {
     list: {
       name: "list"
+      points: [
+        {
+          method: "GET"
+          orig: "/generation"
+          parts: [
+            "generation"
+          ]
+          transform: {
+            req: "`reqdata`"
+            res: "`body.data`"
+          }
+        }
+      ]
+    }
+    load: {
+      name: "load"
       points: [
         {
           args: {
@@ -61,18 +82,7 @@ main: kit: entity: generation: {
           }
           transform: {
             req: "`reqdata`"
-            res: "`body.data`"
-          }
-        }
-        {
-          method: "GET"
-          orig: "/generation"
-          parts: [
-            "generation"
-          ]
-          transform: {
-            req: "`reqdata`"
-            res: "`body.data`"
+            res: "`body`"
           }
         }
       ]

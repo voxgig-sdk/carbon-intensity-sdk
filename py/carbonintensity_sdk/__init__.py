@@ -23,8 +23,8 @@ class CarbonIntensitySDK:
         utility = CarbonIntensityUtility()
         self._utility = utility
 
-        from carbonintensity_sdk.config import make_config
-        config = make_config()
+        from carbonintensity_sdk.config import shared_config
+        config = shared_config()
 
         self._rootctx = utility.make_context({
             "client": self,

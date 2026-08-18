@@ -33,6 +33,22 @@ main: kit: entity: intensity: {
       name: "list"
       points: [
         {
+          method: "GET"
+          orig: "/intensity"
+          parts: [
+            "intensity"
+          ]
+          transform: {
+            req: "`reqdata`"
+            res: "`body.data`"
+          }
+        }
+      ]
+    }
+    load: {
+      name: "load"
+      points: [
+        {
           args: {
             params: [
               {
@@ -67,7 +83,7 @@ main: kit: entity: intensity: {
           }
           transform: {
             req: "`reqdata`"
-            res: "`body.data`"
+            res: "`body`"
           }
         }
         {
@@ -104,25 +120,9 @@ main: kit: entity: intensity: {
           }
           transform: {
             req: "`reqdata`"
-            res: "`body.data`"
+            res: "`body`"
           }
         }
-        {
-          method: "GET"
-          orig: "/intensity"
-          parts: [
-            "intensity"
-          ]
-          transform: {
-            req: "`reqdata`"
-            res: "`body.data`"
-          }
-        }
-      ]
-    }
-    load: {
-      name: "load"
-      points: [
         {
           args: {
             params: [
