@@ -9,7 +9,7 @@ The API is exposed as capitalised, semantic **Entities** — e.g.
 instead of raw URL paths and query parameters. This keeps the surface
 predictable and low-friction for both humans and AI agents.
 
-> Other languages, the CLI, and MCP server live alongside this one — see
+> Also generated from this model: `go`, `go-cli`, `go-mcp`, `lua`, `php`, `py`, `rb` — see
 > the [top-level README](../README.md).
 
 
@@ -340,9 +340,9 @@ API path: `/generation/{from}/pt24h`
 | Field | Description |
 | --- | --- |
 | `data` |  |
-| `from` |  |
+| `from` | Start datetime of the period |
 | `intensity` |  |
-| `to` |  |
+| `to` | End datetime of the period |
 
 Operations: list, load.
 
@@ -352,20 +352,20 @@ API path: `/intensity`
 
 | Field | Description |
 | --- | --- |
-| `Biomass` |  |
-| `Coal` |  |
-| `DutchImports` |  |
-| `FrenchImports` |  |
-| `GasCombinedCycle` |  |
-| `GasOpenCycle` |  |
-| `Hydro` |  |
-| `IrishImports` |  |
-| `Nuclear` |  |
-| `Oil` |  |
-| `Other` |  |
-| `PumpedStorage` |  |
-| `Solar` |  |
-| `Wind` |  |
+| `Biomass` | Carbon intensity factor for biomass (gCO2/kWh) |
+| `Coal` | Carbon intensity factor for coal (gCO2/kWh) |
+| `DutchImports` | Carbon intensity factor for Dutch imports (gCO2/kWh) |
+| `FrenchImports` | Carbon intensity factor for French imports (gCO2/kWh) |
+| `GasCombinedCycle` | Carbon intensity factor for gas combined cycle (gCO2/kWh) |
+| `GasOpenCycle` | Carbon intensity factor for gas open cycle (gCO2/kWh) |
+| `Hydro` | Carbon intensity factor for hydro (gCO2/kWh) |
+| `IrishImports` | Carbon intensity factor for Irish imports (gCO2/kWh) |
+| `Nuclear` | Carbon intensity factor for nuclear (gCO2/kWh) |
+| `Oil` | Carbon intensity factor for oil (gCO2/kWh) |
+| `Other` | Carbon intensity factor for other (gCO2/kWh) |
+| `PumpedStorage` | Carbon intensity factor for pumped storage (gCO2/kWh) |
+| `Solar` | Carbon intensity factor for solar (gCO2/kWh) |
+| `Wind` | Carbon intensity factor for wind (gCO2/kWh) |
 
 Operations: list.
 
@@ -376,9 +376,9 @@ API path: `/intensity/factors`
 | Field | Description |
 | --- | --- |
 | `data` |  |
-| `from` |  |
+| `from` | Start datetime of the period |
 | `intensity` |  |
-| `to` |  |
+| `to` | End datetime of the period |
 
 Operations: list, load.
 
@@ -389,10 +389,10 @@ API path: `/intensity/{from}/fw24h`
 | Field | Description |
 | --- | --- |
 | `data` |  |
-| `dnoregion` |  |
-| `postcode` |  |
-| `regionid` |  |
-| `shortname` |  |
+| `dnoregion` | Distribution Network Operator region |
+| `postcode` | Outward postcode |
+| `regionid` | Region ID (1-17) |
+| `shortname` | Short region name |
 
 Operations: list.
 
@@ -403,10 +403,10 @@ API path: `/regional`
 | Field | Description |
 | --- | --- |
 | `data` |  |
-| `dnoregion` |  |
-| `postcode` |  |
-| `regionid` |  |
-| `shortname` |  |
+| `dnoregion` | Distribution Network Operator region |
+| `postcode` | Outward postcode |
+| `regionid` | Region ID (1-17) |
+| `shortname` | Short region name |
 
 Operations: list, load.
 
@@ -417,10 +417,10 @@ API path: `/regional/england`
 | Field | Description |
 | --- | --- |
 | `data` |  |
-| `dnoregion` |  |
-| `postcode` |  |
-| `regionid` |  |
-| `shortname` |  |
+| `dnoregion` | Distribution Network Operator region |
+| `postcode` | Outward postcode |
+| `regionid` | Region ID (1-17) |
+| `shortname` | Short region name |
 
 Operations: list, load.
 
@@ -515,9 +515,9 @@ Create an instance: `const intensity = client.Intensity()`
 | Field | Type | Description |
 | --- | --- | --- |
 | `data` | `any[]` |  |
-| `from` | `string` |  |
+| `from` | `string` | Start datetime of the period |
 | `intensity` | `Record<string, any>` |  |
-| `to` | `string` |  |
+| `to` | `string` | End datetime of the period |
 
 #### Example: Load
 
@@ -546,20 +546,20 @@ Create an instance: `const intensity_factor = client.IntensityFactor()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `Biomass` | `number` |  |
-| `Coal` | `number` |  |
-| `DutchImports` | `number` |  |
-| `FrenchImports` | `number` |  |
-| `GasCombinedCycle` | `number` |  |
-| `GasOpenCycle` | `number` |  |
-| `Hydro` | `number` |  |
-| `IrishImports` | `number` |  |
-| `Nuclear` | `number` |  |
-| `Oil` | `number` |  |
-| `Other` | `number` |  |
-| `PumpedStorage` | `number` |  |
-| `Solar` | `number` |  |
-| `Wind` | `number` |  |
+| `Biomass` | `number` | Carbon intensity factor for biomass (gCO2/kWh) |
+| `Coal` | `number` | Carbon intensity factor for coal (gCO2/kWh) |
+| `DutchImports` | `number` | Carbon intensity factor for Dutch imports (gCO2/kWh) |
+| `FrenchImports` | `number` | Carbon intensity factor for French imports (gCO2/kWh) |
+| `GasCombinedCycle` | `number` | Carbon intensity factor for gas combined cycle (gCO2/kWh) |
+| `GasOpenCycle` | `number` | Carbon intensity factor for gas open cycle (gCO2/kWh) |
+| `Hydro` | `number` | Carbon intensity factor for hydro (gCO2/kWh) |
+| `IrishImports` | `number` | Carbon intensity factor for Irish imports (gCO2/kWh) |
+| `Nuclear` | `number` | Carbon intensity factor for nuclear (gCO2/kWh) |
+| `Oil` | `number` | Carbon intensity factor for oil (gCO2/kWh) |
+| `Other` | `number` | Carbon intensity factor for other (gCO2/kWh) |
+| `PumpedStorage` | `number` | Carbon intensity factor for pumped storage (gCO2/kWh) |
+| `Solar` | `number` | Carbon intensity factor for solar (gCO2/kWh) |
+| `Wind` | `number` | Carbon intensity factor for wind (gCO2/kWh) |
 
 #### Example: List
 
@@ -584,9 +584,9 @@ Create an instance: `const intensity_list = client.IntensityList()`
 | Field | Type | Description |
 | --- | --- | --- |
 | `data` | `any[]` |  |
-| `from` | `string` |  |
+| `from` | `string` | Start datetime of the period |
 | `intensity` | `Record<string, any>` |  |
-| `to` | `string` |  |
+| `to` | `string` | End datetime of the period |
 
 #### Example: Load
 
@@ -616,10 +616,10 @@ Create an instance: `const regional = client.Regional()`
 | Field | Type | Description |
 | --- | --- | --- |
 | `data` | `any[]` |  |
-| `dnoregion` | `string` |  |
-| `postcode` | `string` |  |
-| `regionid` | `number` |  |
-| `shortname` | `string` |  |
+| `dnoregion` | `string` | Distribution Network Operator region |
+| `postcode` | `string` | Outward postcode |
+| `regionid` | `number` | Region ID (1-17) |
+| `shortname` | `string` | Short region name |
 
 #### Example: List
 
@@ -644,10 +644,10 @@ Create an instance: `const regional_intensity = client.RegionalIntensity()`
 | Field | Type | Description |
 | --- | --- | --- |
 | `data` | `any[]` |  |
-| `dnoregion` | `string` |  |
-| `postcode` | `string` |  |
-| `regionid` | `number` |  |
-| `shortname` | `string` |  |
+| `dnoregion` | `string` | Distribution Network Operator region |
+| `postcode` | `string` | Outward postcode |
+| `regionid` | `number` | Region ID (1-17) |
+| `shortname` | `string` | Short region name |
 
 #### Example: Load
 
@@ -678,10 +678,10 @@ Create an instance: `const regional_intensity_list = client.RegionalIntensityLis
 | Field | Type | Description |
 | --- | --- | --- |
 | `data` | `any[]` |  |
-| `dnoregion` | `string` |  |
-| `postcode` | `string` |  |
-| `regionid` | `number` |  |
-| `shortname` | `string` |  |
+| `dnoregion` | `string` | Distribution Network Operator region |
+| `postcode` | `string` | Outward postcode |
+| `regionid` | `number` | Region ID (1-17) |
+| `shortname` | `string` | Short region name |
 
 #### Example: Load
 

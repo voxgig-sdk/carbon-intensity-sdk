@@ -226,6 +226,7 @@
               "active": true,
               "name": "from",
               "req": false,
+              "short": "Start datetime of the period",
               "type": "`$STRING`"
             },
             {
@@ -238,6 +239,7 @@
               "active": true,
               "name": "to",
               "req": false,
+              "short": "End datetime of the period",
               "type": "`$STRING`"
             }
           ],
@@ -411,84 +413,98 @@
               "active": true,
               "name": "Biomass",
               "req": false,
+              "short": "Carbon intensity factor for biomass (gCO2/kWh)",
               "type": "`$INTEGER`"
             },
             {
               "active": true,
               "name": "Coal",
               "req": false,
+              "short": "Carbon intensity factor for coal (gCO2/kWh)",
               "type": "`$INTEGER`"
             },
             {
               "active": true,
               "name": "DutchImports",
               "req": false,
+              "short": "Carbon intensity factor for Dutch imports (gCO2/kWh)",
               "type": "`$INTEGER`"
             },
             {
               "active": true,
               "name": "FrenchImports",
               "req": false,
+              "short": "Carbon intensity factor for French imports (gCO2/kWh)",
               "type": "`$INTEGER`"
             },
             {
               "active": true,
               "name": "GasCombinedCycle",
               "req": false,
+              "short": "Carbon intensity factor for gas combined cycle (gCO2/kWh)",
               "type": "`$INTEGER`"
             },
             {
               "active": true,
               "name": "GasOpenCycle",
               "req": false,
+              "short": "Carbon intensity factor for gas open cycle (gCO2/kWh)",
               "type": "`$INTEGER`"
             },
             {
               "active": true,
               "name": "Hydro",
               "req": false,
+              "short": "Carbon intensity factor for hydro (gCO2/kWh)",
               "type": "`$INTEGER`"
             },
             {
               "active": true,
               "name": "IrishImports",
               "req": false,
+              "short": "Carbon intensity factor for Irish imports (gCO2/kWh)",
               "type": "`$INTEGER`"
             },
             {
               "active": true,
               "name": "Nuclear",
               "req": false,
+              "short": "Carbon intensity factor for nuclear (gCO2/kWh)",
               "type": "`$INTEGER`"
             },
             {
               "active": true,
               "name": "Oil",
               "req": false,
+              "short": "Carbon intensity factor for oil (gCO2/kWh)",
               "type": "`$INTEGER`"
             },
             {
               "active": true,
               "name": "Other",
               "req": false,
+              "short": "Carbon intensity factor for other (gCO2/kWh)",
               "type": "`$INTEGER`"
             },
             {
               "active": true,
               "name": "PumpedStorage",
               "req": false,
+              "short": "Carbon intensity factor for pumped storage (gCO2/kWh)",
               "type": "`$INTEGER`"
             },
             {
               "active": true,
               "name": "Solar",
               "req": false,
+              "short": "Carbon intensity factor for solar (gCO2/kWh)",
               "type": "`$INTEGER`"
             },
             {
               "active": true,
               "name": "Wind",
               "req": false,
+              "short": "Carbon intensity factor for wind (gCO2/kWh)",
               "type": "`$INTEGER`"
             }
           ],
@@ -537,6 +553,7 @@
               "active": true,
               "name": "from",
               "req": false,
+              "short": "Start datetime of the period",
               "type": "`$STRING`"
             },
             {
@@ -549,6 +566,7 @@
               "active": true,
               "name": "to",
               "req": false,
+              "short": "End datetime of the period",
               "type": "`$STRING`"
             }
           ],
@@ -738,24 +756,28 @@
               "active": true,
               "name": "dnoregion",
               "req": false,
+              "short": "Distribution Network Operator region",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "postcode",
               "req": false,
+              "short": "Outward postcode",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "regionid",
               "req": false,
+              "short": "Region ID (1-17)",
               "type": "`$INTEGER`"
             },
             {
               "active": true,
               "name": "shortname",
               "req": false,
+              "short": "Short region name",
               "type": "`$STRING`"
             }
           ],
@@ -803,24 +825,28 @@
               "active": true,
               "name": "dnoregion",
               "req": false,
+              "short": "Distribution Network Operator region",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "postcode",
               "req": false,
+              "short": "Outward postcode",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "regionid",
               "req": false,
+              "short": "Region ID (1-17)",
               "type": "`$INTEGER`"
             },
             {
               "active": true,
               "name": "shortname",
               "req": false,
+              "short": "Short region name",
               "type": "`$STRING`"
             }
           ],
@@ -978,24 +1004,28 @@
               "active": true,
               "name": "dnoregion",
               "req": false,
+              "short": "Distribution Network Operator region",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "postcode",
               "req": false,
+              "short": "Outward postcode",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "regionid",
               "req": false,
+              "short": "Region ID (1-17)",
               "type": "`$INTEGER`"
             },
             {
               "active": true,
               "name": "shortname",
               "req": false,
+              "short": "Short region name",
               "type": "`$STRING`"
             }
           ],

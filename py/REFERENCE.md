@@ -239,9 +239,9 @@ intensity = client.Intensity()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `data` | `list` | No |  |
-| `from` | `str` | No |  |
+| `from` | `str` | No | Start datetime of the period |
 | `intensity` | `dict` | No |  |
-| `to` | `str` | No |  |
+| `to` | `str` | No | End datetime of the period |
 
 ### Operations
 
@@ -302,20 +302,20 @@ intensity_factor = client.IntensityFactor()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `Biomass` | `int` | No |  |
-| `Coal` | `int` | No |  |
-| `DutchImports` | `int` | No |  |
-| `FrenchImports` | `int` | No |  |
-| `GasCombinedCycle` | `int` | No |  |
-| `GasOpenCycle` | `int` | No |  |
-| `Hydro` | `int` | No |  |
-| `IrishImports` | `int` | No |  |
-| `Nuclear` | `int` | No |  |
-| `Oil` | `int` | No |  |
-| `Other` | `int` | No |  |
-| `PumpedStorage` | `int` | No |  |
-| `Solar` | `int` | No |  |
-| `Wind` | `int` | No |  |
+| `Biomass` | `int` | No | Carbon intensity factor for biomass (gCO2/kWh) |
+| `Coal` | `int` | No | Carbon intensity factor for coal (gCO2/kWh) |
+| `DutchImports` | `int` | No | Carbon intensity factor for Dutch imports (gCO2/kWh) |
+| `FrenchImports` | `int` | No | Carbon intensity factor for French imports (gCO2/kWh) |
+| `GasCombinedCycle` | `int` | No | Carbon intensity factor for gas combined cycle (gCO2/kWh) |
+| `GasOpenCycle` | `int` | No | Carbon intensity factor for gas open cycle (gCO2/kWh) |
+| `Hydro` | `int` | No | Carbon intensity factor for hydro (gCO2/kWh) |
+| `IrishImports` | `int` | No | Carbon intensity factor for Irish imports (gCO2/kWh) |
+| `Nuclear` | `int` | No | Carbon intensity factor for nuclear (gCO2/kWh) |
+| `Oil` | `int` | No | Carbon intensity factor for oil (gCO2/kWh) |
+| `Other` | `int` | No | Carbon intensity factor for other (gCO2/kWh) |
+| `PumpedStorage` | `int` | No | Carbon intensity factor for pumped storage (gCO2/kWh) |
+| `Solar` | `int` | No | Carbon intensity factor for solar (gCO2/kWh) |
+| `Wind` | `int` | No | Carbon intensity factor for wind (gCO2/kWh) |
 
 ### Operations
 
@@ -369,9 +369,9 @@ intensity_list = client.IntensityList()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `data` | `list` | No |  |
-| `from` | `str` | No |  |
+| `from` | `str` | No | Start datetime of the period |
 | `intensity` | `dict` | No |  |
-| `to` | `str` | No |  |
+| `to` | `str` | No | End datetime of the period |
 
 ### Operations
 
@@ -433,10 +433,10 @@ regional = client.Regional()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `data` | `list` | No |  |
-| `dnoregion` | `str` | No |  |
-| `postcode` | `str` | No |  |
-| `regionid` | `int` | No |  |
-| `shortname` | `str` | No |  |
+| `dnoregion` | `str` | No | Distribution Network Operator region |
+| `postcode` | `str` | No | Outward postcode |
+| `regionid` | `int` | No | Region ID (1-17) |
+| `shortname` | `str` | No | Short region name |
 
 ### Operations
 
@@ -490,10 +490,10 @@ regional_intensity = client.RegionalIntensity()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `data` | `list` | No |  |
-| `dnoregion` | `str` | No |  |
-| `postcode` | `str` | No |  |
-| `regionid` | `int` | No |  |
-| `shortname` | `str` | No |  |
+| `dnoregion` | `str` | No | Distribution Network Operator region |
+| `postcode` | `str` | No | Outward postcode |
+| `regionid` | `int` | No | Region ID (1-17) |
+| `shortname` | `str` | No | Short region name |
 
 ### Operations
 
@@ -555,10 +555,10 @@ regional_intensity_list = client.RegionalIntensityList()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `data` | `list` | No |  |
-| `dnoregion` | `str` | No |  |
-| `postcode` | `str` | No |  |
-| `regionid` | `int` | No |  |
-| `shortname` | `str` | No |  |
+| `dnoregion` | `str` | No | Distribution Network Operator region |
+| `postcode` | `str` | No | Outward postcode |
+| `regionid` | `int` | No | Region ID (1-17) |
+| `shortname` | `str` | No | Short region name |
 
 ### Operations
 

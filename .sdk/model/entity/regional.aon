@@ -1,0 +1,61 @@
+# Entity: regional
+
+main: kit: entity: regional: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "data"
+      req: false
+      type: "`$ARRAY`"
+    }
+    {
+      name: "dnoregion"
+      req: false
+      short: "Distribution Network Operator region"
+      type: "`$STRING`"
+    }
+    {
+      name: "postcode"
+      req: false
+      short: "Outward postcode"
+      type: "`$STRING`"
+    }
+    {
+      name: "regionid"
+      req: false
+      short: "Region ID (1-17)"
+      type: "`$INTEGER`"
+    }
+    {
+      name: "shortname"
+      req: false
+      short: "Short region name"
+      type: "`$STRING`"
+    }
+  ]
+
+  name: "regional"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          method: "GET"
+          orig: "/regional"
+          parts: [
+            "regional"
+          ]
+          transform: {
+            req: "`reqdata`"
+            res: "`body.data`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

@@ -326,9 +326,9 @@ const intensity = client.Intensity()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `data` | `any[]` | No |  |
-| `from` | `string` | No |  |
+| `from` | `string` | No | Start datetime of the period |
 | `intensity` | `Record<string, any>` | No |  |
-| `to` | `string` | No |  |
+| `to` | `string` | No | End datetime of the period |
 
 ### Operations
 
@@ -386,20 +386,20 @@ const intensity_factor = client.IntensityFactor()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `Biomass` | `number` | No |  |
-| `Coal` | `number` | No |  |
-| `DutchImports` | `number` | No |  |
-| `FrenchImports` | `number` | No |  |
-| `GasCombinedCycle` | `number` | No |  |
-| `GasOpenCycle` | `number` | No |  |
-| `Hydro` | `number` | No |  |
-| `IrishImports` | `number` | No |  |
-| `Nuclear` | `number` | No |  |
-| `Oil` | `number` | No |  |
-| `Other` | `number` | No |  |
-| `PumpedStorage` | `number` | No |  |
-| `Solar` | `number` | No |  |
-| `Wind` | `number` | No |  |
+| `Biomass` | `number` | No | Carbon intensity factor for biomass (gCO2/kWh) |
+| `Coal` | `number` | No | Carbon intensity factor for coal (gCO2/kWh) |
+| `DutchImports` | `number` | No | Carbon intensity factor for Dutch imports (gCO2/kWh) |
+| `FrenchImports` | `number` | No | Carbon intensity factor for French imports (gCO2/kWh) |
+| `GasCombinedCycle` | `number` | No | Carbon intensity factor for gas combined cycle (gCO2/kWh) |
+| `GasOpenCycle` | `number` | No | Carbon intensity factor for gas open cycle (gCO2/kWh) |
+| `Hydro` | `number` | No | Carbon intensity factor for hydro (gCO2/kWh) |
+| `IrishImports` | `number` | No | Carbon intensity factor for Irish imports (gCO2/kWh) |
+| `Nuclear` | `number` | No | Carbon intensity factor for nuclear (gCO2/kWh) |
+| `Oil` | `number` | No | Carbon intensity factor for oil (gCO2/kWh) |
+| `Other` | `number` | No | Carbon intensity factor for other (gCO2/kWh) |
+| `PumpedStorage` | `number` | No | Carbon intensity factor for pumped storage (gCO2/kWh) |
+| `Solar` | `number` | No | Carbon intensity factor for solar (gCO2/kWh) |
+| `Wind` | `number` | No | Carbon intensity factor for wind (gCO2/kWh) |
 
 ### Operations
 
@@ -450,9 +450,9 @@ const intensity_list = client.IntensityList()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `data` | `any[]` | No |  |
-| `from` | `string` | No |  |
+| `from` | `string` | No | Start datetime of the period |
 | `intensity` | `Record<string, any>` | No |  |
-| `to` | `string` | No |  |
+| `to` | `string` | No | End datetime of the period |
 
 ### Operations
 
@@ -511,10 +511,10 @@ const regional = client.Regional()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `data` | `any[]` | No |  |
-| `dnoregion` | `string` | No |  |
-| `postcode` | `string` | No |  |
-| `regionid` | `number` | No |  |
-| `shortname` | `string` | No |  |
+| `dnoregion` | `string` | No | Distribution Network Operator region |
+| `postcode` | `string` | No | Outward postcode |
+| `regionid` | `number` | No | Region ID (1-17) |
+| `shortname` | `string` | No | Short region name |
 
 ### Operations
 
@@ -565,10 +565,10 @@ const regional_intensity = client.RegionalIntensity()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `data` | `any[]` | No |  |
-| `dnoregion` | `string` | No |  |
-| `postcode` | `string` | No |  |
-| `regionid` | `number` | No |  |
-| `shortname` | `string` | No |  |
+| `dnoregion` | `string` | No | Distribution Network Operator region |
+| `postcode` | `string` | No | Outward postcode |
+| `regionid` | `number` | No | Region ID (1-17) |
+| `shortname` | `string` | No | Short region name |
 
 ### Operations
 
@@ -627,10 +627,10 @@ const regional_intensity_list = client.RegionalIntensityList()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `data` | `any[]` | No |  |
-| `dnoregion` | `string` | No |  |
-| `postcode` | `string` | No |  |
-| `regionid` | `number` | No |  |
-| `shortname` | `string` | No |  |
+| `dnoregion` | `string` | No | Distribution Network Operator region |
+| `postcode` | `string` | No | Outward postcode |
+| `regionid` | `number` | No | Region ID (1-17) |
+| `shortname` | `string` | No | Short region name |
 
 ### Operations
 

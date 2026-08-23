@@ -296,9 +296,9 @@ API path: `/generation/{from}/pt24h`
 | Field | Description |
 | --- | --- |
 | `data` |  |
-| `from` |  |
+| `from` | Start datetime of the period |
 | `intensity` |  |
-| `to` |  |
+| `to` | End datetime of the period |
 
 Operations: List, Load.
 
@@ -308,20 +308,20 @@ API path: `/intensity`
 
 | Field | Description |
 | --- | --- |
-| `Biomass` |  |
-| `Coal` |  |
-| `DutchImports` |  |
-| `FrenchImports` |  |
-| `GasCombinedCycle` |  |
-| `GasOpenCycle` |  |
-| `Hydro` |  |
-| `IrishImports` |  |
-| `Nuclear` |  |
-| `Oil` |  |
-| `Other` |  |
-| `PumpedStorage` |  |
-| `Solar` |  |
-| `Wind` |  |
+| `Biomass` | Carbon intensity factor for biomass (gCO2/kWh) |
+| `Coal` | Carbon intensity factor for coal (gCO2/kWh) |
+| `DutchImports` | Carbon intensity factor for Dutch imports (gCO2/kWh) |
+| `FrenchImports` | Carbon intensity factor for French imports (gCO2/kWh) |
+| `GasCombinedCycle` | Carbon intensity factor for gas combined cycle (gCO2/kWh) |
+| `GasOpenCycle` | Carbon intensity factor for gas open cycle (gCO2/kWh) |
+| `Hydro` | Carbon intensity factor for hydro (gCO2/kWh) |
+| `IrishImports` | Carbon intensity factor for Irish imports (gCO2/kWh) |
+| `Nuclear` | Carbon intensity factor for nuclear (gCO2/kWh) |
+| `Oil` | Carbon intensity factor for oil (gCO2/kWh) |
+| `Other` | Carbon intensity factor for other (gCO2/kWh) |
+| `PumpedStorage` | Carbon intensity factor for pumped storage (gCO2/kWh) |
+| `Solar` | Carbon intensity factor for solar (gCO2/kWh) |
+| `Wind` | Carbon intensity factor for wind (gCO2/kWh) |
 
 Operations: List.
 
@@ -332,9 +332,9 @@ API path: `/intensity/factors`
 | Field | Description |
 | --- | --- |
 | `data` |  |
-| `from` |  |
+| `from` | Start datetime of the period |
 | `intensity` |  |
-| `to` |  |
+| `to` | End datetime of the period |
 
 Operations: List, Load.
 
@@ -345,10 +345,10 @@ API path: `/intensity/{from}/fw24h`
 | Field | Description |
 | --- | --- |
 | `data` |  |
-| `dnoregion` |  |
-| `postcode` |  |
-| `regionid` |  |
-| `shortname` |  |
+| `dnoregion` | Distribution Network Operator region |
+| `postcode` | Outward postcode |
+| `regionid` | Region ID (1-17) |
+| `shortname` | Short region name |
 
 Operations: List.
 
@@ -359,10 +359,10 @@ API path: `/regional`
 | Field | Description |
 | --- | --- |
 | `data` |  |
-| `dnoregion` |  |
-| `postcode` |  |
-| `regionid` |  |
-| `shortname` |  |
+| `dnoregion` | Distribution Network Operator region |
+| `postcode` | Outward postcode |
+| `regionid` | Region ID (1-17) |
+| `shortname` | Short region name |
 
 Operations: List, Load.
 
@@ -373,10 +373,10 @@ API path: `/regional/england`
 | Field | Description |
 | --- | --- |
 | `data` |  |
-| `dnoregion` |  |
-| `postcode` |  |
-| `regionid` |  |
-| `shortname` |  |
+| `dnoregion` | Distribution Network Operator region |
+| `postcode` | Outward postcode |
+| `regionid` | Region ID (1-17) |
+| `shortname` | Short region name |
 
 Operations: List, Load.
 
@@ -474,9 +474,9 @@ Create an instance: `$intensity = $client->Intensity();`
 | Field | Type | Description |
 | --- | --- | --- |
 | `data` | `array` |  |
-| `from` | `string` |  |
+| `from` | `string` | Start datetime of the period |
 | `intensity` | `array` |  |
-| `to` | `string` |  |
+| `to` | `string` | End datetime of the period |
 
 #### Example: Load
 
@@ -507,20 +507,20 @@ Create an instance: `$intensity_factor = $client->IntensityFactor();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `Biomass` | `int` |  |
-| `Coal` | `int` |  |
-| `DutchImports` | `int` |  |
-| `FrenchImports` | `int` |  |
-| `GasCombinedCycle` | `int` |  |
-| `GasOpenCycle` | `int` |  |
-| `Hydro` | `int` |  |
-| `IrishImports` | `int` |  |
-| `Nuclear` | `int` |  |
-| `Oil` | `int` |  |
-| `Other` | `int` |  |
-| `PumpedStorage` | `int` |  |
-| `Solar` | `int` |  |
-| `Wind` | `int` |  |
+| `Biomass` | `int` | Carbon intensity factor for biomass (gCO2/kWh) |
+| `Coal` | `int` | Carbon intensity factor for coal (gCO2/kWh) |
+| `DutchImports` | `int` | Carbon intensity factor for Dutch imports (gCO2/kWh) |
+| `FrenchImports` | `int` | Carbon intensity factor for French imports (gCO2/kWh) |
+| `GasCombinedCycle` | `int` | Carbon intensity factor for gas combined cycle (gCO2/kWh) |
+| `GasOpenCycle` | `int` | Carbon intensity factor for gas open cycle (gCO2/kWh) |
+| `Hydro` | `int` | Carbon intensity factor for hydro (gCO2/kWh) |
+| `IrishImports` | `int` | Carbon intensity factor for Irish imports (gCO2/kWh) |
+| `Nuclear` | `int` | Carbon intensity factor for nuclear (gCO2/kWh) |
+| `Oil` | `int` | Carbon intensity factor for oil (gCO2/kWh) |
+| `Other` | `int` | Carbon intensity factor for other (gCO2/kWh) |
+| `PumpedStorage` | `int` | Carbon intensity factor for pumped storage (gCO2/kWh) |
+| `Solar` | `int` | Carbon intensity factor for solar (gCO2/kWh) |
+| `Wind` | `int` | Carbon intensity factor for wind (gCO2/kWh) |
 
 #### Example: List
 
@@ -546,9 +546,9 @@ Create an instance: `$intensity_list = $client->IntensityList();`
 | Field | Type | Description |
 | --- | --- | --- |
 | `data` | `array` |  |
-| `from` | `string` |  |
+| `from` | `string` | Start datetime of the period |
 | `intensity` | `array` |  |
-| `to` | `string` |  |
+| `to` | `string` | End datetime of the period |
 
 #### Example: Load
 
@@ -580,10 +580,10 @@ Create an instance: `$regional = $client->Regional();`
 | Field | Type | Description |
 | --- | --- | --- |
 | `data` | `array` |  |
-| `dnoregion` | `string` |  |
-| `postcode` | `string` |  |
-| `regionid` | `int` |  |
-| `shortname` | `string` |  |
+| `dnoregion` | `string` | Distribution Network Operator region |
+| `postcode` | `string` | Outward postcode |
+| `regionid` | `int` | Region ID (1-17) |
+| `shortname` | `string` | Short region name |
 
 #### Example: List
 
@@ -609,10 +609,10 @@ Create an instance: `$regional_intensity = $client->RegionalIntensity();`
 | Field | Type | Description |
 | --- | --- | --- |
 | `data` | `array` |  |
-| `dnoregion` | `string` |  |
-| `postcode` | `string` |  |
-| `regionid` | `int` |  |
-| `shortname` | `string` |  |
+| `dnoregion` | `string` | Distribution Network Operator region |
+| `postcode` | `string` | Outward postcode |
+| `regionid` | `int` | Region ID (1-17) |
+| `shortname` | `string` | Short region name |
 
 #### Example: Load
 
@@ -645,10 +645,10 @@ Create an instance: `$regional_intensity_list = $client->RegionalIntensityList()
 | Field | Type | Description |
 | --- | --- | --- |
 | `data` | `array` |  |
-| `dnoregion` | `string` |  |
-| `postcode` | `string` |  |
-| `regionid` | `int` |  |
-| `shortname` | `string` |  |
+| `dnoregion` | `string` | Distribution Network Operator region |
+| `postcode` | `string` | Outward postcode |
+| `regionid` | `int` | Region ID (1-17) |
+| `shortname` | `string` | Short region name |
 
 #### Example: Load
 

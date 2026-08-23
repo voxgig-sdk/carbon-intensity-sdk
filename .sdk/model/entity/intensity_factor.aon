@@ -1,0 +1,117 @@
+# Entity: intensity_factor
+
+main: kit: entity: intensity_factor: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "Biomass"
+      req: false
+      short: "Carbon intensity factor for biomass (gCO2/kWh)"
+      type: "`$INTEGER`"
+    }
+    {
+      name: "Coal"
+      req: false
+      short: "Carbon intensity factor for coal (gCO2/kWh)"
+      type: "`$INTEGER`"
+    }
+    {
+      name: "DutchImports"
+      req: false
+      short: "Carbon intensity factor for Dutch imports (gCO2/kWh)"
+      type: "`$INTEGER`"
+    }
+    {
+      name: "FrenchImports"
+      req: false
+      short: "Carbon intensity factor for French imports (gCO2/kWh)"
+      type: "`$INTEGER`"
+    }
+    {
+      name: "GasCombinedCycle"
+      req: false
+      short: "Carbon intensity factor for gas combined cycle (gCO2/kWh)"
+      type: "`$INTEGER`"
+    }
+    {
+      name: "GasOpenCycle"
+      req: false
+      short: "Carbon intensity factor for gas open cycle (gCO2/kWh)"
+      type: "`$INTEGER`"
+    }
+    {
+      name: "Hydro"
+      req: false
+      short: "Carbon intensity factor for hydro (gCO2/kWh)"
+      type: "`$INTEGER`"
+    }
+    {
+      name: "IrishImports"
+      req: false
+      short: "Carbon intensity factor for Irish imports (gCO2/kWh)"
+      type: "`$INTEGER`"
+    }
+    {
+      name: "Nuclear"
+      req: false
+      short: "Carbon intensity factor for nuclear (gCO2/kWh)"
+      type: "`$INTEGER`"
+    }
+    {
+      name: "Oil"
+      req: false
+      short: "Carbon intensity factor for oil (gCO2/kWh)"
+      type: "`$INTEGER`"
+    }
+    {
+      name: "Other"
+      req: false
+      short: "Carbon intensity factor for other (gCO2/kWh)"
+      type: "`$INTEGER`"
+    }
+    {
+      name: "PumpedStorage"
+      req: false
+      short: "Carbon intensity factor for pumped storage (gCO2/kWh)"
+      type: "`$INTEGER`"
+    }
+    {
+      name: "Solar"
+      req: false
+      short: "Carbon intensity factor for solar (gCO2/kWh)"
+      type: "`$INTEGER`"
+    }
+    {
+      name: "Wind"
+      req: false
+      short: "Carbon intensity factor for wind (gCO2/kWh)"
+      type: "`$INTEGER`"
+    }
+  ]
+
+  name: "intensity_factor"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          method: "GET"
+          orig: "/intensity/factors"
+          parts: [
+            "intensity"
+            "factors"
+          ]
+          transform: {
+            req: "`reqdata`"
+            res: "`body.data`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

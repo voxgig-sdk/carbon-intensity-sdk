@@ -19,6 +19,9 @@ module CarbonIntensityConfig
     {
       "main" => {
         "name" => "CarbonIntensity",
+        "slug" => "carbon-intensity",
+        "version" => "0.0.1",
+        "target" => "rb",
       },
       "feature" => {
         "test" => {
@@ -209,6 +212,7 @@ module CarbonIntensityConfig
             },
             {
               "name" => "from",
+              "short" => "Start datetime of the period",
               "type" => "`$STRING`",
             },
             {
@@ -217,6 +221,7 @@ module CarbonIntensityConfig
             },
             {
               "name" => "to",
+              "short" => "End datetime of the period",
               "type" => "`$STRING`",
             },
           ],
@@ -375,58 +380,72 @@ module CarbonIntensityConfig
           "fields" => [
             {
               "name" => "Biomass",
+              "short" => "Carbon intensity factor for biomass (gCO2/kWh)",
               "type" => "`$INTEGER`",
             },
             {
               "name" => "Coal",
+              "short" => "Carbon intensity factor for coal (gCO2/kWh)",
               "type" => "`$INTEGER`",
             },
             {
               "name" => "DutchImports",
+              "short" => "Carbon intensity factor for Dutch imports (gCO2/kWh)",
               "type" => "`$INTEGER`",
             },
             {
               "name" => "FrenchImports",
+              "short" => "Carbon intensity factor for French imports (gCO2/kWh)",
               "type" => "`$INTEGER`",
             },
             {
               "name" => "GasCombinedCycle",
+              "short" => "Carbon intensity factor for gas combined cycle (gCO2/kWh)",
               "type" => "`$INTEGER`",
             },
             {
               "name" => "GasOpenCycle",
+              "short" => "Carbon intensity factor for gas open cycle (gCO2/kWh)",
               "type" => "`$INTEGER`",
             },
             {
               "name" => "Hydro",
+              "short" => "Carbon intensity factor for hydro (gCO2/kWh)",
               "type" => "`$INTEGER`",
             },
             {
               "name" => "IrishImports",
+              "short" => "Carbon intensity factor for Irish imports (gCO2/kWh)",
               "type" => "`$INTEGER`",
             },
             {
               "name" => "Nuclear",
+              "short" => "Carbon intensity factor for nuclear (gCO2/kWh)",
               "type" => "`$INTEGER`",
             },
             {
               "name" => "Oil",
+              "short" => "Carbon intensity factor for oil (gCO2/kWh)",
               "type" => "`$INTEGER`",
             },
             {
               "name" => "Other",
+              "short" => "Carbon intensity factor for other (gCO2/kWh)",
               "type" => "`$INTEGER`",
             },
             {
               "name" => "PumpedStorage",
+              "short" => "Carbon intensity factor for pumped storage (gCO2/kWh)",
               "type" => "`$INTEGER`",
             },
             {
               "name" => "Solar",
+              "short" => "Carbon intensity factor for solar (gCO2/kWh)",
               "type" => "`$INTEGER`",
             },
             {
               "name" => "Wind",
+              "short" => "Carbon intensity factor for wind (gCO2/kWh)",
               "type" => "`$INTEGER`",
             },
           ],
@@ -466,6 +485,7 @@ module CarbonIntensityConfig
             },
             {
               "name" => "from",
+              "short" => "Start datetime of the period",
               "type" => "`$STRING`",
             },
             {
@@ -474,6 +494,7 @@ module CarbonIntensityConfig
             },
             {
               "name" => "to",
+              "short" => "End datetime of the period",
               "type" => "`$STRING`",
             },
           ],
@@ -646,18 +667,22 @@ module CarbonIntensityConfig
             },
             {
               "name" => "dnoregion",
+              "short" => "Distribution Network Operator region",
               "type" => "`$STRING`",
             },
             {
               "name" => "postcode",
+              "short" => "Outward postcode",
               "type" => "`$STRING`",
             },
             {
               "name" => "regionid",
+              "short" => "Region ID (1-17)",
               "type" => "`$INTEGER`",
             },
             {
               "name" => "shortname",
+              "short" => "Short region name",
               "type" => "`$STRING`",
             },
           ],
@@ -696,18 +721,22 @@ module CarbonIntensityConfig
             },
             {
               "name" => "dnoregion",
+              "short" => "Distribution Network Operator region",
               "type" => "`$STRING`",
             },
             {
               "name" => "postcode",
+              "short" => "Outward postcode",
               "type" => "`$STRING`",
             },
             {
               "name" => "regionid",
+              "short" => "Region ID (1-17)",
               "type" => "`$INTEGER`",
             },
             {
               "name" => "shortname",
+              "short" => "Short region name",
               "type" => "`$STRING`",
             },
           ],
@@ -850,18 +879,22 @@ module CarbonIntensityConfig
             },
             {
               "name" => "dnoregion",
+              "short" => "Distribution Network Operator region",
               "type" => "`$STRING`",
             },
             {
               "name" => "postcode",
+              "short" => "Outward postcode",
               "type" => "`$STRING`",
             },
             {
               "name" => "regionid",
+              "short" => "Region ID (1-17)",
               "type" => "`$INTEGER`",
             },
             {
               "name" => "shortname",
+              "short" => "Short region name",
               "type" => "`$STRING`",
             },
           ],
