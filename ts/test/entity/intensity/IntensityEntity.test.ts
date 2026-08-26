@@ -66,6 +66,12 @@ describe('IntensityEntity', async () => {
     const intensity_ref01_list = (await intensity_ref01_ent.list(intensity_ref01_match)).map((e: any) => e.data())
 
 
+    // LOAD
+    const intensity_ref01_match_dt0: any = {}
+    intensity_ref01_match_dt0.id = intensity_ref01_data.id
+    const intensity_ref01_data_dt0 = (await intensity_ref01_ent.load(intensity_ref01_match_dt0)).data()
+    assert(intensity_ref01_data_dt0.id === intensity_ref01_data.id)
+
 
   })
 })

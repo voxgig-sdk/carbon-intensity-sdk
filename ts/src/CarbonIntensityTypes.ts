@@ -37,6 +37,7 @@ export interface GenerationListListMatch {
 export interface Intensity {
   data?: any[]
   from?: string
+  id?: string
   intensity?: Record<string, any>
   to?: string
 }
@@ -48,6 +49,7 @@ export interface IntensityLoadMatch {
 export interface IntensityListMatch {
   data?: any[]
   from?: string
+  id?: string
   intensity?: Record<string, any>
   to?: string
 }

@@ -297,6 +297,7 @@ API path: `/generation/{from}/pt24h`
 | --- | --- |
 | `data` |  |
 | `from` | Start datetime of the period |
+| `id` |  |
 | `intensity` |  |
 | `to` | End datetime of the period |
 
@@ -475,6 +476,7 @@ Create an instance: `$intensity = $client->Intensity();`
 | --- | --- | --- |
 | `data` | `array` |  |
 | `from` | `string` | Start datetime of the period |
+| `id` | `string` |  |
 | `intensity` | `array` |  |
 | `to` | `string` | End datetime of the period |
 

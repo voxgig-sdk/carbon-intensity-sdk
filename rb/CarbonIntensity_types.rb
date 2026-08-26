@@ -97,6 +97,9 @@ GenerationListListMatch = Struct.new(
 # @!attribute [rw] from
 #   @return [String, nil]
 #
+# @!attribute [rw] id
+#   @return [String, nil]
+#
 # @!attribute [rw] intensity
 #   @return [Hash, nil]
 #
@@ -105,6 +108,7 @@ GenerationListListMatch = Struct.new(
 Intensity = Struct.new(
   :data,
   :from,
+  :id,
   :intensity,
   :to,
   keyword_init: true
@@ -127,6 +131,9 @@ IntensityLoadMatch = Struct.new(
 # @!attribute [rw] from
 #   @return [String, nil]
 #
+# @!attribute [rw] id
+#   @return [String, nil]
+#
 # @!attribute [rw] intensity
 #   @return [Hash, nil]
 #
@@ -135,6 +142,7 @@ IntensityLoadMatch = Struct.new(
 IntensityListMatch = Struct.new(
   :data,
   :from,
+  :id,
   :intensity,
   :to,
   keyword_init: true

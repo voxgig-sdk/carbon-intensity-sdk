@@ -92,10 +92,14 @@ describe("IntensityEntity", function()
     assert.is_table(intensity_ref01_list_result)
 
     -- LOAD
-    local intensity_ref01_match_dt0 = {}
+    local intensity_ref01_match_dt0 = {
+      id = intensity_ref01_data["id"],
+    }
     local intensity_ref01_data_dt0_loaded, err = intensity_ref01_ent:load(intensity_ref01_match_dt0, nil)
     assert.is_nil(err)
-    assert.is_not_nil(intensity_ref01_data_dt0_loaded)
+    local intensity_ref01_data_dt0_load_result = helpers.to_map(type(intensity_ref01_data_dt0_loaded) == 'table' and intensity_ref01_data_dt0_loaded.data_get and intensity_ref01_data_dt0_loaded:data_get() or intensity_ref01_data_dt0_loaded)
+    assert.is_not_nil(intensity_ref01_data_dt0_load_result)
+    assert.are.equal(intensity_ref01_data_dt0_load_result["id"], intensity_ref01_data["id"])
 
   end)
 end)

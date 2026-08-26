@@ -240,6 +240,7 @@ intensity = client.Intensity()
 | --- | --- | --- | --- |
 | `data` | `list` | No |  |
 | `from` | `str` | No | Start datetime of the period |
+| `id` | `str` | No |  |
 | `intensity` | `dict` | No |  |
 | `to` | `str` | No | End datetime of the period |
 

@@ -88,9 +88,13 @@ class TestIntensityEntity:
         assert isinstance(intensity_ref01_list_result, list)
 
         # LOAD
-        intensity_ref01_match_dt0 = {}
+        intensity_ref01_match_dt0 = {
+            "id": intensity_ref01_data["id"],
+        }
         intensity_ref01_data_dt0_loaded = intensity_ref01_ent.load(intensity_ref01_match_dt0, None)
-        assert intensity_ref01_data_dt0_loaded is not None
+        intensity_ref01_data_dt0_load_result = helpers.to_map(runner.entity_data(intensity_ref01_data_dt0_loaded))
+        assert intensity_ref01_data_dt0_load_result is not None
+        assert intensity_ref01_data_dt0_load_result["id"] == intensity_ref01_data["id"]
 
 
 

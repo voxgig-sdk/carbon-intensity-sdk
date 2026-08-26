@@ -17,6 +17,11 @@ main: kit: entity: intensity: {
       type: "`$STRING`"
     }
     {
+      name: "id"
+      req: false
+      type: "`$STRING`"
+    }
+    {
       name: "intensity"
       req: false
       type: "`$OBJECT`"
@@ -28,6 +33,11 @@ main: kit: entity: intensity: {
       type: "`$STRING`"
     }
   ]
+
+  id: {
+    field: "id"
+    name: "id"
+  }
 
   name: "intensity"
   op: {

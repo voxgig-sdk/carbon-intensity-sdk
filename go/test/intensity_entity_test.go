@@ -121,13 +121,19 @@ func TestIntensityEntity(t *testing.T) {
 		}
 
 		// LOAD
-		intensityRef01MatchDt0 := map[string]any{}
+		intensityRef01MatchDt0 := map[string]any{
+			"id": intensityRef01Data["id"],
+		}
 		intensityRef01DataDt0Loaded, err := intensityRef01Ent.Load(intensityRef01MatchDt0, nil)
 		if err != nil {
 			t.Fatalf("load failed: %v", err)
 		}
-		if intensityRef01DataDt0Loaded == nil {
-			t.Fatal("expected load result to be non-nil")
+		intensityRef01DataDt0LoadResult := core.ToMapAny(entityData(intensityRef01DataDt0Loaded))
+		if intensityRef01DataDt0LoadResult == nil {
+			t.Fatal("expected load result to be a map")
+		}
+		if intensityRef01DataDt0LoadResult["id"] != intensityRef01Data["id"] {
+			t.Fatal("expected load result id to match")
 		}
 
 	})

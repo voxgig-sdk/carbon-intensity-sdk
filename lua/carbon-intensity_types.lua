@@ -33,6 +33,7 @@
 ---@class Intensity
 ---@field data? table
 ---@field from? string
+---@field id? string
 ---@field intensity? table
 ---@field to? string
 
@@ -42,6 +43,7 @@
 ---@class IntensityListMatch
 ---@field data? table
 ---@field from? string
+---@field id? string
 ---@field intensity? table
 ---@field to? string
 

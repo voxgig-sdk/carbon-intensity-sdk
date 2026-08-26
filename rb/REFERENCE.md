@@ -244,6 +244,7 @@ intensity = client.Intensity
 | --- | --- | --- | --- |
 | `data` | `Array` | No |  |
 | `from` | `String` | No | Start datetime of the period |
+| `id` | `String` | No |  |
 | `intensity` | `Hash` | No |  |
 | `to` | `String` | No | End datetime of the period |
 

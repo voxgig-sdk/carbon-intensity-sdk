@@ -341,6 +341,7 @@ API path: `/generation/{from}/pt24h`
 | --- | --- |
 | `data` |  |
 | `from` | Start datetime of the period |
+| `id` |  |
 | `intensity` |  |
 | `to` | End datetime of the period |
 
@@ -516,6 +517,7 @@ Create an instance: `const intensity = client.Intensity()`
 | --- | --- | --- |
 | `data` | `any[]` |  |
 | `from` | `string` | Start datetime of the period |
+| `id` | `string` |  |
 | `intensity` | `Record<string, any>` |  |
 | `to` | `string` | End datetime of the period |
 

@@ -251,6 +251,7 @@ fmt.Println(intensity.GetName()) // "intensity"
 | --- | --- | --- | --- |
 | `data` | `[]any` | No |  |
 | `from` | `string` | No | Start datetime of the period |
+| `id` | `string` | No |  |
 | `intensity` | `map[string]any` | No |  |
 | `to` | `string` | No | End datetime of the period |
 

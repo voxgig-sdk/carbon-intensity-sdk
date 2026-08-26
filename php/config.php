@@ -42,6 +42,7 @@ class CarbonIntensityConfig
           'options' => [
             'active' => false,
           ],
+          'transport' => 'base',
         ],
             ],
             "options" => [
@@ -227,6 +228,10 @@ class CarbonIntensityConfig
             [
               'name' => 'from',
               'short' => 'Start datetime of the period',
+              'type' => '`$STRING`',
+            ],
+            [
+              'name' => 'id',
               'type' => '`$STRING`',
             ],
             [

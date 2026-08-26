@@ -241,6 +241,7 @@ local intensity = client:Intensity(nil)
 | --- | --- | --- | --- |
 | `data` | `table` | No |  |
 | `from` | `string` | No | Start datetime of the period |
+| `id` | `string` | No |  |
 | `intensity` | `table` | No |  |
 | `to` | `string` | No | End datetime of the period |
 

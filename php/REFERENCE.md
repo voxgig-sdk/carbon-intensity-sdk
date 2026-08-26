@@ -243,6 +243,7 @@ $intensity = $client->Intensity();
 | --- | --- | --- | --- |
 | `data` | `array` | No |  |
 | `from` | `string` | No | Start datetime of the period |
+| `id` | `string` | No |  |
 | `intensity` | `array` | No |  |
 | `to` | `string` | No | End datetime of the period |
 

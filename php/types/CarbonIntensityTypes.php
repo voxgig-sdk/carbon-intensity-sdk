@@ -56,6 +56,7 @@ class Intensity
 {
     public ?array $data = null;
     public ?string $from = null;
+    public ?string $id = null;
     public ?array $intensity = null;
     public ?string $to = null;
 }
@@ -71,6 +72,7 @@ class IntensityListMatch
 {
     public ?array $data = null;
     public ?string $from = null;
+    public ?string $id = null;
     public ?array $intensity = null;
     public ?string $to = null;
 }

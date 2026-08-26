@@ -304,6 +304,7 @@ API path: `/generation/{from}/pt24h`
 | --- | --- |
 | `"data"` |  |
 | `"from"` | Start datetime of the period |
+| `"id"` |  |
 | `"intensity"` |  |
 | `"to"` | End datetime of the period |
 
@@ -491,6 +492,7 @@ Create an instance: `intensity := client.Intensity(nil)`
 | --- | --- | --- |
 | `data` | `[]any` |  |
 | `from` | `string` | Start datetime of the period |
+| `id` | `string` |  |
 | `intensity` | `map[string]any` |  |
 | `to` | `string` | End datetime of the period |
 

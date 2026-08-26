@@ -327,6 +327,7 @@ const intensity = client.Intensity()
 | --- | --- | --- | --- |
 | `data` | `any[]` | No |  |
 | `from` | `string` | No | Start datetime of the period |
+| `id` | `string` | No |  |
 | `intensity` | `Record<string, any>` | No |  |
 | `to` | `string` | No | End datetime of the period |
 

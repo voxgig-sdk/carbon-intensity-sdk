@@ -50,6 +50,7 @@ type GenerationListListMatch struct {
 type Intensity struct {
 	Data *[]any `json:"data,omitempty"`
 	From *string `json:"from,omitempty"`
+	Id *string `json:"id,omitempty"`
 	Intensity *map[string]any `json:"intensity,omitempty"`
 	To *string `json:"to,omitempty"`
 }
@@ -63,6 +64,7 @@ type IntensityLoadMatch struct {
 type IntensityListMatch struct {
 	Data *[]any `json:"data,omitempty"`
 	From *string `json:"from,omitempty"`
+	Id *string `json:"id,omitempty"`
 	Intensity *map[string]any `json:"intensity,omitempty"`
 	To *string `json:"to,omitempty"`
 }

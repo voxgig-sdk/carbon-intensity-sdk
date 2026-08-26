@@ -43,6 +43,7 @@ class GenerationListListMatch(TypedDict):
 
 class Intensity(TypedDict, total=False):
     data: list
+    id: str
     intensity: dict
     to: str
 
@@ -53,6 +54,7 @@ class IntensityLoadMatch(TypedDict):
 
 class IntensityListMatch(TypedDict, total=False):
     data: list
+    id: str
     intensity: dict
     to: str
 

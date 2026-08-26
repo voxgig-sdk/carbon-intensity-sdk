@@ -3,30 +3,30 @@
     "intensity": {
       "INTENSITY00": {
         "data": [],
-        "from": "s29",
+        "from": "s33",
+        "id": "INTENSITY00",
         "intensity": {},
-        "to": "s2b",
+        "to": "s36",
         "date": "DATE01",
-        "period": "PERIOD01",
-        "id": "INTENSITY00"
+        "period": "PERIOD01"
       },
       "INTENSITY01": {
         "data": [],
-        "from": "s51",
+        "from": "s65",
+        "id": "INTENSITY01",
         "intensity": {},
-        "to": "s53",
+        "to": "s68",
         "date": "DATE01",
-        "period": "PERIOD01",
-        "id": "INTENSITY01"
+        "period": "PERIOD01"
       },
       "INTENSITY02": {
         "data": [],
-        "from": "s79",
+        "from": "s97",
+        "id": "INTENSITY02",
         "intensity": {},
-        "to": "s7b",
+        "to": "s9a",
         "date": "DATE01",
-        "period": "PERIOD01",
-        "id": "INTENSITY02"
+        "period": "PERIOD01"
       }
     }
   },
@@ -34,9 +34,9 @@
     "intensity": {
       "intensity_ref01": {
         "data": [],
-        "from": "sa1",
+        "from": "sc9",
         "intensity": {},
-        "to": "sa3"
+        "to": "scc"
       }
     }
   }

@@ -93,9 +93,13 @@ class IntensityEntityTest extends TestCase
         $this->assertIsArray($intensity_ref01_list_result);
 
         // LOAD
-        $intensity_ref01_match_dt0 = [];
+        $intensity_ref01_match_dt0 = [
+            "id" => $intensity_ref01_data["id"],
+        ];
         $intensity_ref01_data_dt0_loaded = $intensity_ref01_ent->load($intensity_ref01_match_dt0, null);
-        $this->assertNotNull($intensity_ref01_data_dt0_loaded);
+        $intensity_ref01_data_dt0_load_result = Helpers::to_map(is_object($intensity_ref01_data_dt0_loaded) && method_exists($intensity_ref01_data_dt0_loaded, 'data_get') ? $intensity_ref01_data_dt0_loaded->data_get() : $intensity_ref01_data_dt0_loaded);
+        $this->assertNotNull($intensity_ref01_data_dt0_load_result);
+        $this->assertEquals($intensity_ref01_data_dt0_load_result["id"], $intensity_ref01_data["id"]);
 
     }
 }
