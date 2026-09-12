@@ -215,6 +215,7 @@ const generation = client.Generation()
 | `data` | `any[]` | No |  |
 | `from` | `string` | No |  |
 | `generationmix` | `any[]` | No |  |
+| `id` | `string` | No |  |
 | `to` | `string` | No |  |
 
 ### Operations
@@ -629,6 +630,7 @@ const regional_intensity_list = client.RegionalIntensityList()
 | --- | --- | --- | --- |
 | `data` | `any[]` | No |  |
 | `dnoregion` | `string` | No | Distribution Network Operator region |
+| `id` | `string` | No |  |
 | `postcode` | `string` | No | Outward postcode |
 | `regionid` | `number` | No | Region ID (1-17) |
 | `shortname` | `string` | No | Short region name |
@@ -690,6 +692,7 @@ const stat = client.Stat()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `data` | `any[]` | No |  |
+| `id` | `string` | No |  |
 
 ### Operations
 

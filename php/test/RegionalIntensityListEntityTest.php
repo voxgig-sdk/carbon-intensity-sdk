@@ -95,9 +95,13 @@ class RegionalIntensityListEntityTest extends TestCase
         $this->assertIsArray($regional_intensity_list_ref01_list_result);
 
         // LOAD
-        $regional_intensity_list_ref01_match_dt0 = [];
+        $regional_intensity_list_ref01_match_dt0 = [
+            "id" => $regional_intensity_list_ref01_data["id"],
+        ];
         $regional_intensity_list_ref01_data_dt0_loaded = $regional_intensity_list_ref01_ent->load($regional_intensity_list_ref01_match_dt0, null);
-        $this->assertNotNull($regional_intensity_list_ref01_data_dt0_loaded);
+        $regional_intensity_list_ref01_data_dt0_load_result = Helpers::to_map(is_object($regional_intensity_list_ref01_data_dt0_loaded) && method_exists($regional_intensity_list_ref01_data_dt0_loaded, 'data_get') ? $regional_intensity_list_ref01_data_dt0_loaded->data_get() : $regional_intensity_list_ref01_data_dt0_loaded);
+        $this->assertNotNull($regional_intensity_list_ref01_data_dt0_load_result);
+        $this->assertEquals($regional_intensity_list_ref01_data_dt0_load_result["id"], $regional_intensity_list_ref01_data["id"]);
 
     }
 }
@@ -141,9 +145,16 @@ function regional_intensity_list_basic_setup($extra)
 
     if ($env["CARBON_INTENSITY_TEST_LIVE"] === "TRUE") {
         $merged_opts = Vs::merge([
+            // FIRST, so the generated fields below win: sdk-test-control.json's
+            // test.client.options adds to the live client, it does not redirect it.
+            Runner::live_client_options(),
             [
             ],
-            $extra ?? [],
+            // ismap, not a plain "?? []" default: an empty PHP array is a
+            // LIST, and a non-map later entry REPLACES the accumulated map in
+            // merge - so the no-extras call discarded live_client_options()
+            // and the apikey/server map above it.
+            Vs::ismap($extra) ? $extra : new \stdClass(),
         ]);
         $client = new CarbonIntensitySDK(Helpers::to_map($merged_opts));
     }

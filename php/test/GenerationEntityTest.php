@@ -93,9 +93,13 @@ class GenerationEntityTest extends TestCase
         $this->assertIsArray($generation_ref01_list_result);
 
         // LOAD
-        $generation_ref01_match_dt0 = [];
+        $generation_ref01_match_dt0 = [
+            "id" => $generation_ref01_data["id"],
+        ];
         $generation_ref01_data_dt0_loaded = $generation_ref01_ent->load($generation_ref01_match_dt0, null);
-        $this->assertNotNull($generation_ref01_data_dt0_loaded);
+        $generation_ref01_data_dt0_load_result = Helpers::to_map(is_object($generation_ref01_data_dt0_loaded) && method_exists($generation_ref01_data_dt0_loaded, 'data_get') ? $generation_ref01_data_dt0_loaded->data_get() : $generation_ref01_data_dt0_loaded);
+        $this->assertNotNull($generation_ref01_data_dt0_load_result);
+        $this->assertEquals($generation_ref01_data_dt0_load_result["id"], $generation_ref01_data["id"]);
 
     }
 }
@@ -139,9 +143,16 @@ function generation_basic_setup($extra)
 
     if ($env["CARBON_INTENSITY_TEST_LIVE"] === "TRUE") {
         $merged_opts = Vs::merge([
+            // FIRST, so the generated fields below win: sdk-test-control.json's
+            // test.client.options adds to the live client, it does not redirect it.
+            Runner::live_client_options(),
             [
             ],
-            $extra ?? [],
+            // ismap, not a plain "?? []" default: an empty PHP array is a
+            // LIST, and a non-map later entry REPLACES the accumulated map in
+            // merge - so the no-extras call discarded live_client_options()
+            // and the apikey/server map above it.
+            Vs::ismap($extra) ? $extra : new \stdClass(),
         ]);
         $client = new CarbonIntensitySDK(Helpers::to_map($merged_opts));
     }

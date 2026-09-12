@@ -99,9 +99,13 @@ main: kit: entity: intensity_factor: {
         {
           method: "GET"
           orig: "/intensity/factors"
-          parts: [
-            "intensity"
-            "factors"
+          segments: [
+            {
+              lit: "intensity"
+            }
+            {
+              lit: "factors"
+            }
           ]
           transform: {
             req: "`reqdata`"

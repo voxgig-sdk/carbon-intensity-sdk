@@ -3,24 +3,24 @@
     "stat": {
       "STAT00": {
         "data": [],
+        "id": "STAT00",
         "block": "BLOCK01",
         "from": "FROM01",
-        "to": "TO01",
-        "id": "STAT00"
+        "to": "TO01"
       },
       "STAT01": {
         "data": [],
+        "id": "STAT01",
         "block": "BLOCK01",
         "from": "FROM01",
-        "to": "TO01",
-        "id": "STAT01"
+        "to": "TO01"
       },
       "STAT02": {
         "data": [],
+        "id": "STAT02",
         "block": "BLOCK01",
         "from": "FROM01",
-        "to": "TO01",
-        "id": "STAT02"
+        "to": "TO01"
       }
     }
   },

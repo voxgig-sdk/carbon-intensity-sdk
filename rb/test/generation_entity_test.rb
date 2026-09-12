@@ -83,9 +83,13 @@ class GenerationEntityTest < Minitest::Test
     assert generation_ref01_list_result.is_a?(Array)
 
     # LOAD
-    generation_ref01_match_dt0 = {}
+    generation_ref01_match_dt0 = {
+      "id" => generation_ref01_data["id"],
+    }
     generation_ref01_data_dt0_loaded = generation_ref01_ent.load(generation_ref01_match_dt0, nil)
-    assert !generation_ref01_data_dt0_loaded.nil?
+    generation_ref01_data_dt0_load_result = Helpers.to_map(generation_ref01_data_dt0_loaded.respond_to?(:data_get) ? generation_ref01_data_dt0_loaded.data_get : generation_ref01_data_dt0_loaded)
+    assert !generation_ref01_data_dt0_load_result.nil?
+    assert_equal generation_ref01_data_dt0_load_result["id"], generation_ref01_data["id"]
 
   end
 end
@@ -133,6 +137,9 @@ def generation_basic_setup(extra)
 
   if env["CARBON_INTENSITY_TEST_LIVE"] == "TRUE"
     merged_opts = Vs.merge([
+      # FIRST, so the generated fields below win: sdk-test-control.json's
+      # test.client.options adds to the live client, it does not redirect it.
+      Runner.live_client_options,
       {
       },
       extra || {},

@@ -44,8 +44,10 @@ main: kit: entity: regional: {
         {
           method: "GET"
           orig: "/regional"
-          parts: [
-            "regional"
+          segments: [
+            {
+              lit: "regional"
+            }
           ]
           transform: {
             req: "`reqdata`"

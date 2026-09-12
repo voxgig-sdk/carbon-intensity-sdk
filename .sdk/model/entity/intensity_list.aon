@@ -11,6 +11,7 @@ main: kit: entity: intensity_list: {
       type: "`$ARRAY`"
     }
     {
+      format: "date-time"
       name: "from"
       req: false
       short: "Start datetime of the period"
@@ -22,6 +23,7 @@ main: kit: entity: intensity_list: {
       type: "`$OBJECT`"
     }
     {
+      format: "date-time"
       name: "to"
       req: false
       short: "End datetime of the period"
@@ -48,10 +50,16 @@ main: kit: entity: intensity_list: {
           }
           method: "GET"
           orig: "/intensity/{from}/fw24h"
-          parts: [
-            "intensity"
-            "{from}"
-            "fw24h"
+          segments: [
+            {
+              lit: "intensity"
+            }
+            {
+              var: "from"
+            }
+            {
+              lit: "fw24h"
+            }
           ]
           select: {
             exist: [
@@ -77,10 +85,16 @@ main: kit: entity: intensity_list: {
           }
           method: "GET"
           orig: "/intensity/{from}/fw48h"
-          parts: [
-            "intensity"
-            "{from}"
-            "fw48h"
+          segments: [
+            {
+              lit: "intensity"
+            }
+            {
+              var: "from"
+            }
+            {
+              lit: "fw48h"
+            }
           ]
           select: {
             exist: [
@@ -106,10 +120,16 @@ main: kit: entity: intensity_list: {
           }
           method: "GET"
           orig: "/intensity/{from}/pt24h"
-          parts: [
-            "intensity"
-            "{from}"
-            "pt24h"
+          segments: [
+            {
+              lit: "intensity"
+            }
+            {
+              var: "from"
+            }
+            {
+              lit: "pt24h"
+            }
           ]
           select: {
             exist: [
@@ -124,9 +144,13 @@ main: kit: entity: intensity_list: {
         {
           method: "GET"
           orig: "/intensity/date"
-          parts: [
-            "intensity"
-            "date"
+          segments: [
+            {
+              lit: "intensity"
+            }
+            {
+              lit: "date"
+            }
           ]
           transform: {
             req: "`reqdata`"
@@ -152,10 +176,16 @@ main: kit: entity: intensity_list: {
           }
           method: "GET"
           orig: "/intensity/date/{date}"
-          parts: [
-            "intensity"
-            "date"
-            "{date}"
+          segments: [
+            {
+              lit: "intensity"
+            }
+            {
+              lit: "date"
+            }
+            {
+              var: "date"
+            }
           ]
           select: {
             exist: [

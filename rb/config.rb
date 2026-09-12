@@ -56,6 +56,7 @@ module CarbonIntensityConfig
               "type" => "`$ARRAY`",
             },
             {
+              "format" => "date-time",
               "name" => "from",
               "type" => "`$STRING`",
             },
@@ -64,10 +65,28 @@ module CarbonIntensityConfig
               "type" => "`$ARRAY`",
             },
             {
+              "name" => "id",
+              "type" => "`$STRING`",
+            },
+            {
+              "format" => "date-time",
               "name" => "to",
               "type" => "`$STRING`",
             },
           ],
+          "id" => {
+            "field" => "id",
+            "from" => {
+              "from" => "from",
+              "to" => "to",
+            },
+            "name" => "id",
+            "parts" => [
+              "from",
+              "to",
+            ],
+            "sep" => "/",
+          },
           "name" => "generation",
           "op" => {
             "list" => {
@@ -79,14 +98,19 @@ module CarbonIntensityConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/generation",
-                  "parts" => [
-                    "generation",
+                  "segments" => [
+                    {
+                      "lit" => "generation",
+                    },
                   ],
                   "select" => {},
                   "transform" => {
                     "req" => "`reqdata`",
                     "res" => "`body.data`",
                   },
+                  "parts" => [
+                    "generation",
+                  ],
                 },
               ],
             },
@@ -116,10 +140,16 @@ module CarbonIntensityConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/generation/{from}/{to}",
-                  "parts" => [
-                    "generation",
-                    "{from}",
-                    "{to}",
+                  "segments" => [
+                    {
+                      "lit" => "generation",
+                    },
+                    {
+                      "var" => "from",
+                    },
+                    {
+                      "var" => "to",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -131,6 +161,11 @@ module CarbonIntensityConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "generation",
+                    "{from}",
+                    "{to}",
+                  ],
                 },
               ],
             },
@@ -146,6 +181,7 @@ module CarbonIntensityConfig
         "generation_list" => {
           "fields" => [
             {
+              "format" => "date-time",
               "name" => "from",
               "type" => "`$STRING`",
             },
@@ -154,6 +190,7 @@ module CarbonIntensityConfig
               "type" => "`$ARRAY`",
             },
             {
+              "format" => "date-time",
               "name" => "to",
               "type" => "`$STRING`",
             },
@@ -179,10 +216,16 @@ module CarbonIntensityConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/generation/{from}/pt24h",
-                  "parts" => [
-                    "generation",
-                    "{from}",
-                    "pt24h",
+                  "segments" => [
+                    {
+                      "lit" => "generation",
+                    },
+                    {
+                      "var" => "from",
+                    },
+                    {
+                      "lit" => "pt24h",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -193,6 +236,11 @@ module CarbonIntensityConfig
                     "req" => "`reqdata`",
                     "res" => "`body.data`",
                   },
+                  "parts" => [
+                    "generation",
+                    "{from}",
+                    "pt24h",
+                  ],
                 },
               ],
             },
@@ -212,6 +260,7 @@ module CarbonIntensityConfig
               "type" => "`$ARRAY`",
             },
             {
+              "format" => "date-time",
               "name" => "from",
               "short" => "Start datetime of the period",
               "type" => "`$STRING`",
@@ -225,11 +274,16 @@ module CarbonIntensityConfig
               "type" => "`$OBJECT`",
             },
             {
+              "format" => "date-time",
               "name" => "to",
               "short" => "End datetime of the period",
               "type" => "`$STRING`",
             },
           ],
+          "id" => {
+            "field" => "id",
+            "name" => "id",
+          },
           "name" => "intensity",
           "op" => {
             "list" => {
@@ -241,14 +295,19 @@ module CarbonIntensityConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/intensity",
-                  "parts" => [
-                    "intensity",
+                  "segments" => [
+                    {
+                      "lit" => "intensity",
+                    },
                   ],
                   "select" => {},
                   "transform" => {
                     "req" => "`reqdata`",
                     "res" => "`body.data`",
                   },
+                  "parts" => [
+                    "intensity",
+                  ],
                 },
               ],
             },
@@ -278,11 +337,19 @@ module CarbonIntensityConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/intensity/date/{date}/{period}",
-                  "parts" => [
-                    "intensity",
-                    "date",
-                    "{date}",
-                    "{period}",
+                  "segments" => [
+                    {
+                      "lit" => "intensity",
+                    },
+                    {
+                      "lit" => "date",
+                    },
+                    {
+                      "var" => "date",
+                    },
+                    {
+                      "var" => "period",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -294,6 +361,12 @@ module CarbonIntensityConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "intensity",
+                    "date",
+                    "{date}",
+                    "{period}",
+                  ],
                 },
                 {
                   "args" => {
@@ -317,10 +390,16 @@ module CarbonIntensityConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/intensity/{from}/{to}",
-                  "parts" => [
-                    "intensity",
-                    "{from}",
-                    "{to}",
+                  "segments" => [
+                    {
+                      "lit" => "intensity",
+                    },
+                    {
+                      "var" => "from",
+                    },
+                    {
+                      "var" => "to",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -332,6 +411,11 @@ module CarbonIntensityConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "intensity",
+                    "{from}",
+                    "{to}",
+                  ],
                 },
                 {
                   "args" => {
@@ -348,15 +432,19 @@ module CarbonIntensityConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/intensity/{from}",
-                  "parts" => [
-                    "intensity",
-                    "{id}",
-                  ],
                   "rename" => {
                     "param" => {
                       "from" => "id",
                     },
                   },
+                  "segments" => [
+                    {
+                      "lit" => "intensity",
+                    },
+                    {
+                      "var" => "id",
+                    },
+                  ],
                   "select" => {
                     "exist" => [
                       "id",
@@ -366,6 +454,10 @@ module CarbonIntensityConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "intensity",
+                    "{id}",
+                  ],
                 },
               ],
             },
@@ -465,15 +557,23 @@ module CarbonIntensityConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/intensity/factors",
-                  "parts" => [
-                    "intensity",
-                    "factors",
+                  "segments" => [
+                    {
+                      "lit" => "intensity",
+                    },
+                    {
+                      "lit" => "factors",
+                    },
                   ],
                   "select" => {},
                   "transform" => {
                     "req" => "`reqdata`",
                     "res" => "`body.data`",
                   },
+                  "parts" => [
+                    "intensity",
+                    "factors",
+                  ],
                 },
               ],
             },
@@ -489,6 +589,7 @@ module CarbonIntensityConfig
               "type" => "`$ARRAY`",
             },
             {
+              "format" => "date-time",
               "name" => "from",
               "short" => "Start datetime of the period",
               "type" => "`$STRING`",
@@ -498,6 +599,7 @@ module CarbonIntensityConfig
               "type" => "`$OBJECT`",
             },
             {
+              "format" => "date-time",
               "name" => "to",
               "short" => "End datetime of the period",
               "type" => "`$STRING`",
@@ -524,10 +626,16 @@ module CarbonIntensityConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/intensity/{from}/fw24h",
-                  "parts" => [
-                    "intensity",
-                    "{from}",
-                    "fw24h",
+                  "segments" => [
+                    {
+                      "lit" => "intensity",
+                    },
+                    {
+                      "var" => "from",
+                    },
+                    {
+                      "lit" => "fw24h",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -538,6 +646,11 @@ module CarbonIntensityConfig
                     "req" => "`reqdata`",
                     "res" => "`body.data`",
                   },
+                  "parts" => [
+                    "intensity",
+                    "{from}",
+                    "fw24h",
+                  ],
                 },
                 {
                   "args" => {
@@ -554,10 +667,16 @@ module CarbonIntensityConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/intensity/{from}/fw48h",
-                  "parts" => [
-                    "intensity",
-                    "{from}",
-                    "fw48h",
+                  "segments" => [
+                    {
+                      "lit" => "intensity",
+                    },
+                    {
+                      "var" => "from",
+                    },
+                    {
+                      "lit" => "fw48h",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -568,6 +687,11 @@ module CarbonIntensityConfig
                     "req" => "`reqdata`",
                     "res" => "`body.data`",
                   },
+                  "parts" => [
+                    "intensity",
+                    "{from}",
+                    "fw48h",
+                  ],
                 },
                 {
                   "args" => {
@@ -584,10 +708,16 @@ module CarbonIntensityConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/intensity/{from}/pt24h",
-                  "parts" => [
-                    "intensity",
-                    "{from}",
-                    "pt24h",
+                  "segments" => [
+                    {
+                      "lit" => "intensity",
+                    },
+                    {
+                      "var" => "from",
+                    },
+                    {
+                      "lit" => "pt24h",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -598,21 +728,34 @@ module CarbonIntensityConfig
                     "req" => "`reqdata`",
                     "res" => "`body.data`",
                   },
+                  "parts" => [
+                    "intensity",
+                    "{from}",
+                    "pt24h",
+                  ],
                 },
                 {
                   "args" => {},
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/intensity/date",
-                  "parts" => [
-                    "intensity",
-                    "date",
+                  "segments" => [
+                    {
+                      "lit" => "intensity",
+                    },
+                    {
+                      "lit" => "date",
+                    },
                   ],
                   "select" => {},
                   "transform" => {
                     "req" => "`reqdata`",
                     "res" => "`body.data`",
                   },
+                  "parts" => [
+                    "intensity",
+                    "date",
+                  ],
                 },
               ],
             },
@@ -635,10 +778,16 @@ module CarbonIntensityConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/intensity/date/{date}",
-                  "parts" => [
-                    "intensity",
-                    "date",
-                    "{date}",
+                  "segments" => [
+                    {
+                      "lit" => "intensity",
+                    },
+                    {
+                      "lit" => "date",
+                    },
+                    {
+                      "var" => "date",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -649,6 +798,11 @@ module CarbonIntensityConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "intensity",
+                    "date",
+                    "{date}",
+                  ],
                 },
               ],
             },
@@ -702,14 +856,19 @@ module CarbonIntensityConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/regional",
-                  "parts" => [
-                    "regional",
+                  "segments" => [
+                    {
+                      "lit" => "regional",
+                    },
                   ],
                   "select" => {},
                   "transform" => {
                     "req" => "`reqdata`",
                     "res" => "`body.data`",
                   },
+                  "parts" => [
+                    "regional",
+                  ],
                 },
               ],
             },
@@ -756,45 +915,69 @@ module CarbonIntensityConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/regional/england",
-                  "parts" => [
-                    "regional",
-                    "england",
+                  "segments" => [
+                    {
+                      "lit" => "regional",
+                    },
+                    {
+                      "lit" => "england",
+                    },
                   ],
                   "select" => {},
                   "transform" => {
                     "req" => "`reqdata`",
                     "res" => "`body.data`",
                   },
+                  "parts" => [
+                    "regional",
+                    "england",
+                  ],
                 },
                 {
                   "args" => {},
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/regional/scotland",
-                  "parts" => [
-                    "regional",
-                    "scotland",
+                  "segments" => [
+                    {
+                      "lit" => "regional",
+                    },
+                    {
+                      "lit" => "scotland",
+                    },
                   ],
                   "select" => {},
                   "transform" => {
                     "req" => "`reqdata`",
                     "res" => "`body.data`",
                   },
+                  "parts" => [
+                    "regional",
+                    "scotland",
+                  ],
                 },
                 {
                   "args" => {},
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/regional/wales",
-                  "parts" => [
-                    "regional",
-                    "wales",
+                  "segments" => [
+                    {
+                      "lit" => "regional",
+                    },
+                    {
+                      "lit" => "wales",
+                    },
                   ],
                   "select" => {},
                   "transform" => {
                     "req" => "`reqdata`",
                     "res" => "`body.data`",
                   },
+                  "parts" => [
+                    "regional",
+                    "wales",
+                  ],
                 },
               ],
             },
@@ -817,10 +1000,16 @@ module CarbonIntensityConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/regional/postcode/{postcode}",
-                  "parts" => [
-                    "regional",
-                    "postcode",
-                    "{postcode}",
+                  "segments" => [
+                    {
+                      "lit" => "regional",
+                    },
+                    {
+                      "lit" => "postcode",
+                    },
+                    {
+                      "var" => "postcode",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -831,6 +1020,11 @@ module CarbonIntensityConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "regional",
+                    "postcode",
+                    "{postcode}",
+                  ],
                 },
                 {
                   "args" => {
@@ -847,10 +1041,16 @@ module CarbonIntensityConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/regional/regionid/{regionid}",
-                  "parts" => [
-                    "regional",
-                    "regionid",
-                    "{regionid}",
+                  "segments" => [
+                    {
+                      "lit" => "regional",
+                    },
+                    {
+                      "lit" => "regionid",
+                    },
+                    {
+                      "var" => "regionid",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -861,6 +1061,11 @@ module CarbonIntensityConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "regional",
+                    "regionid",
+                    "{regionid}",
+                  ],
                 },
               ],
             },
@@ -888,6 +1093,10 @@ module CarbonIntensityConfig
               "type" => "`$STRING`",
             },
             {
+              "name" => "id",
+              "type" => "`$STRING`",
+            },
+            {
               "name" => "postcode",
               "short" => "Outward postcode",
               "type" => "`$STRING`",
@@ -903,6 +1112,15 @@ module CarbonIntensityConfig
               "type" => "`$STRING`",
             },
           ],
+          "id" => {
+            "field" => "id",
+            "name" => "id",
+            "parts" => [
+              "from",
+              "to",
+            ],
+            "sep" => "/",
+          },
           "name" => "regional_intensity_list",
           "op" => {
             "list" => {
@@ -924,11 +1142,19 @@ module CarbonIntensityConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/regional/intensity/{from}/fw24h",
-                  "parts" => [
-                    "regional",
-                    "intensity",
-                    "{from}",
-                    "fw24h",
+                  "segments" => [
+                    {
+                      "lit" => "regional",
+                    },
+                    {
+                      "lit" => "intensity",
+                    },
+                    {
+                      "var" => "from",
+                    },
+                    {
+                      "lit" => "fw24h",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -939,6 +1165,12 @@ module CarbonIntensityConfig
                     "req" => "`reqdata`",
                     "res" => "`body.data`",
                   },
+                  "parts" => [
+                    "regional",
+                    "intensity",
+                    "{from}",
+                    "fw24h",
+                  ],
                 },
                 {
                   "args" => {
@@ -955,11 +1187,19 @@ module CarbonIntensityConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/regional/intensity/{from}/fw48h",
-                  "parts" => [
-                    "regional",
-                    "intensity",
-                    "{from}",
-                    "fw48h",
+                  "segments" => [
+                    {
+                      "lit" => "regional",
+                    },
+                    {
+                      "lit" => "intensity",
+                    },
+                    {
+                      "var" => "from",
+                    },
+                    {
+                      "lit" => "fw48h",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -970,6 +1210,12 @@ module CarbonIntensityConfig
                     "req" => "`reqdata`",
                     "res" => "`body.data`",
                   },
+                  "parts" => [
+                    "regional",
+                    "intensity",
+                    "{from}",
+                    "fw48h",
+                  ],
                 },
                 {
                   "args" => {
@@ -986,11 +1232,19 @@ module CarbonIntensityConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/regional/intensity/{from}/pt24h",
-                  "parts" => [
-                    "regional",
-                    "intensity",
-                    "{from}",
-                    "pt24h",
+                  "segments" => [
+                    {
+                      "lit" => "regional",
+                    },
+                    {
+                      "lit" => "intensity",
+                    },
+                    {
+                      "var" => "from",
+                    },
+                    {
+                      "lit" => "pt24h",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -1001,6 +1255,12 @@ module CarbonIntensityConfig
                     "req" => "`reqdata`",
                     "res" => "`body.data`",
                   },
+                  "parts" => [
+                    "regional",
+                    "intensity",
+                    "{from}",
+                    "pt24h",
+                  ],
                 },
               ],
             },
@@ -1037,19 +1297,31 @@ module CarbonIntensityConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/regional/intensity/{from}/{to}/postcode/{postcode}",
-                  "parts" => [
-                    "regional",
-                    "intensity",
-                    "{intensity_id}",
-                    "{to}",
-                    "postcode",
-                    "{postcode}",
-                  ],
                   "rename" => {
                     "param" => {
                       "from" => "intensity_id",
                     },
                   },
+                  "segments" => [
+                    {
+                      "lit" => "regional",
+                    },
+                    {
+                      "lit" => "intensity",
+                    },
+                    {
+                      "var" => "intensity_id",
+                    },
+                    {
+                      "var" => "to",
+                    },
+                    {
+                      "lit" => "postcode",
+                    },
+                    {
+                      "var" => "postcode",
+                    },
+                  ],
                   "select" => {
                     "exist" => [
                       "intensity_id",
@@ -1061,6 +1333,14 @@ module CarbonIntensityConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "regional",
+                    "intensity",
+                    "{intensity_id}",
+                    "{to}",
+                    "postcode",
+                    "{postcode}",
+                  ],
                 },
                 {
                   "args" => {
@@ -1091,19 +1371,31 @@ module CarbonIntensityConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/regional/intensity/{from}/{to}/regionid/{regionid}",
-                  "parts" => [
-                    "regional",
-                    "intensity",
-                    "{intensity_id}",
-                    "{to}",
-                    "regionid",
-                    "{regionid}",
-                  ],
                   "rename" => {
                     "param" => {
                       "from" => "intensity_id",
                     },
                   },
+                  "segments" => [
+                    {
+                      "lit" => "regional",
+                    },
+                    {
+                      "lit" => "intensity",
+                    },
+                    {
+                      "var" => "intensity_id",
+                    },
+                    {
+                      "var" => "to",
+                    },
+                    {
+                      "lit" => "regionid",
+                    },
+                    {
+                      "var" => "regionid",
+                    },
+                  ],
                   "select" => {
                     "exist" => [
                       "intensity_id",
@@ -1115,6 +1407,14 @@ module CarbonIntensityConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "regional",
+                    "intensity",
+                    "{intensity_id}",
+                    "{to}",
+                    "regionid",
+                    "{regionid}",
+                  ],
                 },
                 {
                   "args" => {
@@ -1138,11 +1438,19 @@ module CarbonIntensityConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/regional/intensity/{from}/{to}",
-                  "parts" => [
-                    "regional",
-                    "intensity",
-                    "{from}",
-                    "{to}",
+                  "segments" => [
+                    {
+                      "lit" => "regional",
+                    },
+                    {
+                      "lit" => "intensity",
+                    },
+                    {
+                      "var" => "from",
+                    },
+                    {
+                      "var" => "to",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -1154,6 +1462,12 @@ module CarbonIntensityConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "regional",
+                    "intensity",
+                    "{from}",
+                    "{to}",
+                  ],
                 },
                 {
                   "args" => {
@@ -1177,19 +1491,31 @@ module CarbonIntensityConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/regional/intensity/{from}/fw24h/postcode/{postcode}",
-                  "parts" => [
-                    "regional",
-                    "intensity",
-                    "{intensity_id}",
-                    "fw24h",
-                    "postcode",
-                    "{postcode}",
-                  ],
                   "rename" => {
                     "param" => {
                       "from" => "intensity_id",
                     },
                   },
+                  "segments" => [
+                    {
+                      "lit" => "regional",
+                    },
+                    {
+                      "lit" => "intensity",
+                    },
+                    {
+                      "var" => "intensity_id",
+                    },
+                    {
+                      "lit" => "fw24h",
+                    },
+                    {
+                      "lit" => "postcode",
+                    },
+                    {
+                      "var" => "postcode",
+                    },
+                  ],
                   "select" => {
                     "exist" => [
                       "intensity_id",
@@ -1200,6 +1526,14 @@ module CarbonIntensityConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "regional",
+                    "intensity",
+                    "{intensity_id}",
+                    "fw24h",
+                    "postcode",
+                    "{postcode}",
+                  ],
                 },
                 {
                   "args" => {
@@ -1223,19 +1557,31 @@ module CarbonIntensityConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/regional/intensity/{from}/fw48h/postcode/{postcode}",
-                  "parts" => [
-                    "regional",
-                    "intensity",
-                    "{intensity_id}",
-                    "fw48h",
-                    "postcode",
-                    "{postcode}",
-                  ],
                   "rename" => {
                     "param" => {
                       "from" => "intensity_id",
                     },
                   },
+                  "segments" => [
+                    {
+                      "lit" => "regional",
+                    },
+                    {
+                      "lit" => "intensity",
+                    },
+                    {
+                      "var" => "intensity_id",
+                    },
+                    {
+                      "lit" => "fw48h",
+                    },
+                    {
+                      "lit" => "postcode",
+                    },
+                    {
+                      "var" => "postcode",
+                    },
+                  ],
                   "select" => {
                     "exist" => [
                       "intensity_id",
@@ -1246,6 +1592,14 @@ module CarbonIntensityConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "regional",
+                    "intensity",
+                    "{intensity_id}",
+                    "fw48h",
+                    "postcode",
+                    "{postcode}",
+                  ],
                 },
                 {
                   "args" => {
@@ -1269,19 +1623,31 @@ module CarbonIntensityConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/regional/intensity/{from}/pt24h/postcode/{postcode}",
-                  "parts" => [
-                    "regional",
-                    "intensity",
-                    "{intensity_id}",
-                    "pt24h",
-                    "postcode",
-                    "{postcode}",
-                  ],
                   "rename" => {
                     "param" => {
                       "from" => "intensity_id",
                     },
                   },
+                  "segments" => [
+                    {
+                      "lit" => "regional",
+                    },
+                    {
+                      "lit" => "intensity",
+                    },
+                    {
+                      "var" => "intensity_id",
+                    },
+                    {
+                      "lit" => "pt24h",
+                    },
+                    {
+                      "lit" => "postcode",
+                    },
+                    {
+                      "var" => "postcode",
+                    },
+                  ],
                   "select" => {
                     "exist" => [
                       "intensity_id",
@@ -1292,6 +1658,14 @@ module CarbonIntensityConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "regional",
+                    "intensity",
+                    "{intensity_id}",
+                    "pt24h",
+                    "postcode",
+                    "{postcode}",
+                  ],
                 },
                 {
                   "args" => {
@@ -1315,19 +1689,31 @@ module CarbonIntensityConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/regional/intensity/{from}/fw24h/regionid/{regionid}",
-                  "parts" => [
-                    "regional",
-                    "intensity",
-                    "{intensity_id}",
-                    "fw24h",
-                    "regionid",
-                    "{regionid}",
-                  ],
                   "rename" => {
                     "param" => {
                       "from" => "intensity_id",
                     },
                   },
+                  "segments" => [
+                    {
+                      "lit" => "regional",
+                    },
+                    {
+                      "lit" => "intensity",
+                    },
+                    {
+                      "var" => "intensity_id",
+                    },
+                    {
+                      "lit" => "fw24h",
+                    },
+                    {
+                      "lit" => "regionid",
+                    },
+                    {
+                      "var" => "regionid",
+                    },
+                  ],
                   "select" => {
                     "exist" => [
                       "intensity_id",
@@ -1338,6 +1724,14 @@ module CarbonIntensityConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "regional",
+                    "intensity",
+                    "{intensity_id}",
+                    "fw24h",
+                    "regionid",
+                    "{regionid}",
+                  ],
                 },
                 {
                   "args" => {
@@ -1361,19 +1755,31 @@ module CarbonIntensityConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/regional/intensity/{from}/fw48h/regionid/{regionid}",
-                  "parts" => [
-                    "regional",
-                    "intensity",
-                    "{intensity_id}",
-                    "fw48h",
-                    "regionid",
-                    "{regionid}",
-                  ],
                   "rename" => {
                     "param" => {
                       "from" => "intensity_id",
                     },
                   },
+                  "segments" => [
+                    {
+                      "lit" => "regional",
+                    },
+                    {
+                      "lit" => "intensity",
+                    },
+                    {
+                      "var" => "intensity_id",
+                    },
+                    {
+                      "lit" => "fw48h",
+                    },
+                    {
+                      "lit" => "regionid",
+                    },
+                    {
+                      "var" => "regionid",
+                    },
+                  ],
                   "select" => {
                     "exist" => [
                       "intensity_id",
@@ -1384,6 +1790,14 @@ module CarbonIntensityConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "regional",
+                    "intensity",
+                    "{intensity_id}",
+                    "fw48h",
+                    "regionid",
+                    "{regionid}",
+                  ],
                 },
                 {
                   "args" => {
@@ -1407,19 +1821,31 @@ module CarbonIntensityConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/regional/intensity/{from}/pt24h/regionid/{regionid}",
-                  "parts" => [
-                    "regional",
-                    "intensity",
-                    "{intensity_id}",
-                    "pt24h",
-                    "regionid",
-                    "{regionid}",
-                  ],
                   "rename" => {
                     "param" => {
                       "from" => "intensity_id",
                     },
                   },
+                  "segments" => [
+                    {
+                      "lit" => "regional",
+                    },
+                    {
+                      "lit" => "intensity",
+                    },
+                    {
+                      "var" => "intensity_id",
+                    },
+                    {
+                      "lit" => "pt24h",
+                    },
+                    {
+                      "lit" => "regionid",
+                    },
+                    {
+                      "var" => "regionid",
+                    },
+                  ],
                   "select" => {
                     "exist" => [
                       "intensity_id",
@@ -1430,6 +1856,14 @@ module CarbonIntensityConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "regional",
+                    "intensity",
+                    "{intensity_id}",
+                    "pt24h",
+                    "regionid",
+                    "{regionid}",
+                  ],
                 },
               ],
             },
@@ -1456,7 +1890,21 @@ module CarbonIntensityConfig
               "name" => "data",
               "type" => "`$ARRAY`",
             },
+            {
+              "name" => "id",
+              "type" => "`$STRING`",
+            },
           ],
+          "id" => {
+            "field" => "id",
+            "name" => "id",
+            "parts" => [
+              "from",
+              "to",
+              "block",
+            ],
+            "sep" => "/",
+          },
           "name" => "stat",
           "op" => {
             "load" => {
@@ -1492,12 +1940,22 @@ module CarbonIntensityConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/intensity/stats/{from}/{to}/{block}",
-                  "parts" => [
-                    "intensity",
-                    "stats",
-                    "{from}",
-                    "{to}",
-                    "{block}",
+                  "segments" => [
+                    {
+                      "lit" => "intensity",
+                    },
+                    {
+                      "lit" => "stats",
+                    },
+                    {
+                      "var" => "from",
+                    },
+                    {
+                      "var" => "to",
+                    },
+                    {
+                      "var" => "block",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -1510,6 +1968,13 @@ module CarbonIntensityConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "intensity",
+                    "stats",
+                    "{from}",
+                    "{to}",
+                    "{block}",
+                  ],
                 },
                 {
                   "args" => {
@@ -1533,11 +1998,19 @@ module CarbonIntensityConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/intensity/stats/{from}/{to}",
-                  "parts" => [
-                    "intensity",
-                    "stats",
-                    "{from}",
-                    "{to}",
+                  "segments" => [
+                    {
+                      "lit" => "intensity",
+                    },
+                    {
+                      "lit" => "stats",
+                    },
+                    {
+                      "var" => "from",
+                    },
+                    {
+                      "var" => "to",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -1549,6 +2022,12 @@ module CarbonIntensityConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "intensity",
+                    "stats",
+                    "{from}",
+                    "{to}",
+                  ],
                 },
               ],
             },

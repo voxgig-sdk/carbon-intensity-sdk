@@ -268,6 +268,7 @@ On error, `ok` is `False` and `err` contains the error value.
 | `data` |  |
 | `from` |  |
 | `generationmix` |  |
+| `id` |  |
 | `to` |  |
 
 Operations: List, Load.
@@ -370,6 +371,7 @@ API path: `/regional/england`
 | --- | --- |
 | `data` |  |
 | `dnoregion` | Distribution Network Operator region |
+| `id` |  |
 | `postcode` | Outward postcode |
 | `regionid` | Region ID (1-17) |
 | `shortname` | Short region name |
@@ -383,6 +385,7 @@ API path: `/regional/intensity/{from}/fw24h`
 | Field | Description |
 | --- | --- |
 | `data` |  |
+| `id` |  |
 
 Operations: Load.
 
@@ -411,6 +414,7 @@ Create an instance: `generation = client.Generation()`
 | `data` | `list` |  |
 | `from` | `str` |  |
 | `generationmix` | `list` |  |
+| `id` | `str` |  |
 | `to` | `str` |  |
 
 #### Example: Load
@@ -632,6 +636,7 @@ Create an instance: `regional_intensity_list = client.RegionalIntensityList()`
 | --- | --- | --- |
 | `data` | `list` |  |
 | `dnoregion` | `str` | Distribution Network Operator region |
+| `id` | `str` |  |
 | `postcode` | `str` | Outward postcode |
 | `regionid` | `int` | Region ID (1-17) |
 | `shortname` | `str` | Short region name |
@@ -664,6 +669,7 @@ Create an instance: `stat = client.Stat()`
 | Field | Type | Description |
 | --- | --- | --- |
 | `data` | `list` |  |
+| `id` | `str` |  |
 
 #### Example: Load
 

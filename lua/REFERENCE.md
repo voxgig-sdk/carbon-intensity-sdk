@@ -125,6 +125,7 @@ local generation = client:Generation(nil)
 | `data` | `table` | No |  |
 | `from` | `string` | No |  |
 | `generationmix` | `table` | No |  |
+| `id` | `string` | No |  |
 | `to` | `string` | No |  |
 
 ### Operations
@@ -553,6 +554,7 @@ local regional_intensity_list = client:RegionalIntensityList(nil)
 | --- | --- | --- | --- |
 | `data` | `table` | No |  |
 | `dnoregion` | `string` | No | Distribution Network Operator region |
+| `id` | `string` | No |  |
 | `postcode` | `string` | No | Outward postcode |
 | `regionid` | `number` | No | Region ID (1-17) |
 | `shortname` | `string` | No | Short region name |
@@ -616,6 +618,7 @@ local stat = client:Stat(nil)
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `data` | `table` | No |  |
+| `id` | `string` | No |  |
 
 ### Operations
 

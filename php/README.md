@@ -38,7 +38,7 @@ try {
     // list() returns an array of Generation records — iterate directly.
     $generations = $client->Generation()->list();
     foreach ($generations as $item) {
-        echo $item["data"] . "\n";
+        echo $item["id"] . " " . $item["data"] . "\n";
     }
 } catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
@@ -273,6 +273,7 @@ On error, `ok` is `false` and `$err` contains the error value.
 | `data` |  |
 | `from` |  |
 | `generationmix` |  |
+| `id` |  |
 | `to` |  |
 
 Operations: List, Load.
@@ -375,6 +376,7 @@ API path: `/regional/england`
 | --- | --- |
 | `data` |  |
 | `dnoregion` | Distribution Network Operator region |
+| `id` |  |
 | `postcode` | Outward postcode |
 | `regionid` | Region ID (1-17) |
 | `shortname` | Short region name |
@@ -388,6 +390,7 @@ API path: `/regional/intensity/{from}/fw24h`
 | Field | Description |
 | --- | --- |
 | `data` |  |
+| `id` |  |
 
 Operations: Load.
 
@@ -416,6 +419,7 @@ Create an instance: `$generation = $client->Generation();`
 | `data` | `array` |  |
 | `from` | `string` |  |
 | `generationmix` | `array` |  |
+| `id` | `string` |  |
 | `to` | `string` |  |
 
 #### Example: Load
@@ -648,6 +652,7 @@ Create an instance: `$regional_intensity_list = $client->RegionalIntensityList()
 | --- | --- | --- |
 | `data` | `array` |  |
 | `dnoregion` | `string` | Distribution Network Operator region |
+| `id` | `string` |  |
 | `postcode` | `string` | Outward postcode |
 | `regionid` | `int` | Region ID (1-17) |
 | `shortname` | `string` | Short region name |
@@ -682,6 +687,7 @@ Create an instance: `$stat = $client->Stat();`
 | Field | Type | Description |
 | --- | --- | --- |
 | `data` | `array` |  |
+| `id` | `string` |  |
 
 #### Example: Load
 

@@ -37,7 +37,7 @@ begin
   # list returns an Array of Generation records — iterate directly.
   generations = client.Generation.list
   generations.each do |item|
-    puts "#{item["data"]}"
+    puts "#{item["id"]} #{item["data"]}"
   end
 rescue => err
   warn "list failed: #{err}"
@@ -263,6 +263,7 @@ returns a result `Hash` with these keys:
 | `data` |  |
 | `from` |  |
 | `generationmix` |  |
+| `id` |  |
 | `to` |  |
 
 Operations: List, Load.
@@ -365,6 +366,7 @@ API path: `/regional/england`
 | --- | --- |
 | `data` |  |
 | `dnoregion` | Distribution Network Operator region |
+| `id` |  |
 | `postcode` | Outward postcode |
 | `regionid` | Region ID (1-17) |
 | `shortname` | Short region name |
@@ -378,6 +380,7 @@ API path: `/regional/intensity/{from}/fw24h`
 | Field | Description |
 | --- | --- |
 | `data` |  |
+| `id` |  |
 
 Operations: Load.
 
@@ -406,6 +409,7 @@ Create an instance: `generation = client.Generation`
 | `data` | `Array` |  |
 | `from` | `String` |  |
 | `generationmix` | `Array` |  |
+| `id` | `String` |  |
 | `to` | `String` |  |
 
 #### Example: Load
@@ -638,6 +642,7 @@ Create an instance: `regional_intensity_list = client.RegionalIntensityList`
 | --- | --- | --- |
 | `data` | `Array` |  |
 | `dnoregion` | `String` | Distribution Network Operator region |
+| `id` | `String` |  |
 | `postcode` | `String` | Outward postcode |
 | `regionid` | `Integer` | Region ID (1-17) |
 | `shortname` | `String` | Short region name |
@@ -672,6 +677,7 @@ Create an instance: `stat = client.Stat`
 | Field | Type | Description |
 | --- | --- | --- |
 | `data` | `Array` |  |
+| `id` | `String` |  |
 
 #### Example: Load
 

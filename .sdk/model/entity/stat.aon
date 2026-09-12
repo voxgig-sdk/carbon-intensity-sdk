@@ -10,7 +10,23 @@ main: kit: entity: stat: {
       req: false
       type: "`$ARRAY`"
     }
+    {
+      name: "id"
+      req: false
+      type: "`$STRING`"
+    }
   ]
+
+  id: {
+    field: "id"
+    name: "id"
+    parts: [
+      "from"
+      "to"
+      "block"
+    ]
+    sep: "/"
+  }
 
   name: "stat"
   op: {
@@ -45,12 +61,22 @@ main: kit: entity: stat: {
           }
           method: "GET"
           orig: "/intensity/stats/{from}/{to}/{block}"
-          parts: [
-            "intensity"
-            "stats"
-            "{from}"
-            "{to}"
-            "{block}"
+          segments: [
+            {
+              lit: "intensity"
+            }
+            {
+              lit: "stats"
+            }
+            {
+              var: "from"
+            }
+            {
+              var: "to"
+            }
+            {
+              var: "block"
+            }
           ]
           select: {
             exist: [
@@ -85,11 +111,19 @@ main: kit: entity: stat: {
           }
           method: "GET"
           orig: "/intensity/stats/{from}/{to}"
-          parts: [
-            "intensity"
-            "stats"
-            "{from}"
-            "{to}"
+          segments: [
+            {
+              lit: "intensity"
+            }
+            {
+              lit: "stats"
+            }
+            {
+              var: "from"
+            }
+            {
+              var: "to"
+            }
           ]
           select: {
             exist: [

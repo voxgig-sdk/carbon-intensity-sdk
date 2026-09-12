@@ -3,24 +3,24 @@
     "generation": {
       "GENERATION00": {
         "data": [],
-        "from": "s29",
+        "from": "s33",
         "generationmix": [],
-        "to": "s2b",
-        "id": "GENERATION00"
+        "id": "GENERATION00",
+        "to": "s36"
       },
       "GENERATION01": {
         "data": [],
-        "from": "s51",
+        "from": "s65",
         "generationmix": [],
-        "to": "s53",
-        "id": "GENERATION01"
+        "id": "GENERATION01",
+        "to": "s68"
       },
       "GENERATION02": {
         "data": [],
-        "from": "s79",
+        "from": "s97",
         "generationmix": [],
-        "to": "s7b",
-        "id": "GENERATION02"
+        "id": "GENERATION02",
+        "to": "s9a"
       }
     }
   },
@@ -28,9 +28,9 @@
     "generation": {
       "generation_ref01": {
         "data": [],
-        "from": "sa1",
+        "from": "sc9",
         "generationmix": [],
-        "to": "sa3"
+        "to": "scc"
       }
     }
   }

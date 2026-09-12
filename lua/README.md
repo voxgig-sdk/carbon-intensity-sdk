@@ -43,7 +43,7 @@ local generations, err = client:Generation():list()
 if err then error(err) end
 
 for _, item in ipairs(generations) do
-  print(item["from"])
+  print(item["id"], item["from"])
 end
 ```
 
@@ -254,6 +254,7 @@ Only `direct()` returns a response envelope — a `table` with `ok`,
 | `data` |  |
 | `from` |  |
 | `generationmix` |  |
+| `id` |  |
 | `to` |  |
 
 Operations: List, Load.
@@ -356,6 +357,7 @@ API path: `/regional/england`
 | --- | --- |
 | `data` |  |
 | `dnoregion` | Distribution Network Operator region |
+| `id` |  |
 | `postcode` | Outward postcode |
 | `regionid` | Region ID (1-17) |
 | `shortname` | Short region name |
@@ -369,6 +371,7 @@ API path: `/regional/intensity/{from}/fw24h`
 | Field | Description |
 | --- | --- |
 | `data` |  |
+| `id` |  |
 
 Operations: Load.
 
@@ -397,6 +400,7 @@ Create an instance: `local generation = client:Generation(nil)`
 | `data` | `table` |  |
 | `from` | `string` |  |
 | `generationmix` | `table` |  |
+| `id` | `string` |  |
 | `to` | `string` |  |
 
 #### Example: Load
@@ -618,6 +622,7 @@ Create an instance: `local regional_intensity_list = client:RegionalIntensityLis
 | --- | --- | --- |
 | `data` | `table` |  |
 | `dnoregion` | `string` | Distribution Network Operator region |
+| `id` | `string` |  |
 | `postcode` | `string` | Outward postcode |
 | `regionid` | `number` | Region ID (1-17) |
 | `shortname` | `string` | Short region name |
@@ -650,6 +655,7 @@ Create an instance: `local stat = client:Stat(nil)`
 | Field | Type | Description |
 | --- | --- | --- |
 | `data` | `table` |  |
+| `id` | `string` |  |
 
 #### Example: Load
 

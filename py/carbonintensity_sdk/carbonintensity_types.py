@@ -19,6 +19,7 @@ from typing import TypedDict, Any
 class Generation(TypedDict, total=False):
     data: list
     generationmix: list
+    id: str
     to: str
 
 
@@ -29,6 +30,7 @@ class GenerationLoadMatch(TypedDict):
 class GenerationListMatch(TypedDict, total=False):
     data: list
     generationmix: list
+    id: str
     to: str
 
 
@@ -148,6 +150,7 @@ class RegionalIntensityListMatch(TypedDict, total=False):
 class RegionalIntensityList(TypedDict, total=False):
     data: list
     dnoregion: str
+    id: str
     postcode: str
     regionid: int
     shortname: str
@@ -163,6 +166,7 @@ class RegionalIntensityListListMatch(TypedDict):
 
 class Stat(TypedDict, total=False):
     data: list
+    id: str
 
 
 class StatLoadMatchRequired(TypedDict):

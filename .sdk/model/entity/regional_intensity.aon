@@ -44,9 +44,13 @@ main: kit: entity: regional_intensity: {
         {
           method: "GET"
           orig: "/regional/england"
-          parts: [
-            "regional"
-            "england"
+          segments: [
+            {
+              lit: "regional"
+            }
+            {
+              lit: "england"
+            }
           ]
           transform: {
             req: "`reqdata`"
@@ -56,9 +60,13 @@ main: kit: entity: regional_intensity: {
         {
           method: "GET"
           orig: "/regional/scotland"
-          parts: [
-            "regional"
-            "scotland"
+          segments: [
+            {
+              lit: "regional"
+            }
+            {
+              lit: "scotland"
+            }
           ]
           transform: {
             req: "`reqdata`"
@@ -68,9 +76,13 @@ main: kit: entity: regional_intensity: {
         {
           method: "GET"
           orig: "/regional/wales"
-          parts: [
-            "regional"
-            "wales"
+          segments: [
+            {
+              lit: "regional"
+            }
+            {
+              lit: "wales"
+            }
           ]
           transform: {
             req: "`reqdata`"
@@ -96,10 +108,16 @@ main: kit: entity: regional_intensity: {
           }
           method: "GET"
           orig: "/regional/postcode/{postcode}"
-          parts: [
-            "regional"
-            "postcode"
-            "{postcode}"
+          segments: [
+            {
+              lit: "regional"
+            }
+            {
+              lit: "postcode"
+            }
+            {
+              var: "postcode"
+            }
           ]
           select: {
             exist: [
@@ -125,10 +143,16 @@ main: kit: entity: regional_intensity: {
           }
           method: "GET"
           orig: "/regional/regionid/{regionid}"
-          parts: [
-            "regional"
-            "regionid"
-            "{regionid}"
+          segments: [
+            {
+              lit: "regional"
+            }
+            {
+              lit: "regionid"
+            }
+            {
+              var: "regionid"
+            }
           ]
           select: {
             exist: [

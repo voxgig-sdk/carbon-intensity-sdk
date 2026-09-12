@@ -48,9 +48,13 @@ class StatEntityTest extends TestCase
 
         // LOAD
         $stat_ref01_ent = $client->Stat(null);
-        $stat_ref01_match_dt0 = [];
+        $stat_ref01_match_dt0 = [
+            "id" => $stat_ref01_data["id"],
+        ];
         $stat_ref01_data_dt0_loaded = $stat_ref01_ent->load($stat_ref01_match_dt0, null);
-        $this->assertNotNull($stat_ref01_data_dt0_loaded);
+        $stat_ref01_data_dt0_load_result = Helpers::to_map(is_object($stat_ref01_data_dt0_loaded) && method_exists($stat_ref01_data_dt0_loaded, 'data_get') ? $stat_ref01_data_dt0_loaded->data_get() : $stat_ref01_data_dt0_loaded);
+        $this->assertNotNull($stat_ref01_data_dt0_load_result);
+        $this->assertEquals($stat_ref01_data_dt0_load_result["id"], $stat_ref01_data["id"]);
 
     }
 }
@@ -94,9 +98,16 @@ function stat_basic_setup($extra)
 
     if ($env["CARBON_INTENSITY_TEST_LIVE"] === "TRUE") {
         $merged_opts = Vs::merge([
+            // FIRST, so the generated fields below win: sdk-test-control.json's
+            // test.client.options adds to the live client, it does not redirect it.
+            Runner::live_client_options(),
             [
             ],
-            $extra ?? [],
+            // ismap, not a plain "?? []" default: an empty PHP array is a
+            // LIST, and a non-map later entry REPLACES the accumulated map in
+            // merge - so the no-extras call discarded live_client_options()
+            // and the apikey/server map above it.
+            Vs::ismap($extra) ? $extra : new \stdClass(),
         ]);
         $client = new CarbonIntensitySDK(Helpers::to_map($merged_opts));
     }

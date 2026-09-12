@@ -98,7 +98,7 @@ func TestRegionalIntensityListEntity(t *testing.T) {
 		client := setup.client
 
 		// Bootstrap entity data from existing test data (no create step in flow).
-		regionalIntensityListRef01DataRaw := vs.Items(core.ToMapAny(vs.GetPath("existing.regional_intensity_list", setup.data)))
+		regionalIntensityListRef01DataRaw := vs.Items(core.ToMapAny(vs.GetPath(setup.data, "existing.regional_intensity_list")))
 		var regionalIntensityListRef01Data map[string]any
 		if len(regionalIntensityListRef01DataRaw) > 0 {
 			regionalIntensityListRef01Data = core.ToMapAny(regionalIntensityListRef01DataRaw[0][1])
@@ -123,13 +123,19 @@ func TestRegionalIntensityListEntity(t *testing.T) {
 		}
 
 		// LOAD
-		regionalIntensityListRef01MatchDt0 := map[string]any{}
+		regionalIntensityListRef01MatchDt0 := map[string]any{
+			"id": regionalIntensityListRef01Data["id"],
+		}
 		regionalIntensityListRef01DataDt0Loaded, err := regionalIntensityListRef01Ent.Load(regionalIntensityListRef01MatchDt0, nil)
 		if err != nil {
 			t.Fatalf("load failed: %v", err)
 		}
-		if regionalIntensityListRef01DataDt0Loaded == nil {
-			t.Fatal("expected load result to be non-nil")
+		regionalIntensityListRef01DataDt0LoadResult := core.ToMapAny(entityData(regionalIntensityListRef01DataDt0Loaded))
+		if regionalIntensityListRef01DataDt0LoadResult == nil {
+			t.Fatal("expected load result to be a map")
+		}
+		if regionalIntensityListRef01DataDt0LoadResult["id"] != regionalIntensityListRef01Data["id"] {
+			t.Fatal("expected load result id to match")
 		}
 
 	})
@@ -159,7 +165,7 @@ func regional_intensity_listBasicSetup(extra map[string]any) *entityTestSetup {
 	client := sdk.TestSDK(options, extra)
 
 	// Generate idmap via transform, matching TS pattern.
-	idmap := vs.Transform(
+	idmap, _ := vs.Transform(
 		[]any{"regional_intensity_list01", "regional_intensity_list02", "regional_intensity_list03", "intensity01", "intensity02", "intensity03", "postcode01", "postcode02", "postcode03", "regionid01", "regionid02", "regionid03", "from01"},
 		map[string]any{
 			"`$PACK`": []any{"", map[string]any{
@@ -187,10 +193,22 @@ func regional_intensity_listBasicSetup(extra map[string]any) *entityTestSetup {
 	}
 
 	if env["CARBON_INTENSITY_TEST_LIVE"] == "TRUE" {
+		// An empty map, not a nil one: Merge returns nil when its last entry
+		// is nil, and BasicSetup is normally called with no extras - so a
+		// bare nil silently discarded the apikey and server values below.
+		extraOpts := extra
+		if extraOpts == nil {
+			extraOpts = map[string]any{}
+		}
+
 		mergedOpts := vs.Merge([]any{
+			// liveClientOptions() FIRST, so the generated fields below win:
+			// sdk-test-control.json's test.client.options adds to the live
+			// client, it does not redirect it.
+			liveClientOptions(),
 			map[string]any{
 			},
-			extra,
+			extraOpts,
 		})
 		client = sdk.NewCarbonIntensitySDK(core.ToMapAny(mergedOpts))
 	}

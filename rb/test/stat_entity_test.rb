@@ -41,9 +41,13 @@ class StatEntityTest < Minitest::Test
 
     # LOAD
     stat_ref01_ent = client.Stat(nil)
-    stat_ref01_match_dt0 = {}
+    stat_ref01_match_dt0 = {
+      "id" => stat_ref01_data["id"],
+    }
     stat_ref01_data_dt0_loaded = stat_ref01_ent.load(stat_ref01_match_dt0, nil)
-    assert !stat_ref01_data_dt0_loaded.nil?
+    stat_ref01_data_dt0_load_result = Helpers.to_map(stat_ref01_data_dt0_loaded.respond_to?(:data_get) ? stat_ref01_data_dt0_loaded.data_get : stat_ref01_data_dt0_loaded)
+    assert !stat_ref01_data_dt0_load_result.nil?
+    assert_equal stat_ref01_data_dt0_load_result["id"], stat_ref01_data["id"]
 
   end
 end
@@ -91,6 +95,9 @@ def stat_basic_setup(extra)
 
   if env["CARBON_INTENSITY_TEST_LIVE"] == "TRUE"
     merged_opts = Vs.merge([
+      # FIRST, so the generated fields below win: sdk-test-control.json's
+      # test.client.options adds to the live client, it does not redirect it.
+      Runner.live_client_options,
       {
       },
       extra || {},

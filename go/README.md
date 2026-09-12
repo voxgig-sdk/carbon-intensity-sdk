@@ -280,6 +280,7 @@ Only `Direct()` returns a response envelope — a `map[string]any` with
 | `"data"` |  |
 | `"from"` |  |
 | `"generationmix"` |  |
+| `"id"` |  |
 | `"to"` |  |
 
 Operations: List, Load.
@@ -382,6 +383,7 @@ API path: `/regional/england`
 | --- | --- |
 | `"data"` |  |
 | `"dnoregion"` | Distribution Network Operator region |
+| `"id"` |  |
 | `"postcode"` | Outward postcode |
 | `"regionid"` | Region ID (1-17) |
 | `"shortname"` | Short region name |
@@ -395,6 +397,7 @@ API path: `/regional/intensity/{from}/fw24h`
 | Field | Description |
 | --- | --- |
 | `"data"` |  |
+| `"id"` |  |
 
 Operations: Load.
 
@@ -423,6 +426,7 @@ Create an instance: `generation := client.Generation(nil)`
 | `data` | `[]any` |  |
 | `from` | `string` |  |
 | `generationmix` | `[]any` |  |
+| `id` | `string` |  |
 | `to` | `string` |  |
 
 #### Example: Load
@@ -688,6 +692,7 @@ Create an instance: `regionalIntensityList := client.RegionalIntensityList(nil)`
 | --- | --- | --- |
 | `data` | `[]any` |  |
 | `dnoregion` | `string` | Distribution Network Operator region |
+| `id` | `string` |  |
 | `postcode` | `string` | Outward postcode |
 | `regionid` | `int` | Region ID (1-17) |
 | `shortname` | `string` | Short region name |
@@ -728,6 +733,7 @@ Create an instance: `stat := client.Stat(nil)`
 | Field | Type | Description |
 | --- | --- | --- |
 | `data` | `[]any` |  |
+| `id` | `string` |  |
 
 #### Example: Load
 

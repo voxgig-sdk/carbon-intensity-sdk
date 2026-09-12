@@ -90,9 +90,13 @@ class TestRegionalIntensityListEntity:
         assert isinstance(regional_intensity_list_ref01_list_result, list)
 
         # LOAD
-        regional_intensity_list_ref01_match_dt0 = {}
+        regional_intensity_list_ref01_match_dt0 = {
+            "id": regional_intensity_list_ref01_data["id"],
+        }
         regional_intensity_list_ref01_data_dt0_loaded = regional_intensity_list_ref01_ent.load(regional_intensity_list_ref01_match_dt0, None)
-        assert regional_intensity_list_ref01_data_dt0_loaded is not None
+        regional_intensity_list_ref01_data_dt0_load_result = helpers.to_map(runner.entity_data(regional_intensity_list_ref01_data_dt0_loaded))
+        assert regional_intensity_list_ref01_data_dt0_load_result is not None
+        assert regional_intensity_list_ref01_data_dt0_load_result["id"] == regional_intensity_list_ref01_data["id"]
 
 
 
@@ -141,6 +145,10 @@ def _regional_intensity_list_basic_setup(extra):
 
     if env.get("CARBON_INTENSITY_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
+            # FIRST, so the generated fields below win: sdk-test-control.json's
+            # test.client.options adds to the live client, it does not
+            # redirect it.
+            runner.live_client_options(),
             {
             },
             extra or {},

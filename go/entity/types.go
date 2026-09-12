@@ -17,6 +17,7 @@ type Generation struct {
 	Data *[]any `json:"data,omitempty"`
 	From *string `json:"from,omitempty"`
 	Generationmix *[]any `json:"generationmix,omitempty"`
+	Id *string `json:"id,omitempty"`
 	To *string `json:"to,omitempty"`
 }
 
@@ -31,6 +32,7 @@ type GenerationListMatch struct {
 	Data *[]any `json:"data,omitempty"`
 	From *string `json:"from,omitempty"`
 	Generationmix *[]any `json:"generationmix,omitempty"`
+	Id *string `json:"id,omitempty"`
 	To *string `json:"to,omitempty"`
 }
 
@@ -171,6 +173,7 @@ type RegionalIntensityListMatch struct {
 type RegionalIntensityList struct {
 	Data *[]any `json:"data,omitempty"`
 	Dnoregion *string `json:"dnoregion,omitempty"`
+	Id *string `json:"id,omitempty"`
 	Postcode *string `json:"postcode,omitempty"`
 	Regionid *int `json:"regionid,omitempty"`
 	Shortname *string `json:"shortname,omitempty"`
@@ -190,6 +193,7 @@ type RegionalIntensityListListMatch struct {
 // Stat is the typed data model for the stat entity.
 type Stat struct {
 	Data *[]any `json:"data,omitempty"`
+	Id *string `json:"id,omitempty"`
 }
 
 // StatLoadMatch is the typed request payload for Stat.LoadTyped.

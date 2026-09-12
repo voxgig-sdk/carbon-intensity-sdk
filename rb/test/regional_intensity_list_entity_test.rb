@@ -85,9 +85,13 @@ class RegionalIntensityListEntityTest < Minitest::Test
     assert regional_intensity_list_ref01_list_result.is_a?(Array)
 
     # LOAD
-    regional_intensity_list_ref01_match_dt0 = {}
+    regional_intensity_list_ref01_match_dt0 = {
+      "id" => regional_intensity_list_ref01_data["id"],
+    }
     regional_intensity_list_ref01_data_dt0_loaded = regional_intensity_list_ref01_ent.load(regional_intensity_list_ref01_match_dt0, nil)
-    assert !regional_intensity_list_ref01_data_dt0_loaded.nil?
+    regional_intensity_list_ref01_data_dt0_load_result = Helpers.to_map(regional_intensity_list_ref01_data_dt0_loaded.respond_to?(:data_get) ? regional_intensity_list_ref01_data_dt0_loaded.data_get : regional_intensity_list_ref01_data_dt0_loaded)
+    assert !regional_intensity_list_ref01_data_dt0_load_result.nil?
+    assert_equal regional_intensity_list_ref01_data_dt0_load_result["id"], regional_intensity_list_ref01_data["id"]
 
   end
 end
@@ -135,6 +139,9 @@ def regional_intensity_list_basic_setup(extra)
 
   if env["CARBON_INTENSITY_TEST_LIVE"] == "TRUE"
     merged_opts = Vs.merge([
+      # FIRST, so the generated fields below win: sdk-test-control.json's
+      # test.client.options adds to the live client, it does not redirect it.
+      Runner.live_client_options,
       {
       },
       extra || {},

@@ -6,6 +6,7 @@ main: kit: entity: generation_list: {
 
   fields: [
     {
+      format: "date-time"
       name: "from"
       req: false
       type: "`$STRING`"
@@ -16,6 +17,7 @@ main: kit: entity: generation_list: {
       type: "`$ARRAY`"
     }
     {
+      format: "date-time"
       name: "to"
       req: false
       type: "`$STRING`"
@@ -41,10 +43,16 @@ main: kit: entity: generation_list: {
           }
           method: "GET"
           orig: "/generation/{from}/pt24h"
-          parts: [
-            "generation"
-            "{from}"
-            "pt24h"
+          segments: [
+            {
+              lit: "generation"
+            }
+            {
+              var: "from"
+            }
+            {
+              lit: "pt24h"
+            }
           ]
           select: {
             exist: [

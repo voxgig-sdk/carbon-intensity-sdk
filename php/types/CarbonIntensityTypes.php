@@ -18,6 +18,7 @@ class Generation
     public ?array $data = null;
     public ?string $from = null;
     public ?array $generationmix = null;
+    public ?string $id = null;
     public ?string $to = null;
 }
 
@@ -34,6 +35,7 @@ class GenerationListMatch
     public ?array $data = null;
     public ?string $from = null;
     public ?array $generationmix = null;
+    public ?string $id = null;
     public ?string $to = null;
 }
 
@@ -190,6 +192,7 @@ class RegionalIntensityList
 {
     public ?array $data = null;
     public ?string $dnoregion = null;
+    public ?string $id = null;
     public ?string $postcode = null;
     public ?int $regionid = null;
     public ?string $shortname = null;
@@ -212,6 +215,7 @@ class RegionalIntensityListListMatch
 class Stat
 {
     public ?array $data = null;
+    public ?string $id = null;
 }
 
 /** Request payload for Stat#load. */

@@ -48,9 +48,13 @@ class TestStatEntity:
 
         # LOAD
         stat_ref01_ent = client.Stat(None)
-        stat_ref01_match_dt0 = {}
+        stat_ref01_match_dt0 = {
+            "id": stat_ref01_data["id"],
+        }
         stat_ref01_data_dt0_loaded = stat_ref01_ent.load(stat_ref01_match_dt0, None)
-        assert stat_ref01_data_dt0_loaded is not None
+        stat_ref01_data_dt0_load_result = helpers.to_map(runner.entity_data(stat_ref01_data_dt0_loaded))
+        assert stat_ref01_data_dt0_load_result is not None
+        assert stat_ref01_data_dt0_load_result["id"] == stat_ref01_data["id"]
 
 
 
@@ -99,6 +103,10 @@ def _stat_basic_setup(extra):
 
     if env.get("CARBON_INTENSITY_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
+            # FIRST, so the generated fields below win: sdk-test-control.json's
+            # test.client.options adds to the live client, it does not
+            # redirect it.
+            runner.live_client_options(),
             {
             },
             extra or {},

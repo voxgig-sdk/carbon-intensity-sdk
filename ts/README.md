@@ -317,6 +317,7 @@ The `prepare()` method returns:
 | `data` |  |
 | `from` |  |
 | `generationmix` |  |
+| `id` |  |
 | `to` |  |
 
 Operations: list, load.
@@ -419,6 +420,7 @@ API path: `/regional/england`
 | --- | --- |
 | `data` |  |
 | `dnoregion` | Distribution Network Operator region |
+| `id` |  |
 | `postcode` | Outward postcode |
 | `regionid` | Region ID (1-17) |
 | `shortname` | Short region name |
@@ -432,6 +434,7 @@ API path: `/regional/intensity/{from}/fw24h`
 | Field | Description |
 | --- | --- |
 | `data` |  |
+| `id` |  |
 
 Operations: load.
 
@@ -460,6 +463,7 @@ Create an instance: `const generation = client.Generation()`
 | `data` | `any[]` |  |
 | `from` | `string` |  |
 | `generationmix` | `any[]` |  |
+| `id` | `string` |  |
 | `to` | `string` |  |
 
 #### Example: Load
@@ -681,6 +685,7 @@ Create an instance: `const regional_intensity_list = client.RegionalIntensityLis
 | --- | --- | --- |
 | `data` | `any[]` |  |
 | `dnoregion` | `string` | Distribution Network Operator region |
+| `id` | `string` |  |
 | `postcode` | `string` | Outward postcode |
 | `regionid` | `number` | Region ID (1-17) |
 | `shortname` | `string` | Short region name |
@@ -713,6 +718,7 @@ Create an instance: `const stat = client.Stat()`
 | Field | Type | Description |
 | --- | --- | --- |
 | `data` | `any[]` |  |
+| `id` | `string` |  |
 
 #### Example: Load
 

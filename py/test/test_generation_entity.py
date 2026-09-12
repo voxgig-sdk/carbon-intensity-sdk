@@ -88,9 +88,13 @@ class TestGenerationEntity:
         assert isinstance(generation_ref01_list_result, list)
 
         # LOAD
-        generation_ref01_match_dt0 = {}
+        generation_ref01_match_dt0 = {
+            "id": generation_ref01_data["id"],
+        }
         generation_ref01_data_dt0_loaded = generation_ref01_ent.load(generation_ref01_match_dt0, None)
-        assert generation_ref01_data_dt0_loaded is not None
+        generation_ref01_data_dt0_load_result = helpers.to_map(runner.entity_data(generation_ref01_data_dt0_loaded))
+        assert generation_ref01_data_dt0_load_result is not None
+        assert generation_ref01_data_dt0_load_result["id"] == generation_ref01_data["id"]
 
 
 
@@ -139,6 +143,10 @@ def _generation_basic_setup(extra):
 
     if env.get("CARBON_INTENSITY_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
+            # FIRST, so the generated fields below win: sdk-test-control.json's
+            # test.client.options adds to the live client, it does not
+            # redirect it.
+            runner.live_client_options(),
             {
             },
             extra or {},

@@ -98,7 +98,7 @@ func TestGenerationListEntity(t *testing.T) {
 		client := setup.client
 
 		// Bootstrap entity data from existing test data (no create step in flow).
-		generationListRef01DataRaw := vs.Items(core.ToMapAny(vs.GetPath("existing.generation_list", setup.data)))
+		generationListRef01DataRaw := vs.Items(core.ToMapAny(vs.GetPath(setup.data, "existing.generation_list")))
 		var generationListRef01Data map[string]any
 		if len(generationListRef01DataRaw) > 0 {
 			generationListRef01Data = core.ToMapAny(generationListRef01DataRaw[0][1])
@@ -149,7 +149,7 @@ func generation_listBasicSetup(extra map[string]any) *entityTestSetup {
 	client := sdk.TestSDK(options, extra)
 
 	// Generate idmap via transform, matching TS pattern.
-	idmap := vs.Transform(
+	idmap, _ := vs.Transform(
 		[]any{"generation_list01", "generation_list02", "generation_list03", "generation01", "generation02", "generation03", "from01"},
 		map[string]any{
 			"`$PACK`": []any{"", map[string]any{
@@ -177,10 +177,22 @@ func generation_listBasicSetup(extra map[string]any) *entityTestSetup {
 	}
 
 	if env["CARBON_INTENSITY_TEST_LIVE"] == "TRUE" {
+		// An empty map, not a nil one: Merge returns nil when its last entry
+		// is nil, and BasicSetup is normally called with no extras - so a
+		// bare nil silently discarded the apikey and server values below.
+		extraOpts := extra
+		if extraOpts == nil {
+			extraOpts = map[string]any{}
+		}
+
 		mergedOpts := vs.Merge([]any{
+			// liveClientOptions() FIRST, so the generated fields below win:
+			// sdk-test-control.json's test.client.options adds to the live
+			// client, it does not redirect it.
+			liveClientOptions(),
 			map[string]any{
 			},
-			extra,
+			extraOpts,
 		})
 		client = sdk.NewCarbonIntensitySDK(core.ToMapAny(mergedOpts))
 	}

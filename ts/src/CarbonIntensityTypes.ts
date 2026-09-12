@@ -9,6 +9,7 @@ export interface Generation {
   data?: any[]
   from?: string
   generationmix?: any[]
+  id?: string
   to?: string
 }
 
@@ -21,6 +22,7 @@ export interface GenerationListMatch {
   data?: any[]
   from?: string
   generationmix?: any[]
+  id?: string
   to?: string
 }
 
@@ -145,6 +147,7 @@ export interface RegionalIntensityListMatch {
 export interface RegionalIntensityList {
   data?: any[]
   dnoregion?: string
+  id?: string
   postcode?: string
   regionid?: number
   shortname?: string
@@ -161,6 +164,7 @@ export interface RegionalIntensityListListMatch {
 
 export interface Stat {
   data?: any[]
+  id?: string
 }
 
 export interface StatLoadMatch {

@@ -11,6 +11,7 @@ main: kit: entity: intensity: {
       type: "`$ARRAY`"
     }
     {
+      format: "date-time"
       name: "from"
       req: false
       short: "Start datetime of the period"
@@ -27,6 +28,7 @@ main: kit: entity: intensity: {
       type: "`$OBJECT`"
     }
     {
+      format: "date-time"
       name: "to"
       req: false
       short: "End datetime of the period"
@@ -47,8 +49,10 @@ main: kit: entity: intensity: {
         {
           method: "GET"
           orig: "/intensity"
-          parts: [
-            "intensity"
+          segments: [
+            {
+              lit: "intensity"
+            }
           ]
           transform: {
             req: "`reqdata`"
@@ -81,11 +85,19 @@ main: kit: entity: intensity: {
           }
           method: "GET"
           orig: "/intensity/date/{date}/{period}"
-          parts: [
-            "intensity"
-            "date"
-            "{date}"
-            "{period}"
+          segments: [
+            {
+              lit: "intensity"
+            }
+            {
+              lit: "date"
+            }
+            {
+              var: "date"
+            }
+            {
+              var: "period"
+            }
           ]
           select: {
             exist: [
@@ -119,10 +131,16 @@ main: kit: entity: intensity: {
           }
           method: "GET"
           orig: "/intensity/{from}/{to}"
-          parts: [
-            "intensity"
-            "{from}"
-            "{to}"
+          segments: [
+            {
+              lit: "intensity"
+            }
+            {
+              var: "from"
+            }
+            {
+              var: "to"
+            }
           ]
           select: {
             exist: [
@@ -149,15 +167,19 @@ main: kit: entity: intensity: {
           }
           method: "GET"
           orig: "/intensity/{from}"
-          parts: [
-            "intensity"
-            "{id}"
-          ]
           rename: {
             param: {
               from: "id"
             }
           }
+          segments: [
+            {
+              lit: "intensity"
+            }
+            {
+              var: "id"
+            }
+          ]
           select: {
             exist: [
               "id"

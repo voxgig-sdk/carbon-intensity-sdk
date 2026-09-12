@@ -10,6 +10,7 @@
 ---@field data? table
 ---@field from? string
 ---@field generationmix? table
+---@field id? string
 ---@field to? string
 
 ---@class GenerationLoadMatch
@@ -20,6 +21,7 @@
 ---@field data? table
 ---@field from? string
 ---@field generationmix? table
+---@field id? string
 ---@field to? string
 
 ---@class GenerationList
@@ -128,6 +130,7 @@
 ---@class RegionalIntensityList
 ---@field data? table
 ---@field dnoregion? string
+---@field id? string
 ---@field postcode? string
 ---@field regionid? number
 ---@field shortname? string
@@ -141,6 +144,7 @@
 
 ---@class Stat
 ---@field data? table
+---@field id? string
 
 ---@class StatLoadMatch
 ---@field block? number

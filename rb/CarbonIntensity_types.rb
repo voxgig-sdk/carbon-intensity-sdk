@@ -19,12 +19,16 @@
 # @!attribute [rw] generationmix
 #   @return [Array, nil]
 #
+# @!attribute [rw] id
+#   @return [String, nil]
+#
 # @!attribute [rw] to
 #   @return [String, nil]
 Generation = Struct.new(
   :data,
   :from,
   :generationmix,
+  :id,
   :to,
   keyword_init: true
 )
@@ -53,12 +57,16 @@ GenerationLoadMatch = Struct.new(
 # @!attribute [rw] generationmix
 #   @return [Array, nil]
 #
+# @!attribute [rw] id
+#   @return [String, nil]
+#
 # @!attribute [rw] to
 #   @return [String, nil]
 GenerationListMatch = Struct.new(
   :data,
   :from,
   :generationmix,
+  :id,
   :to,
   keyword_init: true
 )
@@ -438,6 +446,9 @@ RegionalIntensityListMatch = Struct.new(
 # @!attribute [rw] dnoregion
 #   @return [String, nil]
 #
+# @!attribute [rw] id
+#   @return [String, nil]
+#
 # @!attribute [rw] postcode
 #   @return [String, nil]
 #
@@ -449,6 +460,7 @@ RegionalIntensityListMatch = Struct.new(
 RegionalIntensityList = Struct.new(
   :data,
   :dnoregion,
+  :id,
   :postcode,
   :regionid,
   :shortname,
@@ -481,8 +493,12 @@ RegionalIntensityListListMatch = Struct.new(
 #
 # @!attribute [rw] data
 #   @return [Array, nil]
+#
+# @!attribute [rw] id
+#   @return [String, nil]
 Stat = Struct.new(
   :data,
+  :id,
   keyword_init: true
 )
 

@@ -128,6 +128,7 @@ generation = client.Generation
 | `data` | `Array` | No |  |
 | `from` | `String` | No |  |
 | `generationmix` | `Array` | No |  |
+| `id` | `String` | No |  |
 | `to` | `String` | No |  |
 
 ### Operations
@@ -556,6 +557,7 @@ regional_intensity_list = client.RegionalIntensityList
 | --- | --- | --- | --- |
 | `data` | `Array` | No |  |
 | `dnoregion` | `String` | No | Distribution Network Operator region |
+| `id` | `String` | No |  |
 | `postcode` | `String` | No | Outward postcode |
 | `regionid` | `Integer` | No | Region ID (1-17) |
 | `shortname` | `String` | No | Short region name |
@@ -619,6 +621,7 @@ stat = client.Stat
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `data` | `Array` | No |  |
+| `id` | `String` | No |  |
 
 ### Operations
 

@@ -11,6 +11,7 @@ main: kit: entity: generation: {
       type: "`$ARRAY`"
     }
     {
+      format: "date-time"
       name: "from"
       req: false
       type: "`$STRING`"
@@ -21,11 +22,31 @@ main: kit: entity: generation: {
       type: "`$ARRAY`"
     }
     {
+      name: "id"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      format: "date-time"
       name: "to"
       req: false
       type: "`$STRING`"
     }
   ]
+
+  id: {
+    field: "id"
+    from: {
+      from: "from"
+      to: "to"
+    }
+    name: "id"
+    parts: [
+      "from"
+      "to"
+    ]
+    sep: "/"
+  }
 
   name: "generation"
   op: {
@@ -35,8 +56,10 @@ main: kit: entity: generation: {
         {
           method: "GET"
           orig: "/generation"
-          parts: [
-            "generation"
+          segments: [
+            {
+              lit: "generation"
+            }
           ]
           transform: {
             req: "`reqdata`"
@@ -69,10 +92,16 @@ main: kit: entity: generation: {
           }
           method: "GET"
           orig: "/generation/{from}/{to}"
-          parts: [
-            "generation"
-            "{from}"
-            "{to}"
+          segments: [
+            {
+              lit: "generation"
+            }
+            {
+              var: "from"
+            }
+            {
+              var: "to"
+            }
           ]
           select: {
             exist: [
