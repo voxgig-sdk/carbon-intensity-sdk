@@ -105,7 +105,7 @@ local results, err = client:IntensityList():list()
 
 | Language | Package | Install |
 | --- | --- | --- |
-| TypeScript | `@voxgig-sdk/carbon-intensity` | publish pending — [install from git tag](https://github.com/voxgig-sdk/carbon-intensity-sdk/releases) |
+| TypeScript | `@voxgig-sdk/carbon-intensity-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/carbon-intensity-sdk/releases) |
 | Python | `voxgig-sdk-carbon-intensity` | publish pending — [install from git tag](https://github.com/voxgig-sdk/carbon-intensity-sdk/releases) |
 | PHP | `voxgig-sdk/carbon-intensity` | publish pending — [install from git tag](https://github.com/voxgig-sdk/carbon-intensity-sdk/releases) |
 | Golang | `github.com/voxgig-sdk/carbon-intensity-sdk/go` | `go get github.com/voxgig-sdk/carbon-intensity-sdk/go@latest` |
@@ -119,7 +119,7 @@ local results, err = client:IntensityList():list()
 ### TypeScript
 
 ```ts
-import { CarbonIntensitySDK } from '@voxgig-sdk/carbon-intensity'
+import { CarbonIntensitySDK } from '@voxgig-sdk/carbon-intensity-sdk'
 
 const client = new CarbonIntensitySDK()
 

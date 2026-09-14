@@ -28,7 +28,7 @@ loading a specific record.
 ### 1. Create a client
 
 ```ts
-import { CarbonIntensitySDK } from '@voxgig-sdk/carbon-intensity'
+import { CarbonIntensitySDK } from '@voxgig-sdk/carbon-intensity-sdk'
 
 const client = new CarbonIntensitySDK()
 ```
@@ -809,7 +809,7 @@ carbon-intensity/
 Import the SDK from the package root:
 
 ```ts
-import { CarbonIntensitySDK } from '@voxgig-sdk/carbon-intensity'
+import { CarbonIntensitySDK } from '@voxgig-sdk/carbon-intensity-sdk'
 ```
 
 ### Entity state
