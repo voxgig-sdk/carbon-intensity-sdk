@@ -4,7 +4,10 @@ declare(strict_types=1);
 // CarbonIntensity SDK feature factory
 
 require_once __DIR__ . '/feature/BaseFeature.php';
+require_once __DIR__ . '/feature/RatelimitFeature.php';
+require_once __DIR__ . '/feature/RetryFeature.php';
 require_once __DIR__ . '/feature/TestFeature.php';
+require_once __DIR__ . '/feature/TimeoutFeature.php';
 
 
 class CarbonIntensityFeatures
@@ -14,8 +17,14 @@ class CarbonIntensityFeatures
         switch ($name) {
             case "base":
                 return new CarbonIntensityBaseFeature();
+            case "ratelimit":
+                return new CarbonIntensityRatelimitFeature();
+            case "retry":
+                return new CarbonIntensityRetryFeature();
             case "test":
                 return new CarbonIntensityTestFeature();
+            case "timeout":
+                return new CarbonIntensityTimeoutFeature();
             default:
                 return new CarbonIntensityBaseFeature();
         }
@@ -31,7 +40,10 @@ class CarbonIntensityFeatures
     {
         switch ($name) {
             case "base":
+            case "ratelimit":
+            case "retry":
             case "test":
+            case "timeout":
                 return true;
             default:
                 return false;

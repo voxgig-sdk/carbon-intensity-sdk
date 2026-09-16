@@ -39,5 +39,321 @@
         "to": "scc"
       }
     }
+  },
+  "requests": {
+    "GET /intensity": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "getCurrentIntensity",
+        "parameters": [],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "data": {
+                      "items": {
+                        "properties": {
+                          "from": {
+                            "description": "Start datetime of the period",
+                            "format": "date-time",
+                            "type": "string"
+                          },
+                          "intensity": {
+                            "properties": {
+                              "actual": {
+                                "description": "Actual carbon intensity (gCO2/kWh)",
+                                "type": "integer"
+                              },
+                              "forecast": {
+                                "description": "Forecasted carbon intensity (gCO2/kWh)",
+                                "type": "integer"
+                              },
+                              "index": {
+                                "description": "Intensity index",
+                                "enum": [
+                                  "very low",
+                                  "low",
+                                  "moderate",
+                                  "high",
+                                  "very high"
+                                ],
+                                "type": "string"
+                              }
+                            },
+                            "type": "object"
+                          },
+                          "to": {
+                            "description": "End datetime of the period",
+                            "format": "date-time",
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful response"
+          }
+        },
+        "securitySource": "unspecified"
+      }
+    },
+    "GET /intensity/date/{date}/{period}": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "getIntensityByDateAndPeriod",
+        "parameters": [
+          {
+            "description": "Date in YYYY-MM-DD format",
+            "in": "path",
+            "name": "date",
+            "required": true,
+            "schema": {
+              "format": "date",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Settlement period (1-48)",
+            "in": "path",
+            "name": "period",
+            "required": true,
+            "schema": {
+              "maximum": 48,
+              "minimum": 1,
+              "type": "integer"
+            }
+          }
+        ],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "data": {
+                      "items": {
+                        "properties": {
+                          "from": {
+                            "description": "Start datetime of the period",
+                            "format": "date-time",
+                            "type": "string"
+                          },
+                          "intensity": {
+                            "properties": {
+                              "actual": {
+                                "description": "Actual carbon intensity (gCO2/kWh)",
+                                "type": "integer"
+                              },
+                              "forecast": {
+                                "description": "Forecasted carbon intensity (gCO2/kWh)",
+                                "type": "integer"
+                              },
+                              "index": {
+                                "description": "Intensity index",
+                                "enum": [
+                                  "very low",
+                                  "low",
+                                  "moderate",
+                                  "high",
+                                  "very high"
+                                ],
+                                "type": "string"
+                              }
+                            },
+                            "type": "object"
+                          },
+                          "to": {
+                            "description": "End datetime of the period",
+                            "format": "date-time",
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful response"
+          }
+        },
+        "securitySource": "unspecified"
+      }
+    },
+    "GET /intensity/{from}/{to}": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "getIntensityBetweenDatetimes",
+        "parameters": [
+          {
+            "description": "Start datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)",
+            "in": "path",
+            "name": "from",
+            "required": true,
+            "schema": {
+              "format": "date-time",
+              "type": "string"
+            }
+          },
+          {
+            "description": "End datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)",
+            "in": "path",
+            "name": "to",
+            "required": true,
+            "schema": {
+              "format": "date-time",
+              "type": "string"
+            }
+          }
+        ],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "data": {
+                      "items": {
+                        "properties": {
+                          "from": {
+                            "description": "Start datetime of the period",
+                            "format": "date-time",
+                            "type": "string"
+                          },
+                          "intensity": {
+                            "properties": {
+                              "actual": {
+                                "description": "Actual carbon intensity (gCO2/kWh)",
+                                "type": "integer"
+                              },
+                              "forecast": {
+                                "description": "Forecasted carbon intensity (gCO2/kWh)",
+                                "type": "integer"
+                              },
+                              "index": {
+                                "description": "Intensity index",
+                                "enum": [
+                                  "very low",
+                                  "low",
+                                  "moderate",
+                                  "high",
+                                  "very high"
+                                ],
+                                "type": "string"
+                              }
+                            },
+                            "type": "object"
+                          },
+                          "to": {
+                            "description": "End datetime of the period",
+                            "format": "date-time",
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful response"
+          }
+        },
+        "securitySource": "unspecified"
+      }
+    },
+    "GET /intensity/{from}": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "getIntensityByDatetime",
+        "parameters": [
+          {
+            "description": "Datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)",
+            "in": "path",
+            "name": "from",
+            "required": true,
+            "schema": {
+              "format": "date-time",
+              "type": "string"
+            }
+          }
+        ],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "data": {
+                      "items": {
+                        "properties": {
+                          "from": {
+                            "description": "Start datetime of the period",
+                            "format": "date-time",
+                            "type": "string"
+                          },
+                          "intensity": {
+                            "properties": {
+                              "actual": {
+                                "description": "Actual carbon intensity (gCO2/kWh)",
+                                "type": "integer"
+                              },
+                              "forecast": {
+                                "description": "Forecasted carbon intensity (gCO2/kWh)",
+                                "type": "integer"
+                              },
+                              "index": {
+                                "description": "Intensity index",
+                                "enum": [
+                                  "very low",
+                                  "low",
+                                  "moderate",
+                                  "high",
+                                  "very high"
+                                ],
+                                "type": "string"
+                              }
+                            },
+                            "type": "object"
+                          },
+                          "to": {
+                            "description": "End datetime of the period",
+                            "format": "date-time",
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful response"
+          }
+        },
+        "securitySource": "unspecified"
+      }
+    }
   }
 }

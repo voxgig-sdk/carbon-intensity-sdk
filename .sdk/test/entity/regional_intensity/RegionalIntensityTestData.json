@@ -5,7 +5,7 @@
         "data": [],
         "dnoregion": "s33",
         "postcode": "s34",
-        "regionid": "s35",
+        "regionid": 53,
         "shortname": "s36",
         "id": "REGIONAL_INTENSITY00"
       },
@@ -13,7 +13,7 @@
         "data": [],
         "dnoregion": "s65",
         "postcode": "s66",
-        "regionid": "s67",
+        "regionid": 103,
         "shortname": "s68",
         "id": "REGIONAL_INTENSITY01"
       },
@@ -21,7 +21,7 @@
         "data": [],
         "dnoregion": "s97",
         "postcode": "s98",
-        "regionid": "s99",
+        "regionid": 153,
         "shortname": "s9a",
         "id": "REGIONAL_INTENSITY02"
       }
@@ -33,8 +33,497 @@
         "data": [],
         "dnoregion": "sc9",
         "postcode": "sca",
-        "regionid": "scb",
+        "regionid": 203,
         "shortname": "scc"
+      }
+    }
+  },
+  "requests": {
+    "GET /regional/england": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "getEnglandIntensity",
+        "parameters": [],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "data": {
+                      "items": {
+                        "properties": {
+                          "data": {
+                            "items": {
+                              "properties": {
+                                "from": {
+                                  "format": "date-time",
+                                  "type": "string"
+                                },
+                                "generationmix": {
+                                  "items": {
+                                    "properties": {
+                                      "fuel": {
+                                        "description": "Fuel type",
+                                        "type": "string"
+                                      },
+                                      "perc": {
+                                        "description": "Percentage of total generation",
+                                        "format": "float",
+                                        "type": "number"
+                                      }
+                                    },
+                                    "type": "object"
+                                  },
+                                  "type": "array"
+                                },
+                                "intensity": {
+                                  "properties": {
+                                    "forecast": {
+                                      "description": "Forecasted carbon intensity (gCO2/kWh)",
+                                      "type": "integer"
+                                    },
+                                    "index": {
+                                      "description": "Intensity index",
+                                      "type": "string"
+                                    }
+                                  },
+                                  "type": "object"
+                                },
+                                "to": {
+                                  "format": "date-time",
+                                  "type": "string"
+                                }
+                              },
+                              "type": "object"
+                            },
+                            "type": "array"
+                          },
+                          "dnoregion": {
+                            "description": "Distribution Network Operator region",
+                            "type": "string"
+                          },
+                          "postcode": {
+                            "description": "Outward postcode",
+                            "type": "string"
+                          },
+                          "regionid": {
+                            "description": "Region ID (1-17)",
+                            "type": "integer"
+                          },
+                          "shortname": {
+                            "description": "Short region name",
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful response"
+          }
+        },
+        "securitySource": "unspecified"
+      }
+    },
+    "GET /regional/scotland": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "getScotlandIntensity",
+        "parameters": [],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "data": {
+                      "items": {
+                        "properties": {
+                          "data": {
+                            "items": {
+                              "properties": {
+                                "from": {
+                                  "format": "date-time",
+                                  "type": "string"
+                                },
+                                "generationmix": {
+                                  "items": {
+                                    "properties": {
+                                      "fuel": {
+                                        "description": "Fuel type",
+                                        "type": "string"
+                                      },
+                                      "perc": {
+                                        "description": "Percentage of total generation",
+                                        "format": "float",
+                                        "type": "number"
+                                      }
+                                    },
+                                    "type": "object"
+                                  },
+                                  "type": "array"
+                                },
+                                "intensity": {
+                                  "properties": {
+                                    "forecast": {
+                                      "description": "Forecasted carbon intensity (gCO2/kWh)",
+                                      "type": "integer"
+                                    },
+                                    "index": {
+                                      "description": "Intensity index",
+                                      "type": "string"
+                                    }
+                                  },
+                                  "type": "object"
+                                },
+                                "to": {
+                                  "format": "date-time",
+                                  "type": "string"
+                                }
+                              },
+                              "type": "object"
+                            },
+                            "type": "array"
+                          },
+                          "dnoregion": {
+                            "description": "Distribution Network Operator region",
+                            "type": "string"
+                          },
+                          "postcode": {
+                            "description": "Outward postcode",
+                            "type": "string"
+                          },
+                          "regionid": {
+                            "description": "Region ID (1-17)",
+                            "type": "integer"
+                          },
+                          "shortname": {
+                            "description": "Short region name",
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful response"
+          }
+        },
+        "securitySource": "unspecified"
+      }
+    },
+    "GET /regional/wales": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "getWalesIntensity",
+        "parameters": [],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "data": {
+                      "items": {
+                        "properties": {
+                          "data": {
+                            "items": {
+                              "properties": {
+                                "from": {
+                                  "format": "date-time",
+                                  "type": "string"
+                                },
+                                "generationmix": {
+                                  "items": {
+                                    "properties": {
+                                      "fuel": {
+                                        "description": "Fuel type",
+                                        "type": "string"
+                                      },
+                                      "perc": {
+                                        "description": "Percentage of total generation",
+                                        "format": "float",
+                                        "type": "number"
+                                      }
+                                    },
+                                    "type": "object"
+                                  },
+                                  "type": "array"
+                                },
+                                "intensity": {
+                                  "properties": {
+                                    "forecast": {
+                                      "description": "Forecasted carbon intensity (gCO2/kWh)",
+                                      "type": "integer"
+                                    },
+                                    "index": {
+                                      "description": "Intensity index",
+                                      "type": "string"
+                                    }
+                                  },
+                                  "type": "object"
+                                },
+                                "to": {
+                                  "format": "date-time",
+                                  "type": "string"
+                                }
+                              },
+                              "type": "object"
+                            },
+                            "type": "array"
+                          },
+                          "dnoregion": {
+                            "description": "Distribution Network Operator region",
+                            "type": "string"
+                          },
+                          "postcode": {
+                            "description": "Outward postcode",
+                            "type": "string"
+                          },
+                          "regionid": {
+                            "description": "Region ID (1-17)",
+                            "type": "integer"
+                          },
+                          "shortname": {
+                            "description": "Short region name",
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful response"
+          }
+        },
+        "securitySource": "unspecified"
+      }
+    },
+    "GET /regional/postcode/{postcode}": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "getIntensityByPostcode",
+        "parameters": [
+          {
+            "description": "Outward postcode (e.g., SW1)",
+            "in": "path",
+            "name": "postcode",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "data": {
+                      "items": {
+                        "properties": {
+                          "data": {
+                            "items": {
+                              "properties": {
+                                "from": {
+                                  "format": "date-time",
+                                  "type": "string"
+                                },
+                                "generationmix": {
+                                  "items": {
+                                    "properties": {
+                                      "fuel": {
+                                        "description": "Fuel type",
+                                        "type": "string"
+                                      },
+                                      "perc": {
+                                        "description": "Percentage of total generation",
+                                        "format": "float",
+                                        "type": "number"
+                                      }
+                                    },
+                                    "type": "object"
+                                  },
+                                  "type": "array"
+                                },
+                                "intensity": {
+                                  "properties": {
+                                    "forecast": {
+                                      "description": "Forecasted carbon intensity (gCO2/kWh)",
+                                      "type": "integer"
+                                    },
+                                    "index": {
+                                      "description": "Intensity index",
+                                      "type": "string"
+                                    }
+                                  },
+                                  "type": "object"
+                                },
+                                "to": {
+                                  "format": "date-time",
+                                  "type": "string"
+                                }
+                              },
+                              "type": "object"
+                            },
+                            "type": "array"
+                          },
+                          "dnoregion": {
+                            "description": "Distribution Network Operator region",
+                            "type": "string"
+                          },
+                          "postcode": {
+                            "description": "Outward postcode",
+                            "type": "string"
+                          },
+                          "regionid": {
+                            "description": "Region ID (1-17)",
+                            "type": "integer"
+                          },
+                          "shortname": {
+                            "description": "Short region name",
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful response"
+          }
+        },
+        "securitySource": "unspecified"
+      }
+    },
+    "GET /regional/regionid/{regionid}": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "getIntensityByRegionId",
+        "parameters": [
+          {
+            "description": "Region ID (1-17)",
+            "in": "path",
+            "name": "regionid",
+            "required": true,
+            "schema": {
+              "maximum": 17,
+              "minimum": 1,
+              "type": "integer"
+            }
+          }
+        ],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "data": {
+                      "items": {
+                        "properties": {
+                          "data": {
+                            "items": {
+                              "properties": {
+                                "from": {
+                                  "format": "date-time",
+                                  "type": "string"
+                                },
+                                "generationmix": {
+                                  "items": {
+                                    "properties": {
+                                      "fuel": {
+                                        "description": "Fuel type",
+                                        "type": "string"
+                                      },
+                                      "perc": {
+                                        "description": "Percentage of total generation",
+                                        "format": "float",
+                                        "type": "number"
+                                      }
+                                    },
+                                    "type": "object"
+                                  },
+                                  "type": "array"
+                                },
+                                "intensity": {
+                                  "properties": {
+                                    "forecast": {
+                                      "description": "Forecasted carbon intensity (gCO2/kWh)",
+                                      "type": "integer"
+                                    },
+                                    "index": {
+                                      "description": "Intensity index",
+                                      "type": "string"
+                                    }
+                                  },
+                                  "type": "object"
+                                },
+                                "to": {
+                                  "format": "date-time",
+                                  "type": "string"
+                                }
+                              },
+                              "type": "object"
+                            },
+                            "type": "array"
+                          },
+                          "dnoregion": {
+                            "description": "Distribution Network Operator region",
+                            "type": "string"
+                          },
+                          "postcode": {
+                            "description": "Outward postcode",
+                            "type": "string"
+                          },
+                          "regionid": {
+                            "description": "Region ID (1-17)",
+                            "type": "integer"
+                          },
+                          "shortname": {
+                            "description": "Short region name",
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful response"
+          }
+        },
+        "securitySource": "unspecified"
       }
     }
   }

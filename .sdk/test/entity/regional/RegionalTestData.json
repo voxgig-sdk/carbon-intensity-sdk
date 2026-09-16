@@ -5,21 +5,21 @@
         "data": [],
         "dnoregion": "s33",
         "postcode": "s34",
-        "regionid": "s35",
+        "regionid": 53,
         "shortname": "s36"
       },
       "REGIONAL01": {
         "data": [],
         "dnoregion": "s65",
         "postcode": "s66",
-        "regionid": "s67",
+        "regionid": 103,
         "shortname": "s68"
       },
       "REGIONAL02": {
         "data": [],
         "dnoregion": "s97",
         "postcode": "s98",
-        "regionid": "s99",
+        "regionid": 153,
         "shortname": "s9a"
       }
     }
@@ -30,8 +30,103 @@
         "data": [],
         "dnoregion": "sc9",
         "postcode": "sca",
-        "regionid": "scb",
+        "regionid": 203,
         "shortname": "scc"
+      }
+    }
+  },
+  "requests": {
+    "GET /regional": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "getRegionalIntensity",
+        "parameters": [],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "data": {
+                      "items": {
+                        "properties": {
+                          "data": {
+                            "items": {
+                              "properties": {
+                                "from": {
+                                  "format": "date-time",
+                                  "type": "string"
+                                },
+                                "generationmix": {
+                                  "items": {
+                                    "properties": {
+                                      "fuel": {
+                                        "description": "Fuel type",
+                                        "type": "string"
+                                      },
+                                      "perc": {
+                                        "description": "Percentage of total generation",
+                                        "format": "float",
+                                        "type": "number"
+                                      }
+                                    },
+                                    "type": "object"
+                                  },
+                                  "type": "array"
+                                },
+                                "intensity": {
+                                  "properties": {
+                                    "forecast": {
+                                      "description": "Forecasted carbon intensity (gCO2/kWh)",
+                                      "type": "integer"
+                                    },
+                                    "index": {
+                                      "description": "Intensity index",
+                                      "type": "string"
+                                    }
+                                  },
+                                  "type": "object"
+                                },
+                                "to": {
+                                  "format": "date-time",
+                                  "type": "string"
+                                }
+                              },
+                              "type": "object"
+                            },
+                            "type": "array"
+                          },
+                          "dnoregion": {
+                            "description": "Distribution Network Operator region",
+                            "type": "string"
+                          },
+                          "postcode": {
+                            "description": "Outward postcode",
+                            "type": "string"
+                          },
+                          "regionid": {
+                            "description": "Region ID (1-17)",
+                            "type": "integer"
+                          },
+                          "shortname": {
+                            "description": "Short region name",
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful response"
+          }
+        },
+        "securitySource": "unspecified"
       }
     }
   }

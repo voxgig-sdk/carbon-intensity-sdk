@@ -5,6 +5,8 @@ import * as Fs from 'node:fs'
 
 import { test, describe, afterEach } from 'node:test'
 import assert from 'node:assert'
+import { createLiveTransport } from '../../live-runner'
+import { runLiveEntity } from '../../live-entity'
 
 
 import { CarbonIntensitySDK, BaseFeature, stdutil } from '../../..'
@@ -47,16 +49,13 @@ describe('IntensityFactorEntity', async () => {
 
     const live = 'TRUE' === process.env.CARBON_INTENSITY_TEST_LIVE
     for (const op of ['list']) {
-      if (maybeSkipControl(t, 'entityOp', 'intensity_factor.' + op, live)) return
+      if (!live && maybeSkipControl(t, 'entityOp', 'intensity_factor.' + op, live)) return
     }
 
+    
     const setup = basicSetup()
-    // The basic flow consumes synthetic IDs and field values from the
-    // fixture (entity TestData.json). Those don't exist on the live API.
-    // Skip live runs unless the user provided a real ENTID env override.
-    if (setup.syntheticOnly) {
-      t.skip('live entity test uses synthetic IDs from fixture — set CARBON_INTENSITY_TEST_INTENSITY_FACTOR_ENTID JSON to run live')
-      return
+    if (setup.live) {
+      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":[{"active":true,"name":"Biomass","req":false,"short":"Carbon intensity factor for biomass (gCO2/kWh)","type":"`$INTEGER`","index$":0},{"active":true,"name":"Coal","req":false,"short":"Carbon intensity factor for coal (gCO2/kWh)","type":"`$INTEGER`","index$":1},{"active":true,"name":"DutchImports","req":false,"short":"Carbon intensity factor for Dutch imports (gCO2/kWh)","type":"`$INTEGER`","index$":2},{"active":true,"name":"FrenchImports","req":false,"short":"Carbon intensity factor for French imports (gCO2/kWh)","type":"`$INTEGER`","index$":3},{"active":true,"name":"GasCombinedCycle","req":false,"short":"Carbon intensity factor for gas combined cycle (gCO2/kWh)","type":"`$INTEGER`","index$":4},{"active":true,"name":"GasOpenCycle","req":false,"short":"Carbon intensity factor for gas open cycle (gCO2/kWh)","type":"`$INTEGER`","index$":5},{"active":true,"name":"Hydro","req":false,"short":"Carbon intensity factor for hydro (gCO2/kWh)","type":"`$INTEGER`","index$":6},{"active":true,"name":"IrishImports","req":false,"short":"Carbon intensity factor for Irish imports (gCO2/kWh)","type":"`$INTEGER`","index$":7},{"active":true,"name":"Nuclear","req":false,"short":"Carbon intensity factor for nuclear (gCO2/kWh)","type":"`$INTEGER`","index$":8},{"active":true,"name":"Oil","req":false,"short":"Carbon intensity factor for oil (gCO2/kWh)","type":"`$INTEGER`","index$":9},{"active":true,"name":"Other","req":false,"short":"Carbon intensity factor for other (gCO2/kWh)","type":"`$INTEGER`","index$":10},{"active":true,"name":"PumpedStorage","req":false,"short":"Carbon intensity factor for pumped storage (gCO2/kWh)","type":"`$INTEGER`","index$":11},{"active":true,"name":"Solar","req":false,"short":"Carbon intensity factor for solar (gCO2/kWh)","type":"`$INTEGER`","index$":12},{"active":true,"name":"Wind","req":false,"short":"Carbon intensity factor for wind (gCO2/kWh)","type":"`$INTEGER`","index$":13}],"name":"intensity_factor","op":{"list":{"input":"data","name":"list","points":[{"active":true,"args":{},"contract":{"id":"GET /intensity/factors","json":"{\"operationId\":\"getIntensityFactors\",\"parameters\":[],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"data\":{\"items\":{\"properties\":{\"Biomass\":{\"description\":\"Carbon intensity factor for biomass (gCO2/kWh)\",\"type\":\"integer\"},\"Coal\":{\"description\":\"Carbon intensity factor for coal (gCO2/kWh)\",\"type\":\"integer\"},\"Dutch Imports\":{\"description\":\"Carbon intensity factor for Dutch imports (gCO2/kWh)\",\"type\":\"integer\"},\"French Imports\":{\"description\":\"Carbon intensity factor for French imports (gCO2/kWh)\",\"type\":\"integer\"},\"Gas (Combined Cycle)\":{\"description\":\"Carbon intensity factor for gas combined cycle (gCO2/kWh)\",\"type\":\"integer\"},\"Gas (Open Cycle)\":{\"description\":\"Carbon intensity factor for gas open cycle (gCO2/kWh)\",\"type\":\"integer\"},\"Hydro\":{\"description\":\"Carbon intensity factor for hydro (gCO2/kWh)\",\"type\":\"integer\"},\"Irish Imports\":{\"description\":\"Carbon intensity factor for Irish imports (gCO2/kWh)\",\"type\":\"integer\"},\"Nuclear\":{\"description\":\"Carbon intensity factor for nuclear (gCO2/kWh)\",\"type\":\"integer\"},\"Oil\":{\"description\":\"Carbon intensity factor for oil (gCO2/kWh)\",\"type\":\"integer\"},\"Other\":{\"description\":\"Carbon intensity factor for other (gCO2/kWh)\",\"type\":\"integer\"},\"Pumped Storage\":{\"description\":\"Carbon intensity factor for pumped storage (gCO2/kWh)\",\"type\":\"integer\"},\"Solar\":{\"description\":\"Carbon intensity factor for solar (gCO2/kWh)\",\"type\":\"integer\"},\"Wind\":{\"description\":\"Carbon intensity factor for wind (gCO2/kWh)\",\"type\":\"integer\"}},\"type\":\"object\"},\"type\":\"array\"}},\"type\":\"object\"}}},\"description\":\"Successful response\"}},\"securitySource\":\"unspecified\"}","source":"openapi3","version":1},"kind":"http","method":"GET","orig":"/intensity/factors","segments":[{"lit":"intensity"},{"lit":"factors"}],"select":{},"transform":{"req":"`reqdata`","res":"`body.data`"},"index$":0}],"key$":"list"}},"relations":{"ancestors":[]},"key$":"intensity_factor","name__orig":"intensity_factor","Name":"IntensityFactor","name_":"intensity_factor","name-":"intensity-factor","NAME":"INTENSITY_FACTOR","index$":3}, {"active":true,"entity":"intensity_factor","key$":"BasicIntensityFactorFlow","kind":"basic","name":"BasicIntensityFactorFlow","param":{},"step":[{"active":true,"data":{},"input":{},"match":{},"op":"list","spec":[],"valid":[{"apply":"ItemExists","def":{"ref":"intensity_factor_ref01"}}],"index$":0}]}, 'IntensityFactor')
     }
     const client = setup.client
     const struct = setup.struct
@@ -109,13 +108,6 @@ function basicSetup(extra?: any) {
       }]
     })
 
-  // Detect whether the user provided a real ENTID JSON via env var. The
-  // basic flow consumes synthetic IDs from the fixture file; without an
-  // override those synthetic IDs reach the live API and 4xx. Surface this
-  // to the test so it can skip rather than fail.
-  const idmapEnvVal = process.env['CARBON_INTENSITY_TEST_INTENSITY_FACTOR_ENTID']
-  const idmapOverridden = null != idmapEnvVal && idmapEnvVal.trim().startsWith('{')
-
   const env = envOverride({
     'CARBON_INTENSITY_TEST_INTENSITY_FACTOR_ENTID': idmap,
     'CARBON_INTENSITY_TEST_LIVE': 'FALSE',
@@ -126,7 +118,13 @@ function basicSetup(extra?: any) {
 
   const live = 'TRUE' === env.CARBON_INTENSITY_TEST_LIVE
 
+  const transport = createLiveTransport()
   if (live) {
+    const rawIds = process.env['CARBON_INTENSITY_TEST_INTENSITY_FACTOR_ENTID']
+    idmap = rawIds && rawIds.trim() ? JSON.parse(rawIds) : {}
+    if (!idmap || Array.isArray(idmap) || typeof idmap !== 'object') {
+      throw new Error('Live ENTID must be a JSON object')
+    }
     client = new CarbonIntensitySDK(merge([
       // FIRST, so the generated fields below win: sdk-test-control.json's
       // test.client.options adds to the live client, it does not redirect it.
@@ -138,7 +136,8 @@ function basicSetup(extra?: any) {
       // argument at all - so a bare 'extra' silently discarded the apikey
       // and server values above and handed the SDK undefined. Harmless
       // while there was nothing in that object; not harmless now.
-      extra || {}
+      extra || {},
+      { system: { fetch: transport.fetch } }
     ]))
   }
 
@@ -151,7 +150,7 @@ function basicSetup(extra?: any) {
     data: entityData,
     explain: 'TRUE' === env.CARBON_INTENSITY_TEST_EXPLAIN,
     live,
-    syntheticOnly: live && !idmapOverridden,
+    transport,
     now: Date.now(),
   }
 

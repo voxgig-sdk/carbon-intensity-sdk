@@ -68,6 +68,12 @@ main: kit: entity: regional_intensity_list: {
               }
             ]
           }
+          contract: {
+            id: "GET /regional/intensity/{from}/fw24h"
+            json: "{\"operationId\":\"getRegionalIntensityForward24h\",\"parameters\":[{\"description\":\"Datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)\",\"in\":\"path\",\"name\":\"from\",\"required\":true,\"schema\":{\"format\":\"date-time\",\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"data\":{\"items\":{\"properties\":{\"data\":{\"items\":{\"properties\":{\"from\":{\"format\":\"date-time\",\"type\":\"string\"},\"generationmix\":{\"items\":{\"properties\":{\"fuel\":{\"description\":\"Fuel type\",\"type\":\"string\"},\"perc\":{\"description\":\"Percentage of total generation\",\"format\":\"float\",\"type\":\"number\"}},\"type\":\"object\"},\"type\":\"array\"},\"intensity\":{\"properties\":{\"forecast\":{\"description\":\"Forecasted carbon intensity (gCO2/kWh)\",\"type\":\"integer\"},\"index\":{\"description\":\"Intensity index\",\"type\":\"string\"}},\"type\":\"object\"},\"to\":{\"format\":\"date-time\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"},\"dnoregion\":{\"description\":\"Distribution Network Operator region\",\"type\":\"string\"},\"postcode\":{\"description\":\"Outward postcode\",\"type\":\"string\"},\"regionid\":{\"description\":\"Region ID (1-17)\",\"type\":\"integer\"},\"shortname\":{\"description\":\"Short region name\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"}},\"type\":\"object\"}}},\"description\":\"Successful response\"}},\"securitySource\":\"unspecified\"}"
+            source: "openapi3"
+            version: 1
+          }
           method: "GET"
           orig: "/regional/intensity/{from}/fw24h"
           segments: [
@@ -106,6 +112,12 @@ main: kit: entity: regional_intensity_list: {
               }
             ]
           }
+          contract: {
+            id: "GET /regional/intensity/{from}/fw48h"
+            json: "{\"operationId\":\"getRegionalIntensityForward48h\",\"parameters\":[{\"description\":\"Datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)\",\"in\":\"path\",\"name\":\"from\",\"required\":true,\"schema\":{\"format\":\"date-time\",\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"data\":{\"items\":{\"properties\":{\"data\":{\"items\":{\"properties\":{\"from\":{\"format\":\"date-time\",\"type\":\"string\"},\"generationmix\":{\"items\":{\"properties\":{\"fuel\":{\"description\":\"Fuel type\",\"type\":\"string\"},\"perc\":{\"description\":\"Percentage of total generation\",\"format\":\"float\",\"type\":\"number\"}},\"type\":\"object\"},\"type\":\"array\"},\"intensity\":{\"properties\":{\"forecast\":{\"description\":\"Forecasted carbon intensity (gCO2/kWh)\",\"type\":\"integer\"},\"index\":{\"description\":\"Intensity index\",\"type\":\"string\"}},\"type\":\"object\"},\"to\":{\"format\":\"date-time\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"},\"dnoregion\":{\"description\":\"Distribution Network Operator region\",\"type\":\"string\"},\"postcode\":{\"description\":\"Outward postcode\",\"type\":\"string\"},\"regionid\":{\"description\":\"Region ID (1-17)\",\"type\":\"integer\"},\"shortname\":{\"description\":\"Short region name\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"}},\"type\":\"object\"}}},\"description\":\"Successful response\"}},\"securitySource\":\"unspecified\"}"
+            source: "openapi3"
+            version: 1
+          }
           method: "GET"
           orig: "/regional/intensity/{from}/fw48h"
           segments: [
@@ -143,6 +155,12 @@ main: kit: entity: regional_intensity_list: {
                 type: "`$STRING`"
               }
             ]
+          }
+          contract: {
+            id: "GET /regional/intensity/{from}/pt24h"
+            json: "{\"operationId\":\"getRegionalIntensityPast24h\",\"parameters\":[{\"description\":\"Datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)\",\"in\":\"path\",\"name\":\"from\",\"required\":true,\"schema\":{\"format\":\"date-time\",\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"data\":{\"items\":{\"properties\":{\"data\":{\"items\":{\"properties\":{\"from\":{\"format\":\"date-time\",\"type\":\"string\"},\"generationmix\":{\"items\":{\"properties\":{\"fuel\":{\"description\":\"Fuel type\",\"type\":\"string\"},\"perc\":{\"description\":\"Percentage of total generation\",\"format\":\"float\",\"type\":\"number\"}},\"type\":\"object\"},\"type\":\"array\"},\"intensity\":{\"properties\":{\"forecast\":{\"description\":\"Forecasted carbon intensity (gCO2/kWh)\",\"type\":\"integer\"},\"index\":{\"description\":\"Intensity index\",\"type\":\"string\"}},\"type\":\"object\"},\"to\":{\"format\":\"date-time\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"},\"dnoregion\":{\"description\":\"Distribution Network Operator region\",\"type\":\"string\"},\"postcode\":{\"description\":\"Outward postcode\",\"type\":\"string\"},\"regionid\":{\"description\":\"Region ID (1-17)\",\"type\":\"integer\"},\"shortname\":{\"description\":\"Short region name\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"}},\"type\":\"object\"}}},\"description\":\"Successful response\"}},\"securitySource\":\"unspecified\"}"
+            source: "openapi3"
+            version: 1
           }
           method: "GET"
           orig: "/regional/intensity/{from}/pt24h"
@@ -200,6 +218,12 @@ main: kit: entity: regional_intensity_list: {
                 type: "`$STRING`"
               }
             ]
+          }
+          contract: {
+            id: "GET /regional/intensity/{from}/{to}/postcode/{postcode}"
+            json: "{\"operationId\":\"getRegionalIntensityBetweenDatetimesByPostcode\",\"parameters\":[{\"description\":\"Start datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)\",\"in\":\"path\",\"name\":\"from\",\"required\":true,\"schema\":{\"format\":\"date-time\",\"type\":\"string\"}},{\"description\":\"End datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)\",\"in\":\"path\",\"name\":\"to\",\"required\":true,\"schema\":{\"format\":\"date-time\",\"type\":\"string\"}},{\"description\":\"Outward postcode (e.g., SW1)\",\"in\":\"path\",\"name\":\"postcode\",\"required\":true,\"schema\":{\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"data\":{\"items\":{\"properties\":{\"data\":{\"items\":{\"properties\":{\"from\":{\"format\":\"date-time\",\"type\":\"string\"},\"generationmix\":{\"items\":{\"properties\":{\"fuel\":{\"description\":\"Fuel type\",\"type\":\"string\"},\"perc\":{\"description\":\"Percentage of total generation\",\"format\":\"float\",\"type\":\"number\"}},\"type\":\"object\"},\"type\":\"array\"},\"intensity\":{\"properties\":{\"forecast\":{\"description\":\"Forecasted carbon intensity (gCO2/kWh)\",\"type\":\"integer\"},\"index\":{\"description\":\"Intensity index\",\"type\":\"string\"}},\"type\":\"object\"},\"to\":{\"format\":\"date-time\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"},\"dnoregion\":{\"description\":\"Distribution Network Operator region\",\"type\":\"string\"},\"postcode\":{\"description\":\"Outward postcode\",\"type\":\"string\"},\"regionid\":{\"description\":\"Region ID (1-17)\",\"type\":\"integer\"},\"shortname\":{\"description\":\"Short region name\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"}},\"type\":\"object\"}}},\"description\":\"Successful response\"}},\"securitySource\":\"unspecified\"}"
+            source: "openapi3"
+            version: 1
           }
           method: "GET"
           orig: "/regional/intensity/{from}/{to}/postcode/{postcode}"
@@ -266,6 +290,12 @@ main: kit: entity: regional_intensity_list: {
               }
             ]
           }
+          contract: {
+            id: "GET /regional/intensity/{from}/{to}/regionid/{regionid}"
+            json: "{\"operationId\":\"getRegionalIntensityBetweenDatetimesByRegionId\",\"parameters\":[{\"description\":\"Start datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)\",\"in\":\"path\",\"name\":\"from\",\"required\":true,\"schema\":{\"format\":\"date-time\",\"type\":\"string\"}},{\"description\":\"End datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)\",\"in\":\"path\",\"name\":\"to\",\"required\":true,\"schema\":{\"format\":\"date-time\",\"type\":\"string\"}},{\"description\":\"Region ID (1-17)\",\"in\":\"path\",\"name\":\"regionid\",\"required\":true,\"schema\":{\"maximum\":17,\"minimum\":1,\"type\":\"integer\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"data\":{\"items\":{\"properties\":{\"data\":{\"items\":{\"properties\":{\"from\":{\"format\":\"date-time\",\"type\":\"string\"},\"generationmix\":{\"items\":{\"properties\":{\"fuel\":{\"description\":\"Fuel type\",\"type\":\"string\"},\"perc\":{\"description\":\"Percentage of total generation\",\"format\":\"float\",\"type\":\"number\"}},\"type\":\"object\"},\"type\":\"array\"},\"intensity\":{\"properties\":{\"forecast\":{\"description\":\"Forecasted carbon intensity (gCO2/kWh)\",\"type\":\"integer\"},\"index\":{\"description\":\"Intensity index\",\"type\":\"string\"}},\"type\":\"object\"},\"to\":{\"format\":\"date-time\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"},\"dnoregion\":{\"description\":\"Distribution Network Operator region\",\"type\":\"string\"},\"postcode\":{\"description\":\"Outward postcode\",\"type\":\"string\"},\"regionid\":{\"description\":\"Region ID (1-17)\",\"type\":\"integer\"},\"shortname\":{\"description\":\"Short region name\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"}},\"type\":\"object\"}}},\"description\":\"Successful response\"}},\"securitySource\":\"unspecified\"}"
+            source: "openapi3"
+            version: 1
+          }
           method: "GET"
           orig: "/regional/intensity/{from}/{to}/regionid/{regionid}"
           rename: {
@@ -324,6 +354,12 @@ main: kit: entity: regional_intensity_list: {
               }
             ]
           }
+          contract: {
+            id: "GET /regional/intensity/{from}/{to}"
+            json: "{\"operationId\":\"getRegionalIntensityBetweenDatetimes\",\"parameters\":[{\"description\":\"Start datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)\",\"in\":\"path\",\"name\":\"from\",\"required\":true,\"schema\":{\"format\":\"date-time\",\"type\":\"string\"}},{\"description\":\"End datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)\",\"in\":\"path\",\"name\":\"to\",\"required\":true,\"schema\":{\"format\":\"date-time\",\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"data\":{\"items\":{\"properties\":{\"data\":{\"items\":{\"properties\":{\"from\":{\"format\":\"date-time\",\"type\":\"string\"},\"generationmix\":{\"items\":{\"properties\":{\"fuel\":{\"description\":\"Fuel type\",\"type\":\"string\"},\"perc\":{\"description\":\"Percentage of total generation\",\"format\":\"float\",\"type\":\"number\"}},\"type\":\"object\"},\"type\":\"array\"},\"intensity\":{\"properties\":{\"forecast\":{\"description\":\"Forecasted carbon intensity (gCO2/kWh)\",\"type\":\"integer\"},\"index\":{\"description\":\"Intensity index\",\"type\":\"string\"}},\"type\":\"object\"},\"to\":{\"format\":\"date-time\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"},\"dnoregion\":{\"description\":\"Distribution Network Operator region\",\"type\":\"string\"},\"postcode\":{\"description\":\"Outward postcode\",\"type\":\"string\"},\"regionid\":{\"description\":\"Region ID (1-17)\",\"type\":\"integer\"},\"shortname\":{\"description\":\"Short region name\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"}},\"type\":\"object\"}}},\"description\":\"Successful response\"}},\"securitySource\":\"unspecified\"}"
+            source: "openapi3"
+            version: 1
+          }
           method: "GET"
           orig: "/regional/intensity/{from}/{to}"
           segments: [
@@ -369,6 +405,12 @@ main: kit: entity: regional_intensity_list: {
                 type: "`$STRING`"
               }
             ]
+          }
+          contract: {
+            id: "GET /regional/intensity/{from}/fw24h/postcode/{postcode}"
+            json: "{\"operationId\":\"getRegionalIntensityForward24hByPostcode\",\"parameters\":[{\"description\":\"Datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)\",\"in\":\"path\",\"name\":\"from\",\"required\":true,\"schema\":{\"format\":\"date-time\",\"type\":\"string\"}},{\"description\":\"Outward postcode (e.g., SW1)\",\"in\":\"path\",\"name\":\"postcode\",\"required\":true,\"schema\":{\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"data\":{\"items\":{\"properties\":{\"data\":{\"items\":{\"properties\":{\"from\":{\"format\":\"date-time\",\"type\":\"string\"},\"generationmix\":{\"items\":{\"properties\":{\"fuel\":{\"description\":\"Fuel type\",\"type\":\"string\"},\"perc\":{\"description\":\"Percentage of total generation\",\"format\":\"float\",\"type\":\"number\"}},\"type\":\"object\"},\"type\":\"array\"},\"intensity\":{\"properties\":{\"forecast\":{\"description\":\"Forecasted carbon intensity (gCO2/kWh)\",\"type\":\"integer\"},\"index\":{\"description\":\"Intensity index\",\"type\":\"string\"}},\"type\":\"object\"},\"to\":{\"format\":\"date-time\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"},\"dnoregion\":{\"description\":\"Distribution Network Operator region\",\"type\":\"string\"},\"postcode\":{\"description\":\"Outward postcode\",\"type\":\"string\"},\"regionid\":{\"description\":\"Region ID (1-17)\",\"type\":\"integer\"},\"shortname\":{\"description\":\"Short region name\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"}},\"type\":\"object\"}}},\"description\":\"Successful response\"}},\"securitySource\":\"unspecified\"}"
+            source: "openapi3"
+            version: 1
           }
           method: "GET"
           orig: "/regional/intensity/{from}/fw24h/postcode/{postcode}"
@@ -427,6 +469,12 @@ main: kit: entity: regional_intensity_list: {
               }
             ]
           }
+          contract: {
+            id: "GET /regional/intensity/{from}/fw48h/postcode/{postcode}"
+            json: "{\"operationId\":\"getRegionalIntensityForward48hByPostcode\",\"parameters\":[{\"description\":\"Datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)\",\"in\":\"path\",\"name\":\"from\",\"required\":true,\"schema\":{\"format\":\"date-time\",\"type\":\"string\"}},{\"description\":\"Outward postcode (e.g., SW1)\",\"in\":\"path\",\"name\":\"postcode\",\"required\":true,\"schema\":{\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"data\":{\"items\":{\"properties\":{\"data\":{\"items\":{\"properties\":{\"from\":{\"format\":\"date-time\",\"type\":\"string\"},\"generationmix\":{\"items\":{\"properties\":{\"fuel\":{\"description\":\"Fuel type\",\"type\":\"string\"},\"perc\":{\"description\":\"Percentage of total generation\",\"format\":\"float\",\"type\":\"number\"}},\"type\":\"object\"},\"type\":\"array\"},\"intensity\":{\"properties\":{\"forecast\":{\"description\":\"Forecasted carbon intensity (gCO2/kWh)\",\"type\":\"integer\"},\"index\":{\"description\":\"Intensity index\",\"type\":\"string\"}},\"type\":\"object\"},\"to\":{\"format\":\"date-time\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"},\"dnoregion\":{\"description\":\"Distribution Network Operator region\",\"type\":\"string\"},\"postcode\":{\"description\":\"Outward postcode\",\"type\":\"string\"},\"regionid\":{\"description\":\"Region ID (1-17)\",\"type\":\"integer\"},\"shortname\":{\"description\":\"Short region name\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"}},\"type\":\"object\"}}},\"description\":\"Successful response\"}},\"securitySource\":\"unspecified\"}"
+            source: "openapi3"
+            version: 1
+          }
           method: "GET"
           orig: "/regional/intensity/{from}/fw48h/postcode/{postcode}"
           rename: {
@@ -483,6 +531,12 @@ main: kit: entity: regional_intensity_list: {
                 type: "`$STRING`"
               }
             ]
+          }
+          contract: {
+            id: "GET /regional/intensity/{from}/pt24h/postcode/{postcode}"
+            json: "{\"operationId\":\"getRegionalIntensityPast24hByPostcode\",\"parameters\":[{\"description\":\"Datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)\",\"in\":\"path\",\"name\":\"from\",\"required\":true,\"schema\":{\"format\":\"date-time\",\"type\":\"string\"}},{\"description\":\"Outward postcode (e.g., SW1)\",\"in\":\"path\",\"name\":\"postcode\",\"required\":true,\"schema\":{\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"data\":{\"items\":{\"properties\":{\"data\":{\"items\":{\"properties\":{\"from\":{\"format\":\"date-time\",\"type\":\"string\"},\"generationmix\":{\"items\":{\"properties\":{\"fuel\":{\"description\":\"Fuel type\",\"type\":\"string\"},\"perc\":{\"description\":\"Percentage of total generation\",\"format\":\"float\",\"type\":\"number\"}},\"type\":\"object\"},\"type\":\"array\"},\"intensity\":{\"properties\":{\"forecast\":{\"description\":\"Forecasted carbon intensity (gCO2/kWh)\",\"type\":\"integer\"},\"index\":{\"description\":\"Intensity index\",\"type\":\"string\"}},\"type\":\"object\"},\"to\":{\"format\":\"date-time\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"},\"dnoregion\":{\"description\":\"Distribution Network Operator region\",\"type\":\"string\"},\"postcode\":{\"description\":\"Outward postcode\",\"type\":\"string\"},\"regionid\":{\"description\":\"Region ID (1-17)\",\"type\":\"integer\"},\"shortname\":{\"description\":\"Short region name\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"}},\"type\":\"object\"}}},\"description\":\"Successful response\"}},\"securitySource\":\"unspecified\"}"
+            source: "openapi3"
+            version: 1
           }
           method: "GET"
           orig: "/regional/intensity/{from}/pt24h/postcode/{postcode}"
@@ -541,6 +595,12 @@ main: kit: entity: regional_intensity_list: {
               }
             ]
           }
+          contract: {
+            id: "GET /regional/intensity/{from}/fw24h/regionid/{regionid}"
+            json: "{\"operationId\":\"getRegionalIntensityForward24hByRegionId\",\"parameters\":[{\"description\":\"Datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)\",\"in\":\"path\",\"name\":\"from\",\"required\":true,\"schema\":{\"format\":\"date-time\",\"type\":\"string\"}},{\"description\":\"Region ID (1-17)\",\"in\":\"path\",\"name\":\"regionid\",\"required\":true,\"schema\":{\"maximum\":17,\"minimum\":1,\"type\":\"integer\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"data\":{\"items\":{\"properties\":{\"data\":{\"items\":{\"properties\":{\"from\":{\"format\":\"date-time\",\"type\":\"string\"},\"generationmix\":{\"items\":{\"properties\":{\"fuel\":{\"description\":\"Fuel type\",\"type\":\"string\"},\"perc\":{\"description\":\"Percentage of total generation\",\"format\":\"float\",\"type\":\"number\"}},\"type\":\"object\"},\"type\":\"array\"},\"intensity\":{\"properties\":{\"forecast\":{\"description\":\"Forecasted carbon intensity (gCO2/kWh)\",\"type\":\"integer\"},\"index\":{\"description\":\"Intensity index\",\"type\":\"string\"}},\"type\":\"object\"},\"to\":{\"format\":\"date-time\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"},\"dnoregion\":{\"description\":\"Distribution Network Operator region\",\"type\":\"string\"},\"postcode\":{\"description\":\"Outward postcode\",\"type\":\"string\"},\"regionid\":{\"description\":\"Region ID (1-17)\",\"type\":\"integer\"},\"shortname\":{\"description\":\"Short region name\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"}},\"type\":\"object\"}}},\"description\":\"Successful response\"}},\"securitySource\":\"unspecified\"}"
+            source: "openapi3"
+            version: 1
+          }
           method: "GET"
           orig: "/regional/intensity/{from}/fw24h/regionid/{regionid}"
           rename: {
@@ -598,6 +658,12 @@ main: kit: entity: regional_intensity_list: {
               }
             ]
           }
+          contract: {
+            id: "GET /regional/intensity/{from}/fw48h/regionid/{regionid}"
+            json: "{\"operationId\":\"getRegionalIntensityForward48hByRegionId\",\"parameters\":[{\"description\":\"Datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)\",\"in\":\"path\",\"name\":\"from\",\"required\":true,\"schema\":{\"format\":\"date-time\",\"type\":\"string\"}},{\"description\":\"Region ID (1-17)\",\"in\":\"path\",\"name\":\"regionid\",\"required\":true,\"schema\":{\"maximum\":17,\"minimum\":1,\"type\":\"integer\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"data\":{\"items\":{\"properties\":{\"data\":{\"items\":{\"properties\":{\"from\":{\"format\":\"date-time\",\"type\":\"string\"},\"generationmix\":{\"items\":{\"properties\":{\"fuel\":{\"description\":\"Fuel type\",\"type\":\"string\"},\"perc\":{\"description\":\"Percentage of total generation\",\"format\":\"float\",\"type\":\"number\"}},\"type\":\"object\"},\"type\":\"array\"},\"intensity\":{\"properties\":{\"forecast\":{\"description\":\"Forecasted carbon intensity (gCO2/kWh)\",\"type\":\"integer\"},\"index\":{\"description\":\"Intensity index\",\"type\":\"string\"}},\"type\":\"object\"},\"to\":{\"format\":\"date-time\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"},\"dnoregion\":{\"description\":\"Distribution Network Operator region\",\"type\":\"string\"},\"postcode\":{\"description\":\"Outward postcode\",\"type\":\"string\"},\"regionid\":{\"description\":\"Region ID (1-17)\",\"type\":\"integer\"},\"shortname\":{\"description\":\"Short region name\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"}},\"type\":\"object\"}}},\"description\":\"Successful response\"}},\"securitySource\":\"unspecified\"}"
+            source: "openapi3"
+            version: 1
+          }
           method: "GET"
           orig: "/regional/intensity/{from}/fw48h/regionid/{regionid}"
           rename: {
@@ -654,6 +720,12 @@ main: kit: entity: regional_intensity_list: {
                 type: "`$INTEGER`"
               }
             ]
+          }
+          contract: {
+            id: "GET /regional/intensity/{from}/pt24h/regionid/{regionid}"
+            json: "{\"operationId\":\"getRegionalIntensityPast24hByRegionId\",\"parameters\":[{\"description\":\"Datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)\",\"in\":\"path\",\"name\":\"from\",\"required\":true,\"schema\":{\"format\":\"date-time\",\"type\":\"string\"}},{\"description\":\"Region ID (1-17)\",\"in\":\"path\",\"name\":\"regionid\",\"required\":true,\"schema\":{\"maximum\":17,\"minimum\":1,\"type\":\"integer\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"data\":{\"items\":{\"properties\":{\"data\":{\"items\":{\"properties\":{\"from\":{\"format\":\"date-time\",\"type\":\"string\"},\"generationmix\":{\"items\":{\"properties\":{\"fuel\":{\"description\":\"Fuel type\",\"type\":\"string\"},\"perc\":{\"description\":\"Percentage of total generation\",\"format\":\"float\",\"type\":\"number\"}},\"type\":\"object\"},\"type\":\"array\"},\"intensity\":{\"properties\":{\"forecast\":{\"description\":\"Forecasted carbon intensity (gCO2/kWh)\",\"type\":\"integer\"},\"index\":{\"description\":\"Intensity index\",\"type\":\"string\"}},\"type\":\"object\"},\"to\":{\"format\":\"date-time\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"},\"dnoregion\":{\"description\":\"Distribution Network Operator region\",\"type\":\"string\"},\"postcode\":{\"description\":\"Outward postcode\",\"type\":\"string\"},\"regionid\":{\"description\":\"Region ID (1-17)\",\"type\":\"integer\"},\"shortname\":{\"description\":\"Short region name\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"}},\"type\":\"object\"}}},\"description\":\"Successful response\"}},\"securitySource\":\"unspecified\"}"
+            source: "openapi3"
+            version: 1
           }
           method: "GET"
           orig: "/regional/intensity/{from}/pt24h/regionid/{regionid}"

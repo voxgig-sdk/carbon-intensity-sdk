@@ -48,6 +48,12 @@ main: kit: entity: intensity_list: {
               }
             ]
           }
+          contract: {
+            id: "GET /intensity/{from}/fw24h"
+            json: "{\"operationId\":\"getIntensityForward24h\",\"parameters\":[{\"description\":\"Datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)\",\"in\":\"path\",\"name\":\"from\",\"required\":true,\"schema\":{\"format\":\"date-time\",\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"data\":{\"items\":{\"properties\":{\"from\":{\"description\":\"Start datetime of the period\",\"format\":\"date-time\",\"type\":\"string\"},\"intensity\":{\"properties\":{\"actual\":{\"description\":\"Actual carbon intensity (gCO2/kWh)\",\"type\":\"integer\"},\"forecast\":{\"description\":\"Forecasted carbon intensity (gCO2/kWh)\",\"type\":\"integer\"},\"index\":{\"description\":\"Intensity index\",\"enum\":[\"very low\",\"low\",\"moderate\",\"high\",\"very high\"],\"type\":\"string\"}},\"type\":\"object\"},\"to\":{\"description\":\"End datetime of the period\",\"format\":\"date-time\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"}},\"type\":\"object\"}}},\"description\":\"Successful response\"}},\"securitySource\":\"unspecified\"}"
+            source: "openapi3"
+            version: 1
+          }
           method: "GET"
           orig: "/intensity/{from}/fw24h"
           segments: [
@@ -82,6 +88,12 @@ main: kit: entity: intensity_list: {
                 type: "`$STRING`"
               }
             ]
+          }
+          contract: {
+            id: "GET /intensity/{from}/fw48h"
+            json: "{\"operationId\":\"getIntensityForward48h\",\"parameters\":[{\"description\":\"Datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)\",\"in\":\"path\",\"name\":\"from\",\"required\":true,\"schema\":{\"format\":\"date-time\",\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"data\":{\"items\":{\"properties\":{\"from\":{\"description\":\"Start datetime of the period\",\"format\":\"date-time\",\"type\":\"string\"},\"intensity\":{\"properties\":{\"actual\":{\"description\":\"Actual carbon intensity (gCO2/kWh)\",\"type\":\"integer\"},\"forecast\":{\"description\":\"Forecasted carbon intensity (gCO2/kWh)\",\"type\":\"integer\"},\"index\":{\"description\":\"Intensity index\",\"enum\":[\"very low\",\"low\",\"moderate\",\"high\",\"very high\"],\"type\":\"string\"}},\"type\":\"object\"},\"to\":{\"description\":\"End datetime of the period\",\"format\":\"date-time\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"}},\"type\":\"object\"}}},\"description\":\"Successful response\"}},\"securitySource\":\"unspecified\"}"
+            source: "openapi3"
+            version: 1
           }
           method: "GET"
           orig: "/intensity/{from}/fw48h"
@@ -118,6 +130,12 @@ main: kit: entity: intensity_list: {
               }
             ]
           }
+          contract: {
+            id: "GET /intensity/{from}/pt24h"
+            json: "{\"operationId\":\"getIntensityPast24h\",\"parameters\":[{\"description\":\"Datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)\",\"in\":\"path\",\"name\":\"from\",\"required\":true,\"schema\":{\"format\":\"date-time\",\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"data\":{\"items\":{\"properties\":{\"from\":{\"description\":\"Start datetime of the period\",\"format\":\"date-time\",\"type\":\"string\"},\"intensity\":{\"properties\":{\"actual\":{\"description\":\"Actual carbon intensity (gCO2/kWh)\",\"type\":\"integer\"},\"forecast\":{\"description\":\"Forecasted carbon intensity (gCO2/kWh)\",\"type\":\"integer\"},\"index\":{\"description\":\"Intensity index\",\"enum\":[\"very low\",\"low\",\"moderate\",\"high\",\"very high\"],\"type\":\"string\"}},\"type\":\"object\"},\"to\":{\"description\":\"End datetime of the period\",\"format\":\"date-time\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"}},\"type\":\"object\"}}},\"description\":\"Successful response\"}},\"securitySource\":\"unspecified\"}"
+            source: "openapi3"
+            version: 1
+          }
           method: "GET"
           orig: "/intensity/{from}/pt24h"
           segments: [
@@ -142,6 +160,12 @@ main: kit: entity: intensity_list: {
           }
         }
         {
+          contract: {
+            id: "GET /intensity/date"
+            json: "{\"operationId\":\"getIntensityToday\",\"parameters\":[],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"data\":{\"items\":{\"properties\":{\"from\":{\"description\":\"Start datetime of the period\",\"format\":\"date-time\",\"type\":\"string\"},\"intensity\":{\"properties\":{\"actual\":{\"description\":\"Actual carbon intensity (gCO2/kWh)\",\"type\":\"integer\"},\"forecast\":{\"description\":\"Forecasted carbon intensity (gCO2/kWh)\",\"type\":\"integer\"},\"index\":{\"description\":\"Intensity index\",\"enum\":[\"very low\",\"low\",\"moderate\",\"high\",\"very high\"],\"type\":\"string\"}},\"type\":\"object\"},\"to\":{\"description\":\"End datetime of the period\",\"format\":\"date-time\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"}},\"type\":\"object\"}}},\"description\":\"Successful response\"}},\"securitySource\":\"unspecified\"}"
+            source: "openapi3"
+            version: 1
+          }
           method: "GET"
           orig: "/intensity/date"
           segments: [
@@ -173,6 +197,12 @@ main: kit: entity: intensity_list: {
                 type: "`$STRING`"
               }
             ]
+          }
+          contract: {
+            id: "GET /intensity/date/{date}"
+            json: "{\"operationId\":\"getIntensityByDate\",\"parameters\":[{\"description\":\"Date in YYYY-MM-DD format\",\"in\":\"path\",\"name\":\"date\",\"required\":true,\"schema\":{\"format\":\"date\",\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"data\":{\"items\":{\"properties\":{\"from\":{\"description\":\"Start datetime of the period\",\"format\":\"date-time\",\"type\":\"string\"},\"intensity\":{\"properties\":{\"actual\":{\"description\":\"Actual carbon intensity (gCO2/kWh)\",\"type\":\"integer\"},\"forecast\":{\"description\":\"Forecasted carbon intensity (gCO2/kWh)\",\"type\":\"integer\"},\"index\":{\"description\":\"Intensity index\",\"enum\":[\"very low\",\"low\",\"moderate\",\"high\",\"very high\"],\"type\":\"string\"}},\"type\":\"object\"},\"to\":{\"description\":\"End datetime of the period\",\"format\":\"date-time\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"}},\"type\":\"object\"}}},\"description\":\"Successful response\"}},\"securitySource\":\"unspecified\"}"
+            source: "openapi3"
+            version: 1
           }
           method: "GET"
           orig: "/intensity/date/{date}"

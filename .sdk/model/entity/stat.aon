@@ -59,6 +59,12 @@ main: kit: entity: stat: {
               }
             ]
           }
+          contract: {
+            id: "GET /intensity/stats/{from}/{to}/{block}"
+            json: "{\"operationId\":\"getIntensityStatsBlocks\",\"parameters\":[{\"description\":\"Start datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)\",\"in\":\"path\",\"name\":\"from\",\"required\":true,\"schema\":{\"format\":\"date-time\",\"type\":\"string\"}},{\"description\":\"End datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)\",\"in\":\"path\",\"name\":\"to\",\"required\":true,\"schema\":{\"format\":\"date-time\",\"type\":\"string\"}},{\"description\":\"Block length in hours (e.g., 2 for 2-hour blocks)\",\"in\":\"path\",\"name\":\"block\",\"required\":true,\"schema\":{\"type\":\"integer\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"data\":{\"items\":{\"properties\":{\"from\":{\"format\":\"date-time\",\"type\":\"string\"},\"intensity\":{\"properties\":{\"average\":{\"description\":\"Average carbon intensity (gCO2/kWh)\",\"type\":\"integer\"},\"index\":{\"description\":\"Average intensity index\",\"type\":\"string\"},\"max\":{\"description\":\"Maximum carbon intensity (gCO2/kWh)\",\"type\":\"integer\"},\"min\":{\"description\":\"Minimum carbon intensity (gCO2/kWh)\",\"type\":\"integer\"}},\"type\":\"object\"},\"to\":{\"format\":\"date-time\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"}},\"type\":\"object\"}}},\"description\":\"Successful response\"}},\"securitySource\":\"unspecified\"}"
+            source: "openapi3"
+            version: 1
+          }
           method: "GET"
           orig: "/intensity/stats/{from}/{to}/{block}"
           segments: [
@@ -108,6 +114,12 @@ main: kit: entity: stat: {
                 type: "`$STRING`"
               }
             ]
+          }
+          contract: {
+            id: "GET /intensity/stats/{from}/{to}"
+            json: "{\"operationId\":\"getIntensityStats\",\"parameters\":[{\"description\":\"Start datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)\",\"in\":\"path\",\"name\":\"from\",\"required\":true,\"schema\":{\"format\":\"date-time\",\"type\":\"string\"}},{\"description\":\"End datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)\",\"in\":\"path\",\"name\":\"to\",\"required\":true,\"schema\":{\"format\":\"date-time\",\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"data\":{\"items\":{\"properties\":{\"from\":{\"format\":\"date-time\",\"type\":\"string\"},\"intensity\":{\"properties\":{\"average\":{\"description\":\"Average carbon intensity (gCO2/kWh)\",\"type\":\"integer\"},\"index\":{\"description\":\"Average intensity index\",\"type\":\"string\"},\"max\":{\"description\":\"Maximum carbon intensity (gCO2/kWh)\",\"type\":\"integer\"},\"min\":{\"description\":\"Minimum carbon intensity (gCO2/kWh)\",\"type\":\"integer\"}},\"type\":\"object\"},\"to\":{\"format\":\"date-time\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"}},\"type\":\"object\"}}},\"description\":\"Successful response\"}},\"securitySource\":\"unspecified\"}"
+            source: "openapi3"
+            version: 1
           }
           method: "GET"
           orig: "/intensity/stats/{from}/{to}"

@@ -2,72 +2,161 @@
   "existing": {
     "intensity_factor": {
       "INTENSITY_FACTOR00": {
-        "Biomass": "s8c",
-        "Coal": "s8d",
-        "DutchImports": "s8e",
-        "FrenchImports": "s8f",
-        "GasCombinedCycle": "s90",
-        "GasOpenCycle": "s91",
-        "Hydro": "s92",
-        "IrishImports": "s93",
-        "Nuclear": "s94",
-        "Oil": "s95",
-        "Other": "s96",
-        "PumpedStorage": "s97",
-        "Solar": "s98",
-        "Wind": "s99"
+        "Biomass": 140,
+        "Coal": 141,
+        "DutchImports": 142,
+        "FrenchImports": 143,
+        "GasCombinedCycle": 144,
+        "GasOpenCycle": 145,
+        "Hydro": 146,
+        "IrishImports": 147,
+        "Nuclear": 148,
+        "Oil": 149,
+        "Other": 150,
+        "PumpedStorage": 151,
+        "Solar": 152,
+        "Wind": 153
       },
       "INTENSITY_FACTOR01": {
-        "Biomass": "s118",
-        "Coal": "s119",
-        "DutchImports": "s11a",
-        "FrenchImports": "s11b",
-        "GasCombinedCycle": "s11c",
-        "GasOpenCycle": "s11d",
-        "Hydro": "s11e",
-        "IrishImports": "s11f",
-        "Nuclear": "s120",
-        "Oil": "s121",
-        "Other": "s122",
-        "PumpedStorage": "s123",
-        "Solar": "s124",
-        "Wind": "s125"
+        "Biomass": 280,
+        "Coal": 281,
+        "DutchImports": 282,
+        "FrenchImports": 283,
+        "GasCombinedCycle": 284,
+        "GasOpenCycle": 285,
+        "Hydro": 286,
+        "IrishImports": 287,
+        "Nuclear": 288,
+        "Oil": 289,
+        "Other": 290,
+        "PumpedStorage": 291,
+        "Solar": 292,
+        "Wind": 293
       },
       "INTENSITY_FACTOR02": {
-        "Biomass": "s1a4",
-        "Coal": "s1a5",
-        "DutchImports": "s1a6",
-        "FrenchImports": "s1a7",
-        "GasCombinedCycle": "s1a8",
-        "GasOpenCycle": "s1a9",
-        "Hydro": "s1aa",
-        "IrishImports": "s1ab",
-        "Nuclear": "s1ac",
-        "Oil": "s1ad",
-        "Other": "s1ae",
-        "PumpedStorage": "s1af",
-        "Solar": "s1b0",
-        "Wind": "s1b1"
+        "Biomass": 420,
+        "Coal": 421,
+        "DutchImports": 422,
+        "FrenchImports": 423,
+        "GasCombinedCycle": 424,
+        "GasOpenCycle": 425,
+        "Hydro": 426,
+        "IrishImports": 427,
+        "Nuclear": 428,
+        "Oil": 429,
+        "Other": 430,
+        "PumpedStorage": 431,
+        "Solar": 432,
+        "Wind": 433
       }
     }
   },
   "new": {
     "intensity_factor": {
       "intensity_factor_ref01": {
-        "Biomass": "s230",
-        "Coal": "s231",
-        "DutchImports": "s232",
-        "FrenchImports": "s233",
-        "GasCombinedCycle": "s234",
-        "GasOpenCycle": "s235",
-        "Hydro": "s236",
-        "IrishImports": "s237",
-        "Nuclear": "s238",
-        "Oil": "s239",
-        "Other": "s23a",
-        "PumpedStorage": "s23b",
-        "Solar": "s23c",
-        "Wind": "s23d"
+        "Biomass": 560,
+        "Coal": 561,
+        "DutchImports": 562,
+        "FrenchImports": 563,
+        "GasCombinedCycle": 564,
+        "GasOpenCycle": 565,
+        "Hydro": 566,
+        "IrishImports": 567,
+        "Nuclear": 568,
+        "Oil": 569,
+        "Other": 570,
+        "PumpedStorage": 571,
+        "Solar": 572,
+        "Wind": 573
+      }
+    }
+  },
+  "requests": {
+    "GET /intensity/factors": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "getIntensityFactors",
+        "parameters": [],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "data": {
+                      "items": {
+                        "properties": {
+                          "Biomass": {
+                            "description": "Carbon intensity factor for biomass (gCO2/kWh)",
+                            "type": "integer"
+                          },
+                          "Coal": {
+                            "description": "Carbon intensity factor for coal (gCO2/kWh)",
+                            "type": "integer"
+                          },
+                          "Dutch Imports": {
+                            "description": "Carbon intensity factor for Dutch imports (gCO2/kWh)",
+                            "type": "integer"
+                          },
+                          "French Imports": {
+                            "description": "Carbon intensity factor for French imports (gCO2/kWh)",
+                            "type": "integer"
+                          },
+                          "Gas (Combined Cycle)": {
+                            "description": "Carbon intensity factor for gas combined cycle (gCO2/kWh)",
+                            "type": "integer"
+                          },
+                          "Gas (Open Cycle)": {
+                            "description": "Carbon intensity factor for gas open cycle (gCO2/kWh)",
+                            "type": "integer"
+                          },
+                          "Hydro": {
+                            "description": "Carbon intensity factor for hydro (gCO2/kWh)",
+                            "type": "integer"
+                          },
+                          "Irish Imports": {
+                            "description": "Carbon intensity factor for Irish imports (gCO2/kWh)",
+                            "type": "integer"
+                          },
+                          "Nuclear": {
+                            "description": "Carbon intensity factor for nuclear (gCO2/kWh)",
+                            "type": "integer"
+                          },
+                          "Oil": {
+                            "description": "Carbon intensity factor for oil (gCO2/kWh)",
+                            "type": "integer"
+                          },
+                          "Other": {
+                            "description": "Carbon intensity factor for other (gCO2/kWh)",
+                            "type": "integer"
+                          },
+                          "Pumped Storage": {
+                            "description": "Carbon intensity factor for pumped storage (gCO2/kWh)",
+                            "type": "integer"
+                          },
+                          "Solar": {
+                            "description": "Carbon intensity factor for solar (gCO2/kWh)",
+                            "type": "integer"
+                          },
+                          "Wind": {
+                            "description": "Carbon intensity factor for wind (gCO2/kWh)",
+                            "type": "integer"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful response"
+          }
+        },
+        "securitySource": "unspecified"
       }
     }
   }

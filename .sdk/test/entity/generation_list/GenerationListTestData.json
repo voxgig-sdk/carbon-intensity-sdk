@@ -26,5 +26,74 @@
         "to": "s7a"
       }
     }
+  },
+  "requests": {
+    "GET /generation/{from}/pt24h": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "getGenerationPast24h",
+        "parameters": [
+          {
+            "description": "Datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)",
+            "in": "path",
+            "name": "from",
+            "required": true,
+            "schema": {
+              "format": "date-time",
+              "type": "string"
+            }
+          }
+        ],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "data": {
+                      "items": {
+                        "properties": {
+                          "from": {
+                            "format": "date-time",
+                            "type": "string"
+                          },
+                          "generationmix": {
+                            "items": {
+                              "properties": {
+                                "fuel": {
+                                  "description": "Fuel type",
+                                  "type": "string"
+                                },
+                                "perc": {
+                                  "description": "Percentage of total generation",
+                                  "format": "float",
+                                  "type": "number"
+                                }
+                              },
+                              "type": "object"
+                            },
+                            "type": "array"
+                          },
+                          "to": {
+                            "format": "date-time",
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful response"
+          }
+        },
+        "securitySource": "unspecified"
+      }
+    }
   }
 }

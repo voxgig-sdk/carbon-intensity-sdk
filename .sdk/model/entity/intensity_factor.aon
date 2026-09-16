@@ -97,6 +97,12 @@ main: kit: entity: intensity_factor: {
       name: "list"
       points: [
         {
+          contract: {
+            id: "GET /intensity/factors"
+            json: "{\"operationId\":\"getIntensityFactors\",\"parameters\":[],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"data\":{\"items\":{\"properties\":{\"Biomass\":{\"description\":\"Carbon intensity factor for biomass (gCO2/kWh)\",\"type\":\"integer\"},\"Coal\":{\"description\":\"Carbon intensity factor for coal (gCO2/kWh)\",\"type\":\"integer\"},\"Dutch Imports\":{\"description\":\"Carbon intensity factor for Dutch imports (gCO2/kWh)\",\"type\":\"integer\"},\"French Imports\":{\"description\":\"Carbon intensity factor for French imports (gCO2/kWh)\",\"type\":\"integer\"},\"Gas (Combined Cycle)\":{\"description\":\"Carbon intensity factor for gas combined cycle (gCO2/kWh)\",\"type\":\"integer\"},\"Gas (Open Cycle)\":{\"description\":\"Carbon intensity factor for gas open cycle (gCO2/kWh)\",\"type\":\"integer\"},\"Hydro\":{\"description\":\"Carbon intensity factor for hydro (gCO2/kWh)\",\"type\":\"integer\"},\"Irish Imports\":{\"description\":\"Carbon intensity factor for Irish imports (gCO2/kWh)\",\"type\":\"integer\"},\"Nuclear\":{\"description\":\"Carbon intensity factor for nuclear (gCO2/kWh)\",\"type\":\"integer\"},\"Oil\":{\"description\":\"Carbon intensity factor for oil (gCO2/kWh)\",\"type\":\"integer\"},\"Other\":{\"description\":\"Carbon intensity factor for other (gCO2/kWh)\",\"type\":\"integer\"},\"Pumped Storage\":{\"description\":\"Carbon intensity factor for pumped storage (gCO2/kWh)\",\"type\":\"integer\"},\"Solar\":{\"description\":\"Carbon intensity factor for solar (gCO2/kWh)\",\"type\":\"integer\"},\"Wind\":{\"description\":\"Carbon intensity factor for wind (gCO2/kWh)\",\"type\":\"integer\"}},\"type\":\"object\"},\"type\":\"array\"}},\"type\":\"object\"}}},\"description\":\"Successful response\"}},\"securitySource\":\"unspecified\"}"
+            source: "openapi3"
+            version: 1
+          }
           method: "GET"
           orig: "/intensity/factors"
           segments: [

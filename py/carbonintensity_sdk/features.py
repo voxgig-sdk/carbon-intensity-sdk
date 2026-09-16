@@ -1,12 +1,18 @@
 # CarbonIntensity SDK feature factory
 
 from carbonintensity_sdk.feature.base_feature import CarbonIntensityBaseFeature
+from carbonintensity_sdk.feature.ratelimit_feature import CarbonIntensityRatelimitFeature
+from carbonintensity_sdk.feature.retry_feature import CarbonIntensityRetryFeature
 from carbonintensity_sdk.feature.test_feature import CarbonIntensityTestFeature
+from carbonintensity_sdk.feature.timeout_feature import CarbonIntensityTimeoutFeature
 
 
 _FEATURES = {
     "base": lambda: CarbonIntensityBaseFeature(),
+    "ratelimit": lambda: CarbonIntensityRatelimitFeature(),
+    "retry": lambda: CarbonIntensityRetryFeature(),
     "test": lambda: CarbonIntensityTestFeature(),
+    "timeout": lambda: CarbonIntensityTimeoutFeature(),
 }
 
 
