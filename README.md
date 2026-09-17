@@ -105,12 +105,12 @@ local results, err = client:IntensityList():list()
 
 | Language | Package | Install |
 | --- | --- | --- |
-| TypeScript | `@voxgig-sdk/carbon-intensity-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/carbon-intensity-sdk/releases) |
-| Python | `voxgig-sdk-carbon-intensity` | publish pending — [install from git tag](https://github.com/voxgig-sdk/carbon-intensity-sdk/releases) |
-| PHP | `voxgig-sdk/carbon-intensity` | publish pending — [install from git tag](https://github.com/voxgig-sdk/carbon-intensity-sdk/releases) |
+| TypeScript | `@voxgig-sdk/carbon-intensity-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/carbon-intensity-sdk/tags) |
+| Python | `voxgig-sdk-carbon-intensity` | publish pending — [install from git tag](https://github.com/voxgig-sdk/carbon-intensity-sdk/tags) |
+| PHP | `voxgig-sdk/carbon-intensity` | publish pending — [install from git tag](https://github.com/voxgig-sdk/carbon-intensity-sdk/tags) |
 | Golang | `github.com/voxgig-sdk/carbon-intensity-sdk/go` | `go get github.com/voxgig-sdk/carbon-intensity-sdk/go@latest` |
-| Ruby | `voxgig-sdk-carbon-intensity` | publish pending — [install from git tag](https://github.com/voxgig-sdk/carbon-intensity-sdk/releases) |
-| Lua | `voxgig-sdk-carbon-intensity` | publish pending — [install from git tag](https://github.com/voxgig-sdk/carbon-intensity-sdk/releases) |
+| Ruby | `voxgig-sdk-carbon-intensity` | publish pending — [install from git tag](https://github.com/voxgig-sdk/carbon-intensity-sdk/tags) |
+| Lua | `voxgig-sdk-carbon-intensity` | publish pending — [install from git tag](https://github.com/voxgig-sdk/carbon-intensity-sdk/tags) |
 | Go CLI | `github.com/voxgig-sdk/carbon-intensity-sdk/go-cli` | `go install github.com/voxgig-sdk/carbon-intensity-sdk/go-cli/cmd/carbon-intensity@latest` |
 | Go MCP server | `github.com/voxgig-sdk/carbon-intensity-sdk/go-mcp` | `go get github.com/voxgig-sdk/carbon-intensity-sdk/go-mcp@latest` |
 

@@ -127,33 +127,33 @@ class Config {
 
     entity: {
       
-      generation: {
-      },
-
-      generation_list: {
-      },
-
-      intensity: {
-      },
-
-      intensity_factor: {
-      },
-
-      intensity_list: {
-      },
-
-      regional: {
-      },
-
-      regional_intensity: {
-      },
-
-      regional_intensity_list: {
-      },
-
-      stat: {
-      },
-
+        generation: {
+        },
+  
+        generation_list: {
+        },
+  
+        intensity: {
+        },
+  
+        intensity_factor: {
+        },
+  
+        intensity_list: {
+        },
+  
+        regional: {
+        },
+  
+        regional_intensity: {
+        },
+  
+        regional_intensity_list: {
+        },
+  
+        stat: {
+        },
+  
     }
   }
 
