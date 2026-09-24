@@ -19,7 +19,6 @@ import type {
   IntensityFactorListMatch,
 } from '../CarbonIntensityTypes'
 
-// TODO: needs Entity superclass
 class IntensityFactorEntity extends CarbonIntensityEntityBase<IntensityFactor> {
 
   constructor(client: CarbonIntensitySDK, entopts: any) {

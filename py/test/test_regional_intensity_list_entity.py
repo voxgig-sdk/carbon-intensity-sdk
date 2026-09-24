@@ -116,7 +116,7 @@ def _regional_intensity_list_basic_setup(extra):
 
     # Generate idmap via transform.
     idmap = vs.transform(
-        ["regional_intensity_list01", "regional_intensity_list02", "regional_intensity_list03", "intensity01", "intensity02", "intensity03", "postcode01", "postcode02", "postcode03", "regionid01", "regionid02", "regionid03", "from01"],
+        ["regional_intensity_list01", "regional_intensity_list02", "regional_intensity_list03", "intensity01", "intensity02", "intensity03", "from01"],
         {
             "`$PACK`": ["", {
                 "`$KEY`": "`$COPY`",

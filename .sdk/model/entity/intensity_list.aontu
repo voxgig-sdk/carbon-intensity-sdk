@@ -1,0 +1,238 @@
+# Entity: intensity_list
+
+main: kit: entity: intensity_list: {
+
+  alias: field: {}
+
+  fields: {
+    data: {
+      h: "Data"
+      n: "data"
+      r: false
+      t: "`$ARRAY`"
+    }
+    from: {
+      fo: "date-time"
+      h: "From"
+      n: "from"
+      r: false
+      sh: "Start datetime of the period"
+      t: "`$STRING`"
+    }
+    intensity: {
+      h: "Intensity"
+      n: "intensity"
+      r: false
+      t: "`$OBJECT`"
+    }
+    to: {
+      fo: "date-time"
+      h: "To"
+      n: "to"
+      r: false
+      sh: "End datetime of the period"
+      t: "`$STRING`"
+    }
+  }
+
+  name: "intensity_list"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          co: {
+            id: "GET /intensity/{from}/fw24h"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                k: "param"
+                n: "from"
+                or: "from"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/intensity/{from}/fw24h"
+          q: {
+            exist: [
+              "from"
+            ]
+          }
+          s: [
+            {
+              lit: "intensity"
+            }
+            {
+              var: "from"
+            }
+            {
+              lit: "fw24h"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body.data`"
+          }
+        }
+        {
+          co: {
+            id: "GET /intensity/{from}/fw48h"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                k: "param"
+                n: "from"
+                or: "from"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/intensity/{from}/fw48h"
+          q: {
+            exist: [
+              "from"
+            ]
+          }
+          s: [
+            {
+              lit: "intensity"
+            }
+            {
+              var: "from"
+            }
+            {
+              lit: "fw48h"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body.data`"
+          }
+        }
+        {
+          co: {
+            id: "GET /intensity/{from}/pt24h"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                k: "param"
+                n: "from"
+                or: "from"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/intensity/{from}/pt24h"
+          q: {
+            exist: [
+              "from"
+            ]
+          }
+          s: [
+            {
+              lit: "intensity"
+            }
+            {
+              var: "from"
+            }
+            {
+              lit: "pt24h"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body.data`"
+          }
+        }
+        {
+          co: {
+            id: "GET /intensity/date"
+            source: "openapi3"
+            version: 2
+          }
+          m: "GET"
+          o: "/intensity/date"
+          s: [
+            {
+              lit: "intensity"
+            }
+            {
+              lit: "date"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body.data`"
+          }
+        }
+      ]
+    }
+    load: {
+      name: "load"
+      points: [
+        {
+          co: {
+            id: "GET /intensity/date/{date}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                k: "param"
+                n: "date"
+                or: "date"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/intensity/date/{date}"
+          q: {
+            exist: [
+              "date"
+            ]
+          }
+          s: [
+            {
+              lit: "intensity"
+            }
+            {
+              lit: "date"
+            }
+            {
+              var: "date"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+  relations: ancestors: [
+    [path("$.main.kit.entity.intensity")]
+  ]
+
+}

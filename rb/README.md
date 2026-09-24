@@ -44,15 +44,15 @@ rescue => err
 end
 ```
 
-### 3. Load a generation
+### 3. Load an intensitylist
 
-Generation is nested under from, so provide the `from`.
+IntensityList is nested under date, so provide the `date`.
 
 ```ruby
 begin
-  # load returns the ENTITY — call data_get for the Generation record (raises on error).
-  generation = client.Generation.load({ "from" => "example_from", "to" => "example_to" })
-  puts generation
+  # load returns the ENTITY — call data_get for the IntensityList record (raises on error).
+  intensitylist = client.IntensityList.load({ "date" => "example_date" })
+  puts intensitylist
 rescue => err
   warn "load failed: #{err}"
 end

@@ -115,7 +115,7 @@ function regional_intensity_basic_setup($extra)
 
     // Generate idmap.
     $idmap = [];
-    foreach (["regional_intensity01", "regional_intensity02", "regional_intensity03", "postcode01", "postcode02", "postcode03", "regionid01", "regionid02", "regionid03"] as $k) {
+    foreach (["regional_intensity01", "regional_intensity02", "regional_intensity03"] as $k) {
         $idmap[$k] = strtoupper($k);
     }
 

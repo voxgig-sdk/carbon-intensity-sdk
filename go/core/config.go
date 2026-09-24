@@ -99,25 +99,30 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "data",
+						"title": "Data",
 						"type": "`$ARRAY`",
 					},
 					map[string]any{
-						"format": "date-time",
 						"name": "from",
+						"title": "From",
 						"type": "`$STRING`",
+						"format": "date-time",
 					},
 					map[string]any{
 						"name": "generationmix",
+						"title": "Generationmix",
 						"type": "`$ARRAY`",
 					},
 					map[string]any{
 						"name": "id",
+						"title": "Id",
 						"type": "`$STRING`",
 					},
 					map[string]any{
-						"format": "date-time",
 						"name": "to",
+						"title": "To",
 						"type": "`$STRING`",
+						"format": "date-time",
 					},
 				},
 				"id": map[string]any{
@@ -140,7 +145,6 @@ func MakeConfig() map[string]any {
 						"name": "list",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/generation",
@@ -149,14 +153,16 @@ func MakeConfig() map[string]any {
 										"lit": "generation",
 									},
 								},
-								"select": map[string]any{},
+								"parts": []any{
+									"generation",
+								},
+								"rename": map[string]any{},
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body.data`",
 								},
-								"parts": []any{
-									"generation",
-								},
+								"args": map[string]any{},
+								"select": map[string]any{},
 							},
 						},
 					},
@@ -165,24 +171,6 @@ func MakeConfig() map[string]any {
 						"name": "load",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"kind": "param",
-											"name": "from",
-											"orig": "from",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"kind": "param",
-											"name": "to",
-											"orig": "to",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/generation/{from}/{to}",
@@ -197,48 +185,66 @@ func MakeConfig() map[string]any {
 										"var": "to",
 									},
 								},
+								"parts": []any{
+									"generation",
+									"{from}",
+									"{to}",
+								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "from",
+											"orig": "from",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+										},
+										map[string]any{
+											"name": "to",
+											"orig": "to",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+										},
+									},
+								},
 								"select": map[string]any{
 									"exist": []any{
 										"from",
 										"to",
 									},
 								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
-								"parts": []any{
-									"generation",
-									"{from}",
-									"{to}",
-								},
 							},
 						},
 					},
 				},
 				"relations": map[string]any{
-					"ancestors": []any{
-						[]any{
-							"generation",
-						},
-					},
+					"ancestors": []any{},
 				},
 			},
 			"generation_list": map[string]any{
 				"fields": []any{
 					map[string]any{
-						"format": "date-time",
 						"name": "from",
+						"title": "From",
 						"type": "`$STRING`",
+						"format": "date-time",
 					},
 					map[string]any{
 						"name": "generationmix",
+						"title": "Generationmix",
 						"type": "`$ARRAY`",
 					},
 					map[string]any{
-						"format": "date-time",
 						"name": "to",
+						"title": "To",
 						"type": "`$STRING`",
+						"format": "date-time",
 					},
 				},
 				"name": "generation_list",
@@ -248,17 +254,6 @@ func MakeConfig() map[string]any {
 						"name": "list",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"kind": "param",
-											"name": "from",
-											"orig": "from",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/generation/{from}/pt24h",
@@ -273,19 +268,31 @@ func MakeConfig() map[string]any {
 										"lit": "pt24h",
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"from",
-									},
-								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body.data`",
-								},
 								"parts": []any{
 									"generation",
 									"{from}",
 									"pt24h",
+								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body.data`",
+								},
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "from",
+											"orig": "from",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"from",
+									},
 								},
 							},
 						},
@@ -294,7 +301,7 @@ func MakeConfig() map[string]any {
 				"relations": map[string]any{
 					"ancestors": []any{
 						[]any{
-							"generation",
+							"$.main.kit.entity.generation",
 						},
 					},
 				},
@@ -303,27 +310,32 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "data",
+						"title": "Data",
 						"type": "`$ARRAY`",
 					},
 					map[string]any{
-						"format": "date-time",
 						"name": "from",
-						"short": "Start datetime of the period",
+						"title": "From",
 						"type": "`$STRING`",
+						"short": "Start datetime of the period",
+						"format": "date-time",
 					},
 					map[string]any{
 						"name": "id",
+						"title": "Id",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "intensity",
+						"title": "Intensity",
 						"type": "`$OBJECT`",
 					},
 					map[string]any{
-						"format": "date-time",
 						"name": "to",
-						"short": "End datetime of the period",
+						"title": "To",
 						"type": "`$STRING`",
+						"short": "End datetime of the period",
+						"format": "date-time",
 					},
 				},
 				"id": map[string]any{
@@ -337,7 +349,6 @@ func MakeConfig() map[string]any {
 						"name": "list",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/intensity",
@@ -346,14 +357,16 @@ func MakeConfig() map[string]any {
 										"lit": "intensity",
 									},
 								},
-								"select": map[string]any{},
+								"parts": []any{
+									"intensity",
+								},
+								"rename": map[string]any{},
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body.data`",
 								},
-								"parts": []any{
-									"intensity",
-								},
+								"args": map[string]any{},
+								"select": map[string]any{},
 							},
 						},
 					},
@@ -362,24 +375,6 @@ func MakeConfig() map[string]any {
 						"name": "load",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"kind": "param",
-											"name": "date",
-											"orig": "date",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"kind": "param",
-											"name": "period",
-											"orig": "period",
-											"reqd": true,
-											"type": "`$INTEGER`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/intensity/date/{date}/{period}",
@@ -397,42 +392,43 @@ func MakeConfig() map[string]any {
 										"var": "period",
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"date",
-										"period",
-									},
-								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
 								"parts": []any{
 									"intensity",
 									"date",
 									"{date}",
 									"{period}",
 								},
-							},
-							map[string]any{
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
 								"args": map[string]any{
 									"params": []any{
 										map[string]any{
-											"kind": "param",
-											"name": "from",
-											"orig": "from",
-											"reqd": true,
+											"name": "date",
+											"orig": "date",
 											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
 										},
 										map[string]any{
+											"name": "period",
+											"orig": "period",
+											"type": "`$INTEGER`",
 											"kind": "param",
-											"name": "to",
-											"orig": "to",
 											"reqd": true,
-											"type": "`$STRING`",
 										},
 									},
 								},
+								"select": map[string]any{
+									"exist": []any{
+										"date",
+										"period",
+									},
+								},
+							},
+							map[string]any{
 								"kind": "http",
 								"method": "GET",
 								"orig": "/intensity/{from}/{to}",
@@ -447,42 +443,45 @@ func MakeConfig() map[string]any {
 										"var": "to",
 									},
 								},
+								"parts": []any{
+									"intensity",
+									"{from}",
+									"{to}",
+								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "from",
+											"orig": "from",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+										},
+										map[string]any{
+											"name": "to",
+											"orig": "to",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+										},
+									},
+								},
 								"select": map[string]any{
 									"exist": []any{
 										"from",
 										"to",
 									},
 								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
-								"parts": []any{
-									"intensity",
-									"{from}",
-									"{to}",
-								},
 							},
 							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"kind": "param",
-											"name": "id",
-											"orig": "from",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/intensity/{from}",
-								"rename": map[string]any{
-									"param": map[string]any{
-										"from": "id",
-									},
-								},
 								"segments": []any{
 									map[string]any{
 										"lit": "intensity",
@@ -491,105 +490,128 @@ func MakeConfig() map[string]any {
 										"var": "id",
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"id",
+								"parts": []any{
+									"intensity",
+									"{id}",
+								},
+								"rename": map[string]any{
+									"param": map[string]any{
+										"from": "id",
 									},
 								},
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
 								},
-								"parts": []any{
-									"intensity",
-									"{id}",
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "id",
+											"orig": "from",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"id",
+									},
 								},
 							},
 						},
 					},
 				},
 				"relations": map[string]any{
-					"ancestors": []any{
-						[]any{
-							"date",
-						},
-						[]any{
-							"intensity",
-						},
-					},
+					"ancestors": []any{},
 				},
 			},
 			"intensity_factor": map[string]any{
 				"fields": []any{
 					map[string]any{
 						"name": "Biomass",
-						"short": "Carbon intensity factor for biomass (gCO2/kWh)",
+						"title": "Biomass",
 						"type": "`$INTEGER`",
+						"short": "Carbon intensity factor for biomass (gCO2/kWh)",
 					},
 					map[string]any{
 						"name": "Coal",
-						"short": "Carbon intensity factor for coal (gCO2/kWh)",
+						"title": "Coal",
 						"type": "`$INTEGER`",
+						"short": "Carbon intensity factor for coal (gCO2/kWh)",
 					},
 					map[string]any{
 						"name": "DutchImports",
-						"short": "Carbon intensity factor for Dutch imports (gCO2/kWh)",
+						"title": "Dutch Imports",
 						"type": "`$INTEGER`",
+						"short": "Carbon intensity factor for Dutch imports (gCO2/kWh)",
 					},
 					map[string]any{
 						"name": "FrenchImports",
-						"short": "Carbon intensity factor for French imports (gCO2/kWh)",
+						"title": "French Imports",
 						"type": "`$INTEGER`",
+						"short": "Carbon intensity factor for French imports (gCO2/kWh)",
 					},
 					map[string]any{
 						"name": "GasCombinedCycle",
-						"short": "Carbon intensity factor for gas combined cycle (gCO2/kWh)",
+						"title": "Gas Combined Cycle",
 						"type": "`$INTEGER`",
+						"short": "Carbon intensity factor for gas combined cycle (gCO2/kWh)",
 					},
 					map[string]any{
 						"name": "GasOpenCycle",
-						"short": "Carbon intensity factor for gas open cycle (gCO2/kWh)",
+						"title": "Gas Open Cycle",
 						"type": "`$INTEGER`",
+						"short": "Carbon intensity factor for gas open cycle (gCO2/kWh)",
 					},
 					map[string]any{
 						"name": "Hydro",
-						"short": "Carbon intensity factor for hydro (gCO2/kWh)",
+						"title": "Hydro",
 						"type": "`$INTEGER`",
+						"short": "Carbon intensity factor for hydro (gCO2/kWh)",
 					},
 					map[string]any{
 						"name": "IrishImports",
-						"short": "Carbon intensity factor for Irish imports (gCO2/kWh)",
+						"title": "Irish Imports",
 						"type": "`$INTEGER`",
+						"short": "Carbon intensity factor for Irish imports (gCO2/kWh)",
 					},
 					map[string]any{
 						"name": "Nuclear",
-						"short": "Carbon intensity factor for nuclear (gCO2/kWh)",
+						"title": "Nuclear",
 						"type": "`$INTEGER`",
+						"short": "Carbon intensity factor for nuclear (gCO2/kWh)",
 					},
 					map[string]any{
 						"name": "Oil",
-						"short": "Carbon intensity factor for oil (gCO2/kWh)",
+						"title": "Oil",
 						"type": "`$INTEGER`",
+						"short": "Carbon intensity factor for oil (gCO2/kWh)",
 					},
 					map[string]any{
 						"name": "Other",
-						"short": "Carbon intensity factor for other (gCO2/kWh)",
+						"title": "Other",
 						"type": "`$INTEGER`",
+						"short": "Carbon intensity factor for other (gCO2/kWh)",
 					},
 					map[string]any{
 						"name": "PumpedStorage",
-						"short": "Carbon intensity factor for pumped storage (gCO2/kWh)",
+						"title": "Pumped Storage",
 						"type": "`$INTEGER`",
+						"short": "Carbon intensity factor for pumped storage (gCO2/kWh)",
 					},
 					map[string]any{
 						"name": "Solar",
-						"short": "Carbon intensity factor for solar (gCO2/kWh)",
+						"title": "Solar",
 						"type": "`$INTEGER`",
+						"short": "Carbon intensity factor for solar (gCO2/kWh)",
 					},
 					map[string]any{
 						"name": "Wind",
-						"short": "Carbon intensity factor for wind (gCO2/kWh)",
+						"title": "Wind",
 						"type": "`$INTEGER`",
+						"short": "Carbon intensity factor for wind (gCO2/kWh)",
 					},
 				},
 				"name": "intensity_factor",
@@ -599,7 +621,6 @@ func MakeConfig() map[string]any {
 						"name": "list",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/intensity/factors",
@@ -611,15 +632,17 @@ func MakeConfig() map[string]any {
 										"lit": "factors",
 									},
 								},
-								"select": map[string]any{},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body.data`",
-								},
 								"parts": []any{
 									"intensity",
 									"factors",
 								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body.data`",
+								},
+								"args": map[string]any{},
+								"select": map[string]any{},
 							},
 						},
 					},
@@ -632,23 +655,27 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "data",
+						"title": "Data",
 						"type": "`$ARRAY`",
 					},
 					map[string]any{
-						"format": "date-time",
 						"name": "from",
-						"short": "Start datetime of the period",
+						"title": "From",
 						"type": "`$STRING`",
+						"short": "Start datetime of the period",
+						"format": "date-time",
 					},
 					map[string]any{
 						"name": "intensity",
+						"title": "Intensity",
 						"type": "`$OBJECT`",
 					},
 					map[string]any{
-						"format": "date-time",
 						"name": "to",
-						"short": "End datetime of the period",
+						"title": "To",
 						"type": "`$STRING`",
+						"short": "End datetime of the period",
+						"format": "date-time",
 					},
 				},
 				"name": "intensity_list",
@@ -658,17 +685,6 @@ func MakeConfig() map[string]any {
 						"name": "list",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"kind": "param",
-											"name": "from",
-											"orig": "from",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/intensity/{from}/fw24h",
@@ -683,33 +699,34 @@ func MakeConfig() map[string]any {
 										"lit": "fw24h",
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"from",
-									},
-								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body.data`",
-								},
 								"parts": []any{
 									"intensity",
 									"{from}",
 									"fw24h",
 								},
-							},
-							map[string]any{
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body.data`",
+								},
 								"args": map[string]any{
 									"params": []any{
 										map[string]any{
-											"kind": "param",
 											"name": "from",
 											"orig": "from",
-											"reqd": true,
 											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
 										},
 									},
 								},
+								"select": map[string]any{
+									"exist": []any{
+										"from",
+									},
+								},
+							},
+							map[string]any{
 								"kind": "http",
 								"method": "GET",
 								"orig": "/intensity/{from}/fw48h",
@@ -724,33 +741,34 @@ func MakeConfig() map[string]any {
 										"lit": "fw48h",
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"from",
-									},
-								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body.data`",
-								},
 								"parts": []any{
 									"intensity",
 									"{from}",
 									"fw48h",
 								},
-							},
-							map[string]any{
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body.data`",
+								},
 								"args": map[string]any{
 									"params": []any{
 										map[string]any{
-											"kind": "param",
 											"name": "from",
 											"orig": "from",
-											"reqd": true,
 											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
 										},
 									},
 								},
+								"select": map[string]any{
+									"exist": []any{
+										"from",
+									},
+								},
+							},
+							map[string]any{
 								"kind": "http",
 								"method": "GET",
 								"orig": "/intensity/{from}/pt24h",
@@ -765,23 +783,34 @@ func MakeConfig() map[string]any {
 										"lit": "pt24h",
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"from",
-									},
-								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body.data`",
-								},
 								"parts": []any{
 									"intensity",
 									"{from}",
 									"pt24h",
 								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body.data`",
+								},
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "from",
+											"orig": "from",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"from",
+									},
+								},
 							},
 							map[string]any{
-								"args": map[string]any{},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/intensity/date",
@@ -793,15 +822,17 @@ func MakeConfig() map[string]any {
 										"lit": "date",
 									},
 								},
-								"select": map[string]any{},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body.data`",
-								},
 								"parts": []any{
 									"intensity",
 									"date",
 								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body.data`",
+								},
+								"args": map[string]any{},
+								"select": map[string]any{},
 							},
 						},
 					},
@@ -810,17 +841,6 @@ func MakeConfig() map[string]any {
 						"name": "load",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"kind": "param",
-											"name": "date",
-											"orig": "date",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/intensity/date/{date}",
@@ -835,19 +855,31 @@ func MakeConfig() map[string]any {
 										"var": "date",
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"date",
-									},
-								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
 								"parts": []any{
 									"intensity",
 									"date",
 									"{date}",
+								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "date",
+											"orig": "date",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"date",
+									},
 								},
 							},
 						},
@@ -856,10 +888,7 @@ func MakeConfig() map[string]any {
 				"relations": map[string]any{
 					"ancestors": []any{
 						[]any{
-							"date",
-						},
-						[]any{
-							"intensity",
+							"$.main.kit.entity.intensity",
 						},
 					},
 				},
@@ -868,27 +897,32 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "data",
+						"title": "Data",
 						"type": "`$ARRAY`",
 					},
 					map[string]any{
 						"name": "dnoregion",
-						"short": "Distribution Network Operator region",
+						"title": "Dnoregion",
 						"type": "`$STRING`",
+						"short": "Distribution Network Operator region",
 					},
 					map[string]any{
 						"name": "postcode",
-						"short": "Outward postcode",
+						"title": "Postcode",
 						"type": "`$STRING`",
+						"short": "Outward postcode",
 					},
 					map[string]any{
 						"name": "regionid",
-						"short": "Region ID (1-17)",
+						"title": "Regionid",
 						"type": "`$INTEGER`",
+						"short": "Region ID (1-17)",
 					},
 					map[string]any{
 						"name": "shortname",
-						"short": "Short region name",
+						"title": "Shortname",
 						"type": "`$STRING`",
+						"short": "Short region name",
 					},
 				},
 				"name": "regional",
@@ -898,7 +932,6 @@ func MakeConfig() map[string]any {
 						"name": "list",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/regional",
@@ -907,14 +940,16 @@ func MakeConfig() map[string]any {
 										"lit": "regional",
 									},
 								},
-								"select": map[string]any{},
+								"parts": []any{
+									"regional",
+								},
+								"rename": map[string]any{},
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body.data`",
 								},
-								"parts": []any{
-									"regional",
-								},
+								"args": map[string]any{},
+								"select": map[string]any{},
 							},
 						},
 					},
@@ -927,27 +962,32 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "data",
+						"title": "Data",
 						"type": "`$ARRAY`",
 					},
 					map[string]any{
 						"name": "dnoregion",
-						"short": "Distribution Network Operator region",
+						"title": "Dnoregion",
 						"type": "`$STRING`",
+						"short": "Distribution Network Operator region",
 					},
 					map[string]any{
 						"name": "postcode",
-						"short": "Outward postcode",
+						"title": "Postcode",
 						"type": "`$STRING`",
+						"short": "Outward postcode",
 					},
 					map[string]any{
 						"name": "regionid",
-						"short": "Region ID (1-17)",
+						"title": "Regionid",
 						"type": "`$INTEGER`",
+						"short": "Region ID (1-17)",
 					},
 					map[string]any{
 						"name": "shortname",
-						"short": "Short region name",
+						"title": "Shortname",
 						"type": "`$STRING`",
+						"short": "Short region name",
 					},
 				},
 				"name": "regional_intensity",
@@ -957,7 +997,6 @@ func MakeConfig() map[string]any {
 						"name": "list",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/regional/england",
@@ -969,18 +1008,19 @@ func MakeConfig() map[string]any {
 										"lit": "england",
 									},
 								},
-								"select": map[string]any{},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body.data`",
-								},
 								"parts": []any{
 									"regional",
 									"england",
 								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body.data`",
+								},
+								"args": map[string]any{},
+								"select": map[string]any{},
 							},
 							map[string]any{
-								"args": map[string]any{},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/regional/scotland",
@@ -992,18 +1032,19 @@ func MakeConfig() map[string]any {
 										"lit": "scotland",
 									},
 								},
-								"select": map[string]any{},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body.data`",
-								},
 								"parts": []any{
 									"regional",
 									"scotland",
 								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body.data`",
+								},
+								"args": map[string]any{},
+								"select": map[string]any{},
 							},
 							map[string]any{
-								"args": map[string]any{},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/regional/wales",
@@ -1015,15 +1056,17 @@ func MakeConfig() map[string]any {
 										"lit": "wales",
 									},
 								},
-								"select": map[string]any{},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body.data`",
-								},
 								"parts": []any{
 									"regional",
 									"wales",
 								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body.data`",
+								},
+								"args": map[string]any{},
+								"select": map[string]any{},
 							},
 						},
 					},
@@ -1032,17 +1075,6 @@ func MakeConfig() map[string]any {
 						"name": "load",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"kind": "param",
-											"name": "postcode",
-											"orig": "postcode",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/regional/postcode/{postcode}",
@@ -1057,33 +1089,34 @@ func MakeConfig() map[string]any {
 										"var": "postcode",
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"postcode",
-									},
-								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
 								"parts": []any{
 									"regional",
 									"postcode",
 									"{postcode}",
 								},
-							},
-							map[string]any{
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
 								"args": map[string]any{
 									"params": []any{
 										map[string]any{
+											"name": "postcode",
+											"orig": "postcode",
+											"type": "`$STRING`",
 											"kind": "param",
-											"name": "regionid",
-											"orig": "regionid",
 											"reqd": true,
-											"type": "`$INTEGER`",
 										},
 									},
 								},
+								"select": map[string]any{
+									"exist": []any{
+										"postcode",
+									},
+								},
+							},
+							map[string]any{
 								"kind": "http",
 								"method": "GET",
 								"orig": "/regional/regionid/{regionid}",
@@ -1098,64 +1131,75 @@ func MakeConfig() map[string]any {
 										"var": "regionid",
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"regionid",
-									},
-								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
 								"parts": []any{
 									"regional",
 									"regionid",
 									"{regionid}",
+								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "regionid",
+											"orig": "regionid",
+											"type": "`$INTEGER`",
+											"kind": "param",
+											"reqd": true,
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"regionid",
+									},
 								},
 							},
 						},
 					},
 				},
 				"relations": map[string]any{
-					"ancestors": []any{
-						[]any{
-							"postcode",
-						},
-						[]any{
-							"regionid",
-						},
-					},
+					"ancestors": []any{},
 				},
 			},
 			"regional_intensity_list": map[string]any{
 				"fields": []any{
 					map[string]any{
 						"name": "data",
+						"title": "Data",
 						"type": "`$ARRAY`",
 					},
 					map[string]any{
 						"name": "dnoregion",
-						"short": "Distribution Network Operator region",
+						"title": "Dnoregion",
 						"type": "`$STRING`",
+						"short": "Distribution Network Operator region",
 					},
 					map[string]any{
 						"name": "id",
+						"title": "Id",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "postcode",
-						"short": "Outward postcode",
+						"title": "Postcode",
 						"type": "`$STRING`",
+						"short": "Outward postcode",
 					},
 					map[string]any{
 						"name": "regionid",
-						"short": "Region ID (1-17)",
+						"title": "Regionid",
 						"type": "`$INTEGER`",
+						"short": "Region ID (1-17)",
 					},
 					map[string]any{
 						"name": "shortname",
-						"short": "Short region name",
+						"title": "Shortname",
 						"type": "`$STRING`",
+						"short": "Short region name",
 					},
 				},
 				"id": map[string]any{
@@ -1174,17 +1218,6 @@ func MakeConfig() map[string]any {
 						"name": "list",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"kind": "param",
-											"name": "from",
-											"orig": "from",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/regional/intensity/{from}/fw24h",
@@ -1202,34 +1235,35 @@ func MakeConfig() map[string]any {
 										"lit": "fw24h",
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"from",
-									},
-								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body.data`",
-								},
 								"parts": []any{
 									"regional",
 									"intensity",
 									"{from}",
 									"fw24h",
 								},
-							},
-							map[string]any{
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body.data`",
+								},
 								"args": map[string]any{
 									"params": []any{
 										map[string]any{
-											"kind": "param",
 											"name": "from",
 											"orig": "from",
-											"reqd": true,
 											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
 										},
 									},
 								},
+								"select": map[string]any{
+									"exist": []any{
+										"from",
+									},
+								},
+							},
+							map[string]any{
 								"kind": "http",
 								"method": "GET",
 								"orig": "/regional/intensity/{from}/fw48h",
@@ -1247,34 +1281,35 @@ func MakeConfig() map[string]any {
 										"lit": "fw48h",
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"from",
-									},
-								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body.data`",
-								},
 								"parts": []any{
 									"regional",
 									"intensity",
 									"{from}",
 									"fw48h",
 								},
-							},
-							map[string]any{
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body.data`",
+								},
 								"args": map[string]any{
 									"params": []any{
 										map[string]any{
-											"kind": "param",
 											"name": "from",
 											"orig": "from",
-											"reqd": true,
 											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
 										},
 									},
 								},
+								"select": map[string]any{
+									"exist": []any{
+										"from",
+									},
+								},
+							},
+							map[string]any{
 								"kind": "http",
 								"method": "GET",
 								"orig": "/regional/intensity/{from}/pt24h",
@@ -1292,20 +1327,32 @@ func MakeConfig() map[string]any {
 										"lit": "pt24h",
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"from",
-									},
-								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body.data`",
-								},
 								"parts": []any{
 									"regional",
 									"intensity",
 									"{from}",
 									"pt24h",
+								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body.data`",
+								},
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "from",
+											"orig": "from",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"from",
+									},
 								},
 							},
 						},
@@ -1315,39 +1362,9 @@ func MakeConfig() map[string]any {
 						"name": "load",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"kind": "param",
-											"name": "intensity_id",
-											"orig": "from",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"kind": "param",
-											"name": "postcode",
-											"orig": "postcode",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"kind": "param",
-											"name": "to",
-											"orig": "to",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/regional/intensity/{from}/{to}/postcode/{postcode}",
-								"rename": map[string]any{
-									"param": map[string]any{
-										"from": "intensity_id",
-									},
-								},
 								"segments": []any{
 									map[string]any{
 										"lit": "regional",
@@ -1368,17 +1385,6 @@ func MakeConfig() map[string]any {
 										"var": "postcode",
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"intensity_id",
-										"postcode",
-										"to",
-									},
-								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
 								"parts": []any{
 									"regional",
 									"intensity",
@@ -1387,41 +1393,52 @@ func MakeConfig() map[string]any {
 									"postcode",
 									"{postcode}",
 								},
-							},
-							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"kind": "param",
-											"name": "intensity_id",
-											"orig": "from",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"kind": "param",
-											"name": "regionid",
-											"orig": "regionid",
-											"reqd": true,
-											"type": "`$INTEGER`",
-										},
-										map[string]any{
-											"kind": "param",
-											"name": "to",
-											"orig": "to",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-									},
-								},
-								"kind": "http",
-								"method": "GET",
-								"orig": "/regional/intensity/{from}/{to}/regionid/{regionid}",
 								"rename": map[string]any{
 									"param": map[string]any{
 										"from": "intensity_id",
 									},
 								},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "intensity_id",
+											"orig": "from",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+										},
+										map[string]any{
+											"name": "postcode",
+											"orig": "postcode",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+										},
+										map[string]any{
+											"name": "to",
+											"orig": "to",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"intensity_id",
+										"postcode",
+										"to",
+									},
+								},
+							},
+							map[string]any{
+								"kind": "http",
+								"method": "GET",
+								"orig": "/regional/intensity/{from}/{to}/regionid/{regionid}",
 								"segments": []any{
 									map[string]any{
 										"lit": "regional",
@@ -1442,17 +1459,6 @@ func MakeConfig() map[string]any {
 										"var": "regionid",
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"intensity_id",
-										"regionid",
-										"to",
-									},
-								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
 								"parts": []any{
 									"regional",
 									"intensity",
@@ -1461,26 +1467,49 @@ func MakeConfig() map[string]any {
 									"regionid",
 									"{regionid}",
 								},
-							},
-							map[string]any{
+								"rename": map[string]any{
+									"param": map[string]any{
+										"from": "intensity_id",
+									},
+								},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
 								"args": map[string]any{
 									"params": []any{
 										map[string]any{
-											"kind": "param",
-											"name": "from",
+											"name": "intensity_id",
 											"orig": "from",
-											"reqd": true,
 											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
 										},
 										map[string]any{
+											"name": "regionid",
+											"orig": "regionid",
+											"type": "`$INTEGER`",
 											"kind": "param",
+											"reqd": true,
+										},
+										map[string]any{
 											"name": "to",
 											"orig": "to",
-											"reqd": true,
 											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
 										},
 									},
 								},
+								"select": map[string]any{
+									"exist": []any{
+										"intensity_id",
+										"regionid",
+										"to",
+									},
+								},
+							},
+							map[string]any{
 								"kind": "http",
 								"method": "GET",
 								"orig": "/regional/intensity/{from}/{to}",
@@ -1498,50 +1527,46 @@ func MakeConfig() map[string]any {
 										"var": "to",
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"from",
-										"to",
-									},
-								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
 								"parts": []any{
 									"regional",
 									"intensity",
 									"{from}",
 									"{to}",
 								},
-							},
-							map[string]any{
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
 								"args": map[string]any{
 									"params": []any{
 										map[string]any{
-											"kind": "param",
-											"name": "intensity_id",
+											"name": "from",
 											"orig": "from",
-											"reqd": true,
 											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
 										},
 										map[string]any{
-											"kind": "param",
-											"name": "postcode",
-											"orig": "postcode",
-											"reqd": true,
+											"name": "to",
+											"orig": "to",
 											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
 										},
 									},
 								},
+								"select": map[string]any{
+									"exist": []any{
+										"from",
+										"to",
+									},
+								},
+							},
+							map[string]any{
 								"kind": "http",
 								"method": "GET",
 								"orig": "/regional/intensity/{from}/fw24h/postcode/{postcode}",
-								"rename": map[string]any{
-									"param": map[string]any{
-										"from": "intensity_id",
-									},
-								},
 								"segments": []any{
 									map[string]any{
 										"lit": "regional",
@@ -1562,16 +1587,6 @@ func MakeConfig() map[string]any {
 										"var": "postcode",
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"intensity_id",
-										"postcode",
-									},
-								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
 								"parts": []any{
 									"regional",
 									"intensity",
@@ -1580,34 +1595,44 @@ func MakeConfig() map[string]any {
 									"postcode",
 									"{postcode}",
 								},
-							},
-							map[string]any{
+								"rename": map[string]any{
+									"param": map[string]any{
+										"from": "intensity_id",
+									},
+								},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
 								"args": map[string]any{
 									"params": []any{
 										map[string]any{
-											"kind": "param",
 											"name": "intensity_id",
 											"orig": "from",
-											"reqd": true,
 											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
 										},
 										map[string]any{
-											"kind": "param",
 											"name": "postcode",
 											"orig": "postcode",
-											"reqd": true,
 											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
 										},
 									},
 								},
+								"select": map[string]any{
+									"exist": []any{
+										"intensity_id",
+										"postcode",
+									},
+								},
+							},
+							map[string]any{
 								"kind": "http",
 								"method": "GET",
 								"orig": "/regional/intensity/{from}/fw48h/postcode/{postcode}",
-								"rename": map[string]any{
-									"param": map[string]any{
-										"from": "intensity_id",
-									},
-								},
 								"segments": []any{
 									map[string]any{
 										"lit": "regional",
@@ -1628,16 +1653,6 @@ func MakeConfig() map[string]any {
 										"var": "postcode",
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"intensity_id",
-										"postcode",
-									},
-								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
 								"parts": []any{
 									"regional",
 									"intensity",
@@ -1646,34 +1661,44 @@ func MakeConfig() map[string]any {
 									"postcode",
 									"{postcode}",
 								},
-							},
-							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"kind": "param",
-											"name": "intensity_id",
-											"orig": "from",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"kind": "param",
-											"name": "postcode",
-											"orig": "postcode",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-									},
-								},
-								"kind": "http",
-								"method": "GET",
-								"orig": "/regional/intensity/{from}/pt24h/postcode/{postcode}",
 								"rename": map[string]any{
 									"param": map[string]any{
 										"from": "intensity_id",
 									},
 								},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "intensity_id",
+											"orig": "from",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+										},
+										map[string]any{
+											"name": "postcode",
+											"orig": "postcode",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"intensity_id",
+										"postcode",
+									},
+								},
+							},
+							map[string]any{
+								"kind": "http",
+								"method": "GET",
+								"orig": "/regional/intensity/{from}/pt24h/postcode/{postcode}",
 								"segments": []any{
 									map[string]any{
 										"lit": "regional",
@@ -1694,16 +1719,6 @@ func MakeConfig() map[string]any {
 										"var": "postcode",
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"intensity_id",
-										"postcode",
-									},
-								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
 								"parts": []any{
 									"regional",
 									"intensity",
@@ -1712,34 +1727,44 @@ func MakeConfig() map[string]any {
 									"postcode",
 									"{postcode}",
 								},
-							},
-							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"kind": "param",
-											"name": "intensity_id",
-											"orig": "from",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"kind": "param",
-											"name": "regionid",
-											"orig": "regionid",
-											"reqd": true,
-											"type": "`$INTEGER`",
-										},
-									},
-								},
-								"kind": "http",
-								"method": "GET",
-								"orig": "/regional/intensity/{from}/fw24h/regionid/{regionid}",
 								"rename": map[string]any{
 									"param": map[string]any{
 										"from": "intensity_id",
 									},
 								},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "intensity_id",
+											"orig": "from",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+										},
+										map[string]any{
+											"name": "postcode",
+											"orig": "postcode",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"intensity_id",
+										"postcode",
+									},
+								},
+							},
+							map[string]any{
+								"kind": "http",
+								"method": "GET",
+								"orig": "/regional/intensity/{from}/fw24h/regionid/{regionid}",
 								"segments": []any{
 									map[string]any{
 										"lit": "regional",
@@ -1760,16 +1785,6 @@ func MakeConfig() map[string]any {
 										"var": "regionid",
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"intensity_id",
-										"regionid",
-									},
-								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
 								"parts": []any{
 									"regional",
 									"intensity",
@@ -1778,34 +1793,44 @@ func MakeConfig() map[string]any {
 									"regionid",
 									"{regionid}",
 								},
-							},
-							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"kind": "param",
-											"name": "intensity_id",
-											"orig": "from",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"kind": "param",
-											"name": "regionid",
-											"orig": "regionid",
-											"reqd": true,
-											"type": "`$INTEGER`",
-										},
-									},
-								},
-								"kind": "http",
-								"method": "GET",
-								"orig": "/regional/intensity/{from}/fw48h/regionid/{regionid}",
 								"rename": map[string]any{
 									"param": map[string]any{
 										"from": "intensity_id",
 									},
 								},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "intensity_id",
+											"orig": "from",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+										},
+										map[string]any{
+											"name": "regionid",
+											"orig": "regionid",
+											"type": "`$INTEGER`",
+											"kind": "param",
+											"reqd": true,
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"intensity_id",
+										"regionid",
+									},
+								},
+							},
+							map[string]any{
+								"kind": "http",
+								"method": "GET",
+								"orig": "/regional/intensity/{from}/fw48h/regionid/{regionid}",
 								"segments": []any{
 									map[string]any{
 										"lit": "regional",
@@ -1826,16 +1851,6 @@ func MakeConfig() map[string]any {
 										"var": "regionid",
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"intensity_id",
-										"regionid",
-									},
-								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
 								"parts": []any{
 									"regional",
 									"intensity",
@@ -1844,34 +1859,44 @@ func MakeConfig() map[string]any {
 									"regionid",
 									"{regionid}",
 								},
-							},
-							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"kind": "param",
-											"name": "intensity_id",
-											"orig": "from",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"kind": "param",
-											"name": "regionid",
-											"orig": "regionid",
-											"reqd": true,
-											"type": "`$INTEGER`",
-										},
-									},
-								},
-								"kind": "http",
-								"method": "GET",
-								"orig": "/regional/intensity/{from}/pt24h/regionid/{regionid}",
 								"rename": map[string]any{
 									"param": map[string]any{
 										"from": "intensity_id",
 									},
 								},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "intensity_id",
+											"orig": "from",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+										},
+										map[string]any{
+											"name": "regionid",
+											"orig": "regionid",
+											"type": "`$INTEGER`",
+											"kind": "param",
+											"reqd": true,
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"intensity_id",
+										"regionid",
+									},
+								},
+							},
+							map[string]any{
+								"kind": "http",
+								"method": "GET",
+								"orig": "/regional/intensity/{from}/pt24h/regionid/{regionid}",
 								"segments": []any{
 									map[string]any{
 										"lit": "regional",
@@ -1892,16 +1917,6 @@ func MakeConfig() map[string]any {
 										"var": "regionid",
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"intensity_id",
-										"regionid",
-									},
-								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
 								"parts": []any{
 									"regional",
 									"intensity",
@@ -1909,6 +1924,39 @@ func MakeConfig() map[string]any {
 									"pt24h",
 									"regionid",
 									"{regionid}",
+								},
+								"rename": map[string]any{
+									"param": map[string]any{
+										"from": "intensity_id",
+									},
+								},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "intensity_id",
+											"orig": "from",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+										},
+										map[string]any{
+											"name": "regionid",
+											"orig": "regionid",
+											"type": "`$INTEGER`",
+											"kind": "param",
+											"reqd": true,
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"intensity_id",
+										"regionid",
+									},
 								},
 							},
 						},
@@ -1917,15 +1965,13 @@ func MakeConfig() map[string]any {
 				"relations": map[string]any{
 					"ancestors": []any{
 						[]any{
-							"intensity",
+							"$.main.kit.entity.intensity",
 						},
 						[]any{
-							"intensity",
-							"postcode",
+							"$.main.kit.entity.intensity",
 						},
 						[]any{
-							"intensity",
-							"regionid",
+							"$.main.kit.entity.intensity",
 						},
 					},
 				},
@@ -1934,10 +1980,12 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "data",
+						"title": "Data",
 						"type": "`$ARRAY`",
 					},
 					map[string]any{
 						"name": "id",
+						"title": "Id",
 						"type": "`$STRING`",
 					},
 				},
@@ -1958,31 +2006,6 @@ func MakeConfig() map[string]any {
 						"name": "load",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"kind": "param",
-											"name": "block",
-											"orig": "block",
-											"reqd": true,
-											"type": "`$INTEGER`",
-										},
-										map[string]any{
-											"kind": "param",
-											"name": "from",
-											"orig": "from",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"kind": "param",
-											"name": "to",
-											"orig": "to",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/intensity/stats/{from}/{to}/{block}",
@@ -2003,17 +2026,6 @@ func MakeConfig() map[string]any {
 										"var": "block",
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"block",
-										"from",
-										"to",
-									},
-								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
 								"parts": []any{
 									"intensity",
 									"stats",
@@ -2021,26 +2033,45 @@ func MakeConfig() map[string]any {
 									"{to}",
 									"{block}",
 								},
-							},
-							map[string]any{
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
 								"args": map[string]any{
 									"params": []any{
 										map[string]any{
+											"name": "block",
+											"orig": "block",
+											"type": "`$INTEGER`",
 											"kind": "param",
-											"name": "from",
-											"orig": "from",
 											"reqd": true,
-											"type": "`$STRING`",
 										},
 										map[string]any{
+											"name": "from",
+											"orig": "from",
+											"type": "`$STRING`",
 											"kind": "param",
+											"reqd": true,
+										},
+										map[string]any{
 											"name": "to",
 											"orig": "to",
-											"reqd": true,
 											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
 										},
 									},
 								},
+								"select": map[string]any{
+									"exist": []any{
+										"block",
+										"from",
+										"to",
+									},
+								},
+							},
+							map[string]any{
 								"kind": "http",
 								"method": "GET",
 								"orig": "/intensity/stats/{from}/{to}",
@@ -2058,32 +2089,47 @@ func MakeConfig() map[string]any {
 										"var": "to",
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"from",
-										"to",
-									},
-								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
 								"parts": []any{
 									"intensity",
 									"stats",
 									"{from}",
 									"{to}",
 								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "from",
+											"orig": "from",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+										},
+										map[string]any{
+											"name": "to",
+											"orig": "to",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"from",
+										"to",
+									},
+								},
 							},
 						},
 					},
 				},
 				"relations": map[string]any{
-					"ancestors": []any{
-						[]any{
-							"stat",
-						},
-					},
+					"ancestors": []any{},
 				},
 			},
 		},

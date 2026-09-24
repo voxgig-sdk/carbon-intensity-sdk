@@ -14,7 +14,7 @@ Metadata kindly supplied by [www.freepublicapis.com](https://www.freepublicapis.
 
 > TypeScript, Python, PHP, Golang, Ruby, Lua SDKs, a CLI with an interactive REPL, and an MCP server for AI agents — all generated from one OpenAPI spec by [@voxgig/sdkgen](https://github.com/voxgig/sdkgen).
 
-> **Features:** `ratelimit`, `retry`, `test`, `timeout` — opt-in,
+> **Features:** `undefined`, `undefined`, `undefined`, `undefined` — opt-in,
 > inactive until switched on, and configured per client. See the Features
 > section of any SDK README below for what each one does.
 
@@ -129,12 +129,11 @@ for (const generation of generations) {
   console.log(generation)
 }
 
-// Load a specific generation (returns a Generation)
-const generation = await client.Generation().load({
-  from: 'example_from',
-  to: 'example_to',
+// Load a specific intensitylist (returns a IntensityList)
+const intensitylist = await client.IntensityList().load({
+  date: 'example_date',
 })
-console.log(generation)
+console.log(intensitylist)
 ```
 
 See the [TypeScript README](ts/README.md) for the full guide.
@@ -238,14 +237,14 @@ if err != nil {
 }
 fmt.Println(generations)
 
-// Load a specific generation
-generation, err := client.Generation(nil).Load(
-    map[string]any{"from": "example_from", "to": "example_to"}, nil,
+// Load a specific intensitylist
+intensityList, err := client.IntensityList(nil).Load(
+    map[string]any{"date": "example_date"}, nil,
 )
 if err != nil {
     panic(err)
 }
-fmt.Println(generation)
+fmt.Println(intensityList)
 ```
 
 ### Ruby

@@ -107,25 +107,30 @@ module CarbonIntensityConfig
           "fields" => [
             {
               "name" => "data",
+              "title" => "Data",
               "type" => "`$ARRAY`",
             },
             {
-              "format" => "date-time",
               "name" => "from",
+              "title" => "From",
               "type" => "`$STRING`",
+              "format" => "date-time",
             },
             {
               "name" => "generationmix",
+              "title" => "Generationmix",
               "type" => "`$ARRAY`",
             },
             {
               "name" => "id",
+              "title" => "Id",
               "type" => "`$STRING`",
             },
             {
-              "format" => "date-time",
               "name" => "to",
+              "title" => "To",
               "type" => "`$STRING`",
+              "format" => "date-time",
             },
           ],
           "id" => {
@@ -148,7 +153,6 @@ module CarbonIntensityConfig
               "name" => "list",
               "points" => [
                 {
-                  "args" => {},
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/generation",
@@ -157,14 +161,16 @@ module CarbonIntensityConfig
                       "lit" => "generation",
                     },
                   ],
-                  "select" => {},
+                  "parts" => [
+                    "generation",
+                  ],
+                  "rename" => {},
                   "transform" => {
                     "req" => "`reqdata`",
                     "res" => "`body.data`",
                   },
-                  "parts" => [
-                    "generation",
-                  ],
+                  "args" => {},
+                  "select" => {},
                 },
               ],
             },
@@ -173,24 +179,6 @@ module CarbonIntensityConfig
               "name" => "load",
               "points" => [
                 {
-                  "args" => {
-                    "params" => [
-                      {
-                        "kind" => "param",
-                        "name" => "from",
-                        "orig" => "from",
-                        "reqd" => true,
-                        "type" => "`$STRING`",
-                      },
-                      {
-                        "kind" => "param",
-                        "name" => "to",
-                        "orig" => "to",
-                        "reqd" => true,
-                        "type" => "`$STRING`",
-                      },
-                    ],
-                  },
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/generation/{from}/{to}",
@@ -205,48 +193,66 @@ module CarbonIntensityConfig
                       "var" => "to",
                     },
                   ],
+                  "parts" => [
+                    "generation",
+                    "{from}",
+                    "{to}",
+                  ],
+                  "rename" => {},
+                  "transform" => {
+                    "req" => "`reqdata`",
+                    "res" => "`body`",
+                  },
+                  "args" => {
+                    "params" => [
+                      {
+                        "name" => "from",
+                        "orig" => "from",
+                        "type" => "`$STRING`",
+                        "kind" => "param",
+                        "reqd" => true,
+                      },
+                      {
+                        "name" => "to",
+                        "orig" => "to",
+                        "type" => "`$STRING`",
+                        "kind" => "param",
+                        "reqd" => true,
+                      },
+                    ],
+                  },
                   "select" => {
                     "exist" => [
                       "from",
                       "to",
                     ],
                   },
-                  "transform" => {
-                    "req" => "`reqdata`",
-                    "res" => "`body`",
-                  },
-                  "parts" => [
-                    "generation",
-                    "{from}",
-                    "{to}",
-                  ],
                 },
               ],
             },
           },
           "relations" => {
-            "ancestors" => [
-              [
-                "generation",
-              ],
-            ],
+            "ancestors" => [],
           },
         },
         "generation_list" => {
           "fields" => [
             {
-              "format" => "date-time",
               "name" => "from",
+              "title" => "From",
               "type" => "`$STRING`",
+              "format" => "date-time",
             },
             {
               "name" => "generationmix",
+              "title" => "Generationmix",
               "type" => "`$ARRAY`",
             },
             {
-              "format" => "date-time",
               "name" => "to",
+              "title" => "To",
               "type" => "`$STRING`",
+              "format" => "date-time",
             },
           ],
           "name" => "generation_list",
@@ -256,17 +262,6 @@ module CarbonIntensityConfig
               "name" => "list",
               "points" => [
                 {
-                  "args" => {
-                    "params" => [
-                      {
-                        "kind" => "param",
-                        "name" => "from",
-                        "orig" => "from",
-                        "reqd" => true,
-                        "type" => "`$STRING`",
-                      },
-                    ],
-                  },
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/generation/{from}/pt24h",
@@ -281,20 +276,32 @@ module CarbonIntensityConfig
                       "lit" => "pt24h",
                     },
                   ],
-                  "select" => {
-                    "exist" => [
-                      "from",
-                    ],
-                  },
-                  "transform" => {
-                    "req" => "`reqdata`",
-                    "res" => "`body.data`",
-                  },
                   "parts" => [
                     "generation",
                     "{from}",
                     "pt24h",
                   ],
+                  "rename" => {},
+                  "transform" => {
+                    "req" => "`reqdata`",
+                    "res" => "`body.data`",
+                  },
+                  "args" => {
+                    "params" => [
+                      {
+                        "name" => "from",
+                        "orig" => "from",
+                        "type" => "`$STRING`",
+                        "kind" => "param",
+                        "reqd" => true,
+                      },
+                    ],
+                  },
+                  "select" => {
+                    "exist" => [
+                      "from",
+                    ],
+                  },
                 },
               ],
             },
@@ -302,7 +309,7 @@ module CarbonIntensityConfig
           "relations" => {
             "ancestors" => [
               [
-                "generation",
+                "$.main.kit.entity.generation",
               ],
             ],
           },
@@ -311,27 +318,32 @@ module CarbonIntensityConfig
           "fields" => [
             {
               "name" => "data",
+              "title" => "Data",
               "type" => "`$ARRAY`",
             },
             {
-              "format" => "date-time",
               "name" => "from",
-              "short" => "Start datetime of the period",
+              "title" => "From",
               "type" => "`$STRING`",
+              "short" => "Start datetime of the period",
+              "format" => "date-time",
             },
             {
               "name" => "id",
+              "title" => "Id",
               "type" => "`$STRING`",
             },
             {
               "name" => "intensity",
+              "title" => "Intensity",
               "type" => "`$OBJECT`",
             },
             {
-              "format" => "date-time",
               "name" => "to",
-              "short" => "End datetime of the period",
+              "title" => "To",
               "type" => "`$STRING`",
+              "short" => "End datetime of the period",
+              "format" => "date-time",
             },
           ],
           "id" => {
@@ -345,7 +357,6 @@ module CarbonIntensityConfig
               "name" => "list",
               "points" => [
                 {
-                  "args" => {},
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/intensity",
@@ -354,14 +365,16 @@ module CarbonIntensityConfig
                       "lit" => "intensity",
                     },
                   ],
-                  "select" => {},
+                  "parts" => [
+                    "intensity",
+                  ],
+                  "rename" => {},
                   "transform" => {
                     "req" => "`reqdata`",
                     "res" => "`body.data`",
                   },
-                  "parts" => [
-                    "intensity",
-                  ],
+                  "args" => {},
+                  "select" => {},
                 },
               ],
             },
@@ -370,24 +383,6 @@ module CarbonIntensityConfig
               "name" => "load",
               "points" => [
                 {
-                  "args" => {
-                    "params" => [
-                      {
-                        "kind" => "param",
-                        "name" => "date",
-                        "orig" => "date",
-                        "reqd" => true,
-                        "type" => "`$STRING`",
-                      },
-                      {
-                        "kind" => "param",
-                        "name" => "period",
-                        "orig" => "period",
-                        "reqd" => true,
-                        "type" => "`$INTEGER`",
-                      },
-                    ],
-                  },
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/intensity/date/{date}/{period}",
@@ -405,42 +400,43 @@ module CarbonIntensityConfig
                       "var" => "period",
                     },
                   ],
-                  "select" => {
-                    "exist" => [
-                      "date",
-                      "period",
-                    ],
-                  },
-                  "transform" => {
-                    "req" => "`reqdata`",
-                    "res" => "`body`",
-                  },
                   "parts" => [
                     "intensity",
                     "date",
                     "{date}",
                     "{period}",
                   ],
-                },
-                {
+                  "rename" => {},
+                  "transform" => {
+                    "req" => "`reqdata`",
+                    "res" => "`body`",
+                  },
                   "args" => {
                     "params" => [
                       {
-                        "kind" => "param",
-                        "name" => "from",
-                        "orig" => "from",
-                        "reqd" => true,
+                        "name" => "date",
+                        "orig" => "date",
                         "type" => "`$STRING`",
+                        "kind" => "param",
+                        "reqd" => true,
                       },
                       {
+                        "name" => "period",
+                        "orig" => "period",
+                        "type" => "`$INTEGER`",
                         "kind" => "param",
-                        "name" => "to",
-                        "orig" => "to",
                         "reqd" => true,
-                        "type" => "`$STRING`",
                       },
                     ],
                   },
+                  "select" => {
+                    "exist" => [
+                      "date",
+                      "period",
+                    ],
+                  },
+                },
+                {
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/intensity/{from}/{to}",
@@ -455,42 +451,45 @@ module CarbonIntensityConfig
                       "var" => "to",
                     },
                   ],
+                  "parts" => [
+                    "intensity",
+                    "{from}",
+                    "{to}",
+                  ],
+                  "rename" => {},
+                  "transform" => {
+                    "req" => "`reqdata`",
+                    "res" => "`body`",
+                  },
+                  "args" => {
+                    "params" => [
+                      {
+                        "name" => "from",
+                        "orig" => "from",
+                        "type" => "`$STRING`",
+                        "kind" => "param",
+                        "reqd" => true,
+                      },
+                      {
+                        "name" => "to",
+                        "orig" => "to",
+                        "type" => "`$STRING`",
+                        "kind" => "param",
+                        "reqd" => true,
+                      },
+                    ],
+                  },
                   "select" => {
                     "exist" => [
                       "from",
                       "to",
                     ],
                   },
-                  "transform" => {
-                    "req" => "`reqdata`",
-                    "res" => "`body`",
-                  },
-                  "parts" => [
-                    "intensity",
-                    "{from}",
-                    "{to}",
-                  ],
                 },
                 {
-                  "args" => {
-                    "params" => [
-                      {
-                        "kind" => "param",
-                        "name" => "id",
-                        "orig" => "from",
-                        "reqd" => true,
-                        "type" => "`$STRING`",
-                      },
-                    ],
-                  },
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/intensity/{from}",
-                  "rename" => {
-                    "param" => {
-                      "from" => "id",
-                    },
-                  },
                   "segments" => [
                     {
                       "lit" => "intensity",
@@ -499,105 +498,128 @@ module CarbonIntensityConfig
                       "var" => "id",
                     },
                   ],
-                  "select" => {
-                    "exist" => [
-                      "id",
-                    ],
+                  "parts" => [
+                    "intensity",
+                    "{id}",
+                  ],
+                  "rename" => {
+                    "param" => {
+                      "from" => "id",
+                    },
                   },
                   "transform" => {
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
-                  "parts" => [
-                    "intensity",
-                    "{id}",
-                  ],
+                  "args" => {
+                    "params" => [
+                      {
+                        "name" => "id",
+                        "orig" => "from",
+                        "type" => "`$STRING`",
+                        "kind" => "param",
+                        "reqd" => true,
+                      },
+                    ],
+                  },
+                  "select" => {
+                    "exist" => [
+                      "id",
+                    ],
+                  },
                 },
               ],
             },
           },
           "relations" => {
-            "ancestors" => [
-              [
-                "date",
-              ],
-              [
-                "intensity",
-              ],
-            ],
+            "ancestors" => [],
           },
         },
         "intensity_factor" => {
           "fields" => [
             {
               "name" => "Biomass",
-              "short" => "Carbon intensity factor for biomass (gCO2/kWh)",
+              "title" => "Biomass",
               "type" => "`$INTEGER`",
+              "short" => "Carbon intensity factor for biomass (gCO2/kWh)",
             },
             {
               "name" => "Coal",
-              "short" => "Carbon intensity factor for coal (gCO2/kWh)",
+              "title" => "Coal",
               "type" => "`$INTEGER`",
+              "short" => "Carbon intensity factor for coal (gCO2/kWh)",
             },
             {
               "name" => "DutchImports",
-              "short" => "Carbon intensity factor for Dutch imports (gCO2/kWh)",
+              "title" => "Dutch Imports",
               "type" => "`$INTEGER`",
+              "short" => "Carbon intensity factor for Dutch imports (gCO2/kWh)",
             },
             {
               "name" => "FrenchImports",
-              "short" => "Carbon intensity factor for French imports (gCO2/kWh)",
+              "title" => "French Imports",
               "type" => "`$INTEGER`",
+              "short" => "Carbon intensity factor for French imports (gCO2/kWh)",
             },
             {
               "name" => "GasCombinedCycle",
-              "short" => "Carbon intensity factor for gas combined cycle (gCO2/kWh)",
+              "title" => "Gas Combined Cycle",
               "type" => "`$INTEGER`",
+              "short" => "Carbon intensity factor for gas combined cycle (gCO2/kWh)",
             },
             {
               "name" => "GasOpenCycle",
-              "short" => "Carbon intensity factor for gas open cycle (gCO2/kWh)",
+              "title" => "Gas Open Cycle",
               "type" => "`$INTEGER`",
+              "short" => "Carbon intensity factor for gas open cycle (gCO2/kWh)",
             },
             {
               "name" => "Hydro",
-              "short" => "Carbon intensity factor for hydro (gCO2/kWh)",
+              "title" => "Hydro",
               "type" => "`$INTEGER`",
+              "short" => "Carbon intensity factor for hydro (gCO2/kWh)",
             },
             {
               "name" => "IrishImports",
-              "short" => "Carbon intensity factor for Irish imports (gCO2/kWh)",
+              "title" => "Irish Imports",
               "type" => "`$INTEGER`",
+              "short" => "Carbon intensity factor for Irish imports (gCO2/kWh)",
             },
             {
               "name" => "Nuclear",
-              "short" => "Carbon intensity factor for nuclear (gCO2/kWh)",
+              "title" => "Nuclear",
               "type" => "`$INTEGER`",
+              "short" => "Carbon intensity factor for nuclear (gCO2/kWh)",
             },
             {
               "name" => "Oil",
-              "short" => "Carbon intensity factor for oil (gCO2/kWh)",
+              "title" => "Oil",
               "type" => "`$INTEGER`",
+              "short" => "Carbon intensity factor for oil (gCO2/kWh)",
             },
             {
               "name" => "Other",
-              "short" => "Carbon intensity factor for other (gCO2/kWh)",
+              "title" => "Other",
               "type" => "`$INTEGER`",
+              "short" => "Carbon intensity factor for other (gCO2/kWh)",
             },
             {
               "name" => "PumpedStorage",
-              "short" => "Carbon intensity factor for pumped storage (gCO2/kWh)",
+              "title" => "Pumped Storage",
               "type" => "`$INTEGER`",
+              "short" => "Carbon intensity factor for pumped storage (gCO2/kWh)",
             },
             {
               "name" => "Solar",
-              "short" => "Carbon intensity factor for solar (gCO2/kWh)",
+              "title" => "Solar",
               "type" => "`$INTEGER`",
+              "short" => "Carbon intensity factor for solar (gCO2/kWh)",
             },
             {
               "name" => "Wind",
-              "short" => "Carbon intensity factor for wind (gCO2/kWh)",
+              "title" => "Wind",
               "type" => "`$INTEGER`",
+              "short" => "Carbon intensity factor for wind (gCO2/kWh)",
             },
           ],
           "name" => "intensity_factor",
@@ -607,7 +629,6 @@ module CarbonIntensityConfig
               "name" => "list",
               "points" => [
                 {
-                  "args" => {},
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/intensity/factors",
@@ -619,15 +640,17 @@ module CarbonIntensityConfig
                       "lit" => "factors",
                     },
                   ],
-                  "select" => {},
-                  "transform" => {
-                    "req" => "`reqdata`",
-                    "res" => "`body.data`",
-                  },
                   "parts" => [
                     "intensity",
                     "factors",
                   ],
+                  "rename" => {},
+                  "transform" => {
+                    "req" => "`reqdata`",
+                    "res" => "`body.data`",
+                  },
+                  "args" => {},
+                  "select" => {},
                 },
               ],
             },
@@ -640,23 +663,27 @@ module CarbonIntensityConfig
           "fields" => [
             {
               "name" => "data",
+              "title" => "Data",
               "type" => "`$ARRAY`",
             },
             {
-              "format" => "date-time",
               "name" => "from",
-              "short" => "Start datetime of the period",
+              "title" => "From",
               "type" => "`$STRING`",
+              "short" => "Start datetime of the period",
+              "format" => "date-time",
             },
             {
               "name" => "intensity",
+              "title" => "Intensity",
               "type" => "`$OBJECT`",
             },
             {
-              "format" => "date-time",
               "name" => "to",
-              "short" => "End datetime of the period",
+              "title" => "To",
               "type" => "`$STRING`",
+              "short" => "End datetime of the period",
+              "format" => "date-time",
             },
           ],
           "name" => "intensity_list",
@@ -666,17 +693,6 @@ module CarbonIntensityConfig
               "name" => "list",
               "points" => [
                 {
-                  "args" => {
-                    "params" => [
-                      {
-                        "kind" => "param",
-                        "name" => "from",
-                        "orig" => "from",
-                        "reqd" => true,
-                        "type" => "`$STRING`",
-                      },
-                    ],
-                  },
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/intensity/{from}/fw24h",
@@ -691,33 +707,34 @@ module CarbonIntensityConfig
                       "lit" => "fw24h",
                     },
                   ],
-                  "select" => {
-                    "exist" => [
-                      "from",
-                    ],
-                  },
-                  "transform" => {
-                    "req" => "`reqdata`",
-                    "res" => "`body.data`",
-                  },
                   "parts" => [
                     "intensity",
                     "{from}",
                     "fw24h",
                   ],
-                },
-                {
+                  "rename" => {},
+                  "transform" => {
+                    "req" => "`reqdata`",
+                    "res" => "`body.data`",
+                  },
                   "args" => {
                     "params" => [
                       {
-                        "kind" => "param",
                         "name" => "from",
                         "orig" => "from",
-                        "reqd" => true,
                         "type" => "`$STRING`",
+                        "kind" => "param",
+                        "reqd" => true,
                       },
                     ],
                   },
+                  "select" => {
+                    "exist" => [
+                      "from",
+                    ],
+                  },
+                },
+                {
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/intensity/{from}/fw48h",
@@ -732,33 +749,34 @@ module CarbonIntensityConfig
                       "lit" => "fw48h",
                     },
                   ],
-                  "select" => {
-                    "exist" => [
-                      "from",
-                    ],
-                  },
-                  "transform" => {
-                    "req" => "`reqdata`",
-                    "res" => "`body.data`",
-                  },
                   "parts" => [
                     "intensity",
                     "{from}",
                     "fw48h",
                   ],
-                },
-                {
+                  "rename" => {},
+                  "transform" => {
+                    "req" => "`reqdata`",
+                    "res" => "`body.data`",
+                  },
                   "args" => {
                     "params" => [
                       {
-                        "kind" => "param",
                         "name" => "from",
                         "orig" => "from",
-                        "reqd" => true,
                         "type" => "`$STRING`",
+                        "kind" => "param",
+                        "reqd" => true,
                       },
                     ],
                   },
+                  "select" => {
+                    "exist" => [
+                      "from",
+                    ],
+                  },
+                },
+                {
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/intensity/{from}/pt24h",
@@ -773,23 +791,34 @@ module CarbonIntensityConfig
                       "lit" => "pt24h",
                     },
                   ],
-                  "select" => {
-                    "exist" => [
-                      "from",
-                    ],
-                  },
-                  "transform" => {
-                    "req" => "`reqdata`",
-                    "res" => "`body.data`",
-                  },
                   "parts" => [
                     "intensity",
                     "{from}",
                     "pt24h",
                   ],
+                  "rename" => {},
+                  "transform" => {
+                    "req" => "`reqdata`",
+                    "res" => "`body.data`",
+                  },
+                  "args" => {
+                    "params" => [
+                      {
+                        "name" => "from",
+                        "orig" => "from",
+                        "type" => "`$STRING`",
+                        "kind" => "param",
+                        "reqd" => true,
+                      },
+                    ],
+                  },
+                  "select" => {
+                    "exist" => [
+                      "from",
+                    ],
+                  },
                 },
                 {
-                  "args" => {},
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/intensity/date",
@@ -801,15 +830,17 @@ module CarbonIntensityConfig
                       "lit" => "date",
                     },
                   ],
-                  "select" => {},
-                  "transform" => {
-                    "req" => "`reqdata`",
-                    "res" => "`body.data`",
-                  },
                   "parts" => [
                     "intensity",
                     "date",
                   ],
+                  "rename" => {},
+                  "transform" => {
+                    "req" => "`reqdata`",
+                    "res" => "`body.data`",
+                  },
+                  "args" => {},
+                  "select" => {},
                 },
               ],
             },
@@ -818,17 +849,6 @@ module CarbonIntensityConfig
               "name" => "load",
               "points" => [
                 {
-                  "args" => {
-                    "params" => [
-                      {
-                        "kind" => "param",
-                        "name" => "date",
-                        "orig" => "date",
-                        "reqd" => true,
-                        "type" => "`$STRING`",
-                      },
-                    ],
-                  },
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/intensity/date/{date}",
@@ -843,20 +863,32 @@ module CarbonIntensityConfig
                       "var" => "date",
                     },
                   ],
-                  "select" => {
-                    "exist" => [
-                      "date",
-                    ],
-                  },
-                  "transform" => {
-                    "req" => "`reqdata`",
-                    "res" => "`body`",
-                  },
                   "parts" => [
                     "intensity",
                     "date",
                     "{date}",
                   ],
+                  "rename" => {},
+                  "transform" => {
+                    "req" => "`reqdata`",
+                    "res" => "`body`",
+                  },
+                  "args" => {
+                    "params" => [
+                      {
+                        "name" => "date",
+                        "orig" => "date",
+                        "type" => "`$STRING`",
+                        "kind" => "param",
+                        "reqd" => true,
+                      },
+                    ],
+                  },
+                  "select" => {
+                    "exist" => [
+                      "date",
+                    ],
+                  },
                 },
               ],
             },
@@ -864,10 +896,7 @@ module CarbonIntensityConfig
           "relations" => {
             "ancestors" => [
               [
-                "date",
-              ],
-              [
-                "intensity",
+                "$.main.kit.entity.intensity",
               ],
             ],
           },
@@ -876,27 +905,32 @@ module CarbonIntensityConfig
           "fields" => [
             {
               "name" => "data",
+              "title" => "Data",
               "type" => "`$ARRAY`",
             },
             {
               "name" => "dnoregion",
-              "short" => "Distribution Network Operator region",
+              "title" => "Dnoregion",
               "type" => "`$STRING`",
+              "short" => "Distribution Network Operator region",
             },
             {
               "name" => "postcode",
-              "short" => "Outward postcode",
+              "title" => "Postcode",
               "type" => "`$STRING`",
+              "short" => "Outward postcode",
             },
             {
               "name" => "regionid",
-              "short" => "Region ID (1-17)",
+              "title" => "Regionid",
               "type" => "`$INTEGER`",
+              "short" => "Region ID (1-17)",
             },
             {
               "name" => "shortname",
-              "short" => "Short region name",
+              "title" => "Shortname",
               "type" => "`$STRING`",
+              "short" => "Short region name",
             },
           ],
           "name" => "regional",
@@ -906,7 +940,6 @@ module CarbonIntensityConfig
               "name" => "list",
               "points" => [
                 {
-                  "args" => {},
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/regional",
@@ -915,14 +948,16 @@ module CarbonIntensityConfig
                       "lit" => "regional",
                     },
                   ],
-                  "select" => {},
+                  "parts" => [
+                    "regional",
+                  ],
+                  "rename" => {},
                   "transform" => {
                     "req" => "`reqdata`",
                     "res" => "`body.data`",
                   },
-                  "parts" => [
-                    "regional",
-                  ],
+                  "args" => {},
+                  "select" => {},
                 },
               ],
             },
@@ -935,27 +970,32 @@ module CarbonIntensityConfig
           "fields" => [
             {
               "name" => "data",
+              "title" => "Data",
               "type" => "`$ARRAY`",
             },
             {
               "name" => "dnoregion",
-              "short" => "Distribution Network Operator region",
+              "title" => "Dnoregion",
               "type" => "`$STRING`",
+              "short" => "Distribution Network Operator region",
             },
             {
               "name" => "postcode",
-              "short" => "Outward postcode",
+              "title" => "Postcode",
               "type" => "`$STRING`",
+              "short" => "Outward postcode",
             },
             {
               "name" => "regionid",
-              "short" => "Region ID (1-17)",
+              "title" => "Regionid",
               "type" => "`$INTEGER`",
+              "short" => "Region ID (1-17)",
             },
             {
               "name" => "shortname",
-              "short" => "Short region name",
+              "title" => "Shortname",
               "type" => "`$STRING`",
+              "short" => "Short region name",
             },
           ],
           "name" => "regional_intensity",
@@ -965,7 +1005,6 @@ module CarbonIntensityConfig
               "name" => "list",
               "points" => [
                 {
-                  "args" => {},
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/regional/england",
@@ -977,18 +1016,19 @@ module CarbonIntensityConfig
                       "lit" => "england",
                     },
                   ],
-                  "select" => {},
-                  "transform" => {
-                    "req" => "`reqdata`",
-                    "res" => "`body.data`",
-                  },
                   "parts" => [
                     "regional",
                     "england",
                   ],
+                  "rename" => {},
+                  "transform" => {
+                    "req" => "`reqdata`",
+                    "res" => "`body.data`",
+                  },
+                  "args" => {},
+                  "select" => {},
                 },
                 {
-                  "args" => {},
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/regional/scotland",
@@ -1000,18 +1040,19 @@ module CarbonIntensityConfig
                       "lit" => "scotland",
                     },
                   ],
-                  "select" => {},
-                  "transform" => {
-                    "req" => "`reqdata`",
-                    "res" => "`body.data`",
-                  },
                   "parts" => [
                     "regional",
                     "scotland",
                   ],
+                  "rename" => {},
+                  "transform" => {
+                    "req" => "`reqdata`",
+                    "res" => "`body.data`",
+                  },
+                  "args" => {},
+                  "select" => {},
                 },
                 {
-                  "args" => {},
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/regional/wales",
@@ -1023,15 +1064,17 @@ module CarbonIntensityConfig
                       "lit" => "wales",
                     },
                   ],
-                  "select" => {},
-                  "transform" => {
-                    "req" => "`reqdata`",
-                    "res" => "`body.data`",
-                  },
                   "parts" => [
                     "regional",
                     "wales",
                   ],
+                  "rename" => {},
+                  "transform" => {
+                    "req" => "`reqdata`",
+                    "res" => "`body.data`",
+                  },
+                  "args" => {},
+                  "select" => {},
                 },
               ],
             },
@@ -1040,17 +1083,6 @@ module CarbonIntensityConfig
               "name" => "load",
               "points" => [
                 {
-                  "args" => {
-                    "params" => [
-                      {
-                        "kind" => "param",
-                        "name" => "postcode",
-                        "orig" => "postcode",
-                        "reqd" => true,
-                        "type" => "`$STRING`",
-                      },
-                    ],
-                  },
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/regional/postcode/{postcode}",
@@ -1065,33 +1097,34 @@ module CarbonIntensityConfig
                       "var" => "postcode",
                     },
                   ],
-                  "select" => {
-                    "exist" => [
-                      "postcode",
-                    ],
-                  },
-                  "transform" => {
-                    "req" => "`reqdata`",
-                    "res" => "`body`",
-                  },
                   "parts" => [
                     "regional",
                     "postcode",
                     "{postcode}",
                   ],
-                },
-                {
+                  "rename" => {},
+                  "transform" => {
+                    "req" => "`reqdata`",
+                    "res" => "`body`",
+                  },
                   "args" => {
                     "params" => [
                       {
+                        "name" => "postcode",
+                        "orig" => "postcode",
+                        "type" => "`$STRING`",
                         "kind" => "param",
-                        "name" => "regionid",
-                        "orig" => "regionid",
                         "reqd" => true,
-                        "type" => "`$INTEGER`",
                       },
                     ],
                   },
+                  "select" => {
+                    "exist" => [
+                      "postcode",
+                    ],
+                  },
+                },
+                {
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/regional/regionid/{regionid}",
@@ -1106,64 +1139,75 @@ module CarbonIntensityConfig
                       "var" => "regionid",
                     },
                   ],
-                  "select" => {
-                    "exist" => [
-                      "regionid",
-                    ],
-                  },
-                  "transform" => {
-                    "req" => "`reqdata`",
-                    "res" => "`body`",
-                  },
                   "parts" => [
                     "regional",
                     "regionid",
                     "{regionid}",
                   ],
+                  "rename" => {},
+                  "transform" => {
+                    "req" => "`reqdata`",
+                    "res" => "`body`",
+                  },
+                  "args" => {
+                    "params" => [
+                      {
+                        "name" => "regionid",
+                        "orig" => "regionid",
+                        "type" => "`$INTEGER`",
+                        "kind" => "param",
+                        "reqd" => true,
+                      },
+                    ],
+                  },
+                  "select" => {
+                    "exist" => [
+                      "regionid",
+                    ],
+                  },
                 },
               ],
             },
           },
           "relations" => {
-            "ancestors" => [
-              [
-                "postcode",
-              ],
-              [
-                "regionid",
-              ],
-            ],
+            "ancestors" => [],
           },
         },
         "regional_intensity_list" => {
           "fields" => [
             {
               "name" => "data",
+              "title" => "Data",
               "type" => "`$ARRAY`",
             },
             {
               "name" => "dnoregion",
-              "short" => "Distribution Network Operator region",
+              "title" => "Dnoregion",
               "type" => "`$STRING`",
+              "short" => "Distribution Network Operator region",
             },
             {
               "name" => "id",
+              "title" => "Id",
               "type" => "`$STRING`",
             },
             {
               "name" => "postcode",
-              "short" => "Outward postcode",
+              "title" => "Postcode",
               "type" => "`$STRING`",
+              "short" => "Outward postcode",
             },
             {
               "name" => "regionid",
-              "short" => "Region ID (1-17)",
+              "title" => "Regionid",
               "type" => "`$INTEGER`",
+              "short" => "Region ID (1-17)",
             },
             {
               "name" => "shortname",
-              "short" => "Short region name",
+              "title" => "Shortname",
               "type" => "`$STRING`",
+              "short" => "Short region name",
             },
           ],
           "id" => {
@@ -1182,17 +1226,6 @@ module CarbonIntensityConfig
               "name" => "list",
               "points" => [
                 {
-                  "args" => {
-                    "params" => [
-                      {
-                        "kind" => "param",
-                        "name" => "from",
-                        "orig" => "from",
-                        "reqd" => true,
-                        "type" => "`$STRING`",
-                      },
-                    ],
-                  },
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/regional/intensity/{from}/fw24h",
@@ -1210,34 +1243,35 @@ module CarbonIntensityConfig
                       "lit" => "fw24h",
                     },
                   ],
-                  "select" => {
-                    "exist" => [
-                      "from",
-                    ],
-                  },
-                  "transform" => {
-                    "req" => "`reqdata`",
-                    "res" => "`body.data`",
-                  },
                   "parts" => [
                     "regional",
                     "intensity",
                     "{from}",
                     "fw24h",
                   ],
-                },
-                {
+                  "rename" => {},
+                  "transform" => {
+                    "req" => "`reqdata`",
+                    "res" => "`body.data`",
+                  },
                   "args" => {
                     "params" => [
                       {
-                        "kind" => "param",
                         "name" => "from",
                         "orig" => "from",
-                        "reqd" => true,
                         "type" => "`$STRING`",
+                        "kind" => "param",
+                        "reqd" => true,
                       },
                     ],
                   },
+                  "select" => {
+                    "exist" => [
+                      "from",
+                    ],
+                  },
+                },
+                {
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/regional/intensity/{from}/fw48h",
@@ -1255,34 +1289,35 @@ module CarbonIntensityConfig
                       "lit" => "fw48h",
                     },
                   ],
-                  "select" => {
-                    "exist" => [
-                      "from",
-                    ],
-                  },
-                  "transform" => {
-                    "req" => "`reqdata`",
-                    "res" => "`body.data`",
-                  },
                   "parts" => [
                     "regional",
                     "intensity",
                     "{from}",
                     "fw48h",
                   ],
-                },
-                {
+                  "rename" => {},
+                  "transform" => {
+                    "req" => "`reqdata`",
+                    "res" => "`body.data`",
+                  },
                   "args" => {
                     "params" => [
                       {
-                        "kind" => "param",
                         "name" => "from",
                         "orig" => "from",
-                        "reqd" => true,
                         "type" => "`$STRING`",
+                        "kind" => "param",
+                        "reqd" => true,
                       },
                     ],
                   },
+                  "select" => {
+                    "exist" => [
+                      "from",
+                    ],
+                  },
+                },
+                {
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/regional/intensity/{from}/pt24h",
@@ -1300,21 +1335,33 @@ module CarbonIntensityConfig
                       "lit" => "pt24h",
                     },
                   ],
-                  "select" => {
-                    "exist" => [
-                      "from",
-                    ],
-                  },
-                  "transform" => {
-                    "req" => "`reqdata`",
-                    "res" => "`body.data`",
-                  },
                   "parts" => [
                     "regional",
                     "intensity",
                     "{from}",
                     "pt24h",
                   ],
+                  "rename" => {},
+                  "transform" => {
+                    "req" => "`reqdata`",
+                    "res" => "`body.data`",
+                  },
+                  "args" => {
+                    "params" => [
+                      {
+                        "name" => "from",
+                        "orig" => "from",
+                        "type" => "`$STRING`",
+                        "kind" => "param",
+                        "reqd" => true,
+                      },
+                    ],
+                  },
+                  "select" => {
+                    "exist" => [
+                      "from",
+                    ],
+                  },
                 },
               ],
             },
@@ -1323,39 +1370,9 @@ module CarbonIntensityConfig
               "name" => "load",
               "points" => [
                 {
-                  "args" => {
-                    "params" => [
-                      {
-                        "kind" => "param",
-                        "name" => "intensity_id",
-                        "orig" => "from",
-                        "reqd" => true,
-                        "type" => "`$STRING`",
-                      },
-                      {
-                        "kind" => "param",
-                        "name" => "postcode",
-                        "orig" => "postcode",
-                        "reqd" => true,
-                        "type" => "`$STRING`",
-                      },
-                      {
-                        "kind" => "param",
-                        "name" => "to",
-                        "orig" => "to",
-                        "reqd" => true,
-                        "type" => "`$STRING`",
-                      },
-                    ],
-                  },
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/regional/intensity/{from}/{to}/postcode/{postcode}",
-                  "rename" => {
-                    "param" => {
-                      "from" => "intensity_id",
-                    },
-                  },
                   "segments" => [
                     {
                       "lit" => "regional",
@@ -1376,17 +1393,6 @@ module CarbonIntensityConfig
                       "var" => "postcode",
                     },
                   ],
-                  "select" => {
-                    "exist" => [
-                      "intensity_id",
-                      "postcode",
-                      "to",
-                    ],
-                  },
-                  "transform" => {
-                    "req" => "`reqdata`",
-                    "res" => "`body`",
-                  },
                   "parts" => [
                     "regional",
                     "intensity",
@@ -1395,41 +1401,52 @@ module CarbonIntensityConfig
                     "postcode",
                     "{postcode}",
                   ],
-                },
-                {
-                  "args" => {
-                    "params" => [
-                      {
-                        "kind" => "param",
-                        "name" => "intensity_id",
-                        "orig" => "from",
-                        "reqd" => true,
-                        "type" => "`$STRING`",
-                      },
-                      {
-                        "kind" => "param",
-                        "name" => "regionid",
-                        "orig" => "regionid",
-                        "reqd" => true,
-                        "type" => "`$INTEGER`",
-                      },
-                      {
-                        "kind" => "param",
-                        "name" => "to",
-                        "orig" => "to",
-                        "reqd" => true,
-                        "type" => "`$STRING`",
-                      },
-                    ],
-                  },
-                  "kind" => "http",
-                  "method" => "GET",
-                  "orig" => "/regional/intensity/{from}/{to}/regionid/{regionid}",
                   "rename" => {
                     "param" => {
                       "from" => "intensity_id",
                     },
                   },
+                  "transform" => {
+                    "req" => "`reqdata`",
+                    "res" => "`body`",
+                  },
+                  "args" => {
+                    "params" => [
+                      {
+                        "name" => "intensity_id",
+                        "orig" => "from",
+                        "type" => "`$STRING`",
+                        "kind" => "param",
+                        "reqd" => true,
+                      },
+                      {
+                        "name" => "postcode",
+                        "orig" => "postcode",
+                        "type" => "`$STRING`",
+                        "kind" => "param",
+                        "reqd" => true,
+                      },
+                      {
+                        "name" => "to",
+                        "orig" => "to",
+                        "type" => "`$STRING`",
+                        "kind" => "param",
+                        "reqd" => true,
+                      },
+                    ],
+                  },
+                  "select" => {
+                    "exist" => [
+                      "intensity_id",
+                      "postcode",
+                      "to",
+                    ],
+                  },
+                },
+                {
+                  "kind" => "http",
+                  "method" => "GET",
+                  "orig" => "/regional/intensity/{from}/{to}/regionid/{regionid}",
                   "segments" => [
                     {
                       "lit" => "regional",
@@ -1450,17 +1467,6 @@ module CarbonIntensityConfig
                       "var" => "regionid",
                     },
                   ],
-                  "select" => {
-                    "exist" => [
-                      "intensity_id",
-                      "regionid",
-                      "to",
-                    ],
-                  },
-                  "transform" => {
-                    "req" => "`reqdata`",
-                    "res" => "`body`",
-                  },
                   "parts" => [
                     "regional",
                     "intensity",
@@ -1469,26 +1475,49 @@ module CarbonIntensityConfig
                     "regionid",
                     "{regionid}",
                   ],
-                },
-                {
+                  "rename" => {
+                    "param" => {
+                      "from" => "intensity_id",
+                    },
+                  },
+                  "transform" => {
+                    "req" => "`reqdata`",
+                    "res" => "`body`",
+                  },
                   "args" => {
                     "params" => [
                       {
-                        "kind" => "param",
-                        "name" => "from",
+                        "name" => "intensity_id",
                         "orig" => "from",
-                        "reqd" => true,
                         "type" => "`$STRING`",
+                        "kind" => "param",
+                        "reqd" => true,
                       },
                       {
+                        "name" => "regionid",
+                        "orig" => "regionid",
+                        "type" => "`$INTEGER`",
                         "kind" => "param",
+                        "reqd" => true,
+                      },
+                      {
                         "name" => "to",
                         "orig" => "to",
-                        "reqd" => true,
                         "type" => "`$STRING`",
+                        "kind" => "param",
+                        "reqd" => true,
                       },
                     ],
                   },
+                  "select" => {
+                    "exist" => [
+                      "intensity_id",
+                      "regionid",
+                      "to",
+                    ],
+                  },
+                },
+                {
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/regional/intensity/{from}/{to}",
@@ -1506,50 +1535,46 @@ module CarbonIntensityConfig
                       "var" => "to",
                     },
                   ],
-                  "select" => {
-                    "exist" => [
-                      "from",
-                      "to",
-                    ],
-                  },
-                  "transform" => {
-                    "req" => "`reqdata`",
-                    "res" => "`body`",
-                  },
                   "parts" => [
                     "regional",
                     "intensity",
                     "{from}",
                     "{to}",
                   ],
-                },
-                {
+                  "rename" => {},
+                  "transform" => {
+                    "req" => "`reqdata`",
+                    "res" => "`body`",
+                  },
                   "args" => {
                     "params" => [
                       {
-                        "kind" => "param",
-                        "name" => "intensity_id",
+                        "name" => "from",
                         "orig" => "from",
-                        "reqd" => true,
                         "type" => "`$STRING`",
+                        "kind" => "param",
+                        "reqd" => true,
                       },
                       {
-                        "kind" => "param",
-                        "name" => "postcode",
-                        "orig" => "postcode",
-                        "reqd" => true,
+                        "name" => "to",
+                        "orig" => "to",
                         "type" => "`$STRING`",
+                        "kind" => "param",
+                        "reqd" => true,
                       },
                     ],
                   },
+                  "select" => {
+                    "exist" => [
+                      "from",
+                      "to",
+                    ],
+                  },
+                },
+                {
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/regional/intensity/{from}/fw24h/postcode/{postcode}",
-                  "rename" => {
-                    "param" => {
-                      "from" => "intensity_id",
-                    },
-                  },
                   "segments" => [
                     {
                       "lit" => "regional",
@@ -1570,16 +1595,6 @@ module CarbonIntensityConfig
                       "var" => "postcode",
                     },
                   ],
-                  "select" => {
-                    "exist" => [
-                      "intensity_id",
-                      "postcode",
-                    ],
-                  },
-                  "transform" => {
-                    "req" => "`reqdata`",
-                    "res" => "`body`",
-                  },
                   "parts" => [
                     "regional",
                     "intensity",
@@ -1588,34 +1603,44 @@ module CarbonIntensityConfig
                     "postcode",
                     "{postcode}",
                   ],
-                },
-                {
+                  "rename" => {
+                    "param" => {
+                      "from" => "intensity_id",
+                    },
+                  },
+                  "transform" => {
+                    "req" => "`reqdata`",
+                    "res" => "`body`",
+                  },
                   "args" => {
                     "params" => [
                       {
-                        "kind" => "param",
                         "name" => "intensity_id",
                         "orig" => "from",
-                        "reqd" => true,
                         "type" => "`$STRING`",
+                        "kind" => "param",
+                        "reqd" => true,
                       },
                       {
-                        "kind" => "param",
                         "name" => "postcode",
                         "orig" => "postcode",
-                        "reqd" => true,
                         "type" => "`$STRING`",
+                        "kind" => "param",
+                        "reqd" => true,
                       },
                     ],
                   },
+                  "select" => {
+                    "exist" => [
+                      "intensity_id",
+                      "postcode",
+                    ],
+                  },
+                },
+                {
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/regional/intensity/{from}/fw48h/postcode/{postcode}",
-                  "rename" => {
-                    "param" => {
-                      "from" => "intensity_id",
-                    },
-                  },
                   "segments" => [
                     {
                       "lit" => "regional",
@@ -1636,16 +1661,6 @@ module CarbonIntensityConfig
                       "var" => "postcode",
                     },
                   ],
-                  "select" => {
-                    "exist" => [
-                      "intensity_id",
-                      "postcode",
-                    ],
-                  },
-                  "transform" => {
-                    "req" => "`reqdata`",
-                    "res" => "`body`",
-                  },
                   "parts" => [
                     "regional",
                     "intensity",
@@ -1654,34 +1669,44 @@ module CarbonIntensityConfig
                     "postcode",
                     "{postcode}",
                   ],
-                },
-                {
-                  "args" => {
-                    "params" => [
-                      {
-                        "kind" => "param",
-                        "name" => "intensity_id",
-                        "orig" => "from",
-                        "reqd" => true,
-                        "type" => "`$STRING`",
-                      },
-                      {
-                        "kind" => "param",
-                        "name" => "postcode",
-                        "orig" => "postcode",
-                        "reqd" => true,
-                        "type" => "`$STRING`",
-                      },
-                    ],
-                  },
-                  "kind" => "http",
-                  "method" => "GET",
-                  "orig" => "/regional/intensity/{from}/pt24h/postcode/{postcode}",
                   "rename" => {
                     "param" => {
                       "from" => "intensity_id",
                     },
                   },
+                  "transform" => {
+                    "req" => "`reqdata`",
+                    "res" => "`body`",
+                  },
+                  "args" => {
+                    "params" => [
+                      {
+                        "name" => "intensity_id",
+                        "orig" => "from",
+                        "type" => "`$STRING`",
+                        "kind" => "param",
+                        "reqd" => true,
+                      },
+                      {
+                        "name" => "postcode",
+                        "orig" => "postcode",
+                        "type" => "`$STRING`",
+                        "kind" => "param",
+                        "reqd" => true,
+                      },
+                    ],
+                  },
+                  "select" => {
+                    "exist" => [
+                      "intensity_id",
+                      "postcode",
+                    ],
+                  },
+                },
+                {
+                  "kind" => "http",
+                  "method" => "GET",
+                  "orig" => "/regional/intensity/{from}/pt24h/postcode/{postcode}",
                   "segments" => [
                     {
                       "lit" => "regional",
@@ -1702,16 +1727,6 @@ module CarbonIntensityConfig
                       "var" => "postcode",
                     },
                   ],
-                  "select" => {
-                    "exist" => [
-                      "intensity_id",
-                      "postcode",
-                    ],
-                  },
-                  "transform" => {
-                    "req" => "`reqdata`",
-                    "res" => "`body`",
-                  },
                   "parts" => [
                     "regional",
                     "intensity",
@@ -1720,34 +1735,44 @@ module CarbonIntensityConfig
                     "postcode",
                     "{postcode}",
                   ],
-                },
-                {
-                  "args" => {
-                    "params" => [
-                      {
-                        "kind" => "param",
-                        "name" => "intensity_id",
-                        "orig" => "from",
-                        "reqd" => true,
-                        "type" => "`$STRING`",
-                      },
-                      {
-                        "kind" => "param",
-                        "name" => "regionid",
-                        "orig" => "regionid",
-                        "reqd" => true,
-                        "type" => "`$INTEGER`",
-                      },
-                    ],
-                  },
-                  "kind" => "http",
-                  "method" => "GET",
-                  "orig" => "/regional/intensity/{from}/fw24h/regionid/{regionid}",
                   "rename" => {
                     "param" => {
                       "from" => "intensity_id",
                     },
                   },
+                  "transform" => {
+                    "req" => "`reqdata`",
+                    "res" => "`body`",
+                  },
+                  "args" => {
+                    "params" => [
+                      {
+                        "name" => "intensity_id",
+                        "orig" => "from",
+                        "type" => "`$STRING`",
+                        "kind" => "param",
+                        "reqd" => true,
+                      },
+                      {
+                        "name" => "postcode",
+                        "orig" => "postcode",
+                        "type" => "`$STRING`",
+                        "kind" => "param",
+                        "reqd" => true,
+                      },
+                    ],
+                  },
+                  "select" => {
+                    "exist" => [
+                      "intensity_id",
+                      "postcode",
+                    ],
+                  },
+                },
+                {
+                  "kind" => "http",
+                  "method" => "GET",
+                  "orig" => "/regional/intensity/{from}/fw24h/regionid/{regionid}",
                   "segments" => [
                     {
                       "lit" => "regional",
@@ -1768,16 +1793,6 @@ module CarbonIntensityConfig
                       "var" => "regionid",
                     },
                   ],
-                  "select" => {
-                    "exist" => [
-                      "intensity_id",
-                      "regionid",
-                    ],
-                  },
-                  "transform" => {
-                    "req" => "`reqdata`",
-                    "res" => "`body`",
-                  },
                   "parts" => [
                     "regional",
                     "intensity",
@@ -1786,34 +1801,44 @@ module CarbonIntensityConfig
                     "regionid",
                     "{regionid}",
                   ],
-                },
-                {
-                  "args" => {
-                    "params" => [
-                      {
-                        "kind" => "param",
-                        "name" => "intensity_id",
-                        "orig" => "from",
-                        "reqd" => true,
-                        "type" => "`$STRING`",
-                      },
-                      {
-                        "kind" => "param",
-                        "name" => "regionid",
-                        "orig" => "regionid",
-                        "reqd" => true,
-                        "type" => "`$INTEGER`",
-                      },
-                    ],
-                  },
-                  "kind" => "http",
-                  "method" => "GET",
-                  "orig" => "/regional/intensity/{from}/fw48h/regionid/{regionid}",
                   "rename" => {
                     "param" => {
                       "from" => "intensity_id",
                     },
                   },
+                  "transform" => {
+                    "req" => "`reqdata`",
+                    "res" => "`body`",
+                  },
+                  "args" => {
+                    "params" => [
+                      {
+                        "name" => "intensity_id",
+                        "orig" => "from",
+                        "type" => "`$STRING`",
+                        "kind" => "param",
+                        "reqd" => true,
+                      },
+                      {
+                        "name" => "regionid",
+                        "orig" => "regionid",
+                        "type" => "`$INTEGER`",
+                        "kind" => "param",
+                        "reqd" => true,
+                      },
+                    ],
+                  },
+                  "select" => {
+                    "exist" => [
+                      "intensity_id",
+                      "regionid",
+                    ],
+                  },
+                },
+                {
+                  "kind" => "http",
+                  "method" => "GET",
+                  "orig" => "/regional/intensity/{from}/fw48h/regionid/{regionid}",
                   "segments" => [
                     {
                       "lit" => "regional",
@@ -1834,16 +1859,6 @@ module CarbonIntensityConfig
                       "var" => "regionid",
                     },
                   ],
-                  "select" => {
-                    "exist" => [
-                      "intensity_id",
-                      "regionid",
-                    ],
-                  },
-                  "transform" => {
-                    "req" => "`reqdata`",
-                    "res" => "`body`",
-                  },
                   "parts" => [
                     "regional",
                     "intensity",
@@ -1852,34 +1867,44 @@ module CarbonIntensityConfig
                     "regionid",
                     "{regionid}",
                   ],
-                },
-                {
-                  "args" => {
-                    "params" => [
-                      {
-                        "kind" => "param",
-                        "name" => "intensity_id",
-                        "orig" => "from",
-                        "reqd" => true,
-                        "type" => "`$STRING`",
-                      },
-                      {
-                        "kind" => "param",
-                        "name" => "regionid",
-                        "orig" => "regionid",
-                        "reqd" => true,
-                        "type" => "`$INTEGER`",
-                      },
-                    ],
-                  },
-                  "kind" => "http",
-                  "method" => "GET",
-                  "orig" => "/regional/intensity/{from}/pt24h/regionid/{regionid}",
                   "rename" => {
                     "param" => {
                       "from" => "intensity_id",
                     },
                   },
+                  "transform" => {
+                    "req" => "`reqdata`",
+                    "res" => "`body`",
+                  },
+                  "args" => {
+                    "params" => [
+                      {
+                        "name" => "intensity_id",
+                        "orig" => "from",
+                        "type" => "`$STRING`",
+                        "kind" => "param",
+                        "reqd" => true,
+                      },
+                      {
+                        "name" => "regionid",
+                        "orig" => "regionid",
+                        "type" => "`$INTEGER`",
+                        "kind" => "param",
+                        "reqd" => true,
+                      },
+                    ],
+                  },
+                  "select" => {
+                    "exist" => [
+                      "intensity_id",
+                      "regionid",
+                    ],
+                  },
+                },
+                {
+                  "kind" => "http",
+                  "method" => "GET",
+                  "orig" => "/regional/intensity/{from}/pt24h/regionid/{regionid}",
                   "segments" => [
                     {
                       "lit" => "regional",
@@ -1900,16 +1925,6 @@ module CarbonIntensityConfig
                       "var" => "regionid",
                     },
                   ],
-                  "select" => {
-                    "exist" => [
-                      "intensity_id",
-                      "regionid",
-                    ],
-                  },
-                  "transform" => {
-                    "req" => "`reqdata`",
-                    "res" => "`body`",
-                  },
                   "parts" => [
                     "regional",
                     "intensity",
@@ -1918,6 +1933,39 @@ module CarbonIntensityConfig
                     "regionid",
                     "{regionid}",
                   ],
+                  "rename" => {
+                    "param" => {
+                      "from" => "intensity_id",
+                    },
+                  },
+                  "transform" => {
+                    "req" => "`reqdata`",
+                    "res" => "`body`",
+                  },
+                  "args" => {
+                    "params" => [
+                      {
+                        "name" => "intensity_id",
+                        "orig" => "from",
+                        "type" => "`$STRING`",
+                        "kind" => "param",
+                        "reqd" => true,
+                      },
+                      {
+                        "name" => "regionid",
+                        "orig" => "regionid",
+                        "type" => "`$INTEGER`",
+                        "kind" => "param",
+                        "reqd" => true,
+                      },
+                    ],
+                  },
+                  "select" => {
+                    "exist" => [
+                      "intensity_id",
+                      "regionid",
+                    ],
+                  },
                 },
               ],
             },
@@ -1925,15 +1973,13 @@ module CarbonIntensityConfig
           "relations" => {
             "ancestors" => [
               [
-                "intensity",
+                "$.main.kit.entity.intensity",
               ],
               [
-                "intensity",
-                "postcode",
+                "$.main.kit.entity.intensity",
               ],
               [
-                "intensity",
-                "regionid",
+                "$.main.kit.entity.intensity",
               ],
             ],
           },
@@ -1942,10 +1988,12 @@ module CarbonIntensityConfig
           "fields" => [
             {
               "name" => "data",
+              "title" => "Data",
               "type" => "`$ARRAY`",
             },
             {
               "name" => "id",
+              "title" => "Id",
               "type" => "`$STRING`",
             },
           ],
@@ -1966,31 +2014,6 @@ module CarbonIntensityConfig
               "name" => "load",
               "points" => [
                 {
-                  "args" => {
-                    "params" => [
-                      {
-                        "kind" => "param",
-                        "name" => "block",
-                        "orig" => "block",
-                        "reqd" => true,
-                        "type" => "`$INTEGER`",
-                      },
-                      {
-                        "kind" => "param",
-                        "name" => "from",
-                        "orig" => "from",
-                        "reqd" => true,
-                        "type" => "`$STRING`",
-                      },
-                      {
-                        "kind" => "param",
-                        "name" => "to",
-                        "orig" => "to",
-                        "reqd" => true,
-                        "type" => "`$STRING`",
-                      },
-                    ],
-                  },
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/intensity/stats/{from}/{to}/{block}",
@@ -2011,17 +2034,6 @@ module CarbonIntensityConfig
                       "var" => "block",
                     },
                   ],
-                  "select" => {
-                    "exist" => [
-                      "block",
-                      "from",
-                      "to",
-                    ],
-                  },
-                  "transform" => {
-                    "req" => "`reqdata`",
-                    "res" => "`body`",
-                  },
                   "parts" => [
                     "intensity",
                     "stats",
@@ -2029,26 +2041,45 @@ module CarbonIntensityConfig
                     "{to}",
                     "{block}",
                   ],
-                },
-                {
+                  "rename" => {},
+                  "transform" => {
+                    "req" => "`reqdata`",
+                    "res" => "`body`",
+                  },
                   "args" => {
                     "params" => [
                       {
+                        "name" => "block",
+                        "orig" => "block",
+                        "type" => "`$INTEGER`",
                         "kind" => "param",
-                        "name" => "from",
-                        "orig" => "from",
                         "reqd" => true,
-                        "type" => "`$STRING`",
                       },
                       {
+                        "name" => "from",
+                        "orig" => "from",
+                        "type" => "`$STRING`",
                         "kind" => "param",
+                        "reqd" => true,
+                      },
+                      {
                         "name" => "to",
                         "orig" => "to",
-                        "reqd" => true,
                         "type" => "`$STRING`",
+                        "kind" => "param",
+                        "reqd" => true,
                       },
                     ],
                   },
+                  "select" => {
+                    "exist" => [
+                      "block",
+                      "from",
+                      "to",
+                    ],
+                  },
+                },
+                {
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/intensity/stats/{from}/{to}",
@@ -2066,32 +2097,47 @@ module CarbonIntensityConfig
                       "var" => "to",
                     },
                   ],
-                  "select" => {
-                    "exist" => [
-                      "from",
-                      "to",
-                    ],
-                  },
-                  "transform" => {
-                    "req" => "`reqdata`",
-                    "res" => "`body`",
-                  },
                   "parts" => [
                     "intensity",
                     "stats",
                     "{from}",
                     "{to}",
                   ],
+                  "rename" => {},
+                  "transform" => {
+                    "req" => "`reqdata`",
+                    "res" => "`body`",
+                  },
+                  "args" => {
+                    "params" => [
+                      {
+                        "name" => "from",
+                        "orig" => "from",
+                        "type" => "`$STRING`",
+                        "kind" => "param",
+                        "reqd" => true,
+                      },
+                      {
+                        "name" => "to",
+                        "orig" => "to",
+                        "type" => "`$STRING`",
+                        "kind" => "param",
+                        "reqd" => true,
+                      },
+                    ],
+                  },
+                  "select" => {
+                    "exist" => [
+                      "from",
+                      "to",
+                    ],
+                  },
                 },
               ],
             },
           },
           "relations" => {
-            "ancestors" => [
-              [
-                "stat",
-              ],
-            ],
+            "ancestors" => [],
           },
         },
       },

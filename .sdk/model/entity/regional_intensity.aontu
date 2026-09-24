@@ -1,0 +1,203 @@
+# Entity: regional_intensity
+
+main: kit: entity: regional_intensity: {
+
+  alias: field: {}
+
+  fields: {
+    data: {
+      h: "Data"
+      n: "data"
+      r: false
+      t: "`$ARRAY`"
+    }
+    dnoregion: {
+      h: "Dnoregion"
+      n: "dnoregion"
+      r: false
+      sh: "Distribution Network Operator region"
+      t: "`$STRING`"
+    }
+    postcode: {
+      h: "Postcode"
+      n: "postcode"
+      r: false
+      sh: "Outward postcode"
+      t: "`$STRING`"
+    }
+    regionid: {
+      h: "Regionid"
+      n: "regionid"
+      r: false
+      sh: "Region ID (1-17)"
+      t: "`$INTEGER`"
+    }
+    shortname: {
+      h: "Shortname"
+      n: "shortname"
+      r: false
+      sh: "Short region name"
+      t: "`$STRING`"
+    }
+  }
+
+  name: "regional_intensity"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          co: {
+            id: "GET /regional/england"
+            source: "openapi3"
+            version: 2
+          }
+          m: "GET"
+          o: "/regional/england"
+          s: [
+            {
+              lit: "regional"
+            }
+            {
+              lit: "england"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body.data`"
+          }
+        }
+        {
+          co: {
+            id: "GET /regional/scotland"
+            source: "openapi3"
+            version: 2
+          }
+          m: "GET"
+          o: "/regional/scotland"
+          s: [
+            {
+              lit: "regional"
+            }
+            {
+              lit: "scotland"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body.data`"
+          }
+        }
+        {
+          co: {
+            id: "GET /regional/wales"
+            source: "openapi3"
+            version: 2
+          }
+          m: "GET"
+          o: "/regional/wales"
+          s: [
+            {
+              lit: "regional"
+            }
+            {
+              lit: "wales"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body.data`"
+          }
+        }
+      ]
+    }
+    load: {
+      name: "load"
+      points: [
+        {
+          co: {
+            id: "GET /regional/postcode/{postcode}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                k: "param"
+                n: "postcode"
+                or: "postcode"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/regional/postcode/{postcode}"
+          q: {
+            exist: [
+              "postcode"
+            ]
+          }
+          s: [
+            {
+              lit: "regional"
+            }
+            {
+              lit: "postcode"
+            }
+            {
+              var: "postcode"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+        {
+          co: {
+            id: "GET /regional/regionid/{regionid}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                k: "param"
+                n: "regionid"
+                or: "regionid"
+                r: true
+                t: "`$INTEGER`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/regional/regionid/{regionid}"
+          q: {
+            exist: [
+              "regionid"
+            ]
+          }
+          s: [
+            {
+              lit: "regional"
+            }
+            {
+              lit: "regionid"
+            }
+            {
+              var: "regionid"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

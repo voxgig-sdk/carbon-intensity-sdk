@@ -24,46 +24,117 @@
         "repr": "auto"
       },
       "contributor": {},
+      "doc": {
+        "active": true,
+        "assets": {
+          "path": ".sdk/doc/assets"
+        },
+        "brand": {
+          "label": "",
+          "notice": "",
+          "shortNotice": "",
+          "url": ""
+        },
+        "ci": {
+          "active": true,
+          "branch": "main"
+        },
+        "content": {
+          "path": ".sdk/doc/content"
+        },
+        "edition": {
+          "summary": {
+            "active": true,
+            "base": "node_modules/@voxgig/docgen/project/.sdk",
+            "brand": {},
+            "filter": {
+              "entities": [],
+              "features": [],
+              "targets": []
+            },
+            "kind": "summary",
+            "name": "summary",
+            "origname": "",
+            "output": {
+              "path": "SUMMARY.md"
+            },
+            "package": "@voxgig/docgen",
+            "published": false,
+            "site": {
+              "active": true
+            },
+            "style": {},
+            "title": ""
+          }
+        },
+        "qa": {
+          "vocabulary": []
+        },
+        "style": {
+          "color": {
+            "accent": "#00c6d8",
+            "background": "#f5f5f9",
+            "darkBackground": "#0f1117",
+            "darkText": "#e6edf3",
+            "primary": "#e70042",
+            "text": "#0a0a0a"
+          },
+          "font": "Nunito, system-ui, sans-serif",
+          "fontFile": "",
+          "headingFont": "Nunito, system-ui, sans-serif",
+          "headingFontFile": "",
+          "logo": "",
+          "mode": "light",
+          "mono": "ui-monospace, monospace",
+          "monoFile": ""
+        },
+        "target": {}
+      },
       "entity": {
         "generation": {
           "active": true,
           "alias": {
             "field": {}
           },
-          "fields": [
-            {
-              "active": true,
-              "name": "data",
-              "req": false,
-              "type": "`$ARRAY`"
+          "fields": {
+            "data": {
+              "a": true,
+              "h": "Data",
+              "n": "data",
+              "r": false,
+              "t": "`$ARRAY`"
             },
-            {
-              "active": true,
-              "format": "date-time",
-              "name": "from",
-              "req": false,
-              "type": "`$STRING`"
+            "from": {
+              "a": true,
+              "fo": "date-time",
+              "h": "From",
+              "n": "from",
+              "r": false,
+              "t": "`$STRING`"
             },
-            {
-              "active": true,
-              "name": "generationmix",
-              "req": false,
-              "type": "`$ARRAY`"
+            "generationmix": {
+              "a": true,
+              "h": "Generationmix",
+              "n": "generationmix",
+              "r": false,
+              "t": "`$ARRAY`"
             },
-            {
-              "active": true,
-              "name": "id",
-              "req": false,
-              "type": "`$STRING`"
+            "id": {
+              "a": true,
+              "h": "Id",
+              "n": "id",
+              "r": false,
+              "t": "`$STRING`"
             },
-            {
-              "active": true,
-              "format": "date-time",
-              "name": "to",
-              "req": false,
-              "type": "`$STRING`"
+            "to": {
+              "a": true,
+              "fo": "date-time",
+              "h": "To",
+              "n": "to",
+              "r": false,
+              "t": "`$STRING`"
             }
-          ],
+          },
           "id": {
             "field": "id",
             "from": {
@@ -84,24 +155,24 @@
               "name": "list",
               "points": [
                 {
-                  "active": true,
-                  "args": {},
-                  "contract": {
+                  "a": true,
+                  "co": {
                     "id": "GET /generation",
-                    "json": "{\"operationId\":\"getCurrentGeneration\",\"parameters\":[],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"data\":{\"items\":{\"properties\":{\"from\":{\"format\":\"date-time\",\"type\":\"string\"},\"generationmix\":{\"items\":{\"properties\":{\"fuel\":{\"description\":\"Fuel type\",\"type\":\"string\"},\"perc\":{\"description\":\"Percentage of total generation\",\"format\":\"float\",\"type\":\"number\"}},\"type\":\"object\"},\"type\":\"array\"},\"to\":{\"format\":\"date-time\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"}},\"type\":\"object\"}}},\"description\":\"Successful response\"}},\"securitySource\":\"unspecified\"}",
                     "source": "openapi3",
-                    "version": 1
+                    "version": 2
                   },
-                  "kind": "http",
-                  "method": "GET",
-                  "orig": "/generation",
-                  "segments": [
+                  "g": {},
+                  "k": "http",
+                  "m": "GET",
+                  "o": "/generation",
+                  "q": {},
+                  "r": {},
+                  "s": [
                     {
                       "lit": "generation"
                     }
                   ],
-                  "select": {},
-                  "transform": {
+                  "t": {
                     "req": "`reqdata`",
                     "res": "`body.data`"
                   }
@@ -113,37 +184,43 @@
               "name": "load",
               "points": [
                 {
-                  "active": true,
-                  "args": {
+                  "a": true,
+                  "co": {
+                    "id": "GET /generation/{from}/{to}",
+                    "source": "openapi3",
+                    "version": 2
+                  },
+                  "g": {
                     "params": [
                       {
-                        "active": true,
-                        "kind": "param",
-                        "name": "from",
-                        "orig": "from",
-                        "reqd": true,
-                        "type": "`$STRING`"
+                        "a": true,
+                        "k": "param",
+                        "n": "from",
+                        "or": "from",
+                        "r": true,
+                        "t": "`$STRING`"
                       },
                       {
-                        "active": true,
-                        "kind": "param",
-                        "name": "to",
-                        "orig": "to",
-                        "reqd": true,
-                        "type": "`$STRING`"
+                        "a": true,
+                        "k": "param",
+                        "n": "to",
+                        "or": "to",
+                        "r": true,
+                        "t": "`$STRING`"
                       }
                     ]
                   },
-                  "contract": {
-                    "id": "GET /generation/{from}/{to}",
-                    "json": "{\"operationId\":\"getGenerationBetweenDatetimes\",\"parameters\":[{\"description\":\"Start datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)\",\"in\":\"path\",\"name\":\"from\",\"required\":true,\"schema\":{\"format\":\"date-time\",\"type\":\"string\"}},{\"description\":\"End datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)\",\"in\":\"path\",\"name\":\"to\",\"required\":true,\"schema\":{\"format\":\"date-time\",\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"data\":{\"items\":{\"properties\":{\"from\":{\"format\":\"date-time\",\"type\":\"string\"},\"generationmix\":{\"items\":{\"properties\":{\"fuel\":{\"description\":\"Fuel type\",\"type\":\"string\"},\"perc\":{\"description\":\"Percentage of total generation\",\"format\":\"float\",\"type\":\"number\"}},\"type\":\"object\"},\"type\":\"array\"},\"to\":{\"format\":\"date-time\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"}},\"type\":\"object\"}}},\"description\":\"Successful response\"}},\"securitySource\":\"unspecified\"}",
-                    "source": "openapi3",
-                    "version": 1
+                  "k": "http",
+                  "m": "GET",
+                  "o": "/generation/{from}/{to}",
+                  "q": {
+                    "exist": [
+                      "from",
+                      "to"
+                    ]
                   },
-                  "kind": "http",
-                  "method": "GET",
-                  "orig": "/generation/{from}/{to}",
-                  "segments": [
+                  "r": {},
+                  "s": [
                     {
                       "lit": "generation"
                     },
@@ -154,13 +231,7 @@
                       "var": "to"
                     }
                   ],
-                  "select": {
-                    "exist": [
-                      "from",
-                      "to"
-                    ]
-                  },
-                  "transform": {
+                  "t": {
                     "req": "`reqdata`",
                     "res": "`body`"
                   }
@@ -169,11 +240,7 @@
             }
           },
           "relations": {
-            "ancestors": [
-              [
-                "generation"
-              ]
-            ]
+            "ancestors": []
           }
         },
         "generation_list": {
@@ -181,28 +248,31 @@
           "alias": {
             "field": {}
           },
-          "fields": [
-            {
-              "active": true,
-              "format": "date-time",
-              "name": "from",
-              "req": false,
-              "type": "`$STRING`"
+          "fields": {
+            "from": {
+              "a": true,
+              "fo": "date-time",
+              "h": "From",
+              "n": "from",
+              "r": false,
+              "t": "`$STRING`"
             },
-            {
-              "active": true,
-              "name": "generationmix",
-              "req": false,
-              "type": "`$ARRAY`"
+            "generationmix": {
+              "a": true,
+              "h": "Generationmix",
+              "n": "generationmix",
+              "r": false,
+              "t": "`$ARRAY`"
             },
-            {
-              "active": true,
-              "format": "date-time",
-              "name": "to",
-              "req": false,
-              "type": "`$STRING`"
+            "to": {
+              "a": true,
+              "fo": "date-time",
+              "h": "To",
+              "n": "to",
+              "r": false,
+              "t": "`$STRING`"
             }
-          ],
+          },
           "name": "generation_list",
           "op": {
             "list": {
@@ -210,29 +280,34 @@
               "name": "list",
               "points": [
                 {
-                  "active": true,
-                  "args": {
+                  "a": true,
+                  "co": {
+                    "id": "GET /generation/{from}/pt24h",
+                    "source": "openapi3",
+                    "version": 2
+                  },
+                  "g": {
                     "params": [
                       {
-                        "active": true,
-                        "kind": "param",
-                        "name": "from",
-                        "orig": "from",
-                        "reqd": true,
-                        "type": "`$STRING`"
+                        "a": true,
+                        "k": "param",
+                        "n": "from",
+                        "or": "from",
+                        "r": true,
+                        "t": "`$STRING`"
                       }
                     ]
                   },
-                  "contract": {
-                    "id": "GET /generation/{from}/pt24h",
-                    "json": "{\"operationId\":\"getGenerationPast24h\",\"parameters\":[{\"description\":\"Datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)\",\"in\":\"path\",\"name\":\"from\",\"required\":true,\"schema\":{\"format\":\"date-time\",\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"data\":{\"items\":{\"properties\":{\"from\":{\"format\":\"date-time\",\"type\":\"string\"},\"generationmix\":{\"items\":{\"properties\":{\"fuel\":{\"description\":\"Fuel type\",\"type\":\"string\"},\"perc\":{\"description\":\"Percentage of total generation\",\"format\":\"float\",\"type\":\"number\"}},\"type\":\"object\"},\"type\":\"array\"},\"to\":{\"format\":\"date-time\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"}},\"type\":\"object\"}}},\"description\":\"Successful response\"}},\"securitySource\":\"unspecified\"}",
-                    "source": "openapi3",
-                    "version": 1
+                  "k": "http",
+                  "m": "GET",
+                  "o": "/generation/{from}/pt24h",
+                  "q": {
+                    "exist": [
+                      "from"
+                    ]
                   },
-                  "kind": "http",
-                  "method": "GET",
-                  "orig": "/generation/{from}/pt24h",
-                  "segments": [
+                  "r": {},
+                  "s": [
                     {
                       "lit": "generation"
                     },
@@ -243,12 +318,7 @@
                       "lit": "pt24h"
                     }
                   ],
-                  "select": {
-                    "exist": [
-                      "from"
-                    ]
-                  },
-                  "transform": {
+                  "t": {
                     "req": "`reqdata`",
                     "res": "`body.data`"
                   }
@@ -259,7 +329,7 @@
           "relations": {
             "ancestors": [
               [
-                "generation"
+                "$.main.kit.entity.generation"
               ]
             ]
           }
@@ -269,42 +339,47 @@
           "alias": {
             "field": {}
           },
-          "fields": [
-            {
-              "active": true,
-              "name": "data",
-              "req": false,
-              "type": "`$ARRAY`"
+          "fields": {
+            "data": {
+              "a": true,
+              "h": "Data",
+              "n": "data",
+              "r": false,
+              "t": "`$ARRAY`"
             },
-            {
-              "active": true,
-              "format": "date-time",
-              "name": "from",
-              "req": false,
-              "short": "Start datetime of the period",
-              "type": "`$STRING`"
+            "from": {
+              "a": true,
+              "fo": "date-time",
+              "h": "From",
+              "n": "from",
+              "r": false,
+              "sh": "Start datetime of the period",
+              "t": "`$STRING`"
             },
-            {
-              "active": true,
-              "name": "id",
-              "req": false,
-              "type": "`$STRING`"
+            "id": {
+              "a": true,
+              "h": "Id",
+              "n": "id",
+              "r": false,
+              "t": "`$STRING`"
             },
-            {
-              "active": true,
-              "name": "intensity",
-              "req": false,
-              "type": "`$OBJECT`"
+            "intensity": {
+              "a": true,
+              "h": "Intensity",
+              "n": "intensity",
+              "r": false,
+              "t": "`$OBJECT`"
             },
-            {
-              "active": true,
-              "format": "date-time",
-              "name": "to",
-              "req": false,
-              "short": "End datetime of the period",
-              "type": "`$STRING`"
+            "to": {
+              "a": true,
+              "fo": "date-time",
+              "h": "To",
+              "n": "to",
+              "r": false,
+              "sh": "End datetime of the period",
+              "t": "`$STRING`"
             }
-          ],
+          },
           "id": {
             "field": "id",
             "name": "id"
@@ -316,24 +391,24 @@
               "name": "list",
               "points": [
                 {
-                  "active": true,
-                  "args": {},
-                  "contract": {
+                  "a": true,
+                  "co": {
                     "id": "GET /intensity",
-                    "json": "{\"operationId\":\"getCurrentIntensity\",\"parameters\":[],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"data\":{\"items\":{\"properties\":{\"from\":{\"description\":\"Start datetime of the period\",\"format\":\"date-time\",\"type\":\"string\"},\"intensity\":{\"properties\":{\"actual\":{\"description\":\"Actual carbon intensity (gCO2/kWh)\",\"type\":\"integer\"},\"forecast\":{\"description\":\"Forecasted carbon intensity (gCO2/kWh)\",\"type\":\"integer\"},\"index\":{\"description\":\"Intensity index\",\"enum\":[\"very low\",\"low\",\"moderate\",\"high\",\"very high\"],\"type\":\"string\"}},\"type\":\"object\"},\"to\":{\"description\":\"End datetime of the period\",\"format\":\"date-time\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"}},\"type\":\"object\"}}},\"description\":\"Successful response\"}},\"securitySource\":\"unspecified\"}",
                     "source": "openapi3",
-                    "version": 1
+                    "version": 2
                   },
-                  "kind": "http",
-                  "method": "GET",
-                  "orig": "/intensity",
-                  "segments": [
+                  "g": {},
+                  "k": "http",
+                  "m": "GET",
+                  "o": "/intensity",
+                  "q": {},
+                  "r": {},
+                  "s": [
                     {
                       "lit": "intensity"
                     }
                   ],
-                  "select": {},
-                  "transform": {
+                  "t": {
                     "req": "`reqdata`",
                     "res": "`body.data`"
                   }
@@ -345,37 +420,43 @@
               "name": "load",
               "points": [
                 {
-                  "active": true,
-                  "args": {
+                  "a": true,
+                  "co": {
+                    "id": "GET /intensity/date/{date}/{period}",
+                    "source": "openapi3",
+                    "version": 2
+                  },
+                  "g": {
                     "params": [
                       {
-                        "active": true,
-                        "kind": "param",
-                        "name": "date",
-                        "orig": "date",
-                        "reqd": true,
-                        "type": "`$STRING`"
+                        "a": true,
+                        "k": "param",
+                        "n": "date",
+                        "or": "date",
+                        "r": true,
+                        "t": "`$STRING`"
                       },
                       {
-                        "active": true,
-                        "kind": "param",
-                        "name": "period",
-                        "orig": "period",
-                        "reqd": true,
-                        "type": "`$INTEGER`"
+                        "a": true,
+                        "k": "param",
+                        "n": "period",
+                        "or": "period",
+                        "r": true,
+                        "t": "`$INTEGER`"
                       }
                     ]
                   },
-                  "contract": {
-                    "id": "GET /intensity/date/{date}/{period}",
-                    "json": "{\"operationId\":\"getIntensityByDateAndPeriod\",\"parameters\":[{\"description\":\"Date in YYYY-MM-DD format\",\"in\":\"path\",\"name\":\"date\",\"required\":true,\"schema\":{\"format\":\"date\",\"type\":\"string\"}},{\"description\":\"Settlement period (1-48)\",\"in\":\"path\",\"name\":\"period\",\"required\":true,\"schema\":{\"maximum\":48,\"minimum\":1,\"type\":\"integer\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"data\":{\"items\":{\"properties\":{\"from\":{\"description\":\"Start datetime of the period\",\"format\":\"date-time\",\"type\":\"string\"},\"intensity\":{\"properties\":{\"actual\":{\"description\":\"Actual carbon intensity (gCO2/kWh)\",\"type\":\"integer\"},\"forecast\":{\"description\":\"Forecasted carbon intensity (gCO2/kWh)\",\"type\":\"integer\"},\"index\":{\"description\":\"Intensity index\",\"enum\":[\"very low\",\"low\",\"moderate\",\"high\",\"very high\"],\"type\":\"string\"}},\"type\":\"object\"},\"to\":{\"description\":\"End datetime of the period\",\"format\":\"date-time\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"}},\"type\":\"object\"}}},\"description\":\"Successful response\"}},\"securitySource\":\"unspecified\"}",
-                    "source": "openapi3",
-                    "version": 1
+                  "k": "http",
+                  "m": "GET",
+                  "o": "/intensity/date/{date}/{period}",
+                  "q": {
+                    "exist": [
+                      "date",
+                      "period"
+                    ]
                   },
-                  "kind": "http",
-                  "method": "GET",
-                  "orig": "/intensity/date/{date}/{period}",
-                  "segments": [
+                  "r": {},
+                  "s": [
                     {
                       "lit": "intensity"
                     },
@@ -389,49 +470,49 @@
                       "var": "period"
                     }
                   ],
-                  "select": {
-                    "exist": [
-                      "date",
-                      "period"
-                    ]
-                  },
-                  "transform": {
+                  "t": {
                     "req": "`reqdata`",
                     "res": "`body`"
                   }
                 },
                 {
-                  "active": true,
-                  "args": {
+                  "a": true,
+                  "co": {
+                    "id": "GET /intensity/{from}/{to}",
+                    "source": "openapi3",
+                    "version": 2
+                  },
+                  "g": {
                     "params": [
                       {
-                        "active": true,
-                        "kind": "param",
-                        "name": "from",
-                        "orig": "from",
-                        "reqd": true,
-                        "type": "`$STRING`"
+                        "a": true,
+                        "k": "param",
+                        "n": "from",
+                        "or": "from",
+                        "r": true,
+                        "t": "`$STRING`"
                       },
                       {
-                        "active": true,
-                        "kind": "param",
-                        "name": "to",
-                        "orig": "to",
-                        "reqd": true,
-                        "type": "`$STRING`"
+                        "a": true,
+                        "k": "param",
+                        "n": "to",
+                        "or": "to",
+                        "r": true,
+                        "t": "`$STRING`"
                       }
                     ]
                   },
-                  "contract": {
-                    "id": "GET /intensity/{from}/{to}",
-                    "json": "{\"operationId\":\"getIntensityBetweenDatetimes\",\"parameters\":[{\"description\":\"Start datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)\",\"in\":\"path\",\"name\":\"from\",\"required\":true,\"schema\":{\"format\":\"date-time\",\"type\":\"string\"}},{\"description\":\"End datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)\",\"in\":\"path\",\"name\":\"to\",\"required\":true,\"schema\":{\"format\":\"date-time\",\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"data\":{\"items\":{\"properties\":{\"from\":{\"description\":\"Start datetime of the period\",\"format\":\"date-time\",\"type\":\"string\"},\"intensity\":{\"properties\":{\"actual\":{\"description\":\"Actual carbon intensity (gCO2/kWh)\",\"type\":\"integer\"},\"forecast\":{\"description\":\"Forecasted carbon intensity (gCO2/kWh)\",\"type\":\"integer\"},\"index\":{\"description\":\"Intensity index\",\"enum\":[\"very low\",\"low\",\"moderate\",\"high\",\"very high\"],\"type\":\"string\"}},\"type\":\"object\"},\"to\":{\"description\":\"End datetime of the period\",\"format\":\"date-time\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"}},\"type\":\"object\"}}},\"description\":\"Successful response\"}},\"securitySource\":\"unspecified\"}",
-                    "source": "openapi3",
-                    "version": 1
+                  "k": "http",
+                  "m": "GET",
+                  "o": "/intensity/{from}/{to}",
+                  "q": {
+                    "exist": [
+                      "from",
+                      "to"
+                    ]
                   },
-                  "kind": "http",
-                  "method": "GET",
-                  "orig": "/intensity/{from}/{to}",
-                  "segments": [
+                  "r": {},
+                  "s": [
                     {
                       "lit": "intensity"
                     },
@@ -442,46 +523,44 @@
                       "var": "to"
                     }
                   ],
-                  "select": {
-                    "exist": [
-                      "from",
-                      "to"
-                    ]
-                  },
-                  "transform": {
+                  "t": {
                     "req": "`reqdata`",
                     "res": "`body`"
                   }
                 },
                 {
-                  "active": true,
-                  "args": {
+                  "a": true,
+                  "co": {
+                    "id": "GET /intensity/{from}",
+                    "source": "openapi3",
+                    "version": 2
+                  },
+                  "g": {
                     "params": [
                       {
-                        "active": true,
-                        "kind": "param",
-                        "name": "id",
-                        "orig": "from",
-                        "reqd": true,
-                        "type": "`$STRING`"
+                        "a": true,
+                        "k": "param",
+                        "n": "id",
+                        "or": "from",
+                        "r": true,
+                        "t": "`$STRING`"
                       }
                     ]
                   },
-                  "contract": {
-                    "id": "GET /intensity/{from}",
-                    "json": "{\"operationId\":\"getIntensityByDatetime\",\"parameters\":[{\"description\":\"Datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)\",\"in\":\"path\",\"name\":\"from\",\"required\":true,\"schema\":{\"format\":\"date-time\",\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"data\":{\"items\":{\"properties\":{\"from\":{\"description\":\"Start datetime of the period\",\"format\":\"date-time\",\"type\":\"string\"},\"intensity\":{\"properties\":{\"actual\":{\"description\":\"Actual carbon intensity (gCO2/kWh)\",\"type\":\"integer\"},\"forecast\":{\"description\":\"Forecasted carbon intensity (gCO2/kWh)\",\"type\":\"integer\"},\"index\":{\"description\":\"Intensity index\",\"enum\":[\"very low\",\"low\",\"moderate\",\"high\",\"very high\"],\"type\":\"string\"}},\"type\":\"object\"},\"to\":{\"description\":\"End datetime of the period\",\"format\":\"date-time\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"}},\"type\":\"object\"}}},\"description\":\"Successful response\"}},\"securitySource\":\"unspecified\"}",
-                    "source": "openapi3",
-                    "version": 1
+                  "k": "http",
+                  "m": "GET",
+                  "o": "/intensity/{from}",
+                  "q": {
+                    "exist": [
+                      "id"
+                    ]
                   },
-                  "kind": "http",
-                  "method": "GET",
-                  "orig": "/intensity/{from}",
-                  "rename": {
+                  "r": {
                     "param": {
                       "from": "id"
                     }
                   },
-                  "segments": [
+                  "s": [
                     {
                       "lit": "intensity"
                     },
@@ -489,12 +568,7 @@
                       "var": "id"
                     }
                   ],
-                  "select": {
-                    "exist": [
-                      "id"
-                    ]
-                  },
-                  "transform": {
+                  "t": {
                     "req": "`reqdata`",
                     "res": "`body`"
                   }
@@ -503,14 +577,7 @@
             }
           },
           "relations": {
-            "ancestors": [
-              [
-                "date"
-              ],
-              [
-                "intensity"
-              ]
-            ]
+            "ancestors": []
           }
         },
         "intensity_factor": {
@@ -518,106 +585,120 @@
           "alias": {
             "field": {}
           },
-          "fields": [
-            {
-              "active": true,
-              "name": "Biomass",
-              "req": false,
-              "short": "Carbon intensity factor for biomass (gCO2/kWh)",
-              "type": "`$INTEGER`"
+          "fields": {
+            "Biomass": {
+              "a": true,
+              "h": "Biomass",
+              "n": "Biomass",
+              "r": false,
+              "sh": "Carbon intensity factor for biomass (gCO2/kWh)",
+              "t": "`$INTEGER`"
             },
-            {
-              "active": true,
-              "name": "Coal",
-              "req": false,
-              "short": "Carbon intensity factor for coal (gCO2/kWh)",
-              "type": "`$INTEGER`"
+            "Coal": {
+              "a": true,
+              "h": "Coal",
+              "n": "Coal",
+              "r": false,
+              "sh": "Carbon intensity factor for coal (gCO2/kWh)",
+              "t": "`$INTEGER`"
             },
-            {
-              "active": true,
-              "name": "DutchImports",
-              "req": false,
-              "short": "Carbon intensity factor for Dutch imports (gCO2/kWh)",
-              "type": "`$INTEGER`"
+            "DutchImports": {
+              "a": true,
+              "h": "Dutch Imports",
+              "n": "DutchImports",
+              "r": false,
+              "sh": "Carbon intensity factor for Dutch imports (gCO2/kWh)",
+              "t": "`$INTEGER`"
             },
-            {
-              "active": true,
-              "name": "FrenchImports",
-              "req": false,
-              "short": "Carbon intensity factor for French imports (gCO2/kWh)",
-              "type": "`$INTEGER`"
+            "FrenchImports": {
+              "a": true,
+              "h": "French Imports",
+              "n": "FrenchImports",
+              "r": false,
+              "sh": "Carbon intensity factor for French imports (gCO2/kWh)",
+              "t": "`$INTEGER`"
             },
-            {
-              "active": true,
-              "name": "GasCombinedCycle",
-              "req": false,
-              "short": "Carbon intensity factor for gas combined cycle (gCO2/kWh)",
-              "type": "`$INTEGER`"
+            "GasCombinedCycle": {
+              "a": true,
+              "h": "Gas Combined Cycle",
+              "n": "GasCombinedCycle",
+              "r": false,
+              "sh": "Carbon intensity factor for gas combined cycle (gCO2/kWh)",
+              "t": "`$INTEGER`"
             },
-            {
-              "active": true,
-              "name": "GasOpenCycle",
-              "req": false,
-              "short": "Carbon intensity factor for gas open cycle (gCO2/kWh)",
-              "type": "`$INTEGER`"
+            "GasOpenCycle": {
+              "a": true,
+              "h": "Gas Open Cycle",
+              "n": "GasOpenCycle",
+              "r": false,
+              "sh": "Carbon intensity factor for gas open cycle (gCO2/kWh)",
+              "t": "`$INTEGER`"
             },
-            {
-              "active": true,
-              "name": "Hydro",
-              "req": false,
-              "short": "Carbon intensity factor for hydro (gCO2/kWh)",
-              "type": "`$INTEGER`"
+            "Hydro": {
+              "a": true,
+              "h": "Hydro",
+              "n": "Hydro",
+              "r": false,
+              "sh": "Carbon intensity factor for hydro (gCO2/kWh)",
+              "t": "`$INTEGER`"
             },
-            {
-              "active": true,
-              "name": "IrishImports",
-              "req": false,
-              "short": "Carbon intensity factor for Irish imports (gCO2/kWh)",
-              "type": "`$INTEGER`"
+            "IrishImports": {
+              "a": true,
+              "h": "Irish Imports",
+              "n": "IrishImports",
+              "r": false,
+              "sh": "Carbon intensity factor for Irish imports (gCO2/kWh)",
+              "t": "`$INTEGER`"
             },
-            {
-              "active": true,
-              "name": "Nuclear",
-              "req": false,
-              "short": "Carbon intensity factor for nuclear (gCO2/kWh)",
-              "type": "`$INTEGER`"
+            "Nuclear": {
+              "a": true,
+              "h": "Nuclear",
+              "n": "Nuclear",
+              "r": false,
+              "sh": "Carbon intensity factor for nuclear (gCO2/kWh)",
+              "t": "`$INTEGER`"
             },
-            {
-              "active": true,
-              "name": "Oil",
-              "req": false,
-              "short": "Carbon intensity factor for oil (gCO2/kWh)",
-              "type": "`$INTEGER`"
+            "Oil": {
+              "a": true,
+              "h": "Oil",
+              "n": "Oil",
+              "r": false,
+              "sh": "Carbon intensity factor for oil (gCO2/kWh)",
+              "t": "`$INTEGER`"
             },
-            {
-              "active": true,
-              "name": "Other",
-              "req": false,
-              "short": "Carbon intensity factor for other (gCO2/kWh)",
-              "type": "`$INTEGER`"
+            "Other": {
+              "a": true,
+              "h": "Other",
+              "n": "Other",
+              "r": false,
+              "sh": "Carbon intensity factor for other (gCO2/kWh)",
+              "t": "`$INTEGER`"
             },
-            {
-              "active": true,
-              "name": "PumpedStorage",
-              "req": false,
-              "short": "Carbon intensity factor for pumped storage (gCO2/kWh)",
-              "type": "`$INTEGER`"
+            "PumpedStorage": {
+              "a": true,
+              "h": "Pumped Storage",
+              "n": "PumpedStorage",
+              "r": false,
+              "sh": "Carbon intensity factor for pumped storage (gCO2/kWh)",
+              "t": "`$INTEGER`"
             },
-            {
-              "active": true,
-              "name": "Solar",
-              "req": false,
-              "short": "Carbon intensity factor for solar (gCO2/kWh)",
-              "type": "`$INTEGER`"
+            "Solar": {
+              "a": true,
+              "h": "Solar",
+              "n": "Solar",
+              "r": false,
+              "sh": "Carbon intensity factor for solar (gCO2/kWh)",
+              "t": "`$INTEGER`"
             },
-            {
-              "active": true,
-              "name": "Wind",
-              "req": false,
-              "short": "Carbon intensity factor for wind (gCO2/kWh)",
-              "type": "`$INTEGER`"
+            "Wind": {
+              "a": true,
+              "h": "Wind",
+              "n": "Wind",
+              "r": false,
+              "sh": "Carbon intensity factor for wind (gCO2/kWh)",
+              "t": "`$INTEGER`"
             }
-          ],
+          },
           "name": "intensity_factor",
           "op": {
             "list": {
@@ -625,18 +706,19 @@
               "name": "list",
               "points": [
                 {
-                  "active": true,
-                  "args": {},
-                  "contract": {
+                  "a": true,
+                  "co": {
                     "id": "GET /intensity/factors",
-                    "json": "{\"operationId\":\"getIntensityFactors\",\"parameters\":[],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"data\":{\"items\":{\"properties\":{\"Biomass\":{\"description\":\"Carbon intensity factor for biomass (gCO2/kWh)\",\"type\":\"integer\"},\"Coal\":{\"description\":\"Carbon intensity factor for coal (gCO2/kWh)\",\"type\":\"integer\"},\"Dutch Imports\":{\"description\":\"Carbon intensity factor for Dutch imports (gCO2/kWh)\",\"type\":\"integer\"},\"French Imports\":{\"description\":\"Carbon intensity factor for French imports (gCO2/kWh)\",\"type\":\"integer\"},\"Gas (Combined Cycle)\":{\"description\":\"Carbon intensity factor for gas combined cycle (gCO2/kWh)\",\"type\":\"integer\"},\"Gas (Open Cycle)\":{\"description\":\"Carbon intensity factor for gas open cycle (gCO2/kWh)\",\"type\":\"integer\"},\"Hydro\":{\"description\":\"Carbon intensity factor for hydro (gCO2/kWh)\",\"type\":\"integer\"},\"Irish Imports\":{\"description\":\"Carbon intensity factor for Irish imports (gCO2/kWh)\",\"type\":\"integer\"},\"Nuclear\":{\"description\":\"Carbon intensity factor for nuclear (gCO2/kWh)\",\"type\":\"integer\"},\"Oil\":{\"description\":\"Carbon intensity factor for oil (gCO2/kWh)\",\"type\":\"integer\"},\"Other\":{\"description\":\"Carbon intensity factor for other (gCO2/kWh)\",\"type\":\"integer\"},\"Pumped Storage\":{\"description\":\"Carbon intensity factor for pumped storage (gCO2/kWh)\",\"type\":\"integer\"},\"Solar\":{\"description\":\"Carbon intensity factor for solar (gCO2/kWh)\",\"type\":\"integer\"},\"Wind\":{\"description\":\"Carbon intensity factor for wind (gCO2/kWh)\",\"type\":\"integer\"}},\"type\":\"object\"},\"type\":\"array\"}},\"type\":\"object\"}}},\"description\":\"Successful response\"}},\"securitySource\":\"unspecified\"}",
                     "source": "openapi3",
-                    "version": 1
+                    "version": 2
                   },
-                  "kind": "http",
-                  "method": "GET",
-                  "orig": "/intensity/factors",
-                  "segments": [
+                  "g": {},
+                  "k": "http",
+                  "m": "GET",
+                  "o": "/intensity/factors",
+                  "q": {},
+                  "r": {},
+                  "s": [
                     {
                       "lit": "intensity"
                     },
@@ -644,8 +726,7 @@
                       "lit": "factors"
                     }
                   ],
-                  "select": {},
-                  "transform": {
+                  "t": {
                     "req": "`reqdata`",
                     "res": "`body.data`"
                   }
@@ -662,36 +743,40 @@
           "alias": {
             "field": {}
           },
-          "fields": [
-            {
-              "active": true,
-              "name": "data",
-              "req": false,
-              "type": "`$ARRAY`"
+          "fields": {
+            "data": {
+              "a": true,
+              "h": "Data",
+              "n": "data",
+              "r": false,
+              "t": "`$ARRAY`"
             },
-            {
-              "active": true,
-              "format": "date-time",
-              "name": "from",
-              "req": false,
-              "short": "Start datetime of the period",
-              "type": "`$STRING`"
+            "from": {
+              "a": true,
+              "fo": "date-time",
+              "h": "From",
+              "n": "from",
+              "r": false,
+              "sh": "Start datetime of the period",
+              "t": "`$STRING`"
             },
-            {
-              "active": true,
-              "name": "intensity",
-              "req": false,
-              "type": "`$OBJECT`"
+            "intensity": {
+              "a": true,
+              "h": "Intensity",
+              "n": "intensity",
+              "r": false,
+              "t": "`$OBJECT`"
             },
-            {
-              "active": true,
-              "format": "date-time",
-              "name": "to",
-              "req": false,
-              "short": "End datetime of the period",
-              "type": "`$STRING`"
+            "to": {
+              "a": true,
+              "fo": "date-time",
+              "h": "To",
+              "n": "to",
+              "r": false,
+              "sh": "End datetime of the period",
+              "t": "`$STRING`"
             }
-          ],
+          },
           "name": "intensity_list",
           "op": {
             "list": {
@@ -699,29 +784,34 @@
               "name": "list",
               "points": [
                 {
-                  "active": true,
-                  "args": {
+                  "a": true,
+                  "co": {
+                    "id": "GET /intensity/{from}/fw24h",
+                    "source": "openapi3",
+                    "version": 2
+                  },
+                  "g": {
                     "params": [
                       {
-                        "active": true,
-                        "kind": "param",
-                        "name": "from",
-                        "orig": "from",
-                        "reqd": true,
-                        "type": "`$STRING`"
+                        "a": true,
+                        "k": "param",
+                        "n": "from",
+                        "or": "from",
+                        "r": true,
+                        "t": "`$STRING`"
                       }
                     ]
                   },
-                  "contract": {
-                    "id": "GET /intensity/{from}/fw24h",
-                    "json": "{\"operationId\":\"getIntensityForward24h\",\"parameters\":[{\"description\":\"Datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)\",\"in\":\"path\",\"name\":\"from\",\"required\":true,\"schema\":{\"format\":\"date-time\",\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"data\":{\"items\":{\"properties\":{\"from\":{\"description\":\"Start datetime of the period\",\"format\":\"date-time\",\"type\":\"string\"},\"intensity\":{\"properties\":{\"actual\":{\"description\":\"Actual carbon intensity (gCO2/kWh)\",\"type\":\"integer\"},\"forecast\":{\"description\":\"Forecasted carbon intensity (gCO2/kWh)\",\"type\":\"integer\"},\"index\":{\"description\":\"Intensity index\",\"enum\":[\"very low\",\"low\",\"moderate\",\"high\",\"very high\"],\"type\":\"string\"}},\"type\":\"object\"},\"to\":{\"description\":\"End datetime of the period\",\"format\":\"date-time\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"}},\"type\":\"object\"}}},\"description\":\"Successful response\"}},\"securitySource\":\"unspecified\"}",
-                    "source": "openapi3",
-                    "version": 1
+                  "k": "http",
+                  "m": "GET",
+                  "o": "/intensity/{from}/fw24h",
+                  "q": {
+                    "exist": [
+                      "from"
+                    ]
                   },
-                  "kind": "http",
-                  "method": "GET",
-                  "orig": "/intensity/{from}/fw24h",
-                  "segments": [
+                  "r": {},
+                  "s": [
                     {
                       "lit": "intensity"
                     },
@@ -732,40 +822,40 @@
                       "lit": "fw24h"
                     }
                   ],
-                  "select": {
-                    "exist": [
-                      "from"
-                    ]
-                  },
-                  "transform": {
+                  "t": {
                     "req": "`reqdata`",
                     "res": "`body.data`"
                   }
                 },
                 {
-                  "active": true,
-                  "args": {
+                  "a": true,
+                  "co": {
+                    "id": "GET /intensity/{from}/fw48h",
+                    "source": "openapi3",
+                    "version": 2
+                  },
+                  "g": {
                     "params": [
                       {
-                        "active": true,
-                        "kind": "param",
-                        "name": "from",
-                        "orig": "from",
-                        "reqd": true,
-                        "type": "`$STRING`"
+                        "a": true,
+                        "k": "param",
+                        "n": "from",
+                        "or": "from",
+                        "r": true,
+                        "t": "`$STRING`"
                       }
                     ]
                   },
-                  "contract": {
-                    "id": "GET /intensity/{from}/fw48h",
-                    "json": "{\"operationId\":\"getIntensityForward48h\",\"parameters\":[{\"description\":\"Datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)\",\"in\":\"path\",\"name\":\"from\",\"required\":true,\"schema\":{\"format\":\"date-time\",\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"data\":{\"items\":{\"properties\":{\"from\":{\"description\":\"Start datetime of the period\",\"format\":\"date-time\",\"type\":\"string\"},\"intensity\":{\"properties\":{\"actual\":{\"description\":\"Actual carbon intensity (gCO2/kWh)\",\"type\":\"integer\"},\"forecast\":{\"description\":\"Forecasted carbon intensity (gCO2/kWh)\",\"type\":\"integer\"},\"index\":{\"description\":\"Intensity index\",\"enum\":[\"very low\",\"low\",\"moderate\",\"high\",\"very high\"],\"type\":\"string\"}},\"type\":\"object\"},\"to\":{\"description\":\"End datetime of the period\",\"format\":\"date-time\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"}},\"type\":\"object\"}}},\"description\":\"Successful response\"}},\"securitySource\":\"unspecified\"}",
-                    "source": "openapi3",
-                    "version": 1
+                  "k": "http",
+                  "m": "GET",
+                  "o": "/intensity/{from}/fw48h",
+                  "q": {
+                    "exist": [
+                      "from"
+                    ]
                   },
-                  "kind": "http",
-                  "method": "GET",
-                  "orig": "/intensity/{from}/fw48h",
-                  "segments": [
+                  "r": {},
+                  "s": [
                     {
                       "lit": "intensity"
                     },
@@ -776,40 +866,40 @@
                       "lit": "fw48h"
                     }
                   ],
-                  "select": {
-                    "exist": [
-                      "from"
-                    ]
-                  },
-                  "transform": {
+                  "t": {
                     "req": "`reqdata`",
                     "res": "`body.data`"
                   }
                 },
                 {
-                  "active": true,
-                  "args": {
+                  "a": true,
+                  "co": {
+                    "id": "GET /intensity/{from}/pt24h",
+                    "source": "openapi3",
+                    "version": 2
+                  },
+                  "g": {
                     "params": [
                       {
-                        "active": true,
-                        "kind": "param",
-                        "name": "from",
-                        "orig": "from",
-                        "reqd": true,
-                        "type": "`$STRING`"
+                        "a": true,
+                        "k": "param",
+                        "n": "from",
+                        "or": "from",
+                        "r": true,
+                        "t": "`$STRING`"
                       }
                     ]
                   },
-                  "contract": {
-                    "id": "GET /intensity/{from}/pt24h",
-                    "json": "{\"operationId\":\"getIntensityPast24h\",\"parameters\":[{\"description\":\"Datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)\",\"in\":\"path\",\"name\":\"from\",\"required\":true,\"schema\":{\"format\":\"date-time\",\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"data\":{\"items\":{\"properties\":{\"from\":{\"description\":\"Start datetime of the period\",\"format\":\"date-time\",\"type\":\"string\"},\"intensity\":{\"properties\":{\"actual\":{\"description\":\"Actual carbon intensity (gCO2/kWh)\",\"type\":\"integer\"},\"forecast\":{\"description\":\"Forecasted carbon intensity (gCO2/kWh)\",\"type\":\"integer\"},\"index\":{\"description\":\"Intensity index\",\"enum\":[\"very low\",\"low\",\"moderate\",\"high\",\"very high\"],\"type\":\"string\"}},\"type\":\"object\"},\"to\":{\"description\":\"End datetime of the period\",\"format\":\"date-time\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"}},\"type\":\"object\"}}},\"description\":\"Successful response\"}},\"securitySource\":\"unspecified\"}",
-                    "source": "openapi3",
-                    "version": 1
+                  "k": "http",
+                  "m": "GET",
+                  "o": "/intensity/{from}/pt24h",
+                  "q": {
+                    "exist": [
+                      "from"
+                    ]
                   },
-                  "kind": "http",
-                  "method": "GET",
-                  "orig": "/intensity/{from}/pt24h",
-                  "segments": [
+                  "r": {},
+                  "s": [
                     {
                       "lit": "intensity"
                     },
@@ -820,29 +910,25 @@
                       "lit": "pt24h"
                     }
                   ],
-                  "select": {
-                    "exist": [
-                      "from"
-                    ]
-                  },
-                  "transform": {
+                  "t": {
                     "req": "`reqdata`",
                     "res": "`body.data`"
                   }
                 },
                 {
-                  "active": true,
-                  "args": {},
-                  "contract": {
+                  "a": true,
+                  "co": {
                     "id": "GET /intensity/date",
-                    "json": "{\"operationId\":\"getIntensityToday\",\"parameters\":[],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"data\":{\"items\":{\"properties\":{\"from\":{\"description\":\"Start datetime of the period\",\"format\":\"date-time\",\"type\":\"string\"},\"intensity\":{\"properties\":{\"actual\":{\"description\":\"Actual carbon intensity (gCO2/kWh)\",\"type\":\"integer\"},\"forecast\":{\"description\":\"Forecasted carbon intensity (gCO2/kWh)\",\"type\":\"integer\"},\"index\":{\"description\":\"Intensity index\",\"enum\":[\"very low\",\"low\",\"moderate\",\"high\",\"very high\"],\"type\":\"string\"}},\"type\":\"object\"},\"to\":{\"description\":\"End datetime of the period\",\"format\":\"date-time\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"}},\"type\":\"object\"}}},\"description\":\"Successful response\"}},\"securitySource\":\"unspecified\"}",
                     "source": "openapi3",
-                    "version": 1
+                    "version": 2
                   },
-                  "kind": "http",
-                  "method": "GET",
-                  "orig": "/intensity/date",
-                  "segments": [
+                  "g": {},
+                  "k": "http",
+                  "m": "GET",
+                  "o": "/intensity/date",
+                  "q": {},
+                  "r": {},
+                  "s": [
                     {
                       "lit": "intensity"
                     },
@@ -850,8 +936,7 @@
                       "lit": "date"
                     }
                   ],
-                  "select": {},
-                  "transform": {
+                  "t": {
                     "req": "`reqdata`",
                     "res": "`body.data`"
                   }
@@ -863,29 +948,34 @@
               "name": "load",
               "points": [
                 {
-                  "active": true,
-                  "args": {
+                  "a": true,
+                  "co": {
+                    "id": "GET /intensity/date/{date}",
+                    "source": "openapi3",
+                    "version": 2
+                  },
+                  "g": {
                     "params": [
                       {
-                        "active": true,
-                        "kind": "param",
-                        "name": "date",
-                        "orig": "date",
-                        "reqd": true,
-                        "type": "`$STRING`"
+                        "a": true,
+                        "k": "param",
+                        "n": "date",
+                        "or": "date",
+                        "r": true,
+                        "t": "`$STRING`"
                       }
                     ]
                   },
-                  "contract": {
-                    "id": "GET /intensity/date/{date}",
-                    "json": "{\"operationId\":\"getIntensityByDate\",\"parameters\":[{\"description\":\"Date in YYYY-MM-DD format\",\"in\":\"path\",\"name\":\"date\",\"required\":true,\"schema\":{\"format\":\"date\",\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"data\":{\"items\":{\"properties\":{\"from\":{\"description\":\"Start datetime of the period\",\"format\":\"date-time\",\"type\":\"string\"},\"intensity\":{\"properties\":{\"actual\":{\"description\":\"Actual carbon intensity (gCO2/kWh)\",\"type\":\"integer\"},\"forecast\":{\"description\":\"Forecasted carbon intensity (gCO2/kWh)\",\"type\":\"integer\"},\"index\":{\"description\":\"Intensity index\",\"enum\":[\"very low\",\"low\",\"moderate\",\"high\",\"very high\"],\"type\":\"string\"}},\"type\":\"object\"},\"to\":{\"description\":\"End datetime of the period\",\"format\":\"date-time\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"}},\"type\":\"object\"}}},\"description\":\"Successful response\"}},\"securitySource\":\"unspecified\"}",
-                    "source": "openapi3",
-                    "version": 1
+                  "k": "http",
+                  "m": "GET",
+                  "o": "/intensity/date/{date}",
+                  "q": {
+                    "exist": [
+                      "date"
+                    ]
                   },
-                  "kind": "http",
-                  "method": "GET",
-                  "orig": "/intensity/date/{date}",
-                  "segments": [
+                  "r": {},
+                  "s": [
                     {
                       "lit": "intensity"
                     },
@@ -896,12 +986,7 @@
                       "var": "date"
                     }
                   ],
-                  "select": {
-                    "exist": [
-                      "date"
-                    ]
-                  },
-                  "transform": {
+                  "t": {
                     "req": "`reqdata`",
                     "res": "`body`"
                   }
@@ -912,10 +997,7 @@
           "relations": {
             "ancestors": [
               [
-                "date"
-              ],
-              [
-                "intensity"
+                "$.main.kit.entity.intensity"
               ]
             ]
           }
@@ -925,42 +1007,47 @@
           "alias": {
             "field": {}
           },
-          "fields": [
-            {
-              "active": true,
-              "name": "data",
-              "req": false,
-              "type": "`$ARRAY`"
+          "fields": {
+            "data": {
+              "a": true,
+              "h": "Data",
+              "n": "data",
+              "r": false,
+              "t": "`$ARRAY`"
             },
-            {
-              "active": true,
-              "name": "dnoregion",
-              "req": false,
-              "short": "Distribution Network Operator region",
-              "type": "`$STRING`"
+            "dnoregion": {
+              "a": true,
+              "h": "Dnoregion",
+              "n": "dnoregion",
+              "r": false,
+              "sh": "Distribution Network Operator region",
+              "t": "`$STRING`"
             },
-            {
-              "active": true,
-              "name": "postcode",
-              "req": false,
-              "short": "Outward postcode",
-              "type": "`$STRING`"
+            "postcode": {
+              "a": true,
+              "h": "Postcode",
+              "n": "postcode",
+              "r": false,
+              "sh": "Outward postcode",
+              "t": "`$STRING`"
             },
-            {
-              "active": true,
-              "name": "regionid",
-              "req": false,
-              "short": "Region ID (1-17)",
-              "type": "`$INTEGER`"
+            "regionid": {
+              "a": true,
+              "h": "Regionid",
+              "n": "regionid",
+              "r": false,
+              "sh": "Region ID (1-17)",
+              "t": "`$INTEGER`"
             },
-            {
-              "active": true,
-              "name": "shortname",
-              "req": false,
-              "short": "Short region name",
-              "type": "`$STRING`"
+            "shortname": {
+              "a": true,
+              "h": "Shortname",
+              "n": "shortname",
+              "r": false,
+              "sh": "Short region name",
+              "t": "`$STRING`"
             }
-          ],
+          },
           "name": "regional",
           "op": {
             "list": {
@@ -968,24 +1055,24 @@
               "name": "list",
               "points": [
                 {
-                  "active": true,
-                  "args": {},
-                  "contract": {
+                  "a": true,
+                  "co": {
                     "id": "GET /regional",
-                    "json": "{\"operationId\":\"getRegionalIntensity\",\"parameters\":[],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"data\":{\"items\":{\"properties\":{\"data\":{\"items\":{\"properties\":{\"from\":{\"format\":\"date-time\",\"type\":\"string\"},\"generationmix\":{\"items\":{\"properties\":{\"fuel\":{\"description\":\"Fuel type\",\"type\":\"string\"},\"perc\":{\"description\":\"Percentage of total generation\",\"format\":\"float\",\"type\":\"number\"}},\"type\":\"object\"},\"type\":\"array\"},\"intensity\":{\"properties\":{\"forecast\":{\"description\":\"Forecasted carbon intensity (gCO2/kWh)\",\"type\":\"integer\"},\"index\":{\"description\":\"Intensity index\",\"type\":\"string\"}},\"type\":\"object\"},\"to\":{\"format\":\"date-time\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"},\"dnoregion\":{\"description\":\"Distribution Network Operator region\",\"type\":\"string\"},\"postcode\":{\"description\":\"Outward postcode\",\"type\":\"string\"},\"regionid\":{\"description\":\"Region ID (1-17)\",\"type\":\"integer\"},\"shortname\":{\"description\":\"Short region name\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"}},\"type\":\"object\"}}},\"description\":\"Successful response\"}},\"securitySource\":\"unspecified\"}",
                     "source": "openapi3",
-                    "version": 1
+                    "version": 2
                   },
-                  "kind": "http",
-                  "method": "GET",
-                  "orig": "/regional",
-                  "segments": [
+                  "g": {},
+                  "k": "http",
+                  "m": "GET",
+                  "o": "/regional",
+                  "q": {},
+                  "r": {},
+                  "s": [
                     {
                       "lit": "regional"
                     }
                   ],
-                  "select": {},
-                  "transform": {
+                  "t": {
                     "req": "`reqdata`",
                     "res": "`body.data`"
                   }
@@ -1002,42 +1089,47 @@
           "alias": {
             "field": {}
           },
-          "fields": [
-            {
-              "active": true,
-              "name": "data",
-              "req": false,
-              "type": "`$ARRAY`"
+          "fields": {
+            "data": {
+              "a": true,
+              "h": "Data",
+              "n": "data",
+              "r": false,
+              "t": "`$ARRAY`"
             },
-            {
-              "active": true,
-              "name": "dnoregion",
-              "req": false,
-              "short": "Distribution Network Operator region",
-              "type": "`$STRING`"
+            "dnoregion": {
+              "a": true,
+              "h": "Dnoregion",
+              "n": "dnoregion",
+              "r": false,
+              "sh": "Distribution Network Operator region",
+              "t": "`$STRING`"
             },
-            {
-              "active": true,
-              "name": "postcode",
-              "req": false,
-              "short": "Outward postcode",
-              "type": "`$STRING`"
+            "postcode": {
+              "a": true,
+              "h": "Postcode",
+              "n": "postcode",
+              "r": false,
+              "sh": "Outward postcode",
+              "t": "`$STRING`"
             },
-            {
-              "active": true,
-              "name": "regionid",
-              "req": false,
-              "short": "Region ID (1-17)",
-              "type": "`$INTEGER`"
+            "regionid": {
+              "a": true,
+              "h": "Regionid",
+              "n": "regionid",
+              "r": false,
+              "sh": "Region ID (1-17)",
+              "t": "`$INTEGER`"
             },
-            {
-              "active": true,
-              "name": "shortname",
-              "req": false,
-              "short": "Short region name",
-              "type": "`$STRING`"
+            "shortname": {
+              "a": true,
+              "h": "Shortname",
+              "n": "shortname",
+              "r": false,
+              "sh": "Short region name",
+              "t": "`$STRING`"
             }
-          ],
+          },
           "name": "regional_intensity",
           "op": {
             "list": {
@@ -1045,18 +1137,19 @@
               "name": "list",
               "points": [
                 {
-                  "active": true,
-                  "args": {},
-                  "contract": {
+                  "a": true,
+                  "co": {
                     "id": "GET /regional/england",
-                    "json": "{\"operationId\":\"getEnglandIntensity\",\"parameters\":[],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"data\":{\"items\":{\"properties\":{\"data\":{\"items\":{\"properties\":{\"from\":{\"format\":\"date-time\",\"type\":\"string\"},\"generationmix\":{\"items\":{\"properties\":{\"fuel\":{\"description\":\"Fuel type\",\"type\":\"string\"},\"perc\":{\"description\":\"Percentage of total generation\",\"format\":\"float\",\"type\":\"number\"}},\"type\":\"object\"},\"type\":\"array\"},\"intensity\":{\"properties\":{\"forecast\":{\"description\":\"Forecasted carbon intensity (gCO2/kWh)\",\"type\":\"integer\"},\"index\":{\"description\":\"Intensity index\",\"type\":\"string\"}},\"type\":\"object\"},\"to\":{\"format\":\"date-time\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"},\"dnoregion\":{\"description\":\"Distribution Network Operator region\",\"type\":\"string\"},\"postcode\":{\"description\":\"Outward postcode\",\"type\":\"string\"},\"regionid\":{\"description\":\"Region ID (1-17)\",\"type\":\"integer\"},\"shortname\":{\"description\":\"Short region name\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"}},\"type\":\"object\"}}},\"description\":\"Successful response\"}},\"securitySource\":\"unspecified\"}",
                     "source": "openapi3",
-                    "version": 1
+                    "version": 2
                   },
-                  "kind": "http",
-                  "method": "GET",
-                  "orig": "/regional/england",
-                  "segments": [
+                  "g": {},
+                  "k": "http",
+                  "m": "GET",
+                  "o": "/regional/england",
+                  "q": {},
+                  "r": {},
+                  "s": [
                     {
                       "lit": "regional"
                     },
@@ -1064,25 +1157,25 @@
                       "lit": "england"
                     }
                   ],
-                  "select": {},
-                  "transform": {
+                  "t": {
                     "req": "`reqdata`",
                     "res": "`body.data`"
                   }
                 },
                 {
-                  "active": true,
-                  "args": {},
-                  "contract": {
+                  "a": true,
+                  "co": {
                     "id": "GET /regional/scotland",
-                    "json": "{\"operationId\":\"getScotlandIntensity\",\"parameters\":[],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"data\":{\"items\":{\"properties\":{\"data\":{\"items\":{\"properties\":{\"from\":{\"format\":\"date-time\",\"type\":\"string\"},\"generationmix\":{\"items\":{\"properties\":{\"fuel\":{\"description\":\"Fuel type\",\"type\":\"string\"},\"perc\":{\"description\":\"Percentage of total generation\",\"format\":\"float\",\"type\":\"number\"}},\"type\":\"object\"},\"type\":\"array\"},\"intensity\":{\"properties\":{\"forecast\":{\"description\":\"Forecasted carbon intensity (gCO2/kWh)\",\"type\":\"integer\"},\"index\":{\"description\":\"Intensity index\",\"type\":\"string\"}},\"type\":\"object\"},\"to\":{\"format\":\"date-time\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"},\"dnoregion\":{\"description\":\"Distribution Network Operator region\",\"type\":\"string\"},\"postcode\":{\"description\":\"Outward postcode\",\"type\":\"string\"},\"regionid\":{\"description\":\"Region ID (1-17)\",\"type\":\"integer\"},\"shortname\":{\"description\":\"Short region name\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"}},\"type\":\"object\"}}},\"description\":\"Successful response\"}},\"securitySource\":\"unspecified\"}",
                     "source": "openapi3",
-                    "version": 1
+                    "version": 2
                   },
-                  "kind": "http",
-                  "method": "GET",
-                  "orig": "/regional/scotland",
-                  "segments": [
+                  "g": {},
+                  "k": "http",
+                  "m": "GET",
+                  "o": "/regional/scotland",
+                  "q": {},
+                  "r": {},
+                  "s": [
                     {
                       "lit": "regional"
                     },
@@ -1090,25 +1183,25 @@
                       "lit": "scotland"
                     }
                   ],
-                  "select": {},
-                  "transform": {
+                  "t": {
                     "req": "`reqdata`",
                     "res": "`body.data`"
                   }
                 },
                 {
-                  "active": true,
-                  "args": {},
-                  "contract": {
+                  "a": true,
+                  "co": {
                     "id": "GET /regional/wales",
-                    "json": "{\"operationId\":\"getWalesIntensity\",\"parameters\":[],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"data\":{\"items\":{\"properties\":{\"data\":{\"items\":{\"properties\":{\"from\":{\"format\":\"date-time\",\"type\":\"string\"},\"generationmix\":{\"items\":{\"properties\":{\"fuel\":{\"description\":\"Fuel type\",\"type\":\"string\"},\"perc\":{\"description\":\"Percentage of total generation\",\"format\":\"float\",\"type\":\"number\"}},\"type\":\"object\"},\"type\":\"array\"},\"intensity\":{\"properties\":{\"forecast\":{\"description\":\"Forecasted carbon intensity (gCO2/kWh)\",\"type\":\"integer\"},\"index\":{\"description\":\"Intensity index\",\"type\":\"string\"}},\"type\":\"object\"},\"to\":{\"format\":\"date-time\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"},\"dnoregion\":{\"description\":\"Distribution Network Operator region\",\"type\":\"string\"},\"postcode\":{\"description\":\"Outward postcode\",\"type\":\"string\"},\"regionid\":{\"description\":\"Region ID (1-17)\",\"type\":\"integer\"},\"shortname\":{\"description\":\"Short region name\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"}},\"type\":\"object\"}}},\"description\":\"Successful response\"}},\"securitySource\":\"unspecified\"}",
                     "source": "openapi3",
-                    "version": 1
+                    "version": 2
                   },
-                  "kind": "http",
-                  "method": "GET",
-                  "orig": "/regional/wales",
-                  "segments": [
+                  "g": {},
+                  "k": "http",
+                  "m": "GET",
+                  "o": "/regional/wales",
+                  "q": {},
+                  "r": {},
+                  "s": [
                     {
                       "lit": "regional"
                     },
@@ -1116,8 +1209,7 @@
                       "lit": "wales"
                     }
                   ],
-                  "select": {},
-                  "transform": {
+                  "t": {
                     "req": "`reqdata`",
                     "res": "`body.data`"
                   }
@@ -1129,29 +1221,34 @@
               "name": "load",
               "points": [
                 {
-                  "active": true,
-                  "args": {
+                  "a": true,
+                  "co": {
+                    "id": "GET /regional/postcode/{postcode}",
+                    "source": "openapi3",
+                    "version": 2
+                  },
+                  "g": {
                     "params": [
                       {
-                        "active": true,
-                        "kind": "param",
-                        "name": "postcode",
-                        "orig": "postcode",
-                        "reqd": true,
-                        "type": "`$STRING`"
+                        "a": true,
+                        "k": "param",
+                        "n": "postcode",
+                        "or": "postcode",
+                        "r": true,
+                        "t": "`$STRING`"
                       }
                     ]
                   },
-                  "contract": {
-                    "id": "GET /regional/postcode/{postcode}",
-                    "json": "{\"operationId\":\"getIntensityByPostcode\",\"parameters\":[{\"description\":\"Outward postcode (e.g., SW1)\",\"in\":\"path\",\"name\":\"postcode\",\"required\":true,\"schema\":{\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"data\":{\"items\":{\"properties\":{\"data\":{\"items\":{\"properties\":{\"from\":{\"format\":\"date-time\",\"type\":\"string\"},\"generationmix\":{\"items\":{\"properties\":{\"fuel\":{\"description\":\"Fuel type\",\"type\":\"string\"},\"perc\":{\"description\":\"Percentage of total generation\",\"format\":\"float\",\"type\":\"number\"}},\"type\":\"object\"},\"type\":\"array\"},\"intensity\":{\"properties\":{\"forecast\":{\"description\":\"Forecasted carbon intensity (gCO2/kWh)\",\"type\":\"integer\"},\"index\":{\"description\":\"Intensity index\",\"type\":\"string\"}},\"type\":\"object\"},\"to\":{\"format\":\"date-time\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"},\"dnoregion\":{\"description\":\"Distribution Network Operator region\",\"type\":\"string\"},\"postcode\":{\"description\":\"Outward postcode\",\"type\":\"string\"},\"regionid\":{\"description\":\"Region ID (1-17)\",\"type\":\"integer\"},\"shortname\":{\"description\":\"Short region name\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"}},\"type\":\"object\"}}},\"description\":\"Successful response\"}},\"securitySource\":\"unspecified\"}",
-                    "source": "openapi3",
-                    "version": 1
+                  "k": "http",
+                  "m": "GET",
+                  "o": "/regional/postcode/{postcode}",
+                  "q": {
+                    "exist": [
+                      "postcode"
+                    ]
                   },
-                  "kind": "http",
-                  "method": "GET",
-                  "orig": "/regional/postcode/{postcode}",
-                  "segments": [
+                  "r": {},
+                  "s": [
                     {
                       "lit": "regional"
                     },
@@ -1162,40 +1259,40 @@
                       "var": "postcode"
                     }
                   ],
-                  "select": {
-                    "exist": [
-                      "postcode"
-                    ]
-                  },
-                  "transform": {
+                  "t": {
                     "req": "`reqdata`",
                     "res": "`body`"
                   }
                 },
                 {
-                  "active": true,
-                  "args": {
+                  "a": true,
+                  "co": {
+                    "id": "GET /regional/regionid/{regionid}",
+                    "source": "openapi3",
+                    "version": 2
+                  },
+                  "g": {
                     "params": [
                       {
-                        "active": true,
-                        "kind": "param",
-                        "name": "regionid",
-                        "orig": "regionid",
-                        "reqd": true,
-                        "type": "`$INTEGER`"
+                        "a": true,
+                        "k": "param",
+                        "n": "regionid",
+                        "or": "regionid",
+                        "r": true,
+                        "t": "`$INTEGER`"
                       }
                     ]
                   },
-                  "contract": {
-                    "id": "GET /regional/regionid/{regionid}",
-                    "json": "{\"operationId\":\"getIntensityByRegionId\",\"parameters\":[{\"description\":\"Region ID (1-17)\",\"in\":\"path\",\"name\":\"regionid\",\"required\":true,\"schema\":{\"maximum\":17,\"minimum\":1,\"type\":\"integer\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"data\":{\"items\":{\"properties\":{\"data\":{\"items\":{\"properties\":{\"from\":{\"format\":\"date-time\",\"type\":\"string\"},\"generationmix\":{\"items\":{\"properties\":{\"fuel\":{\"description\":\"Fuel type\",\"type\":\"string\"},\"perc\":{\"description\":\"Percentage of total generation\",\"format\":\"float\",\"type\":\"number\"}},\"type\":\"object\"},\"type\":\"array\"},\"intensity\":{\"properties\":{\"forecast\":{\"description\":\"Forecasted carbon intensity (gCO2/kWh)\",\"type\":\"integer\"},\"index\":{\"description\":\"Intensity index\",\"type\":\"string\"}},\"type\":\"object\"},\"to\":{\"format\":\"date-time\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"},\"dnoregion\":{\"description\":\"Distribution Network Operator region\",\"type\":\"string\"},\"postcode\":{\"description\":\"Outward postcode\",\"type\":\"string\"},\"regionid\":{\"description\":\"Region ID (1-17)\",\"type\":\"integer\"},\"shortname\":{\"description\":\"Short region name\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"}},\"type\":\"object\"}}},\"description\":\"Successful response\"}},\"securitySource\":\"unspecified\"}",
-                    "source": "openapi3",
-                    "version": 1
+                  "k": "http",
+                  "m": "GET",
+                  "o": "/regional/regionid/{regionid}",
+                  "q": {
+                    "exist": [
+                      "regionid"
+                    ]
                   },
-                  "kind": "http",
-                  "method": "GET",
-                  "orig": "/regional/regionid/{regionid}",
-                  "segments": [
+                  "r": {},
+                  "s": [
                     {
                       "lit": "regional"
                     },
@@ -1206,12 +1303,7 @@
                       "var": "regionid"
                     }
                   ],
-                  "select": {
-                    "exist": [
-                      "regionid"
-                    ]
-                  },
-                  "transform": {
+                  "t": {
                     "req": "`reqdata`",
                     "res": "`body`"
                   }
@@ -1220,14 +1312,7 @@
             }
           },
           "relations": {
-            "ancestors": [
-              [
-                "postcode"
-              ],
-              [
-                "regionid"
-              ]
-            ]
+            "ancestors": []
           }
         },
         "regional_intensity_list": {
@@ -1235,48 +1320,54 @@
           "alias": {
             "field": {}
           },
-          "fields": [
-            {
-              "active": true,
-              "name": "data",
-              "req": false,
-              "type": "`$ARRAY`"
+          "fields": {
+            "data": {
+              "a": true,
+              "h": "Data",
+              "n": "data",
+              "r": false,
+              "t": "`$ARRAY`"
             },
-            {
-              "active": true,
-              "name": "dnoregion",
-              "req": false,
-              "short": "Distribution Network Operator region",
-              "type": "`$STRING`"
+            "dnoregion": {
+              "a": true,
+              "h": "Dnoregion",
+              "n": "dnoregion",
+              "r": false,
+              "sh": "Distribution Network Operator region",
+              "t": "`$STRING`"
             },
-            {
-              "active": true,
-              "name": "id",
-              "req": false,
-              "type": "`$STRING`"
+            "id": {
+              "a": true,
+              "h": "Id",
+              "n": "id",
+              "r": false,
+              "t": "`$STRING`"
             },
-            {
-              "active": true,
-              "name": "postcode",
-              "req": false,
-              "short": "Outward postcode",
-              "type": "`$STRING`"
+            "postcode": {
+              "a": true,
+              "h": "Postcode",
+              "n": "postcode",
+              "r": false,
+              "sh": "Outward postcode",
+              "t": "`$STRING`"
             },
-            {
-              "active": true,
-              "name": "regionid",
-              "req": false,
-              "short": "Region ID (1-17)",
-              "type": "`$INTEGER`"
+            "regionid": {
+              "a": true,
+              "h": "Regionid",
+              "n": "regionid",
+              "r": false,
+              "sh": "Region ID (1-17)",
+              "t": "`$INTEGER`"
             },
-            {
-              "active": true,
-              "name": "shortname",
-              "req": false,
-              "short": "Short region name",
-              "type": "`$STRING`"
+            "shortname": {
+              "a": true,
+              "h": "Shortname",
+              "n": "shortname",
+              "r": false,
+              "sh": "Short region name",
+              "t": "`$STRING`"
             }
-          ],
+          },
           "id": {
             "field": "id",
             "name": "id",
@@ -1293,29 +1384,34 @@
               "name": "list",
               "points": [
                 {
-                  "active": true,
-                  "args": {
+                  "a": true,
+                  "co": {
+                    "id": "GET /regional/intensity/{from}/fw24h",
+                    "source": "openapi3",
+                    "version": 2
+                  },
+                  "g": {
                     "params": [
                       {
-                        "active": true,
-                        "kind": "param",
-                        "name": "from",
-                        "orig": "from",
-                        "reqd": true,
-                        "type": "`$STRING`"
+                        "a": true,
+                        "k": "param",
+                        "n": "from",
+                        "or": "from",
+                        "r": true,
+                        "t": "`$STRING`"
                       }
                     ]
                   },
-                  "contract": {
-                    "id": "GET /regional/intensity/{from}/fw24h",
-                    "json": "{\"operationId\":\"getRegionalIntensityForward24h\",\"parameters\":[{\"description\":\"Datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)\",\"in\":\"path\",\"name\":\"from\",\"required\":true,\"schema\":{\"format\":\"date-time\",\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"data\":{\"items\":{\"properties\":{\"data\":{\"items\":{\"properties\":{\"from\":{\"format\":\"date-time\",\"type\":\"string\"},\"generationmix\":{\"items\":{\"properties\":{\"fuel\":{\"description\":\"Fuel type\",\"type\":\"string\"},\"perc\":{\"description\":\"Percentage of total generation\",\"format\":\"float\",\"type\":\"number\"}},\"type\":\"object\"},\"type\":\"array\"},\"intensity\":{\"properties\":{\"forecast\":{\"description\":\"Forecasted carbon intensity (gCO2/kWh)\",\"type\":\"integer\"},\"index\":{\"description\":\"Intensity index\",\"type\":\"string\"}},\"type\":\"object\"},\"to\":{\"format\":\"date-time\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"},\"dnoregion\":{\"description\":\"Distribution Network Operator region\",\"type\":\"string\"},\"postcode\":{\"description\":\"Outward postcode\",\"type\":\"string\"},\"regionid\":{\"description\":\"Region ID (1-17)\",\"type\":\"integer\"},\"shortname\":{\"description\":\"Short region name\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"}},\"type\":\"object\"}}},\"description\":\"Successful response\"}},\"securitySource\":\"unspecified\"}",
-                    "source": "openapi3",
-                    "version": 1
+                  "k": "http",
+                  "m": "GET",
+                  "o": "/regional/intensity/{from}/fw24h",
+                  "q": {
+                    "exist": [
+                      "from"
+                    ]
                   },
-                  "kind": "http",
-                  "method": "GET",
-                  "orig": "/regional/intensity/{from}/fw24h",
-                  "segments": [
+                  "r": {},
+                  "s": [
                     {
                       "lit": "regional"
                     },
@@ -1329,40 +1425,40 @@
                       "lit": "fw24h"
                     }
                   ],
-                  "select": {
-                    "exist": [
-                      "from"
-                    ]
-                  },
-                  "transform": {
+                  "t": {
                     "req": "`reqdata`",
                     "res": "`body.data`"
                   }
                 },
                 {
-                  "active": true,
-                  "args": {
+                  "a": true,
+                  "co": {
+                    "id": "GET /regional/intensity/{from}/fw48h",
+                    "source": "openapi3",
+                    "version": 2
+                  },
+                  "g": {
                     "params": [
                       {
-                        "active": true,
-                        "kind": "param",
-                        "name": "from",
-                        "orig": "from",
-                        "reqd": true,
-                        "type": "`$STRING`"
+                        "a": true,
+                        "k": "param",
+                        "n": "from",
+                        "or": "from",
+                        "r": true,
+                        "t": "`$STRING`"
                       }
                     ]
                   },
-                  "contract": {
-                    "id": "GET /regional/intensity/{from}/fw48h",
-                    "json": "{\"operationId\":\"getRegionalIntensityForward48h\",\"parameters\":[{\"description\":\"Datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)\",\"in\":\"path\",\"name\":\"from\",\"required\":true,\"schema\":{\"format\":\"date-time\",\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"data\":{\"items\":{\"properties\":{\"data\":{\"items\":{\"properties\":{\"from\":{\"format\":\"date-time\",\"type\":\"string\"},\"generationmix\":{\"items\":{\"properties\":{\"fuel\":{\"description\":\"Fuel type\",\"type\":\"string\"},\"perc\":{\"description\":\"Percentage of total generation\",\"format\":\"float\",\"type\":\"number\"}},\"type\":\"object\"},\"type\":\"array\"},\"intensity\":{\"properties\":{\"forecast\":{\"description\":\"Forecasted carbon intensity (gCO2/kWh)\",\"type\":\"integer\"},\"index\":{\"description\":\"Intensity index\",\"type\":\"string\"}},\"type\":\"object\"},\"to\":{\"format\":\"date-time\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"},\"dnoregion\":{\"description\":\"Distribution Network Operator region\",\"type\":\"string\"},\"postcode\":{\"description\":\"Outward postcode\",\"type\":\"string\"},\"regionid\":{\"description\":\"Region ID (1-17)\",\"type\":\"integer\"},\"shortname\":{\"description\":\"Short region name\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"}},\"type\":\"object\"}}},\"description\":\"Successful response\"}},\"securitySource\":\"unspecified\"}",
-                    "source": "openapi3",
-                    "version": 1
+                  "k": "http",
+                  "m": "GET",
+                  "o": "/regional/intensity/{from}/fw48h",
+                  "q": {
+                    "exist": [
+                      "from"
+                    ]
                   },
-                  "kind": "http",
-                  "method": "GET",
-                  "orig": "/regional/intensity/{from}/fw48h",
-                  "segments": [
+                  "r": {},
+                  "s": [
                     {
                       "lit": "regional"
                     },
@@ -1376,40 +1472,40 @@
                       "lit": "fw48h"
                     }
                   ],
-                  "select": {
-                    "exist": [
-                      "from"
-                    ]
-                  },
-                  "transform": {
+                  "t": {
                     "req": "`reqdata`",
                     "res": "`body.data`"
                   }
                 },
                 {
-                  "active": true,
-                  "args": {
+                  "a": true,
+                  "co": {
+                    "id": "GET /regional/intensity/{from}/pt24h",
+                    "source": "openapi3",
+                    "version": 2
+                  },
+                  "g": {
                     "params": [
                       {
-                        "active": true,
-                        "kind": "param",
-                        "name": "from",
-                        "orig": "from",
-                        "reqd": true,
-                        "type": "`$STRING`"
+                        "a": true,
+                        "k": "param",
+                        "n": "from",
+                        "or": "from",
+                        "r": true,
+                        "t": "`$STRING`"
                       }
                     ]
                   },
-                  "contract": {
-                    "id": "GET /regional/intensity/{from}/pt24h",
-                    "json": "{\"operationId\":\"getRegionalIntensityPast24h\",\"parameters\":[{\"description\":\"Datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)\",\"in\":\"path\",\"name\":\"from\",\"required\":true,\"schema\":{\"format\":\"date-time\",\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"data\":{\"items\":{\"properties\":{\"data\":{\"items\":{\"properties\":{\"from\":{\"format\":\"date-time\",\"type\":\"string\"},\"generationmix\":{\"items\":{\"properties\":{\"fuel\":{\"description\":\"Fuel type\",\"type\":\"string\"},\"perc\":{\"description\":\"Percentage of total generation\",\"format\":\"float\",\"type\":\"number\"}},\"type\":\"object\"},\"type\":\"array\"},\"intensity\":{\"properties\":{\"forecast\":{\"description\":\"Forecasted carbon intensity (gCO2/kWh)\",\"type\":\"integer\"},\"index\":{\"description\":\"Intensity index\",\"type\":\"string\"}},\"type\":\"object\"},\"to\":{\"format\":\"date-time\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"},\"dnoregion\":{\"description\":\"Distribution Network Operator region\",\"type\":\"string\"},\"postcode\":{\"description\":\"Outward postcode\",\"type\":\"string\"},\"regionid\":{\"description\":\"Region ID (1-17)\",\"type\":\"integer\"},\"shortname\":{\"description\":\"Short region name\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"}},\"type\":\"object\"}}},\"description\":\"Successful response\"}},\"securitySource\":\"unspecified\"}",
-                    "source": "openapi3",
-                    "version": 1
+                  "k": "http",
+                  "m": "GET",
+                  "o": "/regional/intensity/{from}/pt24h",
+                  "q": {
+                    "exist": [
+                      "from"
+                    ]
                   },
-                  "kind": "http",
-                  "method": "GET",
-                  "orig": "/regional/intensity/{from}/pt24h",
-                  "segments": [
+                  "r": {},
+                  "s": [
                     {
                       "lit": "regional"
                     },
@@ -1423,12 +1519,7 @@
                       "lit": "pt24h"
                     }
                   ],
-                  "select": {
-                    "exist": [
-                      "from"
-                    ]
-                  },
-                  "transform": {
+                  "t": {
                     "req": "`reqdata`",
                     "res": "`body.data`"
                   }
@@ -1440,50 +1531,56 @@
               "name": "load",
               "points": [
                 {
-                  "active": true,
-                  "args": {
+                  "a": true,
+                  "co": {
+                    "id": "GET /regional/intensity/{from}/{to}/postcode/{postcode}",
+                    "source": "openapi3",
+                    "version": 2
+                  },
+                  "g": {
                     "params": [
                       {
-                        "active": true,
-                        "kind": "param",
-                        "name": "intensity_id",
-                        "orig": "from",
-                        "reqd": true,
-                        "type": "`$STRING`"
+                        "a": true,
+                        "k": "param",
+                        "n": "intensity_id",
+                        "or": "from",
+                        "r": true,
+                        "t": "`$STRING`"
                       },
                       {
-                        "active": true,
-                        "kind": "param",
-                        "name": "postcode",
-                        "orig": "postcode",
-                        "reqd": true,
-                        "type": "`$STRING`"
+                        "a": true,
+                        "k": "param",
+                        "n": "postcode",
+                        "or": "postcode",
+                        "r": true,
+                        "t": "`$STRING`"
                       },
                       {
-                        "active": true,
-                        "kind": "param",
-                        "name": "to",
-                        "orig": "to",
-                        "reqd": true,
-                        "type": "`$STRING`"
+                        "a": true,
+                        "k": "param",
+                        "n": "to",
+                        "or": "to",
+                        "r": true,
+                        "t": "`$STRING`"
                       }
                     ]
                   },
-                  "contract": {
-                    "id": "GET /regional/intensity/{from}/{to}/postcode/{postcode}",
-                    "json": "{\"operationId\":\"getRegionalIntensityBetweenDatetimesByPostcode\",\"parameters\":[{\"description\":\"Start datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)\",\"in\":\"path\",\"name\":\"from\",\"required\":true,\"schema\":{\"format\":\"date-time\",\"type\":\"string\"}},{\"description\":\"End datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)\",\"in\":\"path\",\"name\":\"to\",\"required\":true,\"schema\":{\"format\":\"date-time\",\"type\":\"string\"}},{\"description\":\"Outward postcode (e.g., SW1)\",\"in\":\"path\",\"name\":\"postcode\",\"required\":true,\"schema\":{\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"data\":{\"items\":{\"properties\":{\"data\":{\"items\":{\"properties\":{\"from\":{\"format\":\"date-time\",\"type\":\"string\"},\"generationmix\":{\"items\":{\"properties\":{\"fuel\":{\"description\":\"Fuel type\",\"type\":\"string\"},\"perc\":{\"description\":\"Percentage of total generation\",\"format\":\"float\",\"type\":\"number\"}},\"type\":\"object\"},\"type\":\"array\"},\"intensity\":{\"properties\":{\"forecast\":{\"description\":\"Forecasted carbon intensity (gCO2/kWh)\",\"type\":\"integer\"},\"index\":{\"description\":\"Intensity index\",\"type\":\"string\"}},\"type\":\"object\"},\"to\":{\"format\":\"date-time\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"},\"dnoregion\":{\"description\":\"Distribution Network Operator region\",\"type\":\"string\"},\"postcode\":{\"description\":\"Outward postcode\",\"type\":\"string\"},\"regionid\":{\"description\":\"Region ID (1-17)\",\"type\":\"integer\"},\"shortname\":{\"description\":\"Short region name\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"}},\"type\":\"object\"}}},\"description\":\"Successful response\"}},\"securitySource\":\"unspecified\"}",
-                    "source": "openapi3",
-                    "version": 1
+                  "k": "http",
+                  "m": "GET",
+                  "o": "/regional/intensity/{from}/{to}/postcode/{postcode}",
+                  "q": {
+                    "exist": [
+                      "intensity_id",
+                      "postcode",
+                      "to"
+                    ]
                   },
-                  "kind": "http",
-                  "method": "GET",
-                  "orig": "/regional/intensity/{from}/{to}/postcode/{postcode}",
-                  "rename": {
+                  "r": {
                     "param": {
                       "from": "intensity_id"
                     }
                   },
-                  "segments": [
+                  "s": [
                     {
                       "lit": "regional"
                     },
@@ -1503,63 +1600,62 @@
                       "var": "postcode"
                     }
                   ],
-                  "select": {
-                    "exist": [
-                      "intensity_id",
-                      "postcode",
-                      "to"
-                    ]
-                  },
-                  "transform": {
+                  "t": {
                     "req": "`reqdata`",
                     "res": "`body`"
                   }
                 },
                 {
-                  "active": true,
-                  "args": {
+                  "a": true,
+                  "co": {
+                    "id": "GET /regional/intensity/{from}/{to}/regionid/{regionid}",
+                    "source": "openapi3",
+                    "version": 2
+                  },
+                  "g": {
                     "params": [
                       {
-                        "active": true,
-                        "kind": "param",
-                        "name": "intensity_id",
-                        "orig": "from",
-                        "reqd": true,
-                        "type": "`$STRING`"
+                        "a": true,
+                        "k": "param",
+                        "n": "intensity_id",
+                        "or": "from",
+                        "r": true,
+                        "t": "`$STRING`"
                       },
                       {
-                        "active": true,
-                        "kind": "param",
-                        "name": "regionid",
-                        "orig": "regionid",
-                        "reqd": true,
-                        "type": "`$INTEGER`"
+                        "a": true,
+                        "k": "param",
+                        "n": "regionid",
+                        "or": "regionid",
+                        "r": true,
+                        "t": "`$INTEGER`"
                       },
                       {
-                        "active": true,
-                        "kind": "param",
-                        "name": "to",
-                        "orig": "to",
-                        "reqd": true,
-                        "type": "`$STRING`"
+                        "a": true,
+                        "k": "param",
+                        "n": "to",
+                        "or": "to",
+                        "r": true,
+                        "t": "`$STRING`"
                       }
                     ]
                   },
-                  "contract": {
-                    "id": "GET /regional/intensity/{from}/{to}/regionid/{regionid}",
-                    "json": "{\"operationId\":\"getRegionalIntensityBetweenDatetimesByRegionId\",\"parameters\":[{\"description\":\"Start datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)\",\"in\":\"path\",\"name\":\"from\",\"required\":true,\"schema\":{\"format\":\"date-time\",\"type\":\"string\"}},{\"description\":\"End datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)\",\"in\":\"path\",\"name\":\"to\",\"required\":true,\"schema\":{\"format\":\"date-time\",\"type\":\"string\"}},{\"description\":\"Region ID (1-17)\",\"in\":\"path\",\"name\":\"regionid\",\"required\":true,\"schema\":{\"maximum\":17,\"minimum\":1,\"type\":\"integer\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"data\":{\"items\":{\"properties\":{\"data\":{\"items\":{\"properties\":{\"from\":{\"format\":\"date-time\",\"type\":\"string\"},\"generationmix\":{\"items\":{\"properties\":{\"fuel\":{\"description\":\"Fuel type\",\"type\":\"string\"},\"perc\":{\"description\":\"Percentage of total generation\",\"format\":\"float\",\"type\":\"number\"}},\"type\":\"object\"},\"type\":\"array\"},\"intensity\":{\"properties\":{\"forecast\":{\"description\":\"Forecasted carbon intensity (gCO2/kWh)\",\"type\":\"integer\"},\"index\":{\"description\":\"Intensity index\",\"type\":\"string\"}},\"type\":\"object\"},\"to\":{\"format\":\"date-time\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"},\"dnoregion\":{\"description\":\"Distribution Network Operator region\",\"type\":\"string\"},\"postcode\":{\"description\":\"Outward postcode\",\"type\":\"string\"},\"regionid\":{\"description\":\"Region ID (1-17)\",\"type\":\"integer\"},\"shortname\":{\"description\":\"Short region name\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"}},\"type\":\"object\"}}},\"description\":\"Successful response\"}},\"securitySource\":\"unspecified\"}",
-                    "source": "openapi3",
-                    "version": 1
+                  "k": "http",
+                  "m": "GET",
+                  "o": "/regional/intensity/{from}/{to}/regionid/{regionid}",
+                  "q": {
+                    "exist": [
+                      "intensity_id",
+                      "regionid",
+                      "to"
+                    ]
                   },
-                  "kind": "http",
-                  "method": "GET",
-                  "orig": "/regional/intensity/{from}/{to}/regionid/{regionid}",
-                  "rename": {
+                  "r": {
                     "param": {
                       "from": "intensity_id"
                     }
                   },
-                  "segments": [
+                  "s": [
                     {
                       "lit": "regional"
                     },
@@ -1579,50 +1675,49 @@
                       "var": "regionid"
                     }
                   ],
-                  "select": {
-                    "exist": [
-                      "intensity_id",
-                      "regionid",
-                      "to"
-                    ]
-                  },
-                  "transform": {
+                  "t": {
                     "req": "`reqdata`",
                     "res": "`body`"
                   }
                 },
                 {
-                  "active": true,
-                  "args": {
+                  "a": true,
+                  "co": {
+                    "id": "GET /regional/intensity/{from}/{to}",
+                    "source": "openapi3",
+                    "version": 2
+                  },
+                  "g": {
                     "params": [
                       {
-                        "active": true,
-                        "kind": "param",
-                        "name": "from",
-                        "orig": "from",
-                        "reqd": true,
-                        "type": "`$STRING`"
+                        "a": true,
+                        "k": "param",
+                        "n": "from",
+                        "or": "from",
+                        "r": true,
+                        "t": "`$STRING`"
                       },
                       {
-                        "active": true,
-                        "kind": "param",
-                        "name": "to",
-                        "orig": "to",
-                        "reqd": true,
-                        "type": "`$STRING`"
+                        "a": true,
+                        "k": "param",
+                        "n": "to",
+                        "or": "to",
+                        "r": true,
+                        "t": "`$STRING`"
                       }
                     ]
                   },
-                  "contract": {
-                    "id": "GET /regional/intensity/{from}/{to}",
-                    "json": "{\"operationId\":\"getRegionalIntensityBetweenDatetimes\",\"parameters\":[{\"description\":\"Start datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)\",\"in\":\"path\",\"name\":\"from\",\"required\":true,\"schema\":{\"format\":\"date-time\",\"type\":\"string\"}},{\"description\":\"End datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)\",\"in\":\"path\",\"name\":\"to\",\"required\":true,\"schema\":{\"format\":\"date-time\",\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"data\":{\"items\":{\"properties\":{\"data\":{\"items\":{\"properties\":{\"from\":{\"format\":\"date-time\",\"type\":\"string\"},\"generationmix\":{\"items\":{\"properties\":{\"fuel\":{\"description\":\"Fuel type\",\"type\":\"string\"},\"perc\":{\"description\":\"Percentage of total generation\",\"format\":\"float\",\"type\":\"number\"}},\"type\":\"object\"},\"type\":\"array\"},\"intensity\":{\"properties\":{\"forecast\":{\"description\":\"Forecasted carbon intensity (gCO2/kWh)\",\"type\":\"integer\"},\"index\":{\"description\":\"Intensity index\",\"type\":\"string\"}},\"type\":\"object\"},\"to\":{\"format\":\"date-time\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"},\"dnoregion\":{\"description\":\"Distribution Network Operator region\",\"type\":\"string\"},\"postcode\":{\"description\":\"Outward postcode\",\"type\":\"string\"},\"regionid\":{\"description\":\"Region ID (1-17)\",\"type\":\"integer\"},\"shortname\":{\"description\":\"Short region name\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"}},\"type\":\"object\"}}},\"description\":\"Successful response\"}},\"securitySource\":\"unspecified\"}",
-                    "source": "openapi3",
-                    "version": 1
+                  "k": "http",
+                  "m": "GET",
+                  "o": "/regional/intensity/{from}/{to}",
+                  "q": {
+                    "exist": [
+                      "from",
+                      "to"
+                    ]
                   },
-                  "kind": "http",
-                  "method": "GET",
-                  "orig": "/regional/intensity/{from}/{to}",
-                  "segments": [
+                  "r": {},
+                  "s": [
                     {
                       "lit": "regional"
                     },
@@ -1636,54 +1731,53 @@
                       "var": "to"
                     }
                   ],
-                  "select": {
-                    "exist": [
-                      "from",
-                      "to"
-                    ]
-                  },
-                  "transform": {
+                  "t": {
                     "req": "`reqdata`",
                     "res": "`body`"
                   }
                 },
                 {
-                  "active": true,
-                  "args": {
-                    "params": [
-                      {
-                        "active": true,
-                        "kind": "param",
-                        "name": "intensity_id",
-                        "orig": "from",
-                        "reqd": true,
-                        "type": "`$STRING`"
-                      },
-                      {
-                        "active": true,
-                        "kind": "param",
-                        "name": "postcode",
-                        "orig": "postcode",
-                        "reqd": true,
-                        "type": "`$STRING`"
-                      }
-                    ]
-                  },
-                  "contract": {
+                  "a": true,
+                  "co": {
                     "id": "GET /regional/intensity/{from}/fw24h/postcode/{postcode}",
-                    "json": "{\"operationId\":\"getRegionalIntensityForward24hByPostcode\",\"parameters\":[{\"description\":\"Datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)\",\"in\":\"path\",\"name\":\"from\",\"required\":true,\"schema\":{\"format\":\"date-time\",\"type\":\"string\"}},{\"description\":\"Outward postcode (e.g., SW1)\",\"in\":\"path\",\"name\":\"postcode\",\"required\":true,\"schema\":{\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"data\":{\"items\":{\"properties\":{\"data\":{\"items\":{\"properties\":{\"from\":{\"format\":\"date-time\",\"type\":\"string\"},\"generationmix\":{\"items\":{\"properties\":{\"fuel\":{\"description\":\"Fuel type\",\"type\":\"string\"},\"perc\":{\"description\":\"Percentage of total generation\",\"format\":\"float\",\"type\":\"number\"}},\"type\":\"object\"},\"type\":\"array\"},\"intensity\":{\"properties\":{\"forecast\":{\"description\":\"Forecasted carbon intensity (gCO2/kWh)\",\"type\":\"integer\"},\"index\":{\"description\":\"Intensity index\",\"type\":\"string\"}},\"type\":\"object\"},\"to\":{\"format\":\"date-time\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"},\"dnoregion\":{\"description\":\"Distribution Network Operator region\",\"type\":\"string\"},\"postcode\":{\"description\":\"Outward postcode\",\"type\":\"string\"},\"regionid\":{\"description\":\"Region ID (1-17)\",\"type\":\"integer\"},\"shortname\":{\"description\":\"Short region name\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"}},\"type\":\"object\"}}},\"description\":\"Successful response\"}},\"securitySource\":\"unspecified\"}",
                     "source": "openapi3",
-                    "version": 1
+                    "version": 2
                   },
-                  "kind": "http",
-                  "method": "GET",
-                  "orig": "/regional/intensity/{from}/fw24h/postcode/{postcode}",
-                  "rename": {
+                  "g": {
+                    "params": [
+                      {
+                        "a": true,
+                        "k": "param",
+                        "n": "intensity_id",
+                        "or": "from",
+                        "r": true,
+                        "t": "`$STRING`"
+                      },
+                      {
+                        "a": true,
+                        "k": "param",
+                        "n": "postcode",
+                        "or": "postcode",
+                        "r": true,
+                        "t": "`$STRING`"
+                      }
+                    ]
+                  },
+                  "k": "http",
+                  "m": "GET",
+                  "o": "/regional/intensity/{from}/fw24h/postcode/{postcode}",
+                  "q": {
+                    "exist": [
+                      "intensity_id",
+                      "postcode"
+                    ]
+                  },
+                  "r": {
                     "param": {
                       "from": "intensity_id"
                     }
                   },
-                  "segments": [
+                  "s": [
                     {
                       "lit": "regional"
                     },
@@ -1703,54 +1797,53 @@
                       "var": "postcode"
                     }
                   ],
-                  "select": {
-                    "exist": [
-                      "intensity_id",
-                      "postcode"
-                    ]
-                  },
-                  "transform": {
+                  "t": {
                     "req": "`reqdata`",
                     "res": "`body`"
                   }
                 },
                 {
-                  "active": true,
-                  "args": {
-                    "params": [
-                      {
-                        "active": true,
-                        "kind": "param",
-                        "name": "intensity_id",
-                        "orig": "from",
-                        "reqd": true,
-                        "type": "`$STRING`"
-                      },
-                      {
-                        "active": true,
-                        "kind": "param",
-                        "name": "postcode",
-                        "orig": "postcode",
-                        "reqd": true,
-                        "type": "`$STRING`"
-                      }
-                    ]
-                  },
-                  "contract": {
+                  "a": true,
+                  "co": {
                     "id": "GET /regional/intensity/{from}/fw48h/postcode/{postcode}",
-                    "json": "{\"operationId\":\"getRegionalIntensityForward48hByPostcode\",\"parameters\":[{\"description\":\"Datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)\",\"in\":\"path\",\"name\":\"from\",\"required\":true,\"schema\":{\"format\":\"date-time\",\"type\":\"string\"}},{\"description\":\"Outward postcode (e.g., SW1)\",\"in\":\"path\",\"name\":\"postcode\",\"required\":true,\"schema\":{\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"data\":{\"items\":{\"properties\":{\"data\":{\"items\":{\"properties\":{\"from\":{\"format\":\"date-time\",\"type\":\"string\"},\"generationmix\":{\"items\":{\"properties\":{\"fuel\":{\"description\":\"Fuel type\",\"type\":\"string\"},\"perc\":{\"description\":\"Percentage of total generation\",\"format\":\"float\",\"type\":\"number\"}},\"type\":\"object\"},\"type\":\"array\"},\"intensity\":{\"properties\":{\"forecast\":{\"description\":\"Forecasted carbon intensity (gCO2/kWh)\",\"type\":\"integer\"},\"index\":{\"description\":\"Intensity index\",\"type\":\"string\"}},\"type\":\"object\"},\"to\":{\"format\":\"date-time\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"},\"dnoregion\":{\"description\":\"Distribution Network Operator region\",\"type\":\"string\"},\"postcode\":{\"description\":\"Outward postcode\",\"type\":\"string\"},\"regionid\":{\"description\":\"Region ID (1-17)\",\"type\":\"integer\"},\"shortname\":{\"description\":\"Short region name\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"}},\"type\":\"object\"}}},\"description\":\"Successful response\"}},\"securitySource\":\"unspecified\"}",
                     "source": "openapi3",
-                    "version": 1
+                    "version": 2
                   },
-                  "kind": "http",
-                  "method": "GET",
-                  "orig": "/regional/intensity/{from}/fw48h/postcode/{postcode}",
-                  "rename": {
+                  "g": {
+                    "params": [
+                      {
+                        "a": true,
+                        "k": "param",
+                        "n": "intensity_id",
+                        "or": "from",
+                        "r": true,
+                        "t": "`$STRING`"
+                      },
+                      {
+                        "a": true,
+                        "k": "param",
+                        "n": "postcode",
+                        "or": "postcode",
+                        "r": true,
+                        "t": "`$STRING`"
+                      }
+                    ]
+                  },
+                  "k": "http",
+                  "m": "GET",
+                  "o": "/regional/intensity/{from}/fw48h/postcode/{postcode}",
+                  "q": {
+                    "exist": [
+                      "intensity_id",
+                      "postcode"
+                    ]
+                  },
+                  "r": {
                     "param": {
                       "from": "intensity_id"
                     }
                   },
-                  "segments": [
+                  "s": [
                     {
                       "lit": "regional"
                     },
@@ -1770,54 +1863,53 @@
                       "var": "postcode"
                     }
                   ],
-                  "select": {
-                    "exist": [
-                      "intensity_id",
-                      "postcode"
-                    ]
-                  },
-                  "transform": {
+                  "t": {
                     "req": "`reqdata`",
                     "res": "`body`"
                   }
                 },
                 {
-                  "active": true,
-                  "args": {
+                  "a": true,
+                  "co": {
+                    "id": "GET /regional/intensity/{from}/pt24h/postcode/{postcode}",
+                    "source": "openapi3",
+                    "version": 2
+                  },
+                  "g": {
                     "params": [
                       {
-                        "active": true,
-                        "kind": "param",
-                        "name": "intensity_id",
-                        "orig": "from",
-                        "reqd": true,
-                        "type": "`$STRING`"
+                        "a": true,
+                        "k": "param",
+                        "n": "intensity_id",
+                        "or": "from",
+                        "r": true,
+                        "t": "`$STRING`"
                       },
                       {
-                        "active": true,
-                        "kind": "param",
-                        "name": "postcode",
-                        "orig": "postcode",
-                        "reqd": true,
-                        "type": "`$STRING`"
+                        "a": true,
+                        "k": "param",
+                        "n": "postcode",
+                        "or": "postcode",
+                        "r": true,
+                        "t": "`$STRING`"
                       }
                     ]
                   },
-                  "contract": {
-                    "id": "GET /regional/intensity/{from}/pt24h/postcode/{postcode}",
-                    "json": "{\"operationId\":\"getRegionalIntensityPast24hByPostcode\",\"parameters\":[{\"description\":\"Datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)\",\"in\":\"path\",\"name\":\"from\",\"required\":true,\"schema\":{\"format\":\"date-time\",\"type\":\"string\"}},{\"description\":\"Outward postcode (e.g., SW1)\",\"in\":\"path\",\"name\":\"postcode\",\"required\":true,\"schema\":{\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"data\":{\"items\":{\"properties\":{\"data\":{\"items\":{\"properties\":{\"from\":{\"format\":\"date-time\",\"type\":\"string\"},\"generationmix\":{\"items\":{\"properties\":{\"fuel\":{\"description\":\"Fuel type\",\"type\":\"string\"},\"perc\":{\"description\":\"Percentage of total generation\",\"format\":\"float\",\"type\":\"number\"}},\"type\":\"object\"},\"type\":\"array\"},\"intensity\":{\"properties\":{\"forecast\":{\"description\":\"Forecasted carbon intensity (gCO2/kWh)\",\"type\":\"integer\"},\"index\":{\"description\":\"Intensity index\",\"type\":\"string\"}},\"type\":\"object\"},\"to\":{\"format\":\"date-time\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"},\"dnoregion\":{\"description\":\"Distribution Network Operator region\",\"type\":\"string\"},\"postcode\":{\"description\":\"Outward postcode\",\"type\":\"string\"},\"regionid\":{\"description\":\"Region ID (1-17)\",\"type\":\"integer\"},\"shortname\":{\"description\":\"Short region name\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"}},\"type\":\"object\"}}},\"description\":\"Successful response\"}},\"securitySource\":\"unspecified\"}",
-                    "source": "openapi3",
-                    "version": 1
+                  "k": "http",
+                  "m": "GET",
+                  "o": "/regional/intensity/{from}/pt24h/postcode/{postcode}",
+                  "q": {
+                    "exist": [
+                      "intensity_id",
+                      "postcode"
+                    ]
                   },
-                  "kind": "http",
-                  "method": "GET",
-                  "orig": "/regional/intensity/{from}/pt24h/postcode/{postcode}",
-                  "rename": {
+                  "r": {
                     "param": {
                       "from": "intensity_id"
                     }
                   },
-                  "segments": [
+                  "s": [
                     {
                       "lit": "regional"
                     },
@@ -1837,54 +1929,53 @@
                       "var": "postcode"
                     }
                   ],
-                  "select": {
-                    "exist": [
-                      "intensity_id",
-                      "postcode"
-                    ]
-                  },
-                  "transform": {
+                  "t": {
                     "req": "`reqdata`",
                     "res": "`body`"
                   }
                 },
                 {
-                  "active": true,
-                  "args": {
+                  "a": true,
+                  "co": {
+                    "id": "GET /regional/intensity/{from}/fw24h/regionid/{regionid}",
+                    "source": "openapi3",
+                    "version": 2
+                  },
+                  "g": {
                     "params": [
                       {
-                        "active": true,
-                        "kind": "param",
-                        "name": "intensity_id",
-                        "orig": "from",
-                        "reqd": true,
-                        "type": "`$STRING`"
+                        "a": true,
+                        "k": "param",
+                        "n": "intensity_id",
+                        "or": "from",
+                        "r": true,
+                        "t": "`$STRING`"
                       },
                       {
-                        "active": true,
-                        "kind": "param",
-                        "name": "regionid",
-                        "orig": "regionid",
-                        "reqd": true,
-                        "type": "`$INTEGER`"
+                        "a": true,
+                        "k": "param",
+                        "n": "regionid",
+                        "or": "regionid",
+                        "r": true,
+                        "t": "`$INTEGER`"
                       }
                     ]
                   },
-                  "contract": {
-                    "id": "GET /regional/intensity/{from}/fw24h/regionid/{regionid}",
-                    "json": "{\"operationId\":\"getRegionalIntensityForward24hByRegionId\",\"parameters\":[{\"description\":\"Datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)\",\"in\":\"path\",\"name\":\"from\",\"required\":true,\"schema\":{\"format\":\"date-time\",\"type\":\"string\"}},{\"description\":\"Region ID (1-17)\",\"in\":\"path\",\"name\":\"regionid\",\"required\":true,\"schema\":{\"maximum\":17,\"minimum\":1,\"type\":\"integer\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"data\":{\"items\":{\"properties\":{\"data\":{\"items\":{\"properties\":{\"from\":{\"format\":\"date-time\",\"type\":\"string\"},\"generationmix\":{\"items\":{\"properties\":{\"fuel\":{\"description\":\"Fuel type\",\"type\":\"string\"},\"perc\":{\"description\":\"Percentage of total generation\",\"format\":\"float\",\"type\":\"number\"}},\"type\":\"object\"},\"type\":\"array\"},\"intensity\":{\"properties\":{\"forecast\":{\"description\":\"Forecasted carbon intensity (gCO2/kWh)\",\"type\":\"integer\"},\"index\":{\"description\":\"Intensity index\",\"type\":\"string\"}},\"type\":\"object\"},\"to\":{\"format\":\"date-time\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"},\"dnoregion\":{\"description\":\"Distribution Network Operator region\",\"type\":\"string\"},\"postcode\":{\"description\":\"Outward postcode\",\"type\":\"string\"},\"regionid\":{\"description\":\"Region ID (1-17)\",\"type\":\"integer\"},\"shortname\":{\"description\":\"Short region name\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"}},\"type\":\"object\"}}},\"description\":\"Successful response\"}},\"securitySource\":\"unspecified\"}",
-                    "source": "openapi3",
-                    "version": 1
+                  "k": "http",
+                  "m": "GET",
+                  "o": "/regional/intensity/{from}/fw24h/regionid/{regionid}",
+                  "q": {
+                    "exist": [
+                      "intensity_id",
+                      "regionid"
+                    ]
                   },
-                  "kind": "http",
-                  "method": "GET",
-                  "orig": "/regional/intensity/{from}/fw24h/regionid/{regionid}",
-                  "rename": {
+                  "r": {
                     "param": {
                       "from": "intensity_id"
                     }
                   },
-                  "segments": [
+                  "s": [
                     {
                       "lit": "regional"
                     },
@@ -1904,54 +1995,53 @@
                       "var": "regionid"
                     }
                   ],
-                  "select": {
-                    "exist": [
-                      "intensity_id",
-                      "regionid"
-                    ]
-                  },
-                  "transform": {
+                  "t": {
                     "req": "`reqdata`",
                     "res": "`body`"
                   }
                 },
                 {
-                  "active": true,
-                  "args": {
+                  "a": true,
+                  "co": {
+                    "id": "GET /regional/intensity/{from}/fw48h/regionid/{regionid}",
+                    "source": "openapi3",
+                    "version": 2
+                  },
+                  "g": {
                     "params": [
                       {
-                        "active": true,
-                        "kind": "param",
-                        "name": "intensity_id",
-                        "orig": "from",
-                        "reqd": true,
-                        "type": "`$STRING`"
+                        "a": true,
+                        "k": "param",
+                        "n": "intensity_id",
+                        "or": "from",
+                        "r": true,
+                        "t": "`$STRING`"
                       },
                       {
-                        "active": true,
-                        "kind": "param",
-                        "name": "regionid",
-                        "orig": "regionid",
-                        "reqd": true,
-                        "type": "`$INTEGER`"
+                        "a": true,
+                        "k": "param",
+                        "n": "regionid",
+                        "or": "regionid",
+                        "r": true,
+                        "t": "`$INTEGER`"
                       }
                     ]
                   },
-                  "contract": {
-                    "id": "GET /regional/intensity/{from}/fw48h/regionid/{regionid}",
-                    "json": "{\"operationId\":\"getRegionalIntensityForward48hByRegionId\",\"parameters\":[{\"description\":\"Datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)\",\"in\":\"path\",\"name\":\"from\",\"required\":true,\"schema\":{\"format\":\"date-time\",\"type\":\"string\"}},{\"description\":\"Region ID (1-17)\",\"in\":\"path\",\"name\":\"regionid\",\"required\":true,\"schema\":{\"maximum\":17,\"minimum\":1,\"type\":\"integer\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"data\":{\"items\":{\"properties\":{\"data\":{\"items\":{\"properties\":{\"from\":{\"format\":\"date-time\",\"type\":\"string\"},\"generationmix\":{\"items\":{\"properties\":{\"fuel\":{\"description\":\"Fuel type\",\"type\":\"string\"},\"perc\":{\"description\":\"Percentage of total generation\",\"format\":\"float\",\"type\":\"number\"}},\"type\":\"object\"},\"type\":\"array\"},\"intensity\":{\"properties\":{\"forecast\":{\"description\":\"Forecasted carbon intensity (gCO2/kWh)\",\"type\":\"integer\"},\"index\":{\"description\":\"Intensity index\",\"type\":\"string\"}},\"type\":\"object\"},\"to\":{\"format\":\"date-time\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"},\"dnoregion\":{\"description\":\"Distribution Network Operator region\",\"type\":\"string\"},\"postcode\":{\"description\":\"Outward postcode\",\"type\":\"string\"},\"regionid\":{\"description\":\"Region ID (1-17)\",\"type\":\"integer\"},\"shortname\":{\"description\":\"Short region name\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"}},\"type\":\"object\"}}},\"description\":\"Successful response\"}},\"securitySource\":\"unspecified\"}",
-                    "source": "openapi3",
-                    "version": 1
+                  "k": "http",
+                  "m": "GET",
+                  "o": "/regional/intensity/{from}/fw48h/regionid/{regionid}",
+                  "q": {
+                    "exist": [
+                      "intensity_id",
+                      "regionid"
+                    ]
                   },
-                  "kind": "http",
-                  "method": "GET",
-                  "orig": "/regional/intensity/{from}/fw48h/regionid/{regionid}",
-                  "rename": {
+                  "r": {
                     "param": {
                       "from": "intensity_id"
                     }
                   },
-                  "segments": [
+                  "s": [
                     {
                       "lit": "regional"
                     },
@@ -1971,54 +2061,53 @@
                       "var": "regionid"
                     }
                   ],
-                  "select": {
-                    "exist": [
-                      "intensity_id",
-                      "regionid"
-                    ]
-                  },
-                  "transform": {
+                  "t": {
                     "req": "`reqdata`",
                     "res": "`body`"
                   }
                 },
                 {
-                  "active": true,
-                  "args": {
+                  "a": true,
+                  "co": {
+                    "id": "GET /regional/intensity/{from}/pt24h/regionid/{regionid}",
+                    "source": "openapi3",
+                    "version": 2
+                  },
+                  "g": {
                     "params": [
                       {
-                        "active": true,
-                        "kind": "param",
-                        "name": "intensity_id",
-                        "orig": "from",
-                        "reqd": true,
-                        "type": "`$STRING`"
+                        "a": true,
+                        "k": "param",
+                        "n": "intensity_id",
+                        "or": "from",
+                        "r": true,
+                        "t": "`$STRING`"
                       },
                       {
-                        "active": true,
-                        "kind": "param",
-                        "name": "regionid",
-                        "orig": "regionid",
-                        "reqd": true,
-                        "type": "`$INTEGER`"
+                        "a": true,
+                        "k": "param",
+                        "n": "regionid",
+                        "or": "regionid",
+                        "r": true,
+                        "t": "`$INTEGER`"
                       }
                     ]
                   },
-                  "contract": {
-                    "id": "GET /regional/intensity/{from}/pt24h/regionid/{regionid}",
-                    "json": "{\"operationId\":\"getRegionalIntensityPast24hByRegionId\",\"parameters\":[{\"description\":\"Datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)\",\"in\":\"path\",\"name\":\"from\",\"required\":true,\"schema\":{\"format\":\"date-time\",\"type\":\"string\"}},{\"description\":\"Region ID (1-17)\",\"in\":\"path\",\"name\":\"regionid\",\"required\":true,\"schema\":{\"maximum\":17,\"minimum\":1,\"type\":\"integer\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"data\":{\"items\":{\"properties\":{\"data\":{\"items\":{\"properties\":{\"from\":{\"format\":\"date-time\",\"type\":\"string\"},\"generationmix\":{\"items\":{\"properties\":{\"fuel\":{\"description\":\"Fuel type\",\"type\":\"string\"},\"perc\":{\"description\":\"Percentage of total generation\",\"format\":\"float\",\"type\":\"number\"}},\"type\":\"object\"},\"type\":\"array\"},\"intensity\":{\"properties\":{\"forecast\":{\"description\":\"Forecasted carbon intensity (gCO2/kWh)\",\"type\":\"integer\"},\"index\":{\"description\":\"Intensity index\",\"type\":\"string\"}},\"type\":\"object\"},\"to\":{\"format\":\"date-time\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"},\"dnoregion\":{\"description\":\"Distribution Network Operator region\",\"type\":\"string\"},\"postcode\":{\"description\":\"Outward postcode\",\"type\":\"string\"},\"regionid\":{\"description\":\"Region ID (1-17)\",\"type\":\"integer\"},\"shortname\":{\"description\":\"Short region name\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"}},\"type\":\"object\"}}},\"description\":\"Successful response\"}},\"securitySource\":\"unspecified\"}",
-                    "source": "openapi3",
-                    "version": 1
+                  "k": "http",
+                  "m": "GET",
+                  "o": "/regional/intensity/{from}/pt24h/regionid/{regionid}",
+                  "q": {
+                    "exist": [
+                      "intensity_id",
+                      "regionid"
+                    ]
                   },
-                  "kind": "http",
-                  "method": "GET",
-                  "orig": "/regional/intensity/{from}/pt24h/regionid/{regionid}",
-                  "rename": {
+                  "r": {
                     "param": {
                       "from": "intensity_id"
                     }
                   },
-                  "segments": [
+                  "s": [
                     {
                       "lit": "regional"
                     },
@@ -2038,13 +2127,7 @@
                       "var": "regionid"
                     }
                   ],
-                  "select": {
-                    "exist": [
-                      "intensity_id",
-                      "regionid"
-                    ]
-                  },
-                  "transform": {
+                  "t": {
                     "req": "`reqdata`",
                     "res": "`body`"
                   }
@@ -2055,15 +2138,13 @@
           "relations": {
             "ancestors": [
               [
-                "intensity"
+                "$.main.kit.entity.intensity"
               ],
               [
-                "intensity",
-                "postcode"
+                "$.main.kit.entity.intensity"
               ],
               [
-                "intensity",
-                "regionid"
+                "$.main.kit.entity.intensity"
               ]
             ]
           }
@@ -2073,20 +2154,22 @@
           "alias": {
             "field": {}
           },
-          "fields": [
-            {
-              "active": true,
-              "name": "data",
-              "req": false,
-              "type": "`$ARRAY`"
+          "fields": {
+            "data": {
+              "a": true,
+              "h": "Data",
+              "n": "data",
+              "r": false,
+              "t": "`$ARRAY`"
             },
-            {
-              "active": true,
-              "name": "id",
-              "req": false,
-              "type": "`$STRING`"
+            "id": {
+              "a": true,
+              "h": "Id",
+              "n": "id",
+              "r": false,
+              "t": "`$STRING`"
             }
-          ],
+          },
           "id": {
             "field": "id",
             "name": "id",
@@ -2104,45 +2187,52 @@
               "name": "load",
               "points": [
                 {
-                  "active": true,
-                  "args": {
+                  "a": true,
+                  "co": {
+                    "id": "GET /intensity/stats/{from}/{to}/{block}",
+                    "source": "openapi3",
+                    "version": 2
+                  },
+                  "g": {
                     "params": [
                       {
-                        "active": true,
-                        "kind": "param",
-                        "name": "block",
-                        "orig": "block",
-                        "reqd": true,
-                        "type": "`$INTEGER`"
+                        "a": true,
+                        "k": "param",
+                        "n": "block",
+                        "or": "block",
+                        "r": true,
+                        "t": "`$INTEGER`"
                       },
                       {
-                        "active": true,
-                        "kind": "param",
-                        "name": "from",
-                        "orig": "from",
-                        "reqd": true,
-                        "type": "`$STRING`"
+                        "a": true,
+                        "k": "param",
+                        "n": "from",
+                        "or": "from",
+                        "r": true,
+                        "t": "`$STRING`"
                       },
                       {
-                        "active": true,
-                        "kind": "param",
-                        "name": "to",
-                        "orig": "to",
-                        "reqd": true,
-                        "type": "`$STRING`"
+                        "a": true,
+                        "k": "param",
+                        "n": "to",
+                        "or": "to",
+                        "r": true,
+                        "t": "`$STRING`"
                       }
                     ]
                   },
-                  "contract": {
-                    "id": "GET /intensity/stats/{from}/{to}/{block}",
-                    "json": "{\"operationId\":\"getIntensityStatsBlocks\",\"parameters\":[{\"description\":\"Start datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)\",\"in\":\"path\",\"name\":\"from\",\"required\":true,\"schema\":{\"format\":\"date-time\",\"type\":\"string\"}},{\"description\":\"End datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)\",\"in\":\"path\",\"name\":\"to\",\"required\":true,\"schema\":{\"format\":\"date-time\",\"type\":\"string\"}},{\"description\":\"Block length in hours (e.g., 2 for 2-hour blocks)\",\"in\":\"path\",\"name\":\"block\",\"required\":true,\"schema\":{\"type\":\"integer\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"data\":{\"items\":{\"properties\":{\"from\":{\"format\":\"date-time\",\"type\":\"string\"},\"intensity\":{\"properties\":{\"average\":{\"description\":\"Average carbon intensity (gCO2/kWh)\",\"type\":\"integer\"},\"index\":{\"description\":\"Average intensity index\",\"type\":\"string\"},\"max\":{\"description\":\"Maximum carbon intensity (gCO2/kWh)\",\"type\":\"integer\"},\"min\":{\"description\":\"Minimum carbon intensity (gCO2/kWh)\",\"type\":\"integer\"}},\"type\":\"object\"},\"to\":{\"format\":\"date-time\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"}},\"type\":\"object\"}}},\"description\":\"Successful response\"}},\"securitySource\":\"unspecified\"}",
-                    "source": "openapi3",
-                    "version": 1
+                  "k": "http",
+                  "m": "GET",
+                  "o": "/intensity/stats/{from}/{to}/{block}",
+                  "q": {
+                    "exist": [
+                      "block",
+                      "from",
+                      "to"
+                    ]
                   },
-                  "kind": "http",
-                  "method": "GET",
-                  "orig": "/intensity/stats/{from}/{to}/{block}",
-                  "segments": [
+                  "r": {},
+                  "s": [
                     {
                       "lit": "intensity"
                     },
@@ -2159,50 +2249,49 @@
                       "var": "block"
                     }
                   ],
-                  "select": {
-                    "exist": [
-                      "block",
-                      "from",
-                      "to"
-                    ]
-                  },
-                  "transform": {
+                  "t": {
                     "req": "`reqdata`",
                     "res": "`body`"
                   }
                 },
                 {
-                  "active": true,
-                  "args": {
+                  "a": true,
+                  "co": {
+                    "id": "GET /intensity/stats/{from}/{to}",
+                    "source": "openapi3",
+                    "version": 2
+                  },
+                  "g": {
                     "params": [
                       {
-                        "active": true,
-                        "kind": "param",
-                        "name": "from",
-                        "orig": "from",
-                        "reqd": true,
-                        "type": "`$STRING`"
+                        "a": true,
+                        "k": "param",
+                        "n": "from",
+                        "or": "from",
+                        "r": true,
+                        "t": "`$STRING`"
                       },
                       {
-                        "active": true,
-                        "kind": "param",
-                        "name": "to",
-                        "orig": "to",
-                        "reqd": true,
-                        "type": "`$STRING`"
+                        "a": true,
+                        "k": "param",
+                        "n": "to",
+                        "or": "to",
+                        "r": true,
+                        "t": "`$STRING`"
                       }
                     ]
                   },
-                  "contract": {
-                    "id": "GET /intensity/stats/{from}/{to}",
-                    "json": "{\"operationId\":\"getIntensityStats\",\"parameters\":[{\"description\":\"Start datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)\",\"in\":\"path\",\"name\":\"from\",\"required\":true,\"schema\":{\"format\":\"date-time\",\"type\":\"string\"}},{\"description\":\"End datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)\",\"in\":\"path\",\"name\":\"to\",\"required\":true,\"schema\":{\"format\":\"date-time\",\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"data\":{\"items\":{\"properties\":{\"from\":{\"format\":\"date-time\",\"type\":\"string\"},\"intensity\":{\"properties\":{\"average\":{\"description\":\"Average carbon intensity (gCO2/kWh)\",\"type\":\"integer\"},\"index\":{\"description\":\"Average intensity index\",\"type\":\"string\"},\"max\":{\"description\":\"Maximum carbon intensity (gCO2/kWh)\",\"type\":\"integer\"},\"min\":{\"description\":\"Minimum carbon intensity (gCO2/kWh)\",\"type\":\"integer\"}},\"type\":\"object\"},\"to\":{\"format\":\"date-time\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"}},\"type\":\"object\"}}},\"description\":\"Successful response\"}},\"securitySource\":\"unspecified\"}",
-                    "source": "openapi3",
-                    "version": 1
+                  "k": "http",
+                  "m": "GET",
+                  "o": "/intensity/stats/{from}/{to}",
+                  "q": {
+                    "exist": [
+                      "from",
+                      "to"
+                    ]
                   },
-                  "kind": "http",
-                  "method": "GET",
-                  "orig": "/intensity/stats/{from}/{to}",
-                  "segments": [
+                  "r": {},
+                  "s": [
                     {
                       "lit": "intensity"
                     },
@@ -2216,13 +2305,7 @@
                       "var": "to"
                     }
                   ],
-                  "select": {
-                    "exist": [
-                      "from",
-                      "to"
-                    ]
-                  },
-                  "transform": {
+                  "t": {
                     "req": "`reqdata`",
                     "res": "`body`"
                   }
@@ -2231,11 +2314,7 @@
             }
           },
           "relations": {
-            "ancestors": [
-              [
-                "stat"
-              ]
-            ]
+            "ancestors": []
           }
         }
       },
@@ -2655,13 +2734,13 @@
           "param": {},
           "step": [
             {
-              "active": true,
-              "data": {},
-              "input": {},
-              "match": {},
-              "op": "list",
-              "spec": [],
-              "valid": [
+              "a": true,
+              "d": {},
+              "i": {},
+              "m": {},
+              "o": "list",
+              "s": [],
+              "v": [
                 {
                   "apply": "ItemExists",
                   "def": {
@@ -2671,20 +2750,20 @@
               ]
             },
             {
-              "active": true,
-              "data": {},
-              "input": {
+              "a": true,
+              "d": {},
+              "i": {
                 "ref": "generation_ref01",
                 "srcdatavar": "generation_ref01_data",
                 "suffix": "_dt0"
               },
-              "match": {
+              "m": {
                 "from": "from01",
                 "id": "generation01"
               },
-              "op": "load",
-              "spec": [],
-              "valid": [
+              "o": "load",
+              "s": [],
+              "v": [
                 {
                   "apply": "TextFieldMark",
                   "def": {
@@ -2704,15 +2783,15 @@
           "param": {},
           "step": [
             {
-              "active": true,
-              "data": {},
-              "input": {},
-              "match": {
+              "a": true,
+              "d": {},
+              "i": {},
+              "m": {
                 "from": "from01"
               },
-              "op": "list",
-              "spec": [],
-              "valid": [
+              "o": "list",
+              "s": [],
+              "v": [
                 {
                   "apply": "ItemExists",
                   "def": {
@@ -2732,13 +2811,13 @@
           "param": {},
           "step": [
             {
-              "active": true,
-              "data": {},
-              "input": {},
-              "match": {},
-              "op": "list",
-              "spec": [],
-              "valid": [
+              "a": true,
+              "d": {},
+              "i": {},
+              "m": {},
+              "o": "list",
+              "s": [],
+              "v": [
                 {
                   "apply": "ItemExists",
                   "def": {
@@ -2758,13 +2837,13 @@
           "param": {},
           "step": [
             {
-              "active": true,
-              "data": {},
-              "input": {},
-              "match": {},
-              "op": "list",
-              "spec": [],
-              "valid": [
+              "a": true,
+              "d": {},
+              "i": {},
+              "m": {},
+              "o": "list",
+              "s": [],
+              "v": [
                 {
                   "apply": "ItemExists",
                   "def": {
@@ -2774,19 +2853,19 @@
               ]
             },
             {
-              "active": true,
-              "data": {},
-              "input": {
+              "a": true,
+              "d": {},
+              "i": {
                 "ref": "intensity_ref01",
                 "srcdatavar": "intensity_ref01_data",
                 "suffix": "_dt0"
               },
-              "match": {
+              "m": {
                 "id": "intensity01"
               },
-              "op": "load",
-              "spec": [],
-              "valid": [
+              "o": "load",
+              "s": [],
+              "v": [
                 {
                   "apply": "TextFieldMark",
                   "def": {
@@ -2806,13 +2885,13 @@
           "param": {},
           "step": [
             {
-              "active": true,
-              "data": {},
-              "input": {},
-              "match": {},
-              "op": "list",
-              "spec": [],
-              "valid": [
+              "a": true,
+              "d": {},
+              "i": {},
+              "m": {},
+              "o": "list",
+              "s": [],
+              "v": [
                 {
                   "apply": "ItemExists",
                   "def": {
@@ -2822,19 +2901,19 @@
               ]
             },
             {
-              "active": true,
-              "data": {},
-              "input": {
+              "a": true,
+              "d": {},
+              "i": {
                 "ref": "intensity_list_ref01",
                 "srcdatavar": "intensity_list_ref01_data",
                 "suffix": "_dt0"
               },
-              "match": {
+              "m": {
                 "id": "intensity_list01"
               },
-              "op": "load",
-              "spec": [],
-              "valid": [
+              "o": "load",
+              "s": [],
+              "v": [
                 {
                   "apply": "TextFieldMark",
                   "def": {
@@ -2854,13 +2933,13 @@
           "param": {},
           "step": [
             {
-              "active": true,
-              "data": {},
-              "input": {},
-              "match": {},
-              "op": "list",
-              "spec": [],
-              "valid": [
+              "a": true,
+              "d": {},
+              "i": {},
+              "m": {},
+              "o": "list",
+              "s": [],
+              "v": [
                 {
                   "apply": "ItemExists",
                   "def": {
@@ -2880,13 +2959,13 @@
           "param": {},
           "step": [
             {
-              "active": true,
-              "data": {},
-              "input": {},
-              "match": {},
-              "op": "list",
-              "spec": [],
-              "valid": [
+              "a": true,
+              "d": {},
+              "i": {},
+              "m": {},
+              "o": "list",
+              "s": [],
+              "v": [
                 {
                   "apply": "ItemExists",
                   "def": {
@@ -2896,19 +2975,19 @@
               ]
             },
             {
-              "active": true,
-              "data": {},
-              "input": {
+              "a": true,
+              "d": {},
+              "i": {
                 "ref": "regional_intensity_ref01",
                 "srcdatavar": "regional_intensity_ref01_data",
                 "suffix": "_dt0"
               },
-              "match": {
+              "m": {
                 "id": "regional_intensity01"
               },
-              "op": "load",
-              "spec": [],
-              "valid": [
+              "o": "load",
+              "s": [],
+              "v": [
                 {
                   "apply": "TextFieldMark",
                   "def": {
@@ -2928,15 +3007,15 @@
           "param": {},
           "step": [
             {
-              "active": true,
-              "data": {},
-              "input": {},
-              "match": {
+              "a": true,
+              "d": {},
+              "i": {},
+              "m": {
                 "from": "from01"
               },
-              "op": "list",
-              "spec": [],
-              "valid": [
+              "o": "list",
+              "s": [],
+              "v": [
                 {
                   "apply": "ItemExists",
                   "def": {
@@ -2946,20 +3025,20 @@
               ]
             },
             {
-              "active": true,
-              "data": {},
-              "input": {
+              "a": true,
+              "d": {},
+              "i": {
                 "ref": "regional_intensity_list_ref01",
                 "srcdatavar": "regional_intensity_list_ref01_data",
                 "suffix": "_dt0"
               },
-              "match": {
+              "m": {
                 "id": "regional_intensity_list01",
                 "intensity_id": "intensity01"
               },
-              "op": "load",
-              "spec": [],
-              "valid": [
+              "o": "load",
+              "s": [],
+              "v": [
                 {
                   "apply": "TextFieldMark",
                   "def": {
@@ -2979,20 +3058,20 @@
           "param": {},
           "step": [
             {
-              "active": true,
-              "data": {},
-              "input": {
+              "a": true,
+              "d": {},
+              "i": {
                 "ref": "stat_ref01",
                 "srcdatavar": "stat_ref01_data",
                 "suffix": "_dt0"
               },
-              "match": {
+              "m": {
                 "from": "from01",
                 "id": "stat01"
               },
-              "op": "load",
-              "spec": [],
-              "valid": [
+              "o": "load",
+              "s": [],
+              "v": [
                 {
                   "apply": "TextFieldMark",
                   "def": {

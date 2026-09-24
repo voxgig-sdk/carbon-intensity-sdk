@@ -110,7 +110,7 @@ def _intensity_list_basic_setup(extra):
 
     # Generate idmap via transform.
     idmap = vs.transform(
-        ["intensity_list01", "intensity_list02", "intensity_list03", "date01", "date02", "date03", "intensity01", "intensity02", "intensity03"],
+        ["intensity_list01", "intensity_list02", "intensity_list03", "intensity01", "intensity02", "intensity03"],
         {
             "`$PACK`": ["", {
                 "`$KEY`": "`$COPY`",

@@ -19,7 +19,6 @@ import type {
   RegionalListMatch,
 } from '../CarbonIntensityTypes'
 
-// TODO: needs Entity superclass
 class RegionalEntity extends CarbonIntensityEntityBase<Regional> {
 
   constructor(client: CarbonIntensitySDK, entopts: any) {

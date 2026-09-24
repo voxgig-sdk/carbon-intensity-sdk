@@ -50,15 +50,15 @@ except Exception as err:
     print(f"list failed: {err}")
 ```
 
-### 3. Load a generation
+### 3. Load an intensitylist
 
-Generation is nested under from, so provide the `from`.
+IntensityList is nested under date, so provide the `date`.
 `load()` returns the ENTITY — call data_get() for the record — and raises on error.
 
 ```python
 try:
-    generation = client.Generation().load({"from": "example_from", "to": "example_to"})
-    print(generation)
+    intensitylist = client.IntensityList().load({"date": "example_date"})
+    print(intensitylist)
 except Exception as err:
     print(f"load failed: {err}")
 ```

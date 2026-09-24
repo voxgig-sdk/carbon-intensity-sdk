@@ -47,18 +47,17 @@ for (const generation of generations) {
 }
 ```
 
-### 3. Load a generation
+### 3. Load an intensitylist
 
-Generation is nested under from, so provide the `from`.
+IntensityList is nested under date, so provide the `date`.
 `load()` returns the entity directly and throws on failure:
 
 ```ts
 try {
-  const generation = await client.Generation().load({
-    from: 'example_from',
-    to: 'example_to',
+  const intensitylist = await client.IntensityList().load({
+    date: 'example_date',
   })
-  console.log(generation)
+  console.log(intensitylist)
 } catch (err) {
   console.error('load failed:', err)
 }

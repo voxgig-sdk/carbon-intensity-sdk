@@ -1,0 +1,140 @@
+# Entity: intensity_factor
+
+main: kit: entity: intensity_factor: {
+
+  alias: field: {}
+
+  fields: {
+    Biomass: {
+      h: "Biomass"
+      n: "Biomass"
+      r: false
+      sh: "Carbon intensity factor for biomass (gCO2/kWh)"
+      t: "`$INTEGER`"
+    }
+    Coal: {
+      h: "Coal"
+      n: "Coal"
+      r: false
+      sh: "Carbon intensity factor for coal (gCO2/kWh)"
+      t: "`$INTEGER`"
+    }
+    DutchImports: {
+      h: "Dutch Imports"
+      n: "DutchImports"
+      r: false
+      sh: "Carbon intensity factor for Dutch imports (gCO2/kWh)"
+      t: "`$INTEGER`"
+    }
+    FrenchImports: {
+      h: "French Imports"
+      n: "FrenchImports"
+      r: false
+      sh: "Carbon intensity factor for French imports (gCO2/kWh)"
+      t: "`$INTEGER`"
+    }
+    GasCombinedCycle: {
+      h: "Gas Combined Cycle"
+      n: "GasCombinedCycle"
+      r: false
+      sh: "Carbon intensity factor for gas combined cycle (gCO2/kWh)"
+      t: "`$INTEGER`"
+    }
+    GasOpenCycle: {
+      h: "Gas Open Cycle"
+      n: "GasOpenCycle"
+      r: false
+      sh: "Carbon intensity factor for gas open cycle (gCO2/kWh)"
+      t: "`$INTEGER`"
+    }
+    Hydro: {
+      h: "Hydro"
+      n: "Hydro"
+      r: false
+      sh: "Carbon intensity factor for hydro (gCO2/kWh)"
+      t: "`$INTEGER`"
+    }
+    IrishImports: {
+      h: "Irish Imports"
+      n: "IrishImports"
+      r: false
+      sh: "Carbon intensity factor for Irish imports (gCO2/kWh)"
+      t: "`$INTEGER`"
+    }
+    Nuclear: {
+      h: "Nuclear"
+      n: "Nuclear"
+      r: false
+      sh: "Carbon intensity factor for nuclear (gCO2/kWh)"
+      t: "`$INTEGER`"
+    }
+    Oil: {
+      h: "Oil"
+      n: "Oil"
+      r: false
+      sh: "Carbon intensity factor for oil (gCO2/kWh)"
+      t: "`$INTEGER`"
+    }
+    Other: {
+      h: "Other"
+      n: "Other"
+      r: false
+      sh: "Carbon intensity factor for other (gCO2/kWh)"
+      t: "`$INTEGER`"
+    }
+    PumpedStorage: {
+      h: "Pumped Storage"
+      n: "PumpedStorage"
+      r: false
+      sh: "Carbon intensity factor for pumped storage (gCO2/kWh)"
+      t: "`$INTEGER`"
+    }
+    Solar: {
+      h: "Solar"
+      n: "Solar"
+      r: false
+      sh: "Carbon intensity factor for solar (gCO2/kWh)"
+      t: "`$INTEGER`"
+    }
+    Wind: {
+      h: "Wind"
+      n: "Wind"
+      r: false
+      sh: "Carbon intensity factor for wind (gCO2/kWh)"
+      t: "`$INTEGER`"
+    }
+  }
+
+  name: "intensity_factor"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          co: {
+            id: "GET /intensity/factors"
+            source: "openapi3"
+            version: 2
+          }
+          m: "GET"
+          o: "/intensity/factors"
+          s: [
+            {
+              lit: "intensity"
+            }
+            {
+              lit: "factors"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body.data`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

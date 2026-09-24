@@ -158,7 +158,7 @@ func intensity_listBasicSetup(extra map[string]any) *entityTestSetup {
 
 	// Generate idmap via transform, matching TS pattern.
 	idmap, _ := vs.Transform(
-		[]any{"intensity_list01", "intensity_list02", "intensity_list03", "date01", "date02", "date03", "intensity01", "intensity02", "intensity03"},
+		[]any{"intensity_list01", "intensity_list02", "intensity_list03", "intensity01", "intensity02", "intensity03"},
 		map[string]any{
 			"`$PACK`": []any{"", map[string]any{
 				"`$KEY`": "`$COPY`",

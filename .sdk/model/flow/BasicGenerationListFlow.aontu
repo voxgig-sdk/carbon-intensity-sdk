@@ -1,0 +1,26 @@
+# BasicGenerationListFlow
+
+main: kit: flow: BasicGenerationListFlow:
+{
+  entity: "generation_list",
+  kind: "basic",
+  name: "BasicGenerationListFlow",
+  step: [
+    {
+      m: {
+        from: "from01"
+      }
+
+      o: "list",
+      v: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "generation_list_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicGenerationListFlow"
+}

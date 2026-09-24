@@ -119,7 +119,7 @@ function intensity_basic_setup($extra)
 
     // Generate idmap.
     $idmap = [];
-    foreach (["intensity01", "intensity02", "intensity03", "date01", "date02", "date03"] as $k) {
+    foreach (["intensity01", "intensity02", "intensity03"] as $k) {
         $idmap[$k] = strtoupper($k);
     }
 

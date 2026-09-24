@@ -19,7 +19,6 @@ import type {
   GenerationListListMatch,
 } from '../CarbonIntensityTypes'
 
-// TODO: needs Entity superclass
 class GenerationListEntity extends CarbonIntensityEntityBase<GenerationList> {
 
   constructor(client: CarbonIntensitySDK, entopts: any) {

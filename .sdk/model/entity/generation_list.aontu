@@ -1,0 +1,84 @@
+# Entity: generation_list
+
+main: kit: entity: generation_list: {
+
+  alias: field: {}
+
+  fields: {
+    from: {
+      fo: "date-time"
+      h: "From"
+      n: "from"
+      r: false
+      t: "`$STRING`"
+    }
+    generationmix: {
+      h: "Generationmix"
+      n: "generationmix"
+      r: false
+      t: "`$ARRAY`"
+    }
+    to: {
+      fo: "date-time"
+      h: "To"
+      n: "to"
+      r: false
+      t: "`$STRING`"
+    }
+  }
+
+  name: "generation_list"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          co: {
+            id: "GET /generation/{from}/pt24h"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                k: "param"
+                n: "from"
+                or: "from"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/generation/{from}/pt24h"
+          q: {
+            exist: [
+              "from"
+            ]
+          }
+          s: [
+            {
+              lit: "generation"
+            }
+            {
+              var: "from"
+            }
+            {
+              lit: "pt24h"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body.data`"
+          }
+        }
+      ]
+    }
+  }
+
+
+  relations: ancestors: [
+    [path("$.main.kit.entity.generation")]
+  ]
+
+}

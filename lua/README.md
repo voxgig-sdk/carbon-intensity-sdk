@@ -43,18 +43,18 @@ local generations, err = client:Generation():list()
 if err then error(err) end
 
 for _, item in ipairs(generations) do
-  print(item["id"], item["from"])
+  print(item["id"])
 end
 ```
 
-### 3. Load a generation
+### 3. Load an intensitylist
 
-Generation is nested under from, so provide the `from`.
+IntensityList is nested under date, so provide the `date`.
 
 ```lua
-local generation, err = client:Generation():load({ from = "example_from", to = "example_to" })
+local intensitylist, err = client:IntensityList():load({ date = "example_date" })
 if err then error(err) end
-print(generation)
+print(intensitylist)
 ```
 
 

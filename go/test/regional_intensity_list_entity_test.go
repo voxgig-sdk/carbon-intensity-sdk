@@ -166,7 +166,7 @@ func regional_intensity_listBasicSetup(extra map[string]any) *entityTestSetup {
 
 	// Generate idmap via transform, matching TS pattern.
 	idmap, _ := vs.Transform(
-		[]any{"regional_intensity_list01", "regional_intensity_list02", "regional_intensity_list03", "intensity01", "intensity02", "intensity03", "postcode01", "postcode02", "postcode03", "regionid01", "regionid02", "regionid03", "from01"},
+		[]any{"regional_intensity_list01", "regional_intensity_list02", "regional_intensity_list03", "intensity01", "intensity02", "intensity03", "from01"},
 		map[string]any{
 			"`$PACK`": []any{"", map[string]any{
 				"`$KEY`": "`$COPY`",

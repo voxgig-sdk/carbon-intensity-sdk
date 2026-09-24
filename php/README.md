@@ -46,15 +46,15 @@ try {
 }
 ```
 
-### 3. Load a generation
+### 3. Load an intensitylist
 
-Generation is nested under from, so provide the `from`.
+IntensityList is nested under date, so provide the `date`.
 
 ```php
 try {
-    // load() returns the ENTITY — call data_get() for the Generation record (throws on error).
-    $generation = $client->Generation()->load(["from" => "example_from", "to" => "example_to"]);
-    print_r($generation->data_get());
+    // load() returns the ENTITY — call data_get() for the IntensityList record (throws on error).
+    $intensitylist = $client->IntensityList()->load(["date" => "example_date"]);
+    print_r($intensitylist->data_get());
 } catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
 }

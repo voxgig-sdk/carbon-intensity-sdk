@@ -1,0 +1,45 @@
+# BasicGenerationFlow
+
+main: kit: flow: BasicGenerationFlow:
+{
+  entity: "generation",
+  kind: "basic",
+  name: "BasicGenerationFlow",
+  step: [
+    {
+      o: "list",
+      v: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "generation_ref01"
+          }
+        }
+      ]
+    }
+
+    {
+      i: {
+        ref: "generation_ref01",
+        srcdatavar: "generation_ref01_data",
+        suffix: "_dt0"
+      }
+
+      m: {
+        from: "from01",
+        id: "generation01"
+      }
+
+      o: "load",
+      v: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-generation_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicGenerationFlow"
+}

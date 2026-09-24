@@ -1,7 +1,7 @@
 // Typed models for the CarbonIntensity SDK.
 //
-// GENERATED from the API model: main.kit.entity.<e>.fields[] and per-op
-// params (op.<name>.points[].args.params[]). Field/param types come from the
+// GENERATED from the API model: main.kit.entity.<e>.fields{} and per-op
+// params (op.<name>.points[].g.params[]). Field/param types come from the
 // canonical type sentinels via @voxgig/sdkgen canonToType (source of truth:
 // @voxgig/apidef VALID_CANON). Do not edit by hand.
 package entity
@@ -14,11 +14,6 @@ import (
 
 // Generation is the typed data model for the generation entity.
 type Generation struct {
-	Data *[]any `json:"data,omitempty"`
-	From *string `json:"from,omitempty"`
-	Generationmix *[]any `json:"generationmix,omitempty"`
-	Id *string `json:"id,omitempty"`
-	To *string `json:"to,omitempty"`
 }
 
 // GenerationLoadMatch is the typed request payload for Generation.LoadTyped.
@@ -38,9 +33,6 @@ type GenerationListMatch struct {
 
 // GenerationList is the typed data model for the generation_list entity.
 type GenerationList struct {
-	From *string `json:"from,omitempty"`
-	Generationmix *[]any `json:"generationmix,omitempty"`
-	To *string `json:"to,omitempty"`
 }
 
 // GenerationListListMatch is the typed request payload for GenerationList.ListTyped.
@@ -50,11 +42,6 @@ type GenerationListListMatch struct {
 
 // Intensity is the typed data model for the intensity entity.
 type Intensity struct {
-	Data *[]any `json:"data,omitempty"`
-	From *string `json:"from,omitempty"`
-	Id *string `json:"id,omitempty"`
-	Intensity *map[string]any `json:"intensity,omitempty"`
-	To *string `json:"to,omitempty"`
 }
 
 // IntensityLoadMatch is the typed request payload for Intensity.LoadTyped.
@@ -73,20 +60,6 @@ type IntensityListMatch struct {
 
 // IntensityFactor is the typed data model for the intensity_factor entity.
 type IntensityFactor struct {
-	Biomass *int `json:"Biomass,omitempty"`
-	Coal *int `json:"Coal,omitempty"`
-	DutchImports *int `json:"DutchImports,omitempty"`
-	FrenchImports *int `json:"FrenchImports,omitempty"`
-	GasCombinedCycle *int `json:"GasCombinedCycle,omitempty"`
-	GasOpenCycle *int `json:"GasOpenCycle,omitempty"`
-	Hydro *int `json:"Hydro,omitempty"`
-	IrishImports *int `json:"IrishImports,omitempty"`
-	Nuclear *int `json:"Nuclear,omitempty"`
-	Oil *int `json:"Oil,omitempty"`
-	Other *int `json:"Other,omitempty"`
-	PumpedStorage *int `json:"PumpedStorage,omitempty"`
-	Solar *int `json:"Solar,omitempty"`
-	Wind *int `json:"Wind,omitempty"`
 }
 
 // IntensityFactorListMatch is the typed request payload for IntensityFactor.ListTyped.
@@ -109,10 +82,6 @@ type IntensityFactorListMatch struct {
 
 // IntensityList is the typed data model for the intensity_list entity.
 type IntensityList struct {
-	Data *[]any `json:"data,omitempty"`
-	From *string `json:"from,omitempty"`
-	Intensity *map[string]any `json:"intensity,omitempty"`
-	To *string `json:"to,omitempty"`
 }
 
 // IntensityListLoadMatch is the typed request payload for IntensityList.LoadTyped.
@@ -130,11 +99,6 @@ type IntensityListListMatch struct {
 
 // Regional is the typed data model for the regional entity.
 type Regional struct {
-	Data *[]any `json:"data,omitempty"`
-	Dnoregion *string `json:"dnoregion,omitempty"`
-	Postcode *string `json:"postcode,omitempty"`
-	Regionid *int `json:"regionid,omitempty"`
-	Shortname *string `json:"shortname,omitempty"`
 }
 
 // RegionalListMatch is the typed request payload for Regional.ListTyped.
@@ -148,11 +112,6 @@ type RegionalListMatch struct {
 
 // RegionalIntensity is the typed data model for the regional_intensity entity.
 type RegionalIntensity struct {
-	Data *[]any `json:"data,omitempty"`
-	Dnoregion *string `json:"dnoregion,omitempty"`
-	Postcode *string `json:"postcode,omitempty"`
-	Regionid *int `json:"regionid,omitempty"`
-	Shortname *string `json:"shortname,omitempty"`
 }
 
 // RegionalIntensityLoadMatch is the typed request payload for RegionalIntensity.LoadTyped.
@@ -171,12 +130,6 @@ type RegionalIntensityListMatch struct {
 
 // RegionalIntensityList is the typed data model for the regional_intensity_list entity.
 type RegionalIntensityList struct {
-	Data *[]any `json:"data,omitempty"`
-	Dnoregion *string `json:"dnoregion,omitempty"`
-	Id *string `json:"id,omitempty"`
-	Postcode *string `json:"postcode,omitempty"`
-	Regionid *int `json:"regionid,omitempty"`
-	Shortname *string `json:"shortname,omitempty"`
 }
 
 // RegionalIntensityListLoadMatch is the typed request payload for RegionalIntensityList.LoadTyped.
@@ -192,8 +145,6 @@ type RegionalIntensityListListMatch struct {
 
 // Stat is the typed data model for the stat entity.
 type Stat struct {
-	Data *[]any `json:"data,omitempty"`
-	Id *string `json:"id,omitempty"`
 }
 
 // StatLoadMatch is the typed request payload for Stat.LoadTyped.

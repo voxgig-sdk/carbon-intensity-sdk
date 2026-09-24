@@ -1,0 +1,224 @@
+# Entity: intensity
+
+main: kit: entity: intensity: {
+
+  alias: field: {}
+
+  fields: {
+    data: {
+      h: "Data"
+      n: "data"
+      r: false
+      t: "`$ARRAY`"
+    }
+    from: {
+      fo: "date-time"
+      h: "From"
+      n: "from"
+      r: false
+      sh: "Start datetime of the period"
+      t: "`$STRING`"
+    }
+    id: {
+      h: "Id"
+      n: "id"
+      r: false
+      t: "`$STRING`"
+    }
+    intensity: {
+      h: "Intensity"
+      n: "intensity"
+      r: false
+      t: "`$OBJECT`"
+    }
+    to: {
+      fo: "date-time"
+      h: "To"
+      n: "to"
+      r: false
+      sh: "End datetime of the period"
+      t: "`$STRING`"
+    }
+  }
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "intensity"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          co: {
+            id: "GET /intensity"
+            source: "openapi3"
+            version: 2
+          }
+          m: "GET"
+          o: "/intensity"
+          s: [
+            {
+              lit: "intensity"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body.data`"
+          }
+        }
+      ]
+    }
+    load: {
+      name: "load"
+      points: [
+        {
+          co: {
+            id: "GET /intensity/date/{date}/{period}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                k: "param"
+                n: "date"
+                or: "date"
+                r: true
+                t: "`$STRING`"
+              }
+              {
+                k: "param"
+                n: "period"
+                or: "period"
+                r: true
+                t: "`$INTEGER`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/intensity/date/{date}/{period}"
+          q: {
+            exist: [
+              "date"
+              "period"
+            ]
+          }
+          s: [
+            {
+              lit: "intensity"
+            }
+            {
+              lit: "date"
+            }
+            {
+              var: "date"
+            }
+            {
+              var: "period"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+        {
+          co: {
+            id: "GET /intensity/{from}/{to}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                k: "param"
+                n: "from"
+                or: "from"
+                r: true
+                t: "`$STRING`"
+              }
+              {
+                k: "param"
+                n: "to"
+                or: "to"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/intensity/{from}/{to}"
+          q: {
+            exist: [
+              "from"
+              "to"
+            ]
+          }
+          s: [
+            {
+              lit: "intensity"
+            }
+            {
+              var: "from"
+            }
+            {
+              var: "to"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+        {
+          co: {
+            id: "GET /intensity/{from}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                k: "param"
+                n: "id"
+                or: "from"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/intensity/{from}"
+          q: {
+            exist: [
+              "id"
+            ]
+          }
+          r: {
+            param: {
+              from: "id"
+            }
+          }
+          s: [
+            {
+              lit: "intensity"
+            }
+            {
+              var: "id"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

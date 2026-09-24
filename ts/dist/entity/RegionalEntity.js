@@ -2,7 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RegionalEntity = void 0;
 const CarbonIntensityEntityBase_1 = require("../CarbonIntensityEntityBase");
-// TODO: needs Entity superclass
 class RegionalEntity extends CarbonIntensityEntityBase_1.CarbonIntensityEntityBase {
     constructor(client, entopts) {
         super(client, entopts);

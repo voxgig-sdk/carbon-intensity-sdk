@@ -120,7 +120,7 @@ function regional_intensity_basic_setup(extra)
 
   -- Generate idmap via transform.
   local idmap = vs.transform(
-    { "regional_intensity01", "regional_intensity02", "regional_intensity03", "postcode01", "postcode02", "postcode03", "regionid01", "regionid02", "regionid03" },
+    { "regional_intensity01", "regional_intensity02", "regional_intensity03" },
     {
       ["`$PACK`"] = { "", {
         ["`$KEY`"] = "`$COPY`",
