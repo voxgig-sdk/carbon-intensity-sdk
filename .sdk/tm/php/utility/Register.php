@@ -37,6 +37,8 @@ require_once __DIR__ . '/TransformResponse.php';
 
 CarbonIntensityUtility::setRegistrar(function (CarbonIntensityUtility $u): void {
     $u->clean = [CarbonIntensityClean::class, 'call'];
+    $u->clean_add = [CarbonIntensityClean::class, 'add'];
+    $u->clean_explain = [CarbonIntensityDone::class, 'clean_explain'];
     $u->done = [CarbonIntensityDone::class, 'call'];
     $u->make_error = [CarbonIntensityMakeError::class, 'call'];
     $u->feature_add = [CarbonIntensityFeatureAdd::class, 'call'];

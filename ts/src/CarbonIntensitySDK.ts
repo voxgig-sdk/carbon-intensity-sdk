@@ -49,6 +49,12 @@ class CarbonIntensitySDK {
 
     this._options = this._utility.makeOptions(this._rootctx)
 
+    for (const key of ['_options', '_rootctx', '_features']) {
+      Object.defineProperty(this, key, {
+        value: (this as any)[key], enumerable: false, writable: true, configurable: true
+      })
+    }
+
     const struct = this._utility.struct
     const getpath = struct.getpath
 
@@ -208,7 +214,7 @@ class CarbonIntensitySDK {
         return { ok: false, err: ctx.error('direct_no_response', 'response: undefined') }
       }
       else if (fetched instanceof Error) {
-        return { ok: false, err: fetched }
+        return { ok: false, err: utility.clean(ctx, fetched) }
       }
 
       const status = fetched.status
@@ -242,7 +248,7 @@ class CarbonIntensitySDK {
       }
     }
     catch (err: any) {
-      return { ok: false, err }
+      return { ok: false, err: utility.clean(ctx, err) }
     }
   }
 

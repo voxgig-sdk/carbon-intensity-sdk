@@ -1,6 +1,7 @@
 package core
 
 import (
+	"encoding/json"
 	"fmt"
 	"strings"
 
@@ -82,6 +83,22 @@ func NewCarbonIntensitySDK(options map[string]any) *CarbonIntensitySDK {
 	sdk.utility.FeatureHook(sdk.rootctx, "PostConstruct")
 
 	return sdk
+}
+
+// The client holds the credential in its options, so a print or a JSON dump
+// carries the name alone. Value receivers: a dereferenced client prints the
+// same way.
+func (sdk CarbonIntensitySDK) String() string {
+	return "CarbonIntensity " + vs.Jsonify(map[string]any{"name": "CarbonIntensity"},
+		map[string]any{"indent": 0})
+}
+
+func (sdk CarbonIntensitySDK) GoString() string {
+	return sdk.String()
+}
+
+func (sdk CarbonIntensitySDK) MarshalJSON() ([]byte, error) {
+	return json.Marshal(map[string]any{"name": "CarbonIntensity"})
 }
 
 func (sdk *CarbonIntensitySDK) OptionsMap() map[string]any {
@@ -210,7 +227,7 @@ func (sdk *CarbonIntensitySDK) rawRequest(fetchargs map[string]any) (map[string]
 
 	fetchdef, err := sdk.Prepare(fetchargs)
 	if err != nil {
-		return map[string]any{"ok": false, "err": err}, nil
+		return map[string]any{"ok": false, "err": sdk.cleanErr(sdk.rootctx, err)}, nil
 	}
 
 	if fetchargs == nil {
@@ -236,7 +253,7 @@ func (sdk *CarbonIntensitySDK) rawRequest(fetchargs map[string]any) (map[string]
 	fetched, fetchErr := utility.Fetcher(ctx, url, fetchdef)
 
 	if fetchErr != nil {
-		return map[string]any{"ok": false, "err": fetchErr}, nil
+		return map[string]any{"ok": false, "err": sdk.cleanErr(ctx, fetchErr)}, nil
 	}
 
 	if fetched == nil {
@@ -278,6 +295,14 @@ func (sdk *CarbonIntensitySDK) rawRequest(fetchargs map[string]any) (map[string]
 	}
 
 	return map[string]any{"ok": false, "err": ctx.MakeError("direct_invalid", "invalid response type")}, nil
+}
+
+// A raw request returns its error rather than passing it through MakeError.
+func (sdk *CarbonIntensitySDK) cleanErr(ctx *Context, err error) error {
+	if cleaned, ok := sdk.utility.Clean(ctx, err).(error); ok {
+		return cleaned
+	}
+	return err
 }
 
 func (sdk *CarbonIntensitySDK) Graphql(

@@ -33,6 +33,8 @@ require_relative 'transform_response'
 
 CarbonIntensityUtility.registrar = ->(u) {
   u.clean = CarbonIntensityUtilities::Clean
+  u.clean_add = CarbonIntensityUtilities::CleanAdd
+  u.clean_explain = CarbonIntensityUtilities::CleanExplain
   u.done = CarbonIntensityUtilities::Done
   u.make_error = CarbonIntensityUtilities::MakeError
   u.feature_add = CarbonIntensityUtilities::FeatureAdd
