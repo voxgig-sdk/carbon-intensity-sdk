@@ -30,8 +30,8 @@ main: kit: flow: BasicRegionalIntensityListFlow:
       }
 
       m: {
-        id: "regional_intensity_list01",
-        intensity_id: "intensity01"
+        from: "from01",
+        id: "regional_intensity_list01"
       }
 
       o: "load",

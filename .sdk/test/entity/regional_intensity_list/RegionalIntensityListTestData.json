@@ -9,7 +9,6 @@
         "regionid": 64,
         "shortname": "s41",
         "from": "FROM01",
-        "intensity_id": "INTENSITY01",
         "to": "TO01"
       },
       "REGIONAL_INTENSITY_LIST01": {
@@ -20,7 +19,6 @@
         "regionid": 124,
         "shortname": "s7d",
         "from": "FROM01",
-        "intensity_id": "INTENSITY01",
         "to": "TO01"
       },
       "REGIONAL_INTENSITY_LIST02": {
@@ -31,7 +29,6 @@
         "regionid": 184,
         "shortname": "sb9",
         "from": "FROM01",
-        "intensity_id": "INTENSITY01",
         "to": "TO01"
       }
     }
@@ -73,11 +70,6 @@
       "version": 2,
       "source": "openapi3"
     },
-    "GET /regional/intensity/{from}/{to}": {
-      "provenance": "operation-contract",
-      "version": 2,
-      "source": "openapi3"
-    },
     "GET /regional/intensity/{from}/fw24h/postcode/{postcode}": {
       "provenance": "operation-contract",
       "version": 2,
@@ -104,6 +96,11 @@
       "source": "openapi3"
     },
     "GET /regional/intensity/{from}/pt24h/regionid/{regionid}": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    },
+    "GET /regional/intensity/{from}/{to}": {
       "provenance": "operation-contract",
       "version": 2,
       "source": "openapi3"

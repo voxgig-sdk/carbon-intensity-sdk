@@ -16,7 +16,7 @@ go get github.com/voxgig-sdk/carbon-intensity-sdk/go@latest
 ```
 
 The Go module proxy resolves the version from the `go/vX.Y.Z` GitHub
-release tag — see [Releases](https://github.com/voxgig-sdk/carbon-intensity-sdk/releases) for the available versions.
+release tag — see [Tags](https://github.com/voxgig-sdk/carbon-intensity-sdk/tags) for the available versions.
 
 To vendor from a local checkout instead, clone this repo alongside your
 project and add a `replace` directive pointing at the checked-out
@@ -35,9 +35,10 @@ loading a specific record.
 ### Quickstart
 
 A complete program: create a client, then call the entity operations.
-Each operation returns `(value, error)` — the value is the data itself
-(there is no `{ok, data}` wrapper), so check `err` and use the value
-directly.
+Each operation returns `(value, error)` — the value is the entity, and for
+`List` a `[]any` of entities, one per record (there is no `{ok, data}`
+wrapper), so check `err` and read a record through the entity's
+`Data()`.
 
 ```go
 package main
@@ -50,21 +51,21 @@ import (
 func main() {
     client := sdk.New()
 
-    // List generation records — the value is the array of records itself.
+    // List generation records — the value is a []any of entities, one per record.
     generations, err := client.Generation(nil).List(nil, nil)
     if err != nil {
         panic(err)
     }
     for _, item := range generations.([]any) {
-        fmt.Println(item)
+        fmt.Println(item.(sdk.Entity).Data())
     }
 
-    // Load a single generation — the value is the loaded record.
+    // Load a single generation — the value is the entity; Data() reads its record.
     generation, err := client.Generation(nil).Load(map[string]any{"from": "example_from", "to": "example_to"}, nil)
     if err != nil {
         panic(err)
     }
-    fmt.Println(generation)
+    fmt.Println(generation.(sdk.Entity).Data())
 }
 ```
 
@@ -144,13 +145,16 @@ Create a mock client for unit testing — no server required:
 ```go
 client := sdk.Test()
 
-intensityList, err := client.IntensityList(nil).List(
+intensityLists, err := client.IntensityList(nil).List(
     nil, nil,
 )
 if err != nil {
     panic(err)
 }
-fmt.Println(intensityList) // the returned mock data
+// A []any of entities, one per mock record.
+for _, item := range intensityLists.([]any) {
+    fmt.Println(item.(sdk.Entity).Data())
+}
 ```
 
 ### Use a custom fetch function
@@ -243,8 +247,8 @@ All entities implement the `CarbonIntensityEntity` interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `Load` | `(reqmatch, ctrl map[string]any) (any, error)` | Load a single entity by match criteria. |
-| `List` | `(reqmatch, ctrl map[string]any) (any, error)` | List entities matching the criteria. |
+| `Load` | `(reqmatch, ctrl map[string]any) (any, error)` | Load a single entity by match criteria, and return it. |
+| `List` | `(reqmatch, ctrl map[string]any) (any, error)` | List entities matching the criteria, one per record. |
 | `Data` | `(args ...any) any` | Get or set entity data. |
 | `Match` | `(args ...any) any` | Get or set entity match criteria. |
 | `Make` | `() Entity` | Create a new instance with the same options. |
@@ -252,21 +256,21 @@ All entities implement the `CarbonIntensityEntity` interface.
 
 ### Result shape
 
-Entity operations return `(value, error)`. The `value` is the
-operation's data **directly** — there is no wrapper:
+Entity operations return `(value, error)`. The `value` is the entity
+itself — there is no wrapper:
 
 | Operation | `value` |
 | --- | --- |
-| `Load` | the entity record (`map[string]any`) |
-| `List` | a `[]any` of entity records |
+| `Load` | the entity, whose `Data()` reads its record (`map[string]any`) |
+| `List` | a `[]any` of entities, one per record |
 
 Check `err` first, then use the value directly (or the typed
 `...Typed` variants, which return the entity's model struct and a typed
 slice):
 
-    generation, err := client.Generation(nil).List(map[string]any{/* fields */}, nil)
+    generation, err := client.Generation(nil).List(nil, nil)
     if err != nil { /* handle */ }
-    // generation is the returned record
+    // generation is a []any of entities, one per record
 
 Only `Direct()` returns a response envelope — a `map[string]any` with
 `"ok"`, `"status"`, `"headers"`, and `"data"` keys.
@@ -436,7 +440,7 @@ generation, err := client.Generation(nil).Load(map[string]any{"from": "from", "t
 if err != nil {
     panic(err)
 }
-fmt.Println(generation) // the loaded record
+fmt.Println(generation.(sdk.Entity).Data()) // the loaded entity's record
 ```
 
 #### Example: List
@@ -446,7 +450,10 @@ generations, err := client.Generation(nil).List(nil, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(generations) // the array of records
+// A []any of entities, one per record.
+for _, item := range generations.([]any) {
+    fmt.Println(item.(sdk.Entity).Data())
+}
 ```
 
 
@@ -471,11 +478,14 @@ Create an instance: `generationList := client.GenerationList(nil)`
 #### Example: List
 
 ```go
-generationLists, err := client.GenerationList(nil).List(nil, nil)
+generationLists, err := client.GenerationList(nil).List(map[string]any{"from": "example"}, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(generationLists) // the array of records
+// A []any of entities, one per record.
+for _, item := range generationLists.([]any) {
+    fmt.Println(item.(sdk.Entity).Data())
+}
 ```
 
 
@@ -507,7 +517,7 @@ intensity, err := client.Intensity(nil).Load(map[string]any{"id": "intensity_id"
 if err != nil {
     panic(err)
 }
-fmt.Println(intensity) // the loaded record
+fmt.Println(intensity.(sdk.Entity).Data()) // the loaded entity's record
 ```
 
 #### Example: List
@@ -517,7 +527,10 @@ intensitys, err := client.Intensity(nil).List(nil, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(intensitys) // the array of records
+// A []any of entities, one per record.
+for _, item := range intensitys.([]any) {
+    fmt.Println(item.(sdk.Entity).Data())
+}
 ```
 
 
@@ -557,7 +570,10 @@ intensityFactors, err := client.IntensityFactor(nil).List(nil, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(intensityFactors) // the array of records
+// A []any of entities, one per record.
+for _, item := range intensityFactors.([]any) {
+    fmt.Println(item.(sdk.Entity).Data())
+}
 ```
 
 
@@ -588,7 +604,7 @@ intensityList, err := client.IntensityList(nil).Load(map[string]any{"date": "dat
 if err != nil {
     panic(err)
 }
-fmt.Println(intensityList) // the loaded record
+fmt.Println(intensityList.(sdk.Entity).Data()) // the loaded entity's record
 ```
 
 #### Example: List
@@ -598,7 +614,10 @@ intensityLists, err := client.IntensityList(nil).List(nil, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(intensityLists) // the array of records
+// A []any of entities, one per record.
+for _, item := range intensityLists.([]any) {
+    fmt.Println(item.(sdk.Entity).Data())
+}
 ```
 
 
@@ -629,7 +648,10 @@ regionals, err := client.Regional(nil).List(nil, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(regionals) // the array of records
+// A []any of entities, one per record.
+for _, item := range regionals.([]any) {
+    fmt.Println(item.(sdk.Entity).Data())
+}
 ```
 
 
@@ -661,7 +683,7 @@ regionalIntensity, err := client.RegionalIntensity(nil).Load(map[string]any{"pos
 if err != nil {
     panic(err)
 }
-fmt.Println(regionalIntensity) // the loaded record
+fmt.Println(regionalIntensity.(sdk.Entity).Data()) // the loaded entity's record
 ```
 
 #### Example: List
@@ -671,7 +693,10 @@ regionalIntensitys, err := client.RegionalIntensity(nil).List(nil, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(regionalIntensitys) // the array of records
+// A []any of entities, one per record.
+for _, item := range regionalIntensitys.([]any) {
+    fmt.Println(item.(sdk.Entity).Data())
+}
 ```
 
 
@@ -700,21 +725,24 @@ Create an instance: `regionalIntensityList := client.RegionalIntensityList(nil)`
 #### Example: Load
 
 ```go
-regionalIntensityList, err := client.RegionalIntensityList(nil).Load(map[string]any{"from": "from", "to": "to"}, nil)
+regionalIntensityList, err := client.RegionalIntensityList(nil).Load(map[string]any{"from": "from", "postcode": "postcode"}, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(regionalIntensityList) // the loaded record
+fmt.Println(regionalIntensityList.(sdk.Entity).Data()) // the loaded entity's record
 ```
 
 #### Example: List
 
 ```go
-regionalIntensityLists, err := client.RegionalIntensityList(nil).List(nil, nil)
+regionalIntensityLists, err := client.RegionalIntensityList(nil).List(map[string]any{"from": "example"}, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(regionalIntensityLists) // the array of records
+// A []any of entities, one per record.
+for _, item := range regionalIntensityLists.([]any) {
+    fmt.Println(item.(sdk.Entity).Data())
+}
 ```
 
 
@@ -742,7 +770,7 @@ stat, err := client.Stat(nil).Load(map[string]any{"from": "from", "to": "to"}, n
 if err != nil {
     panic(err)
 }
-fmt.Println(stat) // the loaded record
+fmt.Println(stat.(sdk.Entity).Data()) // the loaded entity's record
 ```
 
 ## Features
@@ -879,7 +907,9 @@ The Go SDK uses `map[string]any` throughout rather than typed structs.
 This mirrors the dynamic nature of the API and keeps the SDK
 flexible — no code generation is needed when the API schema changes.
 
-Use `core.ToMapAny()` to safely cast results and nested data.
+An operation returns the entity, and its `Data()` returns the record. Use
+`core.ToMapAny()` to safely cast that record, or data nested in it, to
+`map[string]any`: it returns `nil` for anything else, an entity included.
 
 ### Package structure
 

@@ -12,7 +12,7 @@ The SDK exposes the API as capitalised, semantic **Entities** — for example `$
 
 ## Install
 This package is not yet published to Packagist. Install it from the
-GitHub release tag (`php/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/carbon-intensity-sdk/releases)), or
+GitHub release tag (`php/vX.Y.Z`, see [Tags](https://github.com/voxgig-sdk/carbon-intensity-sdk/tags)), or
 from a clone as a Composer path repository:
 
 ```bash
@@ -246,8 +246,8 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `load` | `($reqmatch, $ctrl): array` | Load a single entity by match criteria. |
-| `list` | `(?array $reqmatch = null, $ctrl): array` | List entities matching the criteria (call with no argument to list all). |
+| `load` | `($reqmatch, $ctrl): mixed` | Load a single entity by match criteria, and return it. |
+| `list` | `(?array $reqmatch = null, $ctrl): mixed` | List entities matching the criteria (call with no argument to list all), one per record. |
 | `data_get` | `(): array` | Get entity data. |
 | `data_set` | `($data): void` | Set entity data. |
 | `match_get` | `(): array` | Get entity match criteria. |
@@ -257,9 +257,9 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the ENTITY (call data_get() for the record) (an `array` for single-entity
-ops, a `list` for `list`) and throw on error. Wrap calls in
-`try`/`catch` to handle failures.
+Entity operations return the entity, and `list` an `array` of entities, one
+per record; an entity's `data_get()` reads its record (an `array`). They
+throw on error, so wrap calls in `try`/`catch` to handle failures.
 
 The `direct()` escape hatch never throws — it returns a result `array`
 you branch on via `$result["ok"]`:
@@ -441,7 +441,7 @@ $generation = $client->Generation()->load(["from" => "from", "to" => "to"]);
 #### Example: List
 
 ```php
-// list() returns an array of Generation records (throws on error).
+// list() returns an array of Generation entities, one per record (throws on error).
 $generations = $client->Generation()->list();
 ```
 
@@ -467,8 +467,8 @@ Create an instance: `$generation_list = $client->GenerationList();`
 #### Example: List
 
 ```php
-// list() returns an array of GenerationList records (throws on error).
-$generation_lists = $client->GenerationList()->list();
+// list() returns an array of GenerationList entities, one per record (throws on error).
+$generation_lists = $client->GenerationList()->list(["from" => "example"]);
 ```
 
 
@@ -503,7 +503,7 @@ $intensity = $client->Intensity()->load(["id" => "intensity_id"]);
 #### Example: List
 
 ```php
-// list() returns an array of Intensity records (throws on error).
+// list() returns an array of Intensity entities, one per record (throws on error).
 $intensitys = $client->Intensity()->list();
 ```
 
@@ -540,7 +540,7 @@ Create an instance: `$intensity_factor = $client->IntensityFactor();`
 #### Example: List
 
 ```php
-// list() returns an array of IntensityFactor records (throws on error).
+// list() returns an array of IntensityFactor entities, one per record (throws on error).
 $intensity_factors = $client->IntensityFactor()->list();
 ```
 
@@ -575,7 +575,7 @@ $intensity_list = $client->IntensityList()->load(["date" => "date"]);
 #### Example: List
 
 ```php
-// list() returns an array of IntensityList records (throws on error).
+// list() returns an array of IntensityList entities, one per record (throws on error).
 $intensity_lists = $client->IntensityList()->list();
 ```
 
@@ -603,7 +603,7 @@ Create an instance: `$regional = $client->Regional();`
 #### Example: List
 
 ```php
-// list() returns an array of Regional records (throws on error).
+// list() returns an array of Regional entities, one per record (throws on error).
 $regionals = $client->Regional()->list();
 ```
 
@@ -639,7 +639,7 @@ $regional_intensity = $client->RegionalIntensity()->load(["postcode" => "postcod
 #### Example: List
 
 ```php
-// list() returns an array of RegionalIntensity records (throws on error).
+// list() returns an array of RegionalIntensity entities, one per record (throws on error).
 $regional_intensitys = $client->RegionalIntensity()->list();
 ```
 
@@ -670,14 +670,14 @@ Create an instance: `$regional_intensity_list = $client->RegionalIntensityList()
 
 ```php
 // load() returns the ENTITY — call data_get() for the RegionalIntensityList record (throws on error).
-$regional_intensity_list = $client->RegionalIntensityList()->load(["from" => "from", "to" => "to"]);
+$regional_intensity_list = $client->RegionalIntensityList()->load(["from" => "from", "postcode" => "postcode"]);
 ```
 
 #### Example: List
 
 ```php
-// list() returns an array of RegionalIntensityList records (throws on error).
-$regional_intensity_lists = $client->RegionalIntensityList()->list();
+// list() returns an array of RegionalIntensityList entities, one per record (throws on error).
+$regional_intensity_lists = $client->RegionalIntensityList()->list(["from" => "example"]);
 ```
 
 

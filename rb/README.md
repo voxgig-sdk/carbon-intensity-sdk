@@ -12,7 +12,7 @@ The SDK exposes the API as capitalised, semantic **Entities** — for example `c
 
 ## Install
 This package is not yet published to RubyGems. Install it from the
-GitHub release tag (`rb/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/carbon-intensity-sdk/releases)), or
+GitHub release tag (`rb/vX.Y.Z`, see [Tags](https://github.com/voxgig-sdk/carbon-intensity-sdk/tags)), or
 from a clone:
 
 ```bash
@@ -43,10 +43,11 @@ client = CarbonIntensitySDK.new
 
 ```ruby
 begin
-  # list returns an Array of Generation records — iterate directly.
+  # list returns an Array of Generation entities, one per record; data_get reads the record.
   generations = client.Generation.list
   generations.each do |item|
-    puts "#{item["id"]} #{item["data"]}"
+    record = item.data_get
+    puts "#{record["id"]} #{record["data"]}"
   end
 rescue => err
   warn "list failed: #{err}"
@@ -61,7 +62,7 @@ IntensityList is nested under date, so provide the `date`.
 begin
   # load returns the ENTITY — call data_get for the IntensityList record (raises on error).
   intensitylist = client.IntensityList.load({ "date" => "example_date" })
-  puts intensitylist
+  puts intensitylist.data_get
 rescue => err
   warn "load failed: #{err}"
 end
@@ -142,10 +143,10 @@ Create a mock client for unit testing — no server required:
 ```ruby
 client = CarbonIntensitySDK.test
 
-# Entity ops return the ENTITY (raises on error);
-# call data_get for the mock record.
-intensitylist = client.IntensityList.list()
-puts intensitylist
+# list returns an Array of IntensityList entities, one per mock record (raises on
+# error); data_get reads each record.
+intensitylists = client.IntensityList.list()
+intensitylists.each { |item| puts item.data_get }
 ```
 
 ### Use a custom fetch function
@@ -237,8 +238,8 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `load` | `(reqmatch, ctrl) -> any` | Load a single entity by match criteria. Raises on error. |
-| `list` | `(reqmatch = nil, ctrl) -> Array` | List entities matching the criteria (call with no argument to list all). Raises on error. |
+| `load` | `(reqmatch, ctrl) -> any` | Load a single entity by match criteria, and return it. Raises on error. |
+| `list` | `(reqmatch = nil, ctrl) -> Array` | List entities matching the criteria (call with no argument to list all), one per record. Raises on error. |
 | `data_get` | `() -> Hash` | Get entity data. |
 | `data_set` | `(data)` | Set entity data. |
 | `match_get` | `() -> Hash` | Get entity match criteria. |
@@ -248,9 +249,10 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the result data directly. On failure they
-raise a `CarbonIntensityError` (a `StandardError` subclass), so wrap
-calls in `begin`/`rescue` where you need to handle errors.
+Entity operations return the entity, and `list` an `Array` of entities, one
+per record; an entity's `data_get` reads its record. On failure they raise a
+`CarbonIntensityError` (a `StandardError` subclass), so wrap calls in
+`begin`/`rescue` where you need to handle errors.
 
 The `direct` escape hatch is the exception: it never raises and instead
 returns a result `Hash` with these keys:
@@ -431,8 +433,9 @@ generation = client.Generation.load({ "from" => "from", "to" => "to" })
 #### Example: List
 
 ```ruby
-# list returns an Array of Generation records (raises on error).
+# list returns an Array of Generation entities, one per record (raises on error).
 generations = client.Generation.list
+generations.each { |item| puts item.data_get }
 ```
 
 
@@ -457,8 +460,9 @@ Create an instance: `generation_list = client.GenerationList`
 #### Example: List
 
 ```ruby
-# list returns an Array of GenerationList records (raises on error).
-generation_lists = client.GenerationList.list
+# list returns an Array of GenerationList entities, one per record (raises on error).
+generation_lists = client.GenerationList.list({ "from" => "example" })
+generation_lists.each { |item| puts item.data_get }
 ```
 
 
@@ -493,8 +497,9 @@ intensity = client.Intensity.load({ "id" => "intensity_id" })
 #### Example: List
 
 ```ruby
-# list returns an Array of Intensity records (raises on error).
+# list returns an Array of Intensity entities, one per record (raises on error).
 intensitys = client.Intensity.list
+intensitys.each { |item| puts item.data_get }
 ```
 
 
@@ -530,8 +535,9 @@ Create an instance: `intensity_factor = client.IntensityFactor`
 #### Example: List
 
 ```ruby
-# list returns an Array of IntensityFactor records (raises on error).
+# list returns an Array of IntensityFactor entities, one per record (raises on error).
 intensity_factors = client.IntensityFactor.list
+intensity_factors.each { |item| puts item.data_get }
 ```
 
 
@@ -565,8 +571,9 @@ intensity_list = client.IntensityList.load({ "date" => "date" })
 #### Example: List
 
 ```ruby
-# list returns an Array of IntensityList records (raises on error).
+# list returns an Array of IntensityList entities, one per record (raises on error).
 intensity_lists = client.IntensityList.list
+intensity_lists.each { |item| puts item.data_get }
 ```
 
 
@@ -593,8 +600,9 @@ Create an instance: `regional = client.Regional`
 #### Example: List
 
 ```ruby
-# list returns an Array of Regional records (raises on error).
+# list returns an Array of Regional entities, one per record (raises on error).
 regionals = client.Regional.list
+regionals.each { |item| puts item.data_get }
 ```
 
 
@@ -629,8 +637,9 @@ regional_intensity = client.RegionalIntensity.load({ "postcode" => "postcode" })
 #### Example: List
 
 ```ruby
-# list returns an Array of RegionalIntensity records (raises on error).
+# list returns an Array of RegionalIntensity entities, one per record (raises on error).
 regional_intensitys = client.RegionalIntensity.list
+regional_intensitys.each { |item| puts item.data_get }
 ```
 
 
@@ -660,14 +669,15 @@ Create an instance: `regional_intensity_list = client.RegionalIntensityList`
 
 ```ruby
 # load returns the ENTITY — call data_get for the RegionalIntensityList record (raises on error).
-regional_intensity_list = client.RegionalIntensityList.load({ "from" => "from", "to" => "to" })
+regional_intensity_list = client.RegionalIntensityList.load({ "from" => "from", "postcode" => "postcode" })
 ```
 
 #### Example: List
 
 ```ruby
-# list returns an Array of RegionalIntensityList records (raises on error).
-regional_intensity_lists = client.RegionalIntensityList.list
+# list returns an Array of RegionalIntensityList entities, one per record (raises on error).
+regional_intensity_lists = client.RegionalIntensityList.list({ "from" => "example" })
+regional_intensity_lists.each { |item| puts item.data_get }
 ```
 
 

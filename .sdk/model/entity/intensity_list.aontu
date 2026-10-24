@@ -64,6 +64,10 @@ main: kit: entity: intensity_list: {
               "from"
             ]
           }
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
           s: [
             {
               lit: "intensity"
@@ -103,6 +107,10 @@ main: kit: entity: intensity_list: {
             exist: [
               "from"
             ]
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {
@@ -144,6 +152,10 @@ main: kit: entity: intensity_list: {
               "from"
             ]
           }
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
           s: [
             {
               lit: "intensity"
@@ -168,6 +180,10 @@ main: kit: entity: intensity_list: {
           }
           m: "GET"
           o: "/intensity/date"
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
           s: [
             {
               lit: "intensity"
@@ -209,6 +225,10 @@ main: kit: entity: intensity_list: {
             exist: [
               "date"
             ]
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {

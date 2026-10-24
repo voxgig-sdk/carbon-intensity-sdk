@@ -66,6 +66,10 @@ main: kit: entity: generation: {
           }
           m: "GET"
           o: "/generation"
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
           s: [
             {
               lit: "generation"
@@ -112,6 +116,10 @@ main: kit: entity: generation: {
               "from"
               "to"
             ]
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {

@@ -59,6 +59,10 @@ main: kit: entity: intensity: {
           }
           m: "GET"
           o: "/intensity"
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
           s: [
             {
               lit: "intensity"
@@ -105,6 +109,10 @@ main: kit: entity: intensity: {
               "date"
               "period"
             ]
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {
@@ -157,6 +165,10 @@ main: kit: entity: intensity: {
               "to"
             ]
           }
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
           s: [
             {
               lit: "intensity"
@@ -201,6 +213,10 @@ main: kit: entity: intensity: {
             param: {
               from: "id"
             }
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {

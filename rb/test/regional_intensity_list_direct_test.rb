@@ -6,6 +6,17 @@ require_relative "../CarbonIntensity_sdk"
 require_relative "runner"
 
 class RegionalIntensityListDirectTest < Minitest::Test
+  # main.kit.test.live.strict is true (the default is true): a live
+  # request that fails, or a live test missing an input it needs,
+  # fails the test.
+  # An account with no record for a test to read skips it either way.
+  LIVE_STRICT = true
+
+  def live_ok(result)
+    status = Helpers.to_int(result["status"])
+    result["err"].nil? && result["ok"] && status >= 200 && status < 300
+  end
+
   def test_direct_list_regional_intensity_list
     setup = regional_intensity_list_direct_setup([
       { "id" => "direct01" },
@@ -19,19 +30,14 @@ class RegionalIntensityListDirectTest < Minitest::Test
     if setup[:live]
       ["from01"].each do |_live_key|
         if setup[:idmap][_live_key].nil?
-          skip "live test needs #{_live_key} via *_ENTID env var (synthetic IDs only)"
-          return
+          Runner.live_miss(LIVE_STRICT, "Live test blocked: needs #{_live_key} via CARBON_INTENSITY_TEST_REGIONAL_INTENSITY_LIST_ENTID")
         end
       end
     end
     client = setup[:client]
 
     params = {}
-    if setup[:live]
-      params["from"] = setup[:idmap]["from01"]
-    else
-      params["from"] = "direct01"
-    end
+    params["from"] = setup[:live] ? setup[:idmap]["from01"] : "direct01"
 
     result = client.direct({
       "path" => "regional/intensity/{from}/fw24h",
@@ -39,22 +45,13 @@ class RegionalIntensityListDirectTest < Minitest::Test
       "params" => params,
     })
     if setup[:live]
-      # Live mode is lenient: synthetic IDs frequently 4xx and the list-
-      # response shape varies wildly across public APIs. Skip rather than
-      # fail when the call doesn't return a usable list.
-      if !result["err"].nil?
-        skip("list call failed (likely synthetic IDs against live API): #{result["err"]}")
-        return
+      unless live_ok(result)
+        Runner.live_miss(LIVE_STRICT, "Live list failed: " + Runner.live_describe(result))
       end
-      unless result["ok"]
-        skip("list call not ok (likely synthetic IDs against live API)")
-        return
+      if Runner.live_list(result["data"]).nil?
+        Runner.live_miss(LIVE_STRICT, "Live list returned no list: " + Runner.live_describe(result))
       end
-      status = Helpers.to_int(result["status"])
-      if status < 200 || status >= 300
-        skip("expected 2xx status, got #{status}")
-        return
-      end
+      assert Runner.live_list(result["data"]).is_a?(Array)
     else
       assert_nil result["err"]
       assert result["ok"]
@@ -73,42 +70,60 @@ class RegionalIntensityListDirectTest < Minitest::Test
       return
     end
     if setup[:live]
-      skip "live direct-load needs real ID — set *_ENTID env var with real IDs to run"
-      return
+      ["from01", "postcode01", "to01"].each do |_live_key|
+        if setup[:idmap][_live_key].nil?
+          Runner.live_miss(LIVE_STRICT, "Live test blocked: needs #{_live_key} via CARBON_INTENSITY_TEST_REGIONAL_INTENSITY_LIST_ENTID")
+        end
+      end
     end
     client = setup[:client]
 
     params = {}
     query = {}
-    unless setup[:live]
-      params["intensity_id"] = "direct01"
+    if setup[:live]
+      list_result = client.direct({
+        "path" => "regional/intensity/{from}/fw24h",
+        "method" => "GET",
+        "params" => {"from" => setup[:idmap]["from01"]},
+      })
+      unless live_ok(list_result)
+        Runner.live_miss(LIVE_STRICT, "Live list discovery failed: " + Runner.live_describe(list_result))
+      end
+      records = Runner.live_list(list_result["data"])
+      if records.nil?
+        Runner.live_miss(LIVE_STRICT, "Live list discovery returned no list: " + Runner.live_describe(list_result))
+      end
+      if records.empty?
+        Runner.live_empty("The account has no regional_intensity_list record to load")
+      end
+      first = records[0].is_a?(Hash) ? records[0] : {}
+      found = first.fetch("from", first["id"])
+      if found.nil?
+        Runner.live_miss(LIVE_STRICT, "Live load blocked: discovery returned no usable identity")
+      end
+      params["from"] = found
+      params["postcode"] = setup[:idmap]["postcode01"]
+      params["to"] = setup[:idmap]["to01"]
+    else
+      params["from"] = "direct01"
       params["postcode"] = "direct02"
       params["to"] = "direct03"
     end
 
     result = client.direct({
-      "path" => "regional/intensity/{intensity_id}/{to}/postcode/{postcode}",
+      "path" => "regional/intensity/{from}/{to}/postcode/{postcode}",
       "method" => "GET",
       "params" => params,
       "query" => query,
     })
     if setup[:live]
-      # Live mode is lenient: synthetic IDs frequently 4xx. Skip rather
-      # than fail when the load endpoint isn't reachable with the IDs
-      # we can construct from setup.idmap.
-      if !result["err"].nil?
-        skip("load call failed (likely synthetic IDs against live API): #{result["err"]}")
-        return
+      unless live_ok(result)
+        Runner.live_miss(LIVE_STRICT, "Live load failed: " + Runner.live_describe(result))
       end
-      unless result["ok"]
-        skip("load call not ok (likely synthetic IDs against live API)")
-        return
+      if result["data"].nil?
+        Runner.live_miss(LIVE_STRICT, "Live load returned no data: " + Runner.live_describe(result))
       end
-      status = Helpers.to_int(result["status"])
-      if status < 200 || status >= 300
-        skip("expected 2xx status, got #{status}")
-        return
-      end
+      assert !result["data"].nil?
     else
       assert_nil result["err"]
       assert result["ok"]
@@ -142,11 +157,12 @@ def regional_intensity_list_direct_setup(mockres)
     merged_opts = Runner.live_client_options.merge({
     })
     client = CarbonIntensitySDK.new(merged_opts)
+    idmap = env["CARBON_INTENSITY_TEST_REGIONAL_INTENSITY_LIST_ENTID"]
     return {
       client: client,
       calls: calls,
       live: true,
-      idmap: {},
+      idmap: idmap.is_a?(Hash) ? idmap : {},
     }
   end
 

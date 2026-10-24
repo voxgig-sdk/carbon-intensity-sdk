@@ -86,6 +86,10 @@ main: kit: entity: regional_intensity_list: {
               "from"
             ]
           }
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
           s: [
             {
               lit: "regional"
@@ -128,6 +132,10 @@ main: kit: entity: regional_intensity_list: {
             exist: [
               "from"
             ]
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {
@@ -172,6 +180,10 @@ main: kit: entity: regional_intensity_list: {
               "from"
             ]
           }
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
           s: [
             {
               lit: "regional"
@@ -206,7 +218,7 @@ main: kit: entity: regional_intensity_list: {
             params: [
               {
                 k: "param"
-                n: "intensity_id"
+                n: "from"
                 or: "from"
                 r: true
                 t: "`$STRING`"
@@ -231,15 +243,14 @@ main: kit: entity: regional_intensity_list: {
           o: "/regional/intensity/{from}/{to}/postcode/{postcode}"
           q: {
             exist: [
-              "intensity_id"
+              "from"
               "postcode"
               "to"
             ]
           }
-          r: {
-            param: {
-              from: "intensity_id"
-            }
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {
@@ -249,7 +260,7 @@ main: kit: entity: regional_intensity_list: {
               lit: "intensity"
             }
             {
-              var: "intensity_id"
+              var: "from"
             }
             {
               var: "to"
@@ -276,7 +287,7 @@ main: kit: entity: regional_intensity_list: {
             params: [
               {
                 k: "param"
-                n: "intensity_id"
+                n: "from"
                 or: "from"
                 r: true
                 t: "`$STRING`"
@@ -301,15 +312,14 @@ main: kit: entity: regional_intensity_list: {
           o: "/regional/intensity/{from}/{to}/regionid/{regionid}"
           q: {
             exist: [
-              "intensity_id"
+              "from"
               "regionid"
               "to"
             ]
           }
-          r: {
-            param: {
-              from: "intensity_id"
-            }
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {
@@ -319,10 +329,376 @@ main: kit: entity: regional_intensity_list: {
               lit: "intensity"
             }
             {
-              var: "intensity_id"
+              var: "from"
             }
             {
               var: "to"
+            }
+            {
+              lit: "regionid"
+            }
+            {
+              var: "regionid"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+        {
+          co: {
+            id: "GET /regional/intensity/{from}/fw24h/postcode/{postcode}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                k: "param"
+                n: "from"
+                or: "from"
+                r: true
+                t: "`$STRING`"
+              }
+              {
+                k: "param"
+                n: "postcode"
+                or: "postcode"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/regional/intensity/{from}/fw24h/postcode/{postcode}"
+          q: {
+            exist: [
+              "from"
+              "postcode"
+            ]
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
+          s: [
+            {
+              lit: "regional"
+            }
+            {
+              lit: "intensity"
+            }
+            {
+              var: "from"
+            }
+            {
+              lit: "fw24h"
+            }
+            {
+              lit: "postcode"
+            }
+            {
+              var: "postcode"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+        {
+          co: {
+            id: "GET /regional/intensity/{from}/fw48h/postcode/{postcode}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                k: "param"
+                n: "from"
+                or: "from"
+                r: true
+                t: "`$STRING`"
+              }
+              {
+                k: "param"
+                n: "postcode"
+                or: "postcode"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/regional/intensity/{from}/fw48h/postcode/{postcode}"
+          q: {
+            exist: [
+              "from"
+              "postcode"
+            ]
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
+          s: [
+            {
+              lit: "regional"
+            }
+            {
+              lit: "intensity"
+            }
+            {
+              var: "from"
+            }
+            {
+              lit: "fw48h"
+            }
+            {
+              lit: "postcode"
+            }
+            {
+              var: "postcode"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+        {
+          co: {
+            id: "GET /regional/intensity/{from}/pt24h/postcode/{postcode}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                k: "param"
+                n: "from"
+                or: "from"
+                r: true
+                t: "`$STRING`"
+              }
+              {
+                k: "param"
+                n: "postcode"
+                or: "postcode"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/regional/intensity/{from}/pt24h/postcode/{postcode}"
+          q: {
+            exist: [
+              "from"
+              "postcode"
+            ]
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
+          s: [
+            {
+              lit: "regional"
+            }
+            {
+              lit: "intensity"
+            }
+            {
+              var: "from"
+            }
+            {
+              lit: "pt24h"
+            }
+            {
+              lit: "postcode"
+            }
+            {
+              var: "postcode"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+        {
+          co: {
+            id: "GET /regional/intensity/{from}/fw24h/regionid/{regionid}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                k: "param"
+                n: "from"
+                or: "from"
+                r: true
+                t: "`$STRING`"
+              }
+              {
+                k: "param"
+                n: "regionid"
+                or: "regionid"
+                r: true
+                t: "`$INTEGER`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/regional/intensity/{from}/fw24h/regionid/{regionid}"
+          q: {
+            exist: [
+              "from"
+              "regionid"
+            ]
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
+          s: [
+            {
+              lit: "regional"
+            }
+            {
+              lit: "intensity"
+            }
+            {
+              var: "from"
+            }
+            {
+              lit: "fw24h"
+            }
+            {
+              lit: "regionid"
+            }
+            {
+              var: "regionid"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+        {
+          co: {
+            id: "GET /regional/intensity/{from}/fw48h/regionid/{regionid}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                k: "param"
+                n: "from"
+                or: "from"
+                r: true
+                t: "`$STRING`"
+              }
+              {
+                k: "param"
+                n: "regionid"
+                or: "regionid"
+                r: true
+                t: "`$INTEGER`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/regional/intensity/{from}/fw48h/regionid/{regionid}"
+          q: {
+            exist: [
+              "from"
+              "regionid"
+            ]
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
+          s: [
+            {
+              lit: "regional"
+            }
+            {
+              lit: "intensity"
+            }
+            {
+              var: "from"
+            }
+            {
+              lit: "fw48h"
+            }
+            {
+              lit: "regionid"
+            }
+            {
+              var: "regionid"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+        {
+          co: {
+            id: "GET /regional/intensity/{from}/pt24h/regionid/{regionid}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                k: "param"
+                n: "from"
+                or: "from"
+                r: true
+                t: "`$STRING`"
+              }
+              {
+                k: "param"
+                n: "regionid"
+                or: "regionid"
+                r: true
+                t: "`$INTEGER`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/regional/intensity/{from}/pt24h/regionid/{regionid}"
+          q: {
+            exist: [
+              "from"
+              "regionid"
+            ]
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
+          s: [
+            {
+              lit: "regional"
+            }
+            {
+              lit: "intensity"
+            }
+            {
+              var: "from"
+            }
+            {
+              lit: "pt24h"
             }
             {
               lit: "regionid"
@@ -368,6 +744,10 @@ main: kit: entity: regional_intensity_list: {
               "to"
             ]
           }
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
           s: [
             {
               lit: "regional"
@@ -380,378 +760,6 @@ main: kit: entity: regional_intensity_list: {
             }
             {
               var: "to"
-            }
-          ]
-          t: {
-            req: "`reqdata`"
-            res: "`body`"
-          }
-        }
-        {
-          co: {
-            id: "GET /regional/intensity/{from}/fw24h/postcode/{postcode}"
-            source: "openapi3"
-            version: 2
-          }
-          g: {
-            params: [
-              {
-                k: "param"
-                n: "intensity_id"
-                or: "from"
-                r: true
-                t: "`$STRING`"
-              }
-              {
-                k: "param"
-                n: "postcode"
-                or: "postcode"
-                r: true
-                t: "`$STRING`"
-              }
-            ]
-          }
-          m: "GET"
-          o: "/regional/intensity/{from}/fw24h/postcode/{postcode}"
-          q: {
-            exist: [
-              "intensity_id"
-              "postcode"
-            ]
-          }
-          r: {
-            param: {
-              from: "intensity_id"
-            }
-          }
-          s: [
-            {
-              lit: "regional"
-            }
-            {
-              lit: "intensity"
-            }
-            {
-              var: "intensity_id"
-            }
-            {
-              lit: "fw24h"
-            }
-            {
-              lit: "postcode"
-            }
-            {
-              var: "postcode"
-            }
-          ]
-          t: {
-            req: "`reqdata`"
-            res: "`body`"
-          }
-        }
-        {
-          co: {
-            id: "GET /regional/intensity/{from}/fw48h/postcode/{postcode}"
-            source: "openapi3"
-            version: 2
-          }
-          g: {
-            params: [
-              {
-                k: "param"
-                n: "intensity_id"
-                or: "from"
-                r: true
-                t: "`$STRING`"
-              }
-              {
-                k: "param"
-                n: "postcode"
-                or: "postcode"
-                r: true
-                t: "`$STRING`"
-              }
-            ]
-          }
-          m: "GET"
-          o: "/regional/intensity/{from}/fw48h/postcode/{postcode}"
-          q: {
-            exist: [
-              "intensity_id"
-              "postcode"
-            ]
-          }
-          r: {
-            param: {
-              from: "intensity_id"
-            }
-          }
-          s: [
-            {
-              lit: "regional"
-            }
-            {
-              lit: "intensity"
-            }
-            {
-              var: "intensity_id"
-            }
-            {
-              lit: "fw48h"
-            }
-            {
-              lit: "postcode"
-            }
-            {
-              var: "postcode"
-            }
-          ]
-          t: {
-            req: "`reqdata`"
-            res: "`body`"
-          }
-        }
-        {
-          co: {
-            id: "GET /regional/intensity/{from}/pt24h/postcode/{postcode}"
-            source: "openapi3"
-            version: 2
-          }
-          g: {
-            params: [
-              {
-                k: "param"
-                n: "intensity_id"
-                or: "from"
-                r: true
-                t: "`$STRING`"
-              }
-              {
-                k: "param"
-                n: "postcode"
-                or: "postcode"
-                r: true
-                t: "`$STRING`"
-              }
-            ]
-          }
-          m: "GET"
-          o: "/regional/intensity/{from}/pt24h/postcode/{postcode}"
-          q: {
-            exist: [
-              "intensity_id"
-              "postcode"
-            ]
-          }
-          r: {
-            param: {
-              from: "intensity_id"
-            }
-          }
-          s: [
-            {
-              lit: "regional"
-            }
-            {
-              lit: "intensity"
-            }
-            {
-              var: "intensity_id"
-            }
-            {
-              lit: "pt24h"
-            }
-            {
-              lit: "postcode"
-            }
-            {
-              var: "postcode"
-            }
-          ]
-          t: {
-            req: "`reqdata`"
-            res: "`body`"
-          }
-        }
-        {
-          co: {
-            id: "GET /regional/intensity/{from}/fw24h/regionid/{regionid}"
-            source: "openapi3"
-            version: 2
-          }
-          g: {
-            params: [
-              {
-                k: "param"
-                n: "intensity_id"
-                or: "from"
-                r: true
-                t: "`$STRING`"
-              }
-              {
-                k: "param"
-                n: "regionid"
-                or: "regionid"
-                r: true
-                t: "`$INTEGER`"
-              }
-            ]
-          }
-          m: "GET"
-          o: "/regional/intensity/{from}/fw24h/regionid/{regionid}"
-          q: {
-            exist: [
-              "intensity_id"
-              "regionid"
-            ]
-          }
-          r: {
-            param: {
-              from: "intensity_id"
-            }
-          }
-          s: [
-            {
-              lit: "regional"
-            }
-            {
-              lit: "intensity"
-            }
-            {
-              var: "intensity_id"
-            }
-            {
-              lit: "fw24h"
-            }
-            {
-              lit: "regionid"
-            }
-            {
-              var: "regionid"
-            }
-          ]
-          t: {
-            req: "`reqdata`"
-            res: "`body`"
-          }
-        }
-        {
-          co: {
-            id: "GET /regional/intensity/{from}/fw48h/regionid/{regionid}"
-            source: "openapi3"
-            version: 2
-          }
-          g: {
-            params: [
-              {
-                k: "param"
-                n: "intensity_id"
-                or: "from"
-                r: true
-                t: "`$STRING`"
-              }
-              {
-                k: "param"
-                n: "regionid"
-                or: "regionid"
-                r: true
-                t: "`$INTEGER`"
-              }
-            ]
-          }
-          m: "GET"
-          o: "/regional/intensity/{from}/fw48h/regionid/{regionid}"
-          q: {
-            exist: [
-              "intensity_id"
-              "regionid"
-            ]
-          }
-          r: {
-            param: {
-              from: "intensity_id"
-            }
-          }
-          s: [
-            {
-              lit: "regional"
-            }
-            {
-              lit: "intensity"
-            }
-            {
-              var: "intensity_id"
-            }
-            {
-              lit: "fw48h"
-            }
-            {
-              lit: "regionid"
-            }
-            {
-              var: "regionid"
-            }
-          ]
-          t: {
-            req: "`reqdata`"
-            res: "`body`"
-          }
-        }
-        {
-          co: {
-            id: "GET /regional/intensity/{from}/pt24h/regionid/{regionid}"
-            source: "openapi3"
-            version: 2
-          }
-          g: {
-            params: [
-              {
-                k: "param"
-                n: "intensity_id"
-                or: "from"
-                r: true
-                t: "`$STRING`"
-              }
-              {
-                k: "param"
-                n: "regionid"
-                or: "regionid"
-                r: true
-                t: "`$INTEGER`"
-              }
-            ]
-          }
-          m: "GET"
-          o: "/regional/intensity/{from}/pt24h/regionid/{regionid}"
-          q: {
-            exist: [
-              "intensity_id"
-              "regionid"
-            ]
-          }
-          r: {
-            param: {
-              from: "intensity_id"
-            }
-          }
-          s: [
-            {
-              lit: "regional"
-            }
-            {
-              lit: "intensity"
-            }
-            {
-              var: "intensity_id"
-            }
-            {
-              lit: "pt24h"
-            }
-            {
-              lit: "regionid"
-            }
-            {
-              var: "regionid"
             }
           ]
           t: {

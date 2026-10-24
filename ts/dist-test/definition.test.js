@@ -17,20 +17,25 @@ const PLAN = [
         "args": [],
         "select": {},
         "headers": [],
+        "cookies": [],
+        "responseMedia": [
+            "application/json"
+        ],
         "query": [],
+        "queryArgs": [],
         "auth": null,
         "status": 200,
         "sample": {
             "data": [
                 {
                     "from": "2026-01-01T00:00:00Z",
+                    "to": "2026-01-01T00:00:00Z",
                     "generationmix": [
                         {
                             "fuel": "x",
                             "perc": 1
                         }
-                    ],
-                    "to": "2026-01-01T00:00:00Z"
+                    ]
                 }
             ]
         },
@@ -56,20 +61,25 @@ const PLAN = [
         ],
         "select": {},
         "headers": [],
+        "cookies": [],
+        "responseMedia": [
+            "application/json"
+        ],
         "query": [],
+        "queryArgs": [],
         "auth": null,
         "status": 200,
         "sample": {
             "data": [
                 {
                     "from": "2026-01-01T00:00:00Z",
+                    "to": "2026-01-01T00:00:00Z",
                     "generationmix": [
                         {
                             "fuel": "x",
                             "perc": 1
                         }
-                    ],
-                    "to": "2026-01-01T00:00:00Z"
+                    ]
                 }
             ]
         },
@@ -90,20 +100,25 @@ const PLAN = [
         ],
         "select": {},
         "headers": [],
+        "cookies": [],
+        "responseMedia": [
+            "application/json"
+        ],
         "query": [],
+        "queryArgs": [],
         "auth": null,
         "status": 200,
         "sample": {
             "data": [
                 {
                     "from": "2026-01-01T00:00:00Z",
+                    "to": "2026-01-01T00:00:00Z",
                     "generationmix": [
                         {
                             "fuel": "x",
                             "perc": 1
                         }
-                    ],
-                    "to": "2026-01-01T00:00:00Z"
+                    ]
                 }
             ]
         },
@@ -118,19 +133,24 @@ const PLAN = [
         "args": [],
         "select": {},
         "headers": [],
+        "cookies": [],
+        "responseMedia": [
+            "application/json"
+        ],
         "query": [],
+        "queryArgs": [],
         "auth": null,
         "status": 200,
         "sample": {
             "data": [
                 {
                     "from": "2026-01-01T00:00:00Z",
+                    "to": "2026-01-01T00:00:00Z",
                     "intensity": {
-                        "actual": 1,
                         "forecast": 1,
+                        "actual": 1,
                         "index": "very low"
-                    },
-                    "to": "2026-01-01T00:00:00Z"
+                    }
                 }
             ]
         },
@@ -156,19 +176,24 @@ const PLAN = [
         ],
         "select": {},
         "headers": [],
+        "cookies": [],
+        "responseMedia": [
+            "application/json"
+        ],
         "query": [],
+        "queryArgs": [],
         "auth": null,
         "status": 200,
         "sample": {
             "data": [
                 {
                     "from": "2026-01-01T00:00:00Z",
+                    "to": "2026-01-01T00:00:00Z",
                     "intensity": {
-                        "actual": 1,
                         "forecast": 1,
+                        "actual": 1,
                         "index": "very low"
-                    },
-                    "to": "2026-01-01T00:00:00Z"
+                    }
                 }
             ]
         },
@@ -194,19 +219,24 @@ const PLAN = [
         ],
         "select": {},
         "headers": [],
+        "cookies": [],
+        "responseMedia": [
+            "application/json"
+        ],
         "query": [],
+        "queryArgs": [],
         "auth": null,
         "status": 200,
         "sample": {
             "data": [
                 {
                     "from": "2026-01-01T00:00:00Z",
+                    "to": "2026-01-01T00:00:00Z",
                     "intensity": {
-                        "actual": 1,
                         "forecast": 1,
+                        "actual": 1,
                         "index": "very low"
-                    },
-                    "to": "2026-01-01T00:00:00Z"
+                    }
                 }
             ]
         },
@@ -227,19 +257,24 @@ const PLAN = [
         ],
         "select": {},
         "headers": [],
+        "cookies": [],
+        "responseMedia": [
+            "application/json"
+        ],
         "query": [],
+        "queryArgs": [],
         "auth": null,
         "status": 200,
         "sample": {
             "data": [
                 {
                     "from": "2026-01-01T00:00:00Z",
+                    "to": "2026-01-01T00:00:00Z",
                     "intensity": {
-                        "actual": 1,
                         "forecast": 1,
+                        "actual": 1,
                         "index": "very low"
-                    },
-                    "to": "2026-01-01T00:00:00Z"
+                    }
                 }
             ]
         },
@@ -254,7 +289,12 @@ const PLAN = [
         "args": [],
         "select": {},
         "headers": [],
+        "cookies": [],
+        "responseMedia": [
+            "application/json"
+        ],
         "query": [],
+        "queryArgs": [],
         "auth": null,
         "status": 200,
         "sample": {
@@ -288,19 +328,24 @@ const PLAN = [
         "args": [],
         "select": {},
         "headers": [],
+        "cookies": [],
+        "responseMedia": [
+            "application/json"
+        ],
         "query": [],
+        "queryArgs": [],
         "auth": null,
         "status": 200,
         "sample": {
             "data": [
                 {
                     "from": "2026-01-01T00:00:00Z",
+                    "to": "2026-01-01T00:00:00Z",
                     "intensity": {
-                        "actual": 1,
                         "forecast": 1,
+                        "actual": 1,
                         "index": "very low"
-                    },
-                    "to": "2026-01-01T00:00:00Z"
+                    }
                 }
             ]
         },
@@ -321,19 +366,24 @@ const PLAN = [
         ],
         "select": {},
         "headers": [],
+        "cookies": [],
+        "responseMedia": [
+            "application/json"
+        ],
         "query": [],
+        "queryArgs": [],
         "auth": null,
         "status": 200,
         "sample": {
             "data": [
                 {
                     "from": "2026-01-01T00:00:00Z",
+                    "to": "2026-01-01T00:00:00Z",
                     "intensity": {
-                        "actual": 1,
                         "forecast": 1,
+                        "actual": 1,
                         "index": "very low"
-                    },
-                    "to": "2026-01-01T00:00:00Z"
+                    }
                 }
             ]
         },
@@ -348,29 +398,34 @@ const PLAN = [
         "args": [],
         "select": {},
         "headers": [],
+        "cookies": [],
+        "responseMedia": [
+            "application/json"
+        ],
         "query": [],
+        "queryArgs": [],
         "auth": null,
         "status": 200,
         "sample": {
             "data": [
                 {
+                    "regionid": 1,
+                    "dnoregion": "x",
+                    "shortname": "x",
+                    "postcode": "x",
                     "data": [
                         {
                             "from": "2026-01-01T00:00:00Z",
-                            "generationmix": [
-                                {}
-                            ],
+                            "to": "2026-01-01T00:00:00Z",
                             "intensity": {
                                 "forecast": 1,
                                 "index": "x"
                             },
-                            "to": "2026-01-01T00:00:00Z"
+                            "generationmix": [
+                                {}
+                            ]
                         }
-                    ],
-                    "dnoregion": "x",
-                    "postcode": "x",
-                    "regionid": 1,
-                    "shortname": "x"
+                    ]
                 }
             ]
         },
@@ -391,29 +446,34 @@ const PLAN = [
         ],
         "select": {},
         "headers": [],
+        "cookies": [],
+        "responseMedia": [
+            "application/json"
+        ],
         "query": [],
+        "queryArgs": [],
         "auth": null,
         "status": 200,
         "sample": {
             "data": [
                 {
+                    "regionid": 1,
+                    "dnoregion": "x",
+                    "shortname": "x",
+                    "postcode": "x",
                     "data": [
                         {
                             "from": "2026-01-01T00:00:00Z",
-                            "generationmix": [
-                                {}
-                            ],
+                            "to": "2026-01-01T00:00:00Z",
                             "intensity": {
                                 "forecast": 1,
                                 "index": "x"
                             },
-                            "to": "2026-01-01T00:00:00Z"
+                            "generationmix": [
+                                {}
+                            ]
                         }
-                    ],
-                    "dnoregion": "x",
-                    "postcode": "x",
-                    "regionid": 1,
-                    "shortname": "x"
+                    ]
                 }
             ]
         },
@@ -434,29 +494,34 @@ const PLAN = [
         ],
         "select": {},
         "headers": [],
+        "cookies": [],
+        "responseMedia": [
+            "application/json"
+        ],
         "query": [],
+        "queryArgs": [],
         "auth": null,
         "status": 200,
         "sample": {
             "data": [
                 {
+                    "regionid": 1,
+                    "dnoregion": "x",
+                    "shortname": "x",
+                    "postcode": "x",
                     "data": [
                         {
                             "from": "2026-01-01T00:00:00Z",
-                            "generationmix": [
-                                {}
-                            ],
+                            "to": "2026-01-01T00:00:00Z",
                             "intensity": {
                                 "forecast": 1,
                                 "index": "x"
                             },
-                            "to": "2026-01-01T00:00:00Z"
+                            "generationmix": [
+                                {}
+                            ]
                         }
-                    ],
-                    "dnoregion": "x",
-                    "postcode": "x",
-                    "regionid": 1,
-                    "shortname": "x"
+                    ]
                 }
             ]
         },
@@ -470,7 +535,7 @@ const PLAN = [
         "path": "/regional/intensity/{from}/{to}/postcode/{postcode}",
         "args": [
             {
-                "name": "intensity_id",
+                "name": "from",
                 "wire": "from",
                 "value": "p1"
             },
@@ -487,29 +552,34 @@ const PLAN = [
         ],
         "select": {},
         "headers": [],
+        "cookies": [],
+        "responseMedia": [
+            "application/json"
+        ],
         "query": [],
+        "queryArgs": [],
         "auth": null,
         "status": 200,
         "sample": {
             "data": [
                 {
+                    "regionid": 1,
+                    "dnoregion": "x",
+                    "shortname": "x",
+                    "postcode": "x",
                     "data": [
                         {
                             "from": "2026-01-01T00:00:00Z",
-                            "generationmix": [
-                                {}
-                            ],
+                            "to": "2026-01-01T00:00:00Z",
                             "intensity": {
                                 "forecast": 1,
                                 "index": "x"
                             },
-                            "to": "2026-01-01T00:00:00Z"
+                            "generationmix": [
+                                {}
+                            ]
                         }
-                    ],
-                    "dnoregion": "x",
-                    "postcode": "x",
-                    "regionid": 1,
-                    "shortname": "x"
+                    ]
                 }
             ]
         },
@@ -523,7 +593,7 @@ const PLAN = [
         "path": "/regional/intensity/{from}/{to}/regionid/{regionid}",
         "args": [
             {
-                "name": "intensity_id",
+                "name": "from",
                 "wire": "from",
                 "value": "p1"
             },
@@ -540,29 +610,34 @@ const PLAN = [
         ],
         "select": {},
         "headers": [],
+        "cookies": [],
+        "responseMedia": [
+            "application/json"
+        ],
         "query": [],
+        "queryArgs": [],
         "auth": null,
         "status": 200,
         "sample": {
             "data": [
                 {
+                    "regionid": 1,
+                    "dnoregion": "x",
+                    "shortname": "x",
+                    "postcode": "x",
                     "data": [
                         {
                             "from": "2026-01-01T00:00:00Z",
-                            "generationmix": [
-                                {}
-                            ],
+                            "to": "2026-01-01T00:00:00Z",
                             "intensity": {
                                 "forecast": 1,
                                 "index": "x"
                             },
-                            "to": "2026-01-01T00:00:00Z"
+                            "generationmix": [
+                                {}
+                            ]
                         }
-                    ],
-                    "dnoregion": "x",
-                    "postcode": "x",
-                    "regionid": 1,
-                    "shortname": "x"
+                    ]
                 }
             ]
         },
@@ -588,29 +663,34 @@ const PLAN = [
         ],
         "select": {},
         "headers": [],
+        "cookies": [],
+        "responseMedia": [
+            "application/json"
+        ],
         "query": [],
+        "queryArgs": [],
         "auth": null,
         "status": 200,
         "sample": {
             "data": [
                 {
+                    "regionid": 1,
+                    "dnoregion": "x",
+                    "shortname": "x",
+                    "postcode": "x",
                     "data": [
                         {
                             "from": "2026-01-01T00:00:00Z",
-                            "generationmix": [
-                                {}
-                            ],
+                            "to": "2026-01-01T00:00:00Z",
                             "intensity": {
                                 "forecast": 1,
                                 "index": "x"
                             },
-                            "to": "2026-01-01T00:00:00Z"
+                            "generationmix": [
+                                {}
+                            ]
                         }
-                    ],
-                    "dnoregion": "x",
-                    "postcode": "x",
-                    "regionid": 1,
-                    "shortname": "x"
+                    ]
                 }
             ]
         },
@@ -641,7 +721,12 @@ const PLAN = [
         ],
         "select": {},
         "headers": [],
+        "cookies": [],
+        "responseMedia": [
+            "application/json"
+        ],
         "query": [],
+        "queryArgs": [],
         "auth": null,
         "status": 200,
         "sample": {
@@ -680,7 +765,12 @@ const PLAN = [
         ],
         "select": {},
         "headers": [],
+        "cookies": [],
+        "responseMedia": [
+            "application/json"
+        ],
         "query": [],
+        "queryArgs": [],
         "auth": null,
         "status": 200,
         "sample": {

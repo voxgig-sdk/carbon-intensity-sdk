@@ -9,7 +9,7 @@ import { createLiveTransport } from '../../live-runner'
 import { runLiveEntity } from '../../live-entity'
 
 
-import { CarbonIntensitySDK, BaseFeature, stdutil } from '../../..'
+import { CarbonIntensitySDK, BaseFeature, config, stdutil } from '../../..'
 
 import {
   envOverride,
@@ -41,6 +41,64 @@ describe('IntensityEntity', async () => {
   })
 
 
+  class FailHook extends BaseFeature {
+    name = 'failhook'
+    version = '0.0.1'
+    active = true
+    unexpected = 0
+    init() { }
+    PreSpec() { throw new Error('intensity hook failed') }
+    PreUnexpected() { this.unexpected++ }
+  }
+
+  test('stream-error', async () => {
+    const offline = { net: { offline: true } }
+    await assert.rejects(async () => {
+      for await (const _item of CarbonIntensitySDK.test(offline).Intensity().stream('list')) { }
+    }, /offline/)
+
+    for await (const _item of CarbonIntensitySDK.test(offline).Intensity()
+      .stream('list', undefined, { ctrl: { throw: false } })) { }
+
+    if (null != (config as any).feature?.rbac) {
+      const denied = CarbonIntensitySDK.test(undefined, { feature: { rbac: { active: true, deny: true } } })
+      await assert.rejects(async () => {
+        for await (const _item of denied.Intensity().stream('list')) { }
+      }, (err: any) => 'rbac_denied' === err.code)
+    }
+  })
+
+  test('stream-ctrl', async () => {
+    const explain: any = {}
+    const ctrl: any = { explain }
+    for await (const _item of CarbonIntensitySDK.test().Intensity().stream('list', undefined, { ctrl })) { }
+    assert.deepStrictEqual(Object.keys(ctrl), ['explain'])
+    assert(explain === ctrl.explain && 0 < Object.keys(explain).length)
+  })
+
+  test('unexpected', async () => {
+    const hook = new FailHook()
+    const client = new CarbonIntensitySDK({ feature: { test: { active: true } }, extend: [hook] })
+    await assert.rejects(client.Intensity().list(), /hook failed/)
+    assert(0 < hook.unexpected)
+
+    const fired = hook.unexpected
+    assert.strictEqual(await client.Intensity().list(undefined, { throw: false }), undefined)
+    assert(fired < hook.unexpected)
+  })
+
+  test('validate', async (t) => {
+    if (null == (config as any).feature?.validate) {
+      t.skip('feature not present in this SDK: validate')
+      return
+    }
+    const client = CarbonIntensitySDK.test(undefined, { feature: { validate: { active: true } } })
+    await assert.rejects(client.Intensity().list({"from":1} as any),
+      (err: any) => 'validate_failed' === err.code)
+  })
+
+
+
   test('basic', async (t) => {
 
     const live = 'TRUE' === process.env.CARBON_INTENSITY_TEST_LIVE
@@ -51,7 +109,7 @@ describe('IntensityEntity', async () => {
     
     const setup = basicSetup()
     if (setup.live) {
-      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":{"data":{"a":true,"h":"Data","n":"data","r":false,"t":"`$ARRAY`","key$":"data","index$":0},"from":{"a":true,"fo":"date-time","h":"From","n":"from","r":false,"sh":"Start datetime of the period","t":"`$STRING`","key$":"from","index$":1},"id":{"a":true,"h":"Id","n":"id","r":false,"t":"`$STRING`","key$":"id","index$":2},"intensity":{"a":true,"h":"Intensity","n":"intensity","r":false,"t":"`$OBJECT`","key$":"intensity","index$":3},"to":{"a":true,"fo":"date-time","h":"To","n":"to","r":false,"sh":"End datetime of the period","t":"`$STRING`","key$":"to","index$":4}},"id":{"field":"id","name":"id"},"name":"intensity","op":{"list":{"input":"data","name":"list","points":[{"a":true,"co":{"id":"GET /intensity","source":"openapi3","version":2},"g":{},"k":"http","m":"GET","o":"/intensity","q":{},"r":{},"s":[{"lit":"intensity"}],"t":{"req":"`reqdata`","res":"`body.data`"},"index$":0}],"key$":"list"},"load":{"input":"data","name":"load","points":[{"a":true,"co":{"id":"GET /intensity/date/{date}/{period}","source":"openapi3","version":2},"g":{"params":[{"a":true,"k":"param","n":"date","or":"date","r":true,"t":"`$STRING`","index$":0},{"a":true,"k":"param","n":"period","or":"period","r":true,"t":"`$INTEGER`","index$":1}]},"k":"http","m":"GET","o":"/intensity/date/{date}/{period}","q":{"exist":["date","period"]},"r":{},"s":[{"lit":"intensity"},{"lit":"date"},{"var":"date"},{"var":"period"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0},{"a":true,"co":{"id":"GET /intensity/{from}/{to}","source":"openapi3","version":2},"g":{"params":[{"a":true,"k":"param","n":"from","or":"from","r":true,"t":"`$STRING`","index$":0},{"a":true,"k":"param","n":"to","or":"to","r":true,"t":"`$STRING`","index$":1}]},"k":"http","m":"GET","o":"/intensity/{from}/{to}","q":{"exist":["from","to"]},"r":{},"s":[{"lit":"intensity"},{"var":"from"},{"var":"to"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":1},{"a":true,"co":{"id":"GET /intensity/{from}","source":"openapi3","version":2},"g":{"params":[{"a":true,"k":"param","n":"id","or":"from","r":true,"t":"`$STRING`","index$":0}]},"k":"http","m":"GET","o":"/intensity/{from}","q":{"exist":["id"]},"r":{"param":{"from":"id"}},"s":[{"lit":"intensity"},{"var":"id"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"load"}},"relations":{"ancestors":[]},"key$":"intensity","name__orig":"intensity","Name":"Intensity","name_":"intensity","name-":"intensity","NAME":"INTENSITY","index$":2}, {"active":true,"entity":"intensity","key$":"BasicIntensityFlow","kind":"basic","name":"BasicIntensityFlow","param":{},"step":[{"a":true,"d":{},"i":{},"m":{},"o":"list","s":[],"v":[{"apply":"ItemExists","def":{"ref":"intensity_ref01"}}],"index$":0},{"a":true,"d":{},"i":{"ref":"intensity_ref01","srcdatavar":"intensity_ref01_data","suffix":"_dt0"},"m":{"id":"intensity01"},"o":"load","s":[],"v":[{"apply":"TextFieldMark","def":{"mark":"Mark01-intensity_ref01"}}],"index$":1}]}, 'Intensity', {"GET /intensity":{"protocol":"http","parameters":[]},"GET /intensity/date/{date}/{period}":{"protocol":"http","parameters":[{"name":"date","in":"path","required":true,"description":"Date in YYYY-MM-DD format","schema":{"type":"string","format":"date"},"index$":0},{"name":"period","in":"path","required":true,"description":"Settlement period (1-48)","schema":{"type":"integer","minimum":1,"maximum":48},"index$":1}]},"GET /intensity/{from}/{to}":{"protocol":"http","parameters":[{"name":"from","in":"path","required":true,"description":"Start datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)","schema":{"type":"string","format":"date-time"},"index$":0},{"name":"to","in":"path","required":true,"description":"End datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)","schema":{"type":"string","format":"date-time"},"index$":1}]},"GET /intensity/{from}":{"protocol":"http","parameters":[{"name":"from","in":"path","required":true,"description":"Datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)","schema":{"type":"string","format":"date-time"},"index$":0}]}})
+      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":{"data":{"a":true,"h":"Data","n":"data","r":false,"t":"`$ARRAY`","key$":"data","index$":0},"from":{"a":true,"fo":"date-time","h":"From","n":"from","r":false,"sh":"Start datetime of the period","t":"`$STRING`","key$":"from","index$":1},"id":{"a":true,"h":"Id","n":"id","r":false,"t":"`$STRING`","key$":"id","index$":2},"intensity":{"a":true,"h":"Intensity","n":"intensity","r":false,"t":"`$OBJECT`","key$":"intensity","index$":3},"to":{"a":true,"fo":"date-time","h":"To","n":"to","r":false,"sh":"End datetime of the period","t":"`$STRING`","key$":"to","index$":4}},"id":{"field":"id","name":"id"},"name":"intensity","op":{"list":{"input":"data","name":"list","points":[{"a":true,"co":{"id":"GET /intensity","source":"openapi3","version":2},"g":{},"k":"http","m":"GET","o":"/intensity","q":{},"r":{},"rs":{"kind":"json","media":"application/json"},"s":[{"lit":"intensity"}],"t":{"req":"`reqdata`","res":"`body.data`"},"index$":0}],"key$":"list"},"load":{"input":"data","name":"load","points":[{"a":true,"co":{"id":"GET /intensity/date/{date}/{period}","source":"openapi3","version":2},"g":{"params":[{"a":true,"k":"param","n":"date","or":"date","r":true,"t":"`$STRING`","index$":0},{"a":true,"k":"param","n":"period","or":"period","r":true,"t":"`$INTEGER`","index$":1}]},"k":"http","m":"GET","o":"/intensity/date/{date}/{period}","q":{"exist":["date","period"]},"r":{},"rs":{"kind":"json","media":"application/json"},"s":[{"lit":"intensity"},{"lit":"date"},{"var":"date"},{"var":"period"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0},{"a":true,"co":{"id":"GET /intensity/{from}/{to}","source":"openapi3","version":2},"g":{"params":[{"a":true,"k":"param","n":"from","or":"from","r":true,"t":"`$STRING`","index$":0},{"a":true,"k":"param","n":"to","or":"to","r":true,"t":"`$STRING`","index$":1}]},"k":"http","m":"GET","o":"/intensity/{from}/{to}","q":{"exist":["from","to"]},"r":{},"rs":{"kind":"json","media":"application/json"},"s":[{"lit":"intensity"},{"var":"from"},{"var":"to"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":1},{"a":true,"co":{"id":"GET /intensity/{from}","source":"openapi3","version":2},"g":{"params":[{"a":true,"k":"param","n":"id","or":"from","r":true,"t":"`$STRING`","index$":0}]},"k":"http","m":"GET","o":"/intensity/{from}","q":{"exist":["id"]},"r":{"param":{"from":"id"}},"rs":{"kind":"json","media":"application/json"},"s":[{"lit":"intensity"},{"var":"id"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":2}],"key$":"load"}},"relations":{"ancestors":[]},"key$":"intensity","name__orig":"intensity","Name":"Intensity","name_":"intensity","name-":"intensity","NAME":"INTENSITY","index$":2}, {"active":true,"entity":"intensity","key$":"BasicIntensityFlow","kind":"basic","name":"BasicIntensityFlow","param":{},"step":[{"a":true,"d":{},"i":{},"m":{},"o":"list","s":[],"v":[{"apply":"ItemExists","def":{"ref":"intensity_ref01"}}],"index$":0},{"a":true,"d":{},"i":{"ref":"intensity_ref01","srcdatavar":"intensity_ref01_data","suffix":"_dt0"},"m":{"id":"intensity01"},"o":"load","s":[],"v":[{"apply":"TextFieldMark","def":{"mark":"Mark01-intensity_ref01"}}],"index$":1}]}, 'Intensity', {"GET /intensity":{"protocol":"http","parameters":[]},"GET /intensity/date/{date}/{period}":{"protocol":"http","parameters":[{"name":"date","in":"path","required":true,"description":"Date in YYYY-MM-DD format","schema":{"type":"string","format":"date"},"index$":0},{"name":"period","in":"path","required":true,"description":"Settlement period (1-48)","schema":{"type":"integer","minimum":1,"maximum":48},"index$":1}]},"GET /intensity/{from}/{to}":{"protocol":"http","parameters":[{"name":"from","in":"path","required":true,"description":"Start datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)","schema":{"type":"string","format":"date-time"},"index$":0},{"name":"to","in":"path","required":true,"description":"End datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)","schema":{"type":"string","format":"date-time"},"index$":1}]},"GET /intensity/{from}":{"protocol":"http","parameters":[{"name":"from","in":"path","required":true,"description":"Datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)","schema":{"type":"string","format":"date-time"},"index$":0}]}}, { strict: LIVE_STRICT, t })
     }
     const client = setup.client
     const struct = setup.struct
@@ -79,6 +137,12 @@ describe('IntensityEntity', async () => {
 })
 
 
+
+// main.kit.test.live.strict is true (the default is true): a live
+// request that fails, or a live test missing an input it needs,
+// fails the test.
+// An account with no record for a test to read skips it either way.
+const LIVE_STRICT = true
 
 function basicSetup(extra?: any) {
   // TODO: fix test def options

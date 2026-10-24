@@ -54,6 +54,10 @@ main: kit: entity: regional_intensity: {
           }
           m: "GET"
           o: "/regional/england"
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
           s: [
             {
               lit: "regional"
@@ -75,6 +79,10 @@ main: kit: entity: regional_intensity: {
           }
           m: "GET"
           o: "/regional/scotland"
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
           s: [
             {
               lit: "regional"
@@ -96,6 +104,10 @@ main: kit: entity: regional_intensity: {
           }
           m: "GET"
           o: "/regional/wales"
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
           s: [
             {
               lit: "regional"
@@ -138,6 +150,10 @@ main: kit: entity: regional_intensity: {
               "postcode"
             ]
           }
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
           s: [
             {
               lit: "regional"
@@ -177,6 +193,10 @@ main: kit: entity: regional_intensity: {
             exist: [
               "regionid"
             ]
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {

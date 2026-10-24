@@ -54,6 +54,10 @@ main: kit: entity: regional: {
           }
           m: "GET"
           o: "/regional"
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
           s: [
             {
               lit: "regional"

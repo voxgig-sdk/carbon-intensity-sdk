@@ -29,7 +29,7 @@ const utility_1 = require("../../utility");
         const setup = directSetup({ id: 'direct01' });
         if ((0, utility_1.maybeSkipControl)(t, 'direct', 'direct-load-intensity_list', setup.live))
             return;
-        if ((0, utility_1.skipIfMissingIds)(t, setup, ["date01"]))
+        if ((0, utility_1.skipIfMissingIds)(t, setup, ["from01", "date01"], LIVE_STRICT))
             return;
         const { client, calls } = setup;
         const params = {};
@@ -42,14 +42,19 @@ const utility_1 = require("../../utility");
                     from: setup.idmap['from01'],
                 },
             });
-            (0, node_assert_1.default)(listResult.ok && listResult.status >= 200 && listResult.status < 300, 'Live list discovery failed');
+            if (!listResult.ok || listResult.status < 200 || listResult.status >= 300) {
+                return void (0, utility_1.liveMiss)(t, LIVE_STRICT, 'Live list discovery failed: ' + (0, utility_1.describeLive)(listResult));
+            }
             const listArr = unwrapListData(listResult.data);
-            if (null == listArr || listArr.length === 0) {
-                throw new Error('Live load blocked: discovery returned no entities');
+            if (null == listArr) {
+                return void (0, utility_1.liveMiss)(t, LIVE_STRICT, 'Live list discovery returned no list: ' + (0, utility_1.describeLive)(listResult));
+            }
+            if (0 === listArr.length) {
+                return void (0, utility_1.liveEmpty)(t, 'The account has no intensity_list record to load');
             }
             const candidateId = listArr[0]?.date ?? listArr[0]?.id;
             if (null == candidateId) {
-                throw new Error('Live load blocked: discovery returned no usable identity');
+                return void (0, utility_1.liveMiss)(t, LIVE_STRICT, 'Live load blocked: discovery returned no usable identity');
             }
             params.date = candidateId;
             params.date = setup.idmap['date01'];
@@ -64,17 +69,12 @@ const utility_1 = require("../../utility");
             query,
         });
         if (setup.live) {
-            // STRICT live mode: a non-2xx is a real failure - this project owns
-            // the server it points at, so there is nothing to be lenient about.
-            //
-            // What is NOT asserted here is the MOCK's own fixtures. `direct01`
-            // is a scripted id and `calls` records the mock transport; neither
-            // exists on a live run, so asserting them made strict mode mean
-            // "compare the live server against the mock's script" - a suite that
-            // could not pass against any real API, including this project's own.
-            (0, node_assert_1.default)(result.ok === true, 'Live request failed: HTTP ' + result.status);
-            (0, node_assert_1.default)(result.status >= 200 && result.status < 300);
-            (0, node_assert_1.default)(null != result.data);
+            if (!result.ok || result.status < 200 || result.status >= 300) {
+                return void (0, utility_1.liveMiss)(t, LIVE_STRICT, 'Live load failed: ' + (0, utility_1.describeLive)(result));
+            }
+            if (!(null != result.data)) {
+                return void (0, utility_1.liveMiss)(t, LIVE_STRICT, 'Live load returned no data: ' + (0, utility_1.describeLive)(result));
+            }
         }
         else {
             (0, node_assert_1.default)(result.ok === true);
@@ -94,7 +94,7 @@ const utility_1 = require("../../utility");
         const setup = directSetup([{ id: 'direct01' }, { id: 'direct02' }]);
         if ((0, utility_1.maybeSkipControl)(t, 'direct', 'direct-list-intensity_list', setup.live))
             return;
-        if ((0, utility_1.skipIfMissingIds)(t, setup, ["from01"]))
+        if ((0, utility_1.skipIfMissingIds)(t, setup, ["from01"], LIVE_STRICT))
             return;
         const { client, calls } = setup;
         const params = {};
@@ -112,17 +112,12 @@ const utility_1 = require("../../utility");
             query,
         });
         if (setup.live) {
-            // STRICT live mode: a non-2xx is a real failure - this project owns
-            // the server it points at, so there is nothing to be lenient about.
-            //
-            // What is NOT asserted here is the MOCK's own fixtures. `direct01`
-            // is a scripted id and `calls` records the mock transport; neither
-            // exists on a live run, so asserting them made strict mode mean
-            // "compare the live server against the mock's script" - a suite that
-            // could not pass against any real API, including this project's own.
-            (0, node_assert_1.default)(result.ok === true, 'Live request failed: HTTP ' + result.status);
-            (0, node_assert_1.default)(result.status >= 200 && result.status < 300);
-            (0, node_assert_1.default)(Array.isArray(unwrapListData(result.data)), 'Expected live list response');
+            if (!result.ok || result.status < 200 || result.status >= 300) {
+                return void (0, utility_1.liveMiss)(t, LIVE_STRICT, 'Live list failed: ' + (0, utility_1.describeLive)(result));
+            }
+            if (!(Array.isArray(unwrapListData(result.data)))) {
+                return void (0, utility_1.liveMiss)(t, LIVE_STRICT, 'Live list returned no list: ' + (0, utility_1.describeLive)(result));
+            }
         }
         else {
             (0, node_assert_1.default)(result.ok === true);
@@ -137,6 +132,11 @@ const utility_1 = require("../../utility");
         }
     });
 });
+// main.kit.test.live.strict is true (the default is true): a live
+// request that fails, or a live test missing an input it needs,
+// fails the test.
+// An account with no record for a test to read skips it either way.
+const LIVE_STRICT = true;
 function liveScenariosActive() { return false && process.env.CARBON_INTENSITY_TEST_LIVE === 'TRUE'; }
 function directSetup(mockres) {
     const calls = [];

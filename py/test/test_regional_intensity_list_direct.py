@@ -9,6 +9,18 @@ from carbonintensity_sdk.core import helpers
 from test import runner
 
 
+# main.kit.test.live.strict is true (the default is true): a live
+# request that fails, or a live test missing an input it needs,
+# fails the test.
+# An account with no record for a test to read skips it either way.
+LIVE_STRICT = True
+
+
+def _live_ok(result):
+    status = helpers.to_int(result.get("status"))
+    return result.get("err") is None and bool(result.get("ok")) and 200 <= status < 300
+
+
 class TestRegionalIntensityListDirect:
 
     def test_should_direct_list_regional_intensity_list(self):
@@ -18,21 +30,18 @@ class TestRegionalIntensityListDirect:
         ])
         _skip, _reason = runner.is_control_skipped("direct", "direct-list-regional_intensity_list", "live" if setup["live"] else "unit")
         if _skip:
-            # pytest already imported at module scope
             pytest.skip(_reason or "skipped via sdk-test-control.json")
             return
         if setup["live"]:
             for _live_key in ["from01"]:
                 if setup["idmap"].get(_live_key) is None:
-                    # pytest already imported at module scope
-                    pytest.skip(f"live test needs {_live_key} via *_ENTID env var (synthetic IDs only)")
-                    return
+                    runner.live_miss(LIVE_STRICT, f"Live test blocked: needs {_live_key} via CARBON_INTENSITY_TEST_REGIONAL_INTENSITY_LIST_ENTID")
 
         client = setup["client"]
 
         params = {}
         if setup["live"]:
-            params["from"] = setup["idmap"]["from01"]
+            params["from"] = setup["idmap"].get("from01")
         else:
             params["from"] = "direct01"
 
@@ -42,19 +51,10 @@ class TestRegionalIntensityListDirect:
             "params": params,
         })
         if setup["live"]:
-            # Live mode is lenient: synthetic IDs frequently 4xx and the
-            # list-response shape varies wildly across public APIs. Skip
-            # rather than fail when the call doesn't return a usable list.
-            if result.get("err") is not None:
-                pytest.skip(f"list call failed (likely synthetic IDs against live API): {result.get('err')}")
-                return
-            if not result.get("ok"):
-                pytest.skip("list call not ok (likely synthetic IDs against live API)")
-                return
-            status = helpers.to_int(result["status"])
-            if status < 200 or status >= 300:
-                pytest.skip(f"expected 2xx status, got {status}")
-                return
+            if not _live_ok(result):
+                runner.live_miss(LIVE_STRICT, "Live list failed: " + runner.live_describe(result))
+            if runner.live_list(result.get("data")) is None:
+                runner.live_miss(LIVE_STRICT, "Live list returned no list: " + runner.live_describe(result))
         else:
             assert result["ok"] is True
             assert helpers.to_int(result["status"]) == 200
@@ -66,43 +66,54 @@ class TestRegionalIntensityListDirect:
         setup = _regional_intensity_list_direct_setup({"id": "direct01"})
         _skip, _reason = runner.is_control_skipped("direct", "direct-load-regional_intensity_list", "live" if setup["live"] else "unit")
         if _skip:
-            # pytest already imported at module scope
             pytest.skip(_reason or "skipped via sdk-test-control.json")
             return
         if setup["live"]:
-            # pytest already imported at module scope
-            pytest.skip("live direct-load needs real ID — set *_ENTID env var with real IDs to run")
-            return
+            for _live_key in ["from01", "postcode01", "to01"]:
+                if setup["idmap"].get(_live_key) is None:
+                    runner.live_miss(LIVE_STRICT, f"Live test blocked: needs {_live_key} via CARBON_INTENSITY_TEST_REGIONAL_INTENSITY_LIST_ENTID")
 
         client = setup["client"]
 
         params = {}
         query = {}
-        if not setup["live"]:
-            params["intensity_id"] = "direct01"
+        if setup["live"]:
+            list_result = client.direct({
+                "path": "regional/intensity/{from}/fw24h",
+                "method": "GET",
+                "params": {"from": setup["idmap"].get("from01")},
+            })
+            if not _live_ok(list_result):
+                runner.live_miss(LIVE_STRICT, "Live list discovery failed: " + runner.live_describe(list_result))
+            records = runner.live_list(list_result.get("data"))
+            if records is None:
+                runner.live_miss(LIVE_STRICT, "Live list discovery returned no list: " + runner.live_describe(list_result))
+            if 0 == len(records):
+                runner.live_empty("The account has no regional_intensity_list record to load")
+            first = records[0] if isinstance(records[0], dict) else {}
+            if first.get("from", first.get("id")) is None:
+                runner.live_miss(LIVE_STRICT, "Live load blocked: discovery returned no usable identity")
+            params["from"] = first.get("from", first.get("id"))
+            params["postcode"] = setup["idmap"].get("postcode01")
+            params["to"] = setup["idmap"].get("to01")
+            pass
+        else:
+            params["from"] = "direct01"
             params["postcode"] = "direct02"
             params["to"] = "direct03"
+            pass
 
         result = client.direct({
-            "path": "regional/intensity/{intensity_id}/{to}/postcode/{postcode}",
+            "path": "regional/intensity/{from}/{to}/postcode/{postcode}",
             "method": "GET",
             "params": params,
             "query": query,
         })
         if setup["live"]:
-            # Live mode is lenient: synthetic IDs frequently 4xx. Skip
-            # rather than fail when the load endpoint isn't reachable
-            # with the IDs we can construct from setup.idmap.
-            if result.get("err") is not None:
-                pytest.skip(f"load call failed (likely synthetic IDs against live API): {result.get('err')}")
-                return
-            if not result.get("ok"):
-                pytest.skip("load call not ok (likely synthetic IDs against live API)")
-                return
-            status = helpers.to_int(result["status"])
-            if status < 200 or status >= 300:
-                pytest.skip(f"expected 2xx status, got {status}")
-                return
+            if not _live_ok(result):
+                runner.live_miss(LIVE_STRICT, "Live load failed: " + runner.live_describe(result))
+            if result.get("data") is None:
+                runner.live_miss(LIVE_STRICT, "Live load returned no data: " + runner.live_describe(result))
         else:
             assert result["ok"] is True
             assert helpers.to_int(result["status"]) == 200
@@ -132,11 +143,12 @@ def _regional_intensity_list_direct_setup(mockres):
         merged_opts.update({
         })
         client = CarbonIntensitySDK(merged_opts)
+        idmap = env.get("CARBON_INTENSITY_TEST_REGIONAL_INTENSITY_LIST_ENTID")
         return {
             "client": client,
             "calls": calls,
             "live": True,
-            "idmap": {},
+            "idmap": idmap if isinstance(idmap, dict) else {},
         }
 
     def mock_fetch(url, init):

@@ -102,6 +102,7 @@ class Config {
       },
       "optspec": {
         "clearTimer": "`$FUNCTION`",
+        "now": "`$FUNCTION`",
         "setTimer": "`$FUNCTION`"
       },
       "strict": false,
@@ -219,7 +220,11 @@ class Config {
                 "res": "`body.data`"
               },
               "args": {},
-              "select": {}
+              "select": {},
+              "response": {
+                "kind": "json",
+                "media": "application/json"
+              }
             }
           ]
         },
@@ -275,6 +280,10 @@ class Config {
                   "from",
                   "to"
                 ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
               }
             }
           ]
@@ -350,6 +359,10 @@ class Config {
                 "exist": [
                   "from"
                 ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
               }
             }
           ]
@@ -423,7 +436,11 @@ class Config {
                 "res": "`body.data`"
               },
               "args": {},
-              "select": {}
+              "select": {},
+              "response": {
+                "kind": "json",
+                "media": "application/json"
+              }
             }
           ]
         },
@@ -483,6 +500,10 @@ class Config {
                   "date",
                   "period"
                 ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
               }
             },
             {
@@ -533,6 +554,10 @@ class Config {
                   "from",
                   "to"
                 ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
               }
             },
             {
@@ -575,6 +600,10 @@ class Config {
                 "exist": [
                   "id"
                 ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
               }
             }
           ]
@@ -699,7 +728,11 @@ class Config {
                 "res": "`body.data`"
               },
               "args": {},
-              "select": {}
+              "select": {},
+              "response": {
+                "kind": "json",
+                "media": "application/json"
+              }
             }
           ]
         }
@@ -781,6 +814,10 @@ class Config {
                 "exist": [
                   "from"
                 ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
               }
             },
             {
@@ -823,6 +860,10 @@ class Config {
                 "exist": [
                   "from"
                 ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
               }
             },
             {
@@ -865,6 +906,10 @@ class Config {
                 "exist": [
                   "from"
                 ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
               }
             },
             {
@@ -889,7 +934,11 @@ class Config {
                 "res": "`body.data`"
               },
               "args": {},
-              "select": {}
+              "select": {},
+              "response": {
+                "kind": "json",
+                "media": "application/json"
+              }
             }
           ]
         },
@@ -937,6 +986,10 @@ class Config {
                 "exist": [
                   "date"
                 ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
               }
             }
           ]
@@ -1006,7 +1059,11 @@ class Config {
                 "res": "`body.data`"
               },
               "args": {},
-              "select": {}
+              "select": {},
+              "response": {
+                "kind": "json",
+                "media": "application/json"
+              }
             }
           ]
         }
@@ -1075,7 +1132,11 @@ class Config {
                 "res": "`body.data`"
               },
               "args": {},
-              "select": {}
+              "select": {},
+              "response": {
+                "kind": "json",
+                "media": "application/json"
+              }
             },
             {
               "kind": "http",
@@ -1099,7 +1160,11 @@ class Config {
                 "res": "`body.data`"
               },
               "args": {},
-              "select": {}
+              "select": {},
+              "response": {
+                "kind": "json",
+                "media": "application/json"
+              }
             },
             {
               "kind": "http",
@@ -1123,7 +1188,11 @@ class Config {
                 "res": "`body.data`"
               },
               "args": {},
-              "select": {}
+              "select": {},
+              "response": {
+                "kind": "json",
+                "media": "application/json"
+              }
             }
           ]
         },
@@ -1171,6 +1240,10 @@ class Config {
                 "exist": [
                   "postcode"
                 ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
               }
             },
             {
@@ -1213,6 +1286,10 @@ class Config {
                 "exist": [
                   "regionid"
                 ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
               }
             }
           ]
@@ -1318,6 +1395,10 @@ class Config {
                 "exist": [
                   "from"
                 ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
               }
             },
             {
@@ -1364,6 +1445,10 @@ class Config {
                 "exist": [
                   "from"
                 ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
               }
             },
             {
@@ -1410,6 +1495,10 @@ class Config {
                 "exist": [
                   "from"
                 ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
               }
             }
           ]
@@ -1430,7 +1519,7 @@ class Config {
                   "lit": "intensity"
                 },
                 {
-                  "var": "intensity_id"
+                  "var": "from"
                 },
                 {
                   "var": "to"
@@ -1445,16 +1534,12 @@ class Config {
               "parts": [
                 "regional",
                 "intensity",
-                "{intensity_id}",
+                "{from}",
                 "{to}",
                 "postcode",
                 "{postcode}"
               ],
-              "rename": {
-                "param": {
-                  "from": "intensity_id"
-                }
-              },
+              "rename": {},
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
@@ -1462,7 +1547,7 @@ class Config {
               "args": {
                 "params": [
                   {
-                    "name": "intensity_id",
+                    "name": "from",
                     "orig": "from",
                     "type": "`$STRING`",
                     "kind": "param",
@@ -1486,10 +1571,14 @@ class Config {
               },
               "select": {
                 "exist": [
-                  "intensity_id",
+                  "from",
                   "postcode",
                   "to"
                 ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
               }
             },
             {
@@ -1504,7 +1593,7 @@ class Config {
                   "lit": "intensity"
                 },
                 {
-                  "var": "intensity_id"
+                  "var": "from"
                 },
                 {
                   "var": "to"
@@ -1519,16 +1608,12 @@ class Config {
               "parts": [
                 "regional",
                 "intensity",
-                "{intensity_id}",
+                "{from}",
                 "{to}",
                 "regionid",
                 "{regionid}"
               ],
-              "rename": {
-                "param": {
-                  "from": "intensity_id"
-                }
-              },
+              "rename": {},
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
@@ -1536,7 +1621,7 @@ class Config {
               "args": {
                 "params": [
                   {
-                    "name": "intensity_id",
+                    "name": "from",
                     "orig": "from",
                     "type": "`$STRING`",
                     "kind": "param",
@@ -1560,10 +1645,410 @@ class Config {
               },
               "select": {
                 "exist": [
-                  "intensity_id",
+                  "from",
                   "regionid",
                   "to"
                 ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
+              }
+            },
+            {
+              "kind": "http",
+              "method": "GET",
+              "orig": "/regional/intensity/{from}/fw24h/postcode/{postcode}",
+              "segments": [
+                {
+                  "lit": "regional"
+                },
+                {
+                  "lit": "intensity"
+                },
+                {
+                  "var": "from"
+                },
+                {
+                  "lit": "fw24h"
+                },
+                {
+                  "lit": "postcode"
+                },
+                {
+                  "var": "postcode"
+                }
+              ],
+              "parts": [
+                "regional",
+                "intensity",
+                "{from}",
+                "fw24h",
+                "postcode",
+                "{postcode}"
+              ],
+              "rename": {},
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "from",
+                    "orig": "from",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true
+                  },
+                  {
+                    "name": "postcode",
+                    "orig": "postcode",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "from",
+                  "postcode"
+                ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
+              }
+            },
+            {
+              "kind": "http",
+              "method": "GET",
+              "orig": "/regional/intensity/{from}/fw48h/postcode/{postcode}",
+              "segments": [
+                {
+                  "lit": "regional"
+                },
+                {
+                  "lit": "intensity"
+                },
+                {
+                  "var": "from"
+                },
+                {
+                  "lit": "fw48h"
+                },
+                {
+                  "lit": "postcode"
+                },
+                {
+                  "var": "postcode"
+                }
+              ],
+              "parts": [
+                "regional",
+                "intensity",
+                "{from}",
+                "fw48h",
+                "postcode",
+                "{postcode}"
+              ],
+              "rename": {},
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "from",
+                    "orig": "from",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true
+                  },
+                  {
+                    "name": "postcode",
+                    "orig": "postcode",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "from",
+                  "postcode"
+                ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
+              }
+            },
+            {
+              "kind": "http",
+              "method": "GET",
+              "orig": "/regional/intensity/{from}/pt24h/postcode/{postcode}",
+              "segments": [
+                {
+                  "lit": "regional"
+                },
+                {
+                  "lit": "intensity"
+                },
+                {
+                  "var": "from"
+                },
+                {
+                  "lit": "pt24h"
+                },
+                {
+                  "lit": "postcode"
+                },
+                {
+                  "var": "postcode"
+                }
+              ],
+              "parts": [
+                "regional",
+                "intensity",
+                "{from}",
+                "pt24h",
+                "postcode",
+                "{postcode}"
+              ],
+              "rename": {},
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "from",
+                    "orig": "from",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true
+                  },
+                  {
+                    "name": "postcode",
+                    "orig": "postcode",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "from",
+                  "postcode"
+                ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
+              }
+            },
+            {
+              "kind": "http",
+              "method": "GET",
+              "orig": "/regional/intensity/{from}/fw24h/regionid/{regionid}",
+              "segments": [
+                {
+                  "lit": "regional"
+                },
+                {
+                  "lit": "intensity"
+                },
+                {
+                  "var": "from"
+                },
+                {
+                  "lit": "fw24h"
+                },
+                {
+                  "lit": "regionid"
+                },
+                {
+                  "var": "regionid"
+                }
+              ],
+              "parts": [
+                "regional",
+                "intensity",
+                "{from}",
+                "fw24h",
+                "regionid",
+                "{regionid}"
+              ],
+              "rename": {},
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "from",
+                    "orig": "from",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true
+                  },
+                  {
+                    "name": "regionid",
+                    "orig": "regionid",
+                    "type": "`$INTEGER`",
+                    "kind": "param",
+                    "reqd": true
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "from",
+                  "regionid"
+                ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
+              }
+            },
+            {
+              "kind": "http",
+              "method": "GET",
+              "orig": "/regional/intensity/{from}/fw48h/regionid/{regionid}",
+              "segments": [
+                {
+                  "lit": "regional"
+                },
+                {
+                  "lit": "intensity"
+                },
+                {
+                  "var": "from"
+                },
+                {
+                  "lit": "fw48h"
+                },
+                {
+                  "lit": "regionid"
+                },
+                {
+                  "var": "regionid"
+                }
+              ],
+              "parts": [
+                "regional",
+                "intensity",
+                "{from}",
+                "fw48h",
+                "regionid",
+                "{regionid}"
+              ],
+              "rename": {},
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "from",
+                    "orig": "from",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true
+                  },
+                  {
+                    "name": "regionid",
+                    "orig": "regionid",
+                    "type": "`$INTEGER`",
+                    "kind": "param",
+                    "reqd": true
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "from",
+                  "regionid"
+                ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
+              }
+            },
+            {
+              "kind": "http",
+              "method": "GET",
+              "orig": "/regional/intensity/{from}/pt24h/regionid/{regionid}",
+              "segments": [
+                {
+                  "lit": "regional"
+                },
+                {
+                  "lit": "intensity"
+                },
+                {
+                  "var": "from"
+                },
+                {
+                  "lit": "pt24h"
+                },
+                {
+                  "lit": "regionid"
+                },
+                {
+                  "var": "regionid"
+                }
+              ],
+              "parts": [
+                "regional",
+                "intensity",
+                "{from}",
+                "pt24h",
+                "regionid",
+                "{regionid}"
+              ],
+              "rename": {},
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "from",
+                    "orig": "from",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true
+                  },
+                  {
+                    "name": "regionid",
+                    "orig": "regionid",
+                    "type": "`$INTEGER`",
+                    "kind": "param",
+                    "reqd": true
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "from",
+                  "regionid"
+                ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
               }
             },
             {
@@ -1618,402 +2103,10 @@ class Config {
                   "from",
                   "to"
                 ]
-              }
-            },
-            {
-              "kind": "http",
-              "method": "GET",
-              "orig": "/regional/intensity/{from}/fw24h/postcode/{postcode}",
-              "segments": [
-                {
-                  "lit": "regional"
-                },
-                {
-                  "lit": "intensity"
-                },
-                {
-                  "var": "intensity_id"
-                },
-                {
-                  "lit": "fw24h"
-                },
-                {
-                  "lit": "postcode"
-                },
-                {
-                  "var": "postcode"
-                }
-              ],
-              "parts": [
-                "regional",
-                "intensity",
-                "{intensity_id}",
-                "fw24h",
-                "postcode",
-                "{postcode}"
-              ],
-              "rename": {
-                "param": {
-                  "from": "intensity_id"
-                }
               },
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
-              "args": {
-                "params": [
-                  {
-                    "name": "intensity_id",
-                    "orig": "from",
-                    "type": "`$STRING`",
-                    "kind": "param",
-                    "reqd": true
-                  },
-                  {
-                    "name": "postcode",
-                    "orig": "postcode",
-                    "type": "`$STRING`",
-                    "kind": "param",
-                    "reqd": true
-                  }
-                ]
-              },
-              "select": {
-                "exist": [
-                  "intensity_id",
-                  "postcode"
-                ]
-              }
-            },
-            {
-              "kind": "http",
-              "method": "GET",
-              "orig": "/regional/intensity/{from}/fw48h/postcode/{postcode}",
-              "segments": [
-                {
-                  "lit": "regional"
-                },
-                {
-                  "lit": "intensity"
-                },
-                {
-                  "var": "intensity_id"
-                },
-                {
-                  "lit": "fw48h"
-                },
-                {
-                  "lit": "postcode"
-                },
-                {
-                  "var": "postcode"
-                }
-              ],
-              "parts": [
-                "regional",
-                "intensity",
-                "{intensity_id}",
-                "fw48h",
-                "postcode",
-                "{postcode}"
-              ],
-              "rename": {
-                "param": {
-                  "from": "intensity_id"
-                }
-              },
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
-              "args": {
-                "params": [
-                  {
-                    "name": "intensity_id",
-                    "orig": "from",
-                    "type": "`$STRING`",
-                    "kind": "param",
-                    "reqd": true
-                  },
-                  {
-                    "name": "postcode",
-                    "orig": "postcode",
-                    "type": "`$STRING`",
-                    "kind": "param",
-                    "reqd": true
-                  }
-                ]
-              },
-              "select": {
-                "exist": [
-                  "intensity_id",
-                  "postcode"
-                ]
-              }
-            },
-            {
-              "kind": "http",
-              "method": "GET",
-              "orig": "/regional/intensity/{from}/pt24h/postcode/{postcode}",
-              "segments": [
-                {
-                  "lit": "regional"
-                },
-                {
-                  "lit": "intensity"
-                },
-                {
-                  "var": "intensity_id"
-                },
-                {
-                  "lit": "pt24h"
-                },
-                {
-                  "lit": "postcode"
-                },
-                {
-                  "var": "postcode"
-                }
-              ],
-              "parts": [
-                "regional",
-                "intensity",
-                "{intensity_id}",
-                "pt24h",
-                "postcode",
-                "{postcode}"
-              ],
-              "rename": {
-                "param": {
-                  "from": "intensity_id"
-                }
-              },
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
-              "args": {
-                "params": [
-                  {
-                    "name": "intensity_id",
-                    "orig": "from",
-                    "type": "`$STRING`",
-                    "kind": "param",
-                    "reqd": true
-                  },
-                  {
-                    "name": "postcode",
-                    "orig": "postcode",
-                    "type": "`$STRING`",
-                    "kind": "param",
-                    "reqd": true
-                  }
-                ]
-              },
-              "select": {
-                "exist": [
-                  "intensity_id",
-                  "postcode"
-                ]
-              }
-            },
-            {
-              "kind": "http",
-              "method": "GET",
-              "orig": "/regional/intensity/{from}/fw24h/regionid/{regionid}",
-              "segments": [
-                {
-                  "lit": "regional"
-                },
-                {
-                  "lit": "intensity"
-                },
-                {
-                  "var": "intensity_id"
-                },
-                {
-                  "lit": "fw24h"
-                },
-                {
-                  "lit": "regionid"
-                },
-                {
-                  "var": "regionid"
-                }
-              ],
-              "parts": [
-                "regional",
-                "intensity",
-                "{intensity_id}",
-                "fw24h",
-                "regionid",
-                "{regionid}"
-              ],
-              "rename": {
-                "param": {
-                  "from": "intensity_id"
-                }
-              },
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
-              "args": {
-                "params": [
-                  {
-                    "name": "intensity_id",
-                    "orig": "from",
-                    "type": "`$STRING`",
-                    "kind": "param",
-                    "reqd": true
-                  },
-                  {
-                    "name": "regionid",
-                    "orig": "regionid",
-                    "type": "`$INTEGER`",
-                    "kind": "param",
-                    "reqd": true
-                  }
-                ]
-              },
-              "select": {
-                "exist": [
-                  "intensity_id",
-                  "regionid"
-                ]
-              }
-            },
-            {
-              "kind": "http",
-              "method": "GET",
-              "orig": "/regional/intensity/{from}/fw48h/regionid/{regionid}",
-              "segments": [
-                {
-                  "lit": "regional"
-                },
-                {
-                  "lit": "intensity"
-                },
-                {
-                  "var": "intensity_id"
-                },
-                {
-                  "lit": "fw48h"
-                },
-                {
-                  "lit": "regionid"
-                },
-                {
-                  "var": "regionid"
-                }
-              ],
-              "parts": [
-                "regional",
-                "intensity",
-                "{intensity_id}",
-                "fw48h",
-                "regionid",
-                "{regionid}"
-              ],
-              "rename": {
-                "param": {
-                  "from": "intensity_id"
-                }
-              },
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
-              "args": {
-                "params": [
-                  {
-                    "name": "intensity_id",
-                    "orig": "from",
-                    "type": "`$STRING`",
-                    "kind": "param",
-                    "reqd": true
-                  },
-                  {
-                    "name": "regionid",
-                    "orig": "regionid",
-                    "type": "`$INTEGER`",
-                    "kind": "param",
-                    "reqd": true
-                  }
-                ]
-              },
-              "select": {
-                "exist": [
-                  "intensity_id",
-                  "regionid"
-                ]
-              }
-            },
-            {
-              "kind": "http",
-              "method": "GET",
-              "orig": "/regional/intensity/{from}/pt24h/regionid/{regionid}",
-              "segments": [
-                {
-                  "lit": "regional"
-                },
-                {
-                  "lit": "intensity"
-                },
-                {
-                  "var": "intensity_id"
-                },
-                {
-                  "lit": "pt24h"
-                },
-                {
-                  "lit": "regionid"
-                },
-                {
-                  "var": "regionid"
-                }
-              ],
-              "parts": [
-                "regional",
-                "intensity",
-                "{intensity_id}",
-                "pt24h",
-                "regionid",
-                "{regionid}"
-              ],
-              "rename": {
-                "param": {
-                  "from": "intensity_id"
-                }
-              },
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
-              "args": {
-                "params": [
-                  {
-                    "name": "intensity_id",
-                    "orig": "from",
-                    "type": "`$STRING`",
-                    "kind": "param",
-                    "reqd": true
-                  },
-                  {
-                    "name": "regionid",
-                    "orig": "regionid",
-                    "type": "`$INTEGER`",
-                    "kind": "param",
-                    "reqd": true
-                  }
-                ]
-              },
-              "select": {
-                "exist": [
-                  "intensity_id",
-                  "regionid"
-                ]
+              "response": {
+                "kind": "json",
+                "media": "application/json"
               }
             }
           ]
@@ -2126,6 +2219,10 @@ class Config {
                   "from",
                   "to"
                 ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
               }
             },
             {
@@ -2180,6 +2277,10 @@ class Config {
                   "from",
                   "to"
                 ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
               }
             }
           ]

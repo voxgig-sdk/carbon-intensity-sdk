@@ -472,11 +472,19 @@ RegionalIntensityList = Struct.new(
 # @!attribute [rw] from
 #   @return [String]
 #
+# @!attribute [rw] postcode
+#   @return [String, nil]
+#
 # @!attribute [rw] to
-#   @return [String]
+#   @return [String, nil]
+#
+# @!attribute [rw] regionid
+#   @return [Integer, nil]
 RegionalIntensityListLoadMatch = Struct.new(
   :from,
+  :postcode,
   :to,
+  :regionid,
   keyword_init: true
 )
 

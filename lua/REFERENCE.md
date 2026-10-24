@@ -132,7 +132,7 @@ local generation = client:Generation(nil)
 
 #### `list(reqmatch, ctrl) -> any, err`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array of entities, one per record, or `nil` and an error on failure.
 
 ```lua
 local results, err = client:Generation():list()
@@ -140,7 +140,7 @@ local results, err = client:Generation():list()
 
 #### `load(reqmatch, ctrl) -> any, err`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Returns the entity, whose record `data_get()` reads, or `nil` and an error on failure.
 
 ```lua
 local result, err = client:Generation():load({ from = "from", to = "to" })
@@ -194,10 +194,10 @@ local generation_list = client:GenerationList(nil)
 
 #### `list(reqmatch, ctrl) -> any, err`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array of entities, one per record, or `nil` and an error on failure.
 
 ```lua
-local results, err = client:GenerationList():list()
+local results, err = client:GenerationList():list({ from = "example" })
 ```
 
 ### Common Methods
@@ -250,7 +250,7 @@ local intensity = client:Intensity(nil)
 
 #### `list(reqmatch, ctrl) -> any, err`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array of entities, one per record, or `nil` and an error on failure.
 
 ```lua
 local results, err = client:Intensity():list()
@@ -258,7 +258,7 @@ local results, err = client:Intensity():list()
 
 #### `load(reqmatch, ctrl) -> any, err`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Returns the entity, whose record `data_get()` reads, or `nil` and an error on failure.
 
 ```lua
 local result, err = client:Intensity():load({ id = "intensity_id" })
@@ -323,7 +323,7 @@ local intensity_factor = client:IntensityFactor(nil)
 
 #### `list(reqmatch, ctrl) -> any, err`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array of entities, one per record, or `nil` and an error on failure.
 
 ```lua
 local results, err = client:IntensityFactor():list()
@@ -378,7 +378,7 @@ local intensity_list = client:IntensityList(nil)
 
 #### `list(reqmatch, ctrl) -> any, err`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array of entities, one per record, or `nil` and an error on failure.
 
 ```lua
 local results, err = client:IntensityList():list()
@@ -386,7 +386,7 @@ local results, err = client:IntensityList():list()
 
 #### `load(reqmatch, ctrl) -> any, err`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Returns the entity, whose record `data_get()` reads, or `nil` and an error on failure.
 
 ```lua
 local result, err = client:IntensityList():load({ date = "date" })
@@ -442,7 +442,7 @@ local regional = client:Regional(nil)
 
 #### `list(reqmatch, ctrl) -> any, err`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array of entities, one per record, or `nil` and an error on failure.
 
 ```lua
 local results, err = client:Regional():list()
@@ -498,7 +498,7 @@ local regional_intensity = client:RegionalIntensity(nil)
 
 #### `list(reqmatch, ctrl) -> any, err`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array of entities, one per record, or `nil` and an error on failure.
 
 ```lua
 local results, err = client:RegionalIntensity():list()
@@ -506,7 +506,7 @@ local results, err = client:RegionalIntensity():list()
 
 #### `load(reqmatch, ctrl) -> any, err`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Returns the entity, whose record `data_get()` reads, or `nil` and an error on failure.
 
 ```lua
 local result, err = client:RegionalIntensity():load({ postcode = "postcode" })
@@ -563,18 +563,18 @@ local regional_intensity_list = client:RegionalIntensityList(nil)
 
 #### `list(reqmatch, ctrl) -> any, err`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array of entities, one per record, or `nil` and an error on failure.
 
 ```lua
-local results, err = client:RegionalIntensityList():list()
+local results, err = client:RegionalIntensityList():list({ from = "example" })
 ```
 
 #### `load(reqmatch, ctrl) -> any, err`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Returns the entity, whose record `data_get()` reads, or `nil` and an error on failure.
 
 ```lua
-local result, err = client:RegionalIntensityList():load({ from = "from", to = "to" })
+local result, err = client:RegionalIntensityList():load({ from = "from", postcode = "postcode" })
 ```
 
 ### Common Methods
@@ -624,7 +624,7 @@ local stat = client:Stat(nil)
 
 #### `load(reqmatch, ctrl) -> any, err`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Returns the entity, whose record `data_get()` reads, or `nil` and an error on failure.
 
 ```lua
 local result, err = client:Stat():load({ from = "from", to = "to" })
@@ -817,6 +817,7 @@ Timeout.
 | Option | Type |
 |---|---|
 | `clearTimer` | function |
+| `now` | function |
 | `setTimer` | function |
 
 These take no default: the feature behaves one way when you supply them and

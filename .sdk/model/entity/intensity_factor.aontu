@@ -118,6 +118,10 @@ main: kit: entity: intensity_factor: {
           }
           m: "GET"
           o: "/intensity/factors"
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
           s: [
             {
               lit: "intensity"

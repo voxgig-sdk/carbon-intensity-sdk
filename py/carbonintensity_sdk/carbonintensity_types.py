@@ -16,49 +16,62 @@ from __future__ import annotations
 from typing import TypedDict, Any
 
 
-class Generation(TypedDict, total=False):
-    data: list
-    generationmix: list
-    id: str
-    to: str
+Generation = TypedDict('Generation', {
+    "data": list,
+    "from": str,
+    "generationmix": list,
+    "id": str,
+    "to": str,
+}, total=False)
 
 
-class GenerationLoadMatch(TypedDict):
-    to: str
+GenerationLoadMatch = TypedDict('GenerationLoadMatch', {
+    "from": str,
+    "to": str,
+})
 
 
-class GenerationListMatch(TypedDict, total=False):
-    data: list
-    generationmix: list
-    id: str
-    to: str
+GenerationListMatch = TypedDict('GenerationListMatch', {
+    "data": list,
+    "from": str,
+    "generationmix": list,
+    "id": str,
+    "to": str,
+}, total=False)
 
 
-class GenerationList(TypedDict, total=False):
-    generationmix: list
-    to: str
+GenerationList = TypedDict('GenerationList', {
+    "from": str,
+    "generationmix": list,
+    "to": str,
+}, total=False)
 
 
-class GenerationListListMatch(TypedDict):
-    pass
+GenerationListListMatch = TypedDict('GenerationListListMatch', {
+    "from": str,
+})
 
 
-class Intensity(TypedDict, total=False):
-    data: list
-    id: str
-    intensity: dict
-    to: str
+Intensity = TypedDict('Intensity', {
+    "data": list,
+    "from": str,
+    "id": str,
+    "intensity": dict,
+    "to": str,
+}, total=False)
 
 
 class IntensityLoadMatch(TypedDict):
     id: str
 
 
-class IntensityListMatch(TypedDict, total=False):
-    data: list
-    id: str
-    intensity: dict
-    to: str
+IntensityListMatch = TypedDict('IntensityListMatch', {
+    "data": list,
+    "from": str,
+    "id": str,
+    "intensity": dict,
+    "to": str,
+}, total=False)
 
 
 class IntensityFactor(TypedDict, total=False):
@@ -95,20 +108,24 @@ class IntensityFactorListMatch(TypedDict, total=False):
     Wind: int
 
 
-class IntensityList(TypedDict, total=False):
-    data: list
-    intensity: dict
-    to: str
+IntensityList = TypedDict('IntensityList', {
+    "data": list,
+    "from": str,
+    "intensity": dict,
+    "to": str,
+}, total=False)
 
 
 class IntensityListLoadMatch(TypedDict):
     date: str
 
 
-class IntensityListListMatch(TypedDict, total=False):
-    data: list
-    intensity: dict
-    to: str
+IntensityListListMatch = TypedDict('IntensityListListMatch', {
+    "data": list,
+    "from": str,
+    "intensity": dict,
+    "to": str,
+}, total=False)
 
 
 class Regional(TypedDict, total=False):
@@ -156,12 +173,24 @@ class RegionalIntensityList(TypedDict, total=False):
     shortname: str
 
 
-class RegionalIntensityListLoadMatch(TypedDict):
-    to: str
+RegionalIntensityListLoadMatchRequired = TypedDict('RegionalIntensityListLoadMatchRequired', {
+    "from": str,
+})
+
+RegionalIntensityListLoadMatchOptional = TypedDict('RegionalIntensityListLoadMatchOptional', {
+    "postcode": str,
+    "to": str,
+    "regionid": int,
+}, total=False)
 
 
-class RegionalIntensityListListMatch(TypedDict):
+class RegionalIntensityListLoadMatch(RegionalIntensityListLoadMatchRequired, RegionalIntensityListLoadMatchOptional):
     pass
+
+
+RegionalIntensityListListMatch = TypedDict('RegionalIntensityListListMatch', {
+    "from": str,
+})
 
 
 class Stat(TypedDict, total=False):
@@ -169,9 +198,15 @@ class Stat(TypedDict, total=False):
     id: str
 
 
-class StatLoadMatchRequired(TypedDict):
-    to: str
+StatLoadMatchRequired = TypedDict('StatLoadMatchRequired', {
+    "from": str,
+    "to": str,
+})
+
+StatLoadMatchOptional = TypedDict('StatLoadMatchOptional', {
+    "block": int,
+}, total=False)
 
 
-class StatLoadMatch(StatLoadMatchRequired, total=False):
-    block: int
+class StatLoadMatch(StatLoadMatchRequired, StatLoadMatchOptional):
+    pass

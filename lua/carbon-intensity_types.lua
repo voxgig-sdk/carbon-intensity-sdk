@@ -137,7 +137,9 @@
 
 ---@class RegionalIntensityListLoadMatch
 ---@field from string
----@field to string
+---@field postcode? string
+---@field to? string
+---@field regionid? number
 
 ---@class RegionalIntensityListListMatch
 ---@field from string

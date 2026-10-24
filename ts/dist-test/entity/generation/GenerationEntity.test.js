@@ -54,15 +54,62 @@ const utility_1 = require("../../utility");
         const ent = testsdk.Generation();
         (0, node_assert_1.default)(null != ent);
     });
+    class FailHook extends __1.BaseFeature {
+        name = 'failhook';
+        version = '0.0.1';
+        active = true;
+        unexpected = 0;
+        init() { }
+        PreSpec() { throw new Error('generation hook failed'); }
+        PreUnexpected() { this.unexpected++; }
+    }
+    (0, node_test_1.test)('stream-error', async () => {
+        const offline = { net: { offline: true } };
+        await node_assert_1.default.rejects(async () => {
+            for await (const _item of __1.CarbonIntensitySDK.test(offline).Generation().stream('list')) { }
+        }, /offline/);
+        for await (const _item of __1.CarbonIntensitySDK.test(offline).Generation()
+            .stream('list', undefined, { ctrl: { throw: false } })) { }
+        if (null != __1.config.feature?.rbac) {
+            const denied = __1.CarbonIntensitySDK.test(undefined, { feature: { rbac: { active: true, deny: true } } });
+            await node_assert_1.default.rejects(async () => {
+                for await (const _item of denied.Generation().stream('list')) { }
+            }, (err) => 'rbac_denied' === err.code);
+        }
+    });
+    (0, node_test_1.test)('stream-ctrl', async () => {
+        const explain = {};
+        const ctrl = { explain };
+        for await (const _item of __1.CarbonIntensitySDK.test().Generation().stream('list', undefined, { ctrl })) { }
+        node_assert_1.default.deepStrictEqual(Object.keys(ctrl), ['explain']);
+        (0, node_assert_1.default)(explain === ctrl.explain && 0 < Object.keys(explain).length);
+    });
+    (0, node_test_1.test)('unexpected', async () => {
+        const hook = new FailHook();
+        const client = new __1.CarbonIntensitySDK({ feature: { test: { active: true } }, extend: [hook] });
+        await node_assert_1.default.rejects(client.Generation().list(), /hook failed/);
+        (0, node_assert_1.default)(0 < hook.unexpected);
+        const fired = hook.unexpected;
+        node_assert_1.default.strictEqual(await client.Generation().list(undefined, { throw: false }), undefined);
+        (0, node_assert_1.default)(fired < hook.unexpected);
+    });
+    (0, node_test_1.test)('validate', async (t) => {
+        if (null == __1.config.feature?.validate) {
+            t.skip('feature not present in this SDK: validate');
+            return;
+        }
+        const client = __1.CarbonIntensitySDK.test(undefined, { feature: { validate: { active: true } } });
+        await node_assert_1.default.rejects(client.Generation().list({ "from": 1 }), (err) => 'validate_failed' === err.code);
+    });
     (0, node_test_1.test)('basic', async (t) => {
         const live = 'TRUE' === process.env.CARBON_INTENSITY_TEST_LIVE;
-        for (const op of ['list', 'load']) {
+        for (const op of ['list']) {
             if (!live && (0, utility_1.maybeSkipControl)(t, 'entityOp', 'generation.' + op, live))
                 return;
         }
         const setup = basicSetup();
         if (setup.live) {
-            return (0, live_entity_1.runLiveEntity)(setup, { "active": true, "alias": { "field": {} }, "fields": { "data": { "a": true, "h": "Data", "n": "data", "r": false, "t": "`$ARRAY`", "key$": "data", "index$": 0 }, "from": { "a": true, "fo": "date-time", "h": "From", "n": "from", "r": false, "t": "`$STRING`", "key$": "from", "index$": 1 }, "generationmix": { "a": true, "h": "Generationmix", "n": "generationmix", "r": false, "t": "`$ARRAY`", "key$": "generationmix", "index$": 2 }, "id": { "a": true, "h": "Id", "n": "id", "r": false, "t": "`$STRING`", "key$": "id", "index$": 3 }, "to": { "a": true, "fo": "date-time", "h": "To", "n": "to", "r": false, "t": "`$STRING`", "key$": "to", "index$": 4 } }, "id": { "field": "id", "from": { "from": "from", "to": "to" }, "name": "id", "parts": ["from", "to"], "sep": "/" }, "name": "generation", "op": { "list": { "input": "data", "name": "list", "points": [{ "a": true, "co": { "id": "GET /generation", "source": "openapi3", "version": 2 }, "g": {}, "k": "http", "m": "GET", "o": "/generation", "q": {}, "r": {}, "s": [{ "lit": "generation" }], "t": { "req": "`reqdata`", "res": "`body.data`" }, "index$": 0 }], "key$": "list" }, "load": { "input": "data", "name": "load", "points": [{ "a": true, "co": { "id": "GET /generation/{from}/{to}", "source": "openapi3", "version": 2 }, "g": { "params": [{ "a": true, "k": "param", "n": "from", "or": "from", "r": true, "t": "`$STRING`", "index$": 0 }, { "a": true, "k": "param", "n": "to", "or": "to", "r": true, "t": "`$STRING`", "index$": 1 }] }, "k": "http", "m": "GET", "o": "/generation/{from}/{to}", "q": { "exist": ["from", "to"] }, "r": {}, "s": [{ "lit": "generation" }, { "var": "from" }, { "var": "to" }], "t": { "req": "`reqdata`", "res": "`body`" }, "index$": 0 }], "key$": "load" } }, "relations": { "ancestors": [] }, "key$": "generation", "name__orig": "generation", "Name": "Generation", "name_": "generation", "name-": "generation", "NAME": "GENERATION", "index$": 0 }, { "active": true, "entity": "generation", "key$": "BasicGenerationFlow", "kind": "basic", "name": "BasicGenerationFlow", "param": {}, "step": [{ "a": true, "d": {}, "i": {}, "m": {}, "o": "list", "s": [], "v": [{ "apply": "ItemExists", "def": { "ref": "generation_ref01" } }], "index$": 0 }, { "a": true, "d": {}, "i": { "ref": "generation_ref01", "srcdatavar": "generation_ref01_data", "suffix": "_dt0" }, "m": { "from": "from01", "id": "generation01" }, "o": "load", "s": [], "v": [{ "apply": "TextFieldMark", "def": { "mark": "Mark01-generation_ref01" } }], "index$": 1 }] }, 'Generation', { "GET /generation": { "protocol": "http", "parameters": [] }, "GET /generation/{from}/{to}": { "protocol": "http", "parameters": [{ "name": "from", "in": "path", "required": true, "description": "Start datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)", "schema": { "type": "string", "format": "date-time" }, "index$": 0 }, { "name": "to", "in": "path", "required": true, "description": "End datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)", "schema": { "type": "string", "format": "date-time" }, "index$": 1 }] } });
+            return (0, live_entity_1.runLiveEntity)(setup, { "active": true, "alias": { "field": {} }, "fields": { "data": { "a": true, "h": "Data", "n": "data", "r": false, "t": "`$ARRAY`", "key$": "data", "index$": 0 }, "from": { "a": true, "fo": "date-time", "h": "From", "n": "from", "r": false, "t": "`$STRING`", "key$": "from", "index$": 1 }, "generationmix": { "a": true, "h": "Generationmix", "n": "generationmix", "r": false, "t": "`$ARRAY`", "key$": "generationmix", "index$": 2 }, "id": { "a": true, "h": "Id", "n": "id", "r": false, "t": "`$STRING`", "key$": "id", "index$": 3 }, "to": { "a": true, "fo": "date-time", "h": "To", "n": "to", "r": false, "t": "`$STRING`", "key$": "to", "index$": 4 } }, "id": { "field": "id", "from": { "from": "from", "to": "to" }, "name": "id", "parts": ["from", "to"], "sep": "/" }, "name": "generation", "op": { "list": { "input": "data", "name": "list", "points": [{ "a": true, "co": { "id": "GET /generation", "source": "openapi3", "version": 2 }, "g": {}, "k": "http", "m": "GET", "o": "/generation", "q": {}, "r": {}, "rs": { "kind": "json", "media": "application/json" }, "s": [{ "lit": "generation" }], "t": { "req": "`reqdata`", "res": "`body.data`" }, "index$": 0 }], "key$": "list" }, "load": { "input": "data", "name": "load", "points": [{ "a": true, "co": { "id": "GET /generation/{from}/{to}", "source": "openapi3", "version": 2 }, "g": { "params": [{ "a": true, "k": "param", "n": "from", "or": "from", "r": true, "t": "`$STRING`", "index$": 0 }, { "a": true, "k": "param", "n": "to", "or": "to", "r": true, "t": "`$STRING`", "index$": 1 }] }, "k": "http", "m": "GET", "o": "/generation/{from}/{to}", "q": { "exist": ["from", "to"] }, "r": {}, "rs": { "kind": "json", "media": "application/json" }, "s": [{ "lit": "generation" }, { "var": "from" }, { "var": "to" }], "t": { "req": "`reqdata`", "res": "`body`" }, "index$": 0 }], "key$": "load" } }, "relations": { "ancestors": [] }, "key$": "generation", "name__orig": "generation", "Name": "Generation", "name_": "generation", "name-": "generation", "NAME": "GENERATION", "index$": 0 }, { "active": true, "entity": "generation", "key$": "BasicGenerationFlow", "kind": "basic", "name": "BasicGenerationFlow", "param": {}, "step": [{ "a": true, "d": {}, "i": {}, "m": {}, "o": "list", "s": [], "v": [{ "apply": "ItemExists", "def": { "ref": "generation_ref01" } }], "index$": 0 }, { "a": false, "d": {}, "i": { "ref": "generation_ref01", "srcdatavar": "generation_ref01_data", "suffix": "_dt0" }, "m": { "from": "from01", "id": "generation01" }, "o": "load", "s": [], "v": [{ "apply": "TextFieldMark", "def": { "mark": "Mark01-generation_ref01" } }], "unreachable": true }] }, 'Generation', { "GET /generation": { "protocol": "http", "parameters": [] }, "GET /generation/{from}/{to}": { "protocol": "http", "parameters": [{ "name": "from", "in": "path", "required": true, "description": "Start datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)", "schema": { "type": "string", "format": "date-time" }, "index$": 0 }, { "name": "to", "in": "path", "required": true, "description": "End datetime in ISO8601 format (YYYY-MM-DDThh:mmZ)", "schema": { "type": "string", "format": "date-time" }, "index$": 1 }] } }, { strict: LIVE_STRICT, t });
         }
         const client = setup.client;
         const struct = setup.struct;
@@ -73,13 +120,13 @@ const utility_1 = require("../../utility");
         const generation_ref01_ent = client.Generation();
         const generation_ref01_match = {};
         const generation_ref01_list = (await generation_ref01_ent.list(generation_ref01_match)).map((e) => e.data());
-        // LOAD
-        const generation_ref01_match_dt0 = {};
-        generation_ref01_match_dt0.id = generation_ref01_data.id;
-        const generation_ref01_data_dt0 = (await generation_ref01_ent.load(generation_ref01_match_dt0)).data();
-        (0, node_assert_1.default)(generation_ref01_data_dt0.id === generation_ref01_data.id);
     });
 });
+// main.kit.test.live.strict is true (the default is true): a live
+// request that fails, or a live test missing an input it needs,
+// fails the test.
+// An account with no record for a test to read skips it either way.
+const LIVE_STRICT = true;
 function basicSetup(extra) {
     // TODO: fix test def options
     const options = {}; // null
@@ -94,7 +141,7 @@ function basicSetup(extra) {
     const struct = client.utility().struct;
     const merge = struct.merge;
     const transform = struct.transform;
-    let idmap = transform(['generation01', 'generation02', 'generation03', 'from01'], {
+    let idmap = transform(['generation01', 'generation02', 'generation03'], {
         '`$PACK`': ['', {
                 '`$KEY`': '`$COPY`',
                 '`$VAL`': ['`$FORMAT`', 'upper', '`$COPY`']

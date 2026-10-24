@@ -6,6 +6,20 @@ local sdk = require("carbon-intensity_sdk")
 local helpers = require("core.helpers")
 local runner = require("test.runner")
 
+-- main.kit.test.live.strict is true (the default is true): a live
+-- request that fails, or a live test missing an input it needs,
+-- fails the test.
+-- An account with no record for a test to read skips it either way.
+local LIVE_STRICT = true
+
+local function live_ok(result, err)
+  if err ~= nil or type(result) ~= "table" or result["err"] ~= nil or not result["ok"] then
+    return false
+  end
+  local status = helpers.to_int(result["status"])
+  return status >= 200 and status < 300
+end
+
 describe("IntensityDirect", function()
   it("should direct-list-intensity", function()
     local setup = intensity_direct_setup({
@@ -19,29 +33,21 @@ describe("IntensityDirect", function()
     end
     local client = setup.client
 
+    local params = {}
 
     local result, err = client:direct({
       path = "intensity",
       method = "GET",
-      params = {},
+      params = params,
     })
     if setup.live then
-      -- Live mode is lenient: synthetic IDs frequently 4xx and the list-
-      -- response shape varies wildly across public APIs. Skip rather than
-      -- fail when the call doesn't return a usable list.
-      if err ~= nil then
-        pending("list call failed (likely synthetic IDs against live API): " .. tostring(err))
-        return
+      if not live_ok(result, err) then
+        runner.live_miss(pending, LIVE_STRICT, "Live list failed: " .. runner.live_describe(result, err))
       end
-      if not result["ok"] then
-        pending("list call not ok (likely synthetic IDs against live API)")
-        return
+      if runner.live_list(result["data"]) == nil then
+        runner.live_miss(pending, LIVE_STRICT, "Live list returned no list: " .. runner.live_describe(result, err))
       end
-      local status = helpers.to_int(result["status"])
-      if status < 200 or status >= 300 then
-        pending("expected 2xx status, got " .. tostring(status))
-        return
-      end
+      assert.is_table(runner.live_list(result["data"]))
     else
       assert.is_nil(err)
       assert.is_true(result["ok"])
@@ -60,14 +66,40 @@ describe("IntensityDirect", function()
       return
     end
     if setup.live then
-      pending("live direct-load needs real ID — set *_ENTID env var with real IDs to run")
-      return
+      for _, _live_key in ipairs({"period01"}) do
+        if setup.idmap[_live_key] == nil then
+          runner.live_miss(pending, LIVE_STRICT, "Live test blocked: needs " .. _live_key .. " via CARBON_INTENSITY_TEST_INTENSITY_ENTID")
+        end
+      end
     end
     local client = setup.client
 
     local params = {}
     local query = {}
-    if not setup.live then
+    if setup.live then
+      local list_result, list_err = client:direct({
+        path = "intensity",
+        method = "GET",
+        params = {},
+      })
+      if not live_ok(list_result, list_err) then
+        runner.live_miss(pending, LIVE_STRICT, "Live list discovery failed: " .. runner.live_describe(list_result, list_err))
+      end
+      local records = runner.live_list(list_result["data"])
+      if records == nil then
+        runner.live_miss(pending, LIVE_STRICT, "Live list discovery returned no list: " .. runner.live_describe(list_result, list_err))
+      end
+      if records[1] == nil then
+        runner.live_empty(pending, "The account has no intensity record to load")
+      end
+      local first = type(records[1]) == "table" and records[1] or {}
+      local found = first["date"] or first["id"]
+      if found == nil then
+        runner.live_miss(pending, LIVE_STRICT, "Live load blocked: discovery returned no usable identity")
+      end
+      params["date"] = found
+      params["period"] = setup.idmap["period01"]
+    else
       params["date"] = "direct01"
       params["period"] = "direct02"
     end
@@ -79,22 +111,13 @@ describe("IntensityDirect", function()
       query = query,
     })
     if setup.live then
-      -- Live mode is lenient: synthetic IDs frequently 4xx. Skip rather
-      -- than fail when the load endpoint isn't reachable with the IDs we
-      -- can construct from setup.idmap.
-      if err ~= nil then
-        pending("load call failed (likely synthetic IDs against live API): " .. tostring(err))
-        return
+      if not live_ok(result, err) then
+        runner.live_miss(pending, LIVE_STRICT, "Live load failed: " .. runner.live_describe(result, err))
       end
-      if not result["ok"] then
-        pending("load call not ok (likely synthetic IDs against live API)")
-        return
+      if result["data"] == nil then
+        runner.live_miss(pending, LIVE_STRICT, "Live load returned no data: " .. runner.live_describe(result, err))
       end
-      local status = helpers.to_int(result["status"])
-      if status < 200 or status >= 300 then
-        pending("expected 2xx status, got " .. tostring(status))
-        return
-      end
+      assert.is_not_nil(result["data"])
     else
       assert.is_nil(err)
       assert.is_true(result["ok"])
@@ -133,11 +156,12 @@ function intensity_direct_setup(mockres)
       end
     end
     local client = sdk.new(merged_opts)
+    local idmap = env["CARBON_INTENSITY_TEST_INTENSITY_ENTID"]
     return {
       client = client,
       calls = calls,
       live = true,
-      idmap = {},
+      idmap = type(idmap) == "table" and idmap or {},
     }
   end
 

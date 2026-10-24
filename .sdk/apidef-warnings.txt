@@ -1,0 +1,68 @@
+{
+  point: "warning"
+  note: "Points GET /intensity/{from}/fw24h, GET /intensity/{from}/fw48h and GET /intensity/{from}/pt24h on entity=intensity_list op=list have the same selector (exist: from), so only GET /intensity/{from}/fw24h is ever chosen. An action or another entity in guide.aontu tells them apart."
+  entity: "intensity_list"
+  op: "list"
+  points: [
+    "GET /intensity/{from}/fw24h"
+    "GET /intensity/{from}/fw48h"
+    "GET /intensity/{from}/pt24h"
+  ]
+
+}
+
+
+{
+  point: "warning"
+  note: "Points GET /regional/england, GET /regional/scotland and GET /regional/wales on entity=regional_intensity op=list have the same selector (exist: none), so only GET /regional/england is ever chosen. An action or another entity in guide.aontu tells them apart."
+  entity: "regional_intensity"
+  op: "list"
+  points: [
+    "GET /regional/england"
+    "GET /regional/scotland"
+    "GET /regional/wales"
+  ]
+
+}
+
+
+{
+  point: "warning"
+  note: "Points GET /regional/intensity/{from}/fw24h, GET /regional/intensity/{from}/fw48h and GET /regional/intensity/{from}/pt24h on entity=regional_intensity_list op=list have the same selector (exist: from), so only GET /regional/intensity/{from}/fw24h is ever chosen. An action or another entity in guide.aontu tells them apart."
+  entity: "regional_intensity_list"
+  op: "list"
+  points: [
+    "GET /regional/intensity/{from}/fw24h"
+    "GET /regional/intensity/{from}/fw48h"
+    "GET /regional/intensity/{from}/pt24h"
+  ]
+
+}
+
+
+{
+  point: "warning"
+  note: "Points GET /regional/intensity/{from}/fw24h/postcode/{postcode}, GET /regional/intensity/{from}/fw48h/postcode/{postcode} and GET /regional/intensity/{from}/pt24h/postcode/{postcode} on entity=regional_intensity_list op=load have the same selector (exist: from,postcode), so only GET /regional/intensity/{from}/fw24h/postcode/{postcode} is ever chosen. An action or another entity in guide.aontu tells them apart."
+  entity: "regional_intensity_list"
+  op: "load"
+  points: [
+    "GET /regional/intensity/{from}/fw24h/postcode/{postcode}"
+    "GET /regional/intensity/{from}/fw48h/postcode/{postcode}"
+    "GET /regional/intensity/{from}/pt24h/postcode/{postcode}"
+  ]
+
+}
+
+
+{
+  point: "warning"
+  note: "Points GET /regional/intensity/{from}/fw24h/regionid/{regionid}, GET /regional/intensity/{from}/fw48h/regionid/{regionid} and GET /regional/intensity/{from}/pt24h/regionid/{regionid} on entity=regional_intensity_list op=load have the same selector (exist: from,regionid), so only GET /regional/intensity/{from}/fw24h/regionid/{regionid} is ever chosen. An action or another entity in guide.aontu tells them apart."
+  entity: "regional_intensity_list"
+  op: "load"
+  points: [
+    "GET /regional/intensity/{from}/fw24h/regionid/{regionid}"
+    "GET /regional/intensity/{from}/fw48h/regionid/{regionid}"
+    "GET /regional/intensity/{from}/pt24h/regionid/{regionid}"
+  ]
+
+}

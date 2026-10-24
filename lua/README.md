@@ -12,7 +12,7 @@ It exposes the API as capitalised, semantic **Entities** — e.g. `client:Genera
 
 ## Install
 This package is not yet published to LuaRocks. Install it from the
-GitHub release tag (`lua/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/carbon-intensity-sdk/releases)),
+GitHub release tag (`lua/vX.Y.Z`, see [Tags](https://github.com/voxgig-sdk/carbon-intensity-sdk/tags)),
 or add the source directory to your `LUA_PATH`:
 
 ```bash
@@ -35,15 +35,17 @@ local client = sdk.new()
 
 ### 2. List generation records
 
-Entity operations return `(value, err)`. For `list`, `value` is the
-array of records itself — iterate it directly (there is no wrapper).
+Entity operations return `(value, err)`. For `list`, `value` is an
+array of entities, one per record — iterate it directly (there is no
+wrapper), and read each record with `data_get()`.
 
 ```lua
 local generations, err = client:Generation():list()
 if err then error(err) end
 
 for _, item in ipairs(generations) do
-  print(item["id"])
+  local rec = item:data_get()
+  print(rec["id"])
 end
 ```
 
@@ -51,10 +53,12 @@ end
 
 IntensityList is nested under date, so provide the `date`.
 
+`load` returns the entity; `data_get()` reads its record.
+
 ```lua
 local intensitylist, err = client:IntensityList():load({ date = "example_date" })
 if err then error(err) end
-print(intensitylist)
+for k, val in pairs(intensitylist:data_get()) do print(k, val) end
 ```
 
 
@@ -123,7 +127,7 @@ Create a mock client for unit testing — no server required:
 local client = sdk.test()
 
 local result, err = client:IntensityList():list()
--- result is the returned data; err is set on failure
+-- result is an array of entities, one per mock record; err is set on failure
 ```
 
 ### Use a custom fetch function
@@ -217,8 +221,8 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `load` | `(reqmatch, ctrl) -> any, err` | Load a single entity by match criteria. |
-| `list` | `(reqmatch, ctrl) -> any, err` | List entities matching the criteria. |
+| `load` | `(reqmatch, ctrl) -> any, err` | Load a single entity by match criteria, and return it. |
+| `list` | `(reqmatch, ctrl) -> any, err` | List entities matching the criteria, one per record. |
 | `data_get` | `() -> table` | Get entity data. |
 | `data_set` | `(data)` | Set entity data. |
 | `match_get` | `() -> table` | Get entity match criteria. |
@@ -228,19 +232,19 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return `(value, err)`. The `value` is the operation's
-data **directly** — there is no wrapper:
+Entity operations return `(value, err)`. The `value` is the entity
+itself — there is no wrapper:
 
 | Operation | `value` |
 | --- | --- |
-| `load` | the entity record (a `table`) |
-| `list` | an array (`table`) of entity records |
+| `load` | the entity, whose `data_get()` reads its record (a `table`) |
+| `list` | an array (`table`) of entities, one per record |
 
 Check `err` first (it is non-`nil` on failure), then use `value`:
 
-    local generation, err = client:Generation():load()
+    local generation, err = client:Generation():load({ from = "example", to = "example" })
     if err then error(err) end
-    -- generation is the loaded record
+    -- generation is the loaded entity
 
 Only `direct()` returns a response envelope — a `table` with `ok`,
 `status`, `headers`, and `data` keys.
@@ -437,7 +441,7 @@ Create an instance: `local generation_list = client:GenerationList(nil)`
 #### Example: List
 
 ```lua
-local generation_lists, err = client:GenerationList():list()
+local generation_lists, err = client:GenerationList():list({ from = "example" })
 ```
 
 
@@ -630,13 +634,13 @@ Create an instance: `local regional_intensity_list = client:RegionalIntensityLis
 #### Example: Load
 
 ```lua
-local regional_intensity_list, err = client:RegionalIntensityList():load({ from = "from", to = "to" })
+local regional_intensity_list, err = client:RegionalIntensityList():load({ from = "from", postcode = "postcode" })
 ```
 
 #### Example: List
 
 ```lua
-local regional_intensity_lists, err = client:RegionalIntensityList():list()
+local regional_intensity_lists, err = client:RegionalIntensityList():list({ from = "example" })
 ```
 
 

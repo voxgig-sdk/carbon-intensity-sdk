@@ -202,7 +202,9 @@ class RegionalIntensityList
 class RegionalIntensityListLoadMatch
 {
     public string $from;
-    public string $to;
+    public ?string $postcode = null;
+    public ?string $to = null;
+    public ?int $regionid = null;
 }
 
 /** Request payload for RegionalIntensityList#list. */

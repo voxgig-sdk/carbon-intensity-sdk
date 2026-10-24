@@ -52,9 +52,8 @@ const client = CarbonIntensitySDK.test({
   },
 })
 const intensitylists = await client.IntensityList().list()
-// intensitylists is an array of IntensityList entities, populated with mock data
-// — call intensitylists[0].data() for the record itself
-console.log(intensitylists)
+// intensitylists is an array of IntensityList entities, one per mock record
+console.log(intensitylists.map((intensitylist) => intensitylist.data()))
 ```
 
 ### Python
@@ -62,7 +61,7 @@ console.log(intensitylists)
 ```python
 client = CarbonIntensitySDK.test()
 intensitylists = client.IntensityList().list()
-print(intensitylists)
+print([item.data_get() for item in intensitylists])
 ```
 
 ### PHP
@@ -70,7 +69,7 @@ print(intensitylists)
 ```php
 // Seed fixture data so offline calls resolve without a live server.
 $client = CarbonIntensitySDK::test([
-    "entity" => ["intensitylist" => ["test01" => []]],
+    "entity" => ["intensity_list" => ["test01" => []]],
 ]);
 $intensitylists = $client->IntensityList()->list();
 ```
@@ -89,7 +88,7 @@ result, err := client.IntensityList(nil).List(
 ```ruby
 # Seed fixture data so offline calls resolve without a live server.
 client = CarbonIntensitySDK.test({
-  "entity" => { "intensitylist" => { "test01" => {} } },
+  "entity" => { "intensity_list" => { "test01" => {} } },
 })
 intensitylists = client.IntensityList.list()
 ```
@@ -111,8 +110,8 @@ local results, err = client:IntensityList():list()
 | Golang | `github.com/voxgig-sdk/carbon-intensity-sdk/go` | `go get github.com/voxgig-sdk/carbon-intensity-sdk/go@latest` |
 | Ruby | `voxgig-sdk-carbon-intensity-sdk` | publish pending — [install from source](rb/README.md#install) |
 | Lua | `voxgig-sdk-carbon-intensity-sdk` | publish pending — [install from source](lua/README.md#install) |
-| Go CLI | `github.com/voxgig-sdk/carbon-intensity-sdk/go-cli` | `go install github.com/voxgig-sdk/carbon-intensity-sdk/go-cli/cmd/carbon-intensity@latest` |
-| Go MCP server | `github.com/voxgig-sdk/carbon-intensity-sdk/go-mcp` | `go get github.com/voxgig-sdk/carbon-intensity-sdk/go-mcp@latest` |
+| Go CLI | `github.com/voxgig-sdk/carbon-intensity-sdk/go-cli` | build from source — [go-cli/README.md](go-cli/README.md) |
+| Go MCP server | `github.com/voxgig-sdk/carbon-intensity-sdk/go-mcp` | build from source — [go-mcp/README.md](go-mcp/README.md) |
 
 ## Quickstart
 
@@ -123,17 +122,17 @@ import { CarbonIntensitySDK } from '@voxgig-sdk/carbon-intensity-sdk'
 
 const client = new CarbonIntensitySDK()
 
-// List all generations (returns GenerationEntity[] — .data() for the record)
+// List all generations (returns GenerationEntity[], one entity per record)
 const generations = await client.Generation().list()
 for (const generation of generations) {
-  console.log(generation)
+  console.log(generation.data())
 }
 
-// Load a specific intensitylist (returns a IntensityList)
+// Load a specific intensitylist (returns the entity, an IntensityListEntity)
 const intensitylist = await client.IntensityList().load({
   date: 'example_date',
 })
-console.log(intensitylist)
+console.log(intensitylist.data())
 ```
 
 See the [TypeScript README](ts/README.md) for the full guide.
@@ -148,9 +147,10 @@ See the [TypeScript README](ts/README.md) for the full guide.
 
 ## Use it from an AI agent (MCP)
 
-The generated MCP server exposes every operation in this SDK as an
-[MCP](https://modelcontextprotocol.io) tool that Claude, Cursor or Cline
-can call directly. Build and register it:
+The generated MCP server exposes this SDK's list and load operations as
+[MCP](https://modelcontextprotocol.io) tools that Claude, Cursor or Cline
+can call directly. It only reads: create, update, patch and remove become tools when the SDK's model sets
+`main: kit: target: 'go-mcp': tool: write: true`. Build and register it:
 
 ```bash
 cd go-mcp && go build -o carbon-intensity-mcp .
@@ -196,14 +196,14 @@ from carbonintensity_sdk import CarbonIntensitySDK
 
 client = CarbonIntensitySDK()
 
-# List all generations (returns a list, raises on error)
+# List all generations (a list of entities, one per record; raises on error)
 generations = client.Generation().list()
 for generation in generations:
-    print(generation)
+    print(generation.data_get())
 
-# Load a specific generation (returns the record, raises on error)
+# Load a specific generation (returns the entity, raises on error)
 generation = client.Generation().load({"from": "example_from", "to": "example_to"})
-print(generation)
+print(generation.data_get())
 ```
 
 ### PHP
@@ -214,11 +214,11 @@ require_once 'carbonintensity_sdk.php';
 
 $client = new CarbonIntensitySDK();
 
-// List all generations (returns an array; throws on error)
+// List all generations (an array of entities, one per record; throws on error)
 $generations = $client->Generation()->list();
 print_r(array_map(fn($item) => $item->data_get(), $generations));
 
-// Load a specific generation (returns the ENTITY; call data_get() for the record; throws on error)
+// Load a specific generation (returns the entity; data_get() reads its record; throws on error)
 $generation = $client->Generation()->load(["from" => "example_from", "to" => "example_to"]);
 print_r($generation->data_get());
 ```
@@ -230,21 +230,23 @@ import sdk "github.com/voxgig-sdk/carbon-intensity-sdk/go"
 
 client := sdk.New()
 
-// List all generations
+// List all generations (one entity per record; err is non-nil on failure)
 generations, err := client.Generation(nil).List(nil, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(generations)
+for _, generation := range generations.([]any) {
+    fmt.Println(generation.(sdk.Entity).Data())
+}
 
-// Load a specific intensitylist
+// Load a specific intensitylist (returns the entity; err is non-nil on failure)
 intensityList, err := client.IntensityList(nil).Load(
     map[string]any{"date": "example_date"}, nil,
 )
 if err != nil {
     panic(err)
 }
-fmt.Println(intensityList)
+fmt.Println(intensityList.(sdk.Entity).Data())
 ```
 
 ### Ruby
@@ -254,29 +256,34 @@ require_relative "CarbonIntensity_sdk"
 
 client = CarbonIntensitySDK.new
 
-# List all generations (returns an Array; raises on error)
+# List all generations (an Array of entities, one per record; raises on error)
 generations = client.Generation.list
-puts generations
+generations.each { |item| puts item.data_get }
 
-# Load a specific generation (returns the ENTITY; call data_get for the record)
+# Load a specific generation (returns the entity; data_get reads its record; raises on error)
 generation = client.Generation.load({ "from" => "example_from", "to" => "example_to" })
-puts generation
+puts generation.data_get
 ```
 
 ### Lua
 
 ```lua
 local sdk = require("carbon-intensity_sdk")
+local json = require("dkjson")
 
 local client = sdk.new()
 
--- List all generations
+-- List all generations (an array of entities, one per record; err on failure)
 local generations, err = client:Generation():list()
-print(generations)
+if err then error(err) end
+for _, generation in ipairs(generations) do
+  print(json.encode(generation:data_get()))
+end
 
--- Load a specific generation
+-- Load a specific generation (returns the entity; err on failure)
 local generation, err = client:Generation():load({ from = "example_from", to = "example_to" })
-print(generation)
+if err then error(err) end
+print(json.encode(generation:data_get()))
 ```
 
 ## Direct and prepare
@@ -302,10 +309,9 @@ const result = await client.direct({
   method: 'GET',
   params: { id: 'example' },
 })
-if (result instanceof Error) {
-  throw result
+if (result.ok) {
+  console.log(result.data)
 }
-console.log(result.data)
 ```
 
 **Python:**
@@ -390,23 +396,52 @@ Pass custom features via the `extend` option at construction time.
 This repository contains its own generator (`.sdk/`), so the SDK is
 customizable without forking any upstream tool:
 
-- **The model** (`.sdk/model/`) declares everything this project owns:
-  package names, versions, active features, per-target settings. It is
-  written in [aontu](https://aontu.dev), a JSON-based
+- **The model** (`.sdk/model/`) is what generation reads: the API's
+  entities and operations, the targets, the features, and this project's
+  own settings. It is written in [aontu](https://aontu.dev), a JSON-based
   specification language designed for building ontologies: easy to edit
   by hand, and files unify rather than override, so small declarations
   compose into one model. Regeneration re-reads it every time.
 - **Templates** (`.sdk/tm/`) and **components** (`.sdk/src/cmp/`) are
   the two layers of generation, copied into this repo: templates are the
   literal per-language source, components generate the API-shaped parts.
-- **Regeneration merges.** By default, newly generated content is
-  three-way merged into existing files, so generator updates and local
-  edits usually converge without manual conflict handling. A project can
-  opt for plain overwrite instead.
+- **Regeneration overwrites.** Each run rewrites every generated file from
+  the model, the templates and the components, so an edit made to
+  generated output is lost. Say what this project needs in its own model
+  (`.sdk/model/project.aontu`), or extend a target with a component of its
+  own in `.sdk/src/cmp/<target>/`, registered with `registerComponent`,
+  which `voxgig-sdkgen doctor` reports as an addition rather than drift.
 - **Custom features and entire custom targets** arrive through sdkgen
   packages (`voxgig-sdkgen package add`), on the same rails as the
   bundled languages, and `voxgig-sdkgen doctor` reports any drift from
   what a resync would write.
+
+### Project map
+
+| Path | What it holds | Edit it? |
+| --- | --- | --- |
+| `.sdk/model/project.aontu` | This project's own decisions: package names, versions, features and per-target settings | Yes. The scaffold writes it once and never again. |
+| `.sdk/model/text.aontu` | The README wording, in `main.kit.text`: the tagline, the summary and the entity descriptions | Yes. The scaffold writes it once and never again. |
+| `.sdk/model/guide/guide.aontu` | How the spec's paths map onto entities and operations | Yes. The scaffold writes it once and never again. |
+| `.sdk/model/`, the rest | The API model built from the spec, and the target and feature definitions | Not by hand. Generation, `target add` and a new scaffold run rewrite it. |
+| `.sdk/def/` | The OpenAPI spec | Replace it when the API changes. Generation rebuilds the model from it. |
+| `.sdk/src/cmp/<target>/`, `.sdk/tm/<target>/` | The components and templates that generate each target | Only to add a component of your own. `target add` overwrites the copies. |
+| `.sdk/test/` | The shared test cases the generated tests run | No. |
+| `<target>/`, such as `ts/` | One generated SDK per target, with its own tests | No. Generation overwrites it. |
+| `README.md`, `LICENSE`, `Makefile` and the other root files | The repository's generated files | No. Generation overwrites them. |
+
+### Common commands
+
+Run these from `.sdk/`:
+
+```bash
+npm run generate               # regenerate every target from the model
+npm run add-target <target>    # add a target, or resync one after an sdkgen update
+npm run add-feature <feature>  # add a feature to every target
+npx voxgig-sdkgen doctor       # report where .sdk/ differs from what a resync writes
+```
+
+In an SDK directory, `make test` runs that SDK's tests.
 
 How-to: [customize and propagate templates](https://github.com/voxgig/sdkgen/blob/main/docs/how-to/customize-and-propagate-templates.md).
 The full story: [voxgig.com/sdk/custom](https://voxgig.com/sdk/custom).

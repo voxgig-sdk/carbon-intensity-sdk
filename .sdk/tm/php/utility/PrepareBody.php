@@ -3,11 +3,16 @@ declare(strict_types=1);
 
 // CarbonIntensity SDK utility: prepare_body
 
+require_once __DIR__ . '/Media.php';
+
 class CarbonIntensityPrepareBody
 {
     public static function call(CarbonIntensityContext $ctx): mixed
     {
         if ($ctx->op->input === 'data') {
+            if (CarbonIntensityMedia::isRawRequest($ctx->point)) {
+                return CarbonIntensityMedia::rawBody($ctx->reqdata);
+            }
             $body = ($ctx->utility->transform_request)($ctx);
             // PHP cannot tell an empty map from an empty list, and this
             // vendored struct answers [] where the canonical transform

@@ -9,7 +9,7 @@ import { createLiveTransport } from '../../live-runner'
 import { runLiveEntity } from '../../live-entity'
 
 
-import { CarbonIntensitySDK, BaseFeature, stdutil } from '../../..'
+import { CarbonIntensitySDK, BaseFeature, config, stdutil } from '../../..'
 
 import {
   envOverride,
@@ -41,6 +41,64 @@ describe('IntensityFactorEntity', async () => {
   })
 
 
+  class FailHook extends BaseFeature {
+    name = 'failhook'
+    version = '0.0.1'
+    active = true
+    unexpected = 0
+    init() { }
+    PreSpec() { throw new Error('intensity_factor hook failed') }
+    PreUnexpected() { this.unexpected++ }
+  }
+
+  test('stream-error', async () => {
+    const offline = { net: { offline: true } }
+    await assert.rejects(async () => {
+      for await (const _item of CarbonIntensitySDK.test(offline).IntensityFactor().stream('list')) { }
+    }, /offline/)
+
+    for await (const _item of CarbonIntensitySDK.test(offline).IntensityFactor()
+      .stream('list', undefined, { ctrl: { throw: false } })) { }
+
+    if (null != (config as any).feature?.rbac) {
+      const denied = CarbonIntensitySDK.test(undefined, { feature: { rbac: { active: true, deny: true } } })
+      await assert.rejects(async () => {
+        for await (const _item of denied.IntensityFactor().stream('list')) { }
+      }, (err: any) => 'rbac_denied' === err.code)
+    }
+  })
+
+  test('stream-ctrl', async () => {
+    const explain: any = {}
+    const ctrl: any = { explain }
+    for await (const _item of CarbonIntensitySDK.test().IntensityFactor().stream('list', undefined, { ctrl })) { }
+    assert.deepStrictEqual(Object.keys(ctrl), ['explain'])
+    assert(explain === ctrl.explain && 0 < Object.keys(explain).length)
+  })
+
+  test('unexpected', async () => {
+    const hook = new FailHook()
+    const client = new CarbonIntensitySDK({ feature: { test: { active: true } }, extend: [hook] })
+    await assert.rejects(client.IntensityFactor().list(), /hook failed/)
+    assert(0 < hook.unexpected)
+
+    const fired = hook.unexpected
+    assert.strictEqual(await client.IntensityFactor().list(undefined, { throw: false }), undefined)
+    assert(fired < hook.unexpected)
+  })
+
+  test('validate', async (t) => {
+    if (null == (config as any).feature?.validate) {
+      t.skip('feature not present in this SDK: validate')
+      return
+    }
+    const client = CarbonIntensitySDK.test(undefined, { feature: { validate: { active: true } } })
+    await assert.rejects(client.IntensityFactor().list({"Biomass":"x"} as any),
+      (err: any) => 'validate_failed' === err.code)
+  })
+
+
+
   test('basic', async (t) => {
 
     const live = 'TRUE' === process.env.CARBON_INTENSITY_TEST_LIVE
@@ -51,7 +109,7 @@ describe('IntensityFactorEntity', async () => {
     
     const setup = basicSetup()
     if (setup.live) {
-      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":{"Biomass":{"a":true,"h":"Biomass","n":"Biomass","r":false,"sh":"Carbon intensity factor for biomass (gCO2/kWh)","t":"`$INTEGER`","key$":"Biomass","index$":0},"Coal":{"a":true,"h":"Coal","n":"Coal","r":false,"sh":"Carbon intensity factor for coal (gCO2/kWh)","t":"`$INTEGER`","key$":"Coal","index$":1},"DutchImports":{"a":true,"h":"Dutch Imports","n":"DutchImports","r":false,"sh":"Carbon intensity factor for Dutch imports (gCO2/kWh)","t":"`$INTEGER`","key$":"DutchImports","index$":2},"FrenchImports":{"a":true,"h":"French Imports","n":"FrenchImports","r":false,"sh":"Carbon intensity factor for French imports (gCO2/kWh)","t":"`$INTEGER`","key$":"FrenchImports","index$":3},"GasCombinedCycle":{"a":true,"h":"Gas Combined Cycle","n":"GasCombinedCycle","r":false,"sh":"Carbon intensity factor for gas combined cycle (gCO2/kWh)","t":"`$INTEGER`","key$":"GasCombinedCycle","index$":4},"GasOpenCycle":{"a":true,"h":"Gas Open Cycle","n":"GasOpenCycle","r":false,"sh":"Carbon intensity factor for gas open cycle (gCO2/kWh)","t":"`$INTEGER`","key$":"GasOpenCycle","index$":5},"Hydro":{"a":true,"h":"Hydro","n":"Hydro","r":false,"sh":"Carbon intensity factor for hydro (gCO2/kWh)","t":"`$INTEGER`","key$":"Hydro","index$":6},"IrishImports":{"a":true,"h":"Irish Imports","n":"IrishImports","r":false,"sh":"Carbon intensity factor for Irish imports (gCO2/kWh)","t":"`$INTEGER`","key$":"IrishImports","index$":7},"Nuclear":{"a":true,"h":"Nuclear","n":"Nuclear","r":false,"sh":"Carbon intensity factor for nuclear (gCO2/kWh)","t":"`$INTEGER`","key$":"Nuclear","index$":8},"Oil":{"a":true,"h":"Oil","n":"Oil","r":false,"sh":"Carbon intensity factor for oil (gCO2/kWh)","t":"`$INTEGER`","key$":"Oil","index$":9},"Other":{"a":true,"h":"Other","n":"Other","r":false,"sh":"Carbon intensity factor for other (gCO2/kWh)","t":"`$INTEGER`","key$":"Other","index$":10},"PumpedStorage":{"a":true,"h":"Pumped Storage","n":"PumpedStorage","r":false,"sh":"Carbon intensity factor for pumped storage (gCO2/kWh)","t":"`$INTEGER`","key$":"PumpedStorage","index$":11},"Solar":{"a":true,"h":"Solar","n":"Solar","r":false,"sh":"Carbon intensity factor for solar (gCO2/kWh)","t":"`$INTEGER`","key$":"Solar","index$":12},"Wind":{"a":true,"h":"Wind","n":"Wind","r":false,"sh":"Carbon intensity factor for wind (gCO2/kWh)","t":"`$INTEGER`","key$":"Wind","index$":13}},"name":"intensity_factor","op":{"list":{"input":"data","name":"list","points":[{"a":true,"co":{"id":"GET /intensity/factors","source":"openapi3","version":2},"g":{},"k":"http","m":"GET","o":"/intensity/factors","q":{},"r":{},"s":[{"lit":"intensity"},{"lit":"factors"}],"t":{"req":"`reqdata`","res":"`body.data`"},"index$":0}],"key$":"list"}},"relations":{"ancestors":[]},"key$":"intensity_factor","name__orig":"intensity_factor","Name":"IntensityFactor","name_":"intensity_factor","name-":"intensity-factor","NAME":"INTENSITY_FACTOR","index$":3}, {"active":true,"entity":"intensity_factor","key$":"BasicIntensityFactorFlow","kind":"basic","name":"BasicIntensityFactorFlow","param":{},"step":[{"a":true,"d":{},"i":{},"m":{},"o":"list","s":[],"v":[{"apply":"ItemExists","def":{"ref":"intensity_factor_ref01"}}],"index$":0}]}, 'IntensityFactor', {"GET /intensity/factors":{"protocol":"http","parameters":[]}})
+      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":{"Biomass":{"a":true,"h":"Biomass","n":"Biomass","r":false,"sh":"Carbon intensity factor for biomass (gCO2/kWh)","t":"`$INTEGER`","key$":"Biomass","index$":0},"Coal":{"a":true,"h":"Coal","n":"Coal","r":false,"sh":"Carbon intensity factor for coal (gCO2/kWh)","t":"`$INTEGER`","key$":"Coal","index$":1},"DutchImports":{"a":true,"h":"Dutch Imports","n":"DutchImports","r":false,"sh":"Carbon intensity factor for Dutch imports (gCO2/kWh)","t":"`$INTEGER`","key$":"DutchImports","index$":2},"FrenchImports":{"a":true,"h":"French Imports","n":"FrenchImports","r":false,"sh":"Carbon intensity factor for French imports (gCO2/kWh)","t":"`$INTEGER`","key$":"FrenchImports","index$":3},"GasCombinedCycle":{"a":true,"h":"Gas Combined Cycle","n":"GasCombinedCycle","r":false,"sh":"Carbon intensity factor for gas combined cycle (gCO2/kWh)","t":"`$INTEGER`","key$":"GasCombinedCycle","index$":4},"GasOpenCycle":{"a":true,"h":"Gas Open Cycle","n":"GasOpenCycle","r":false,"sh":"Carbon intensity factor for gas open cycle (gCO2/kWh)","t":"`$INTEGER`","key$":"GasOpenCycle","index$":5},"Hydro":{"a":true,"h":"Hydro","n":"Hydro","r":false,"sh":"Carbon intensity factor for hydro (gCO2/kWh)","t":"`$INTEGER`","key$":"Hydro","index$":6},"IrishImports":{"a":true,"h":"Irish Imports","n":"IrishImports","r":false,"sh":"Carbon intensity factor for Irish imports (gCO2/kWh)","t":"`$INTEGER`","key$":"IrishImports","index$":7},"Nuclear":{"a":true,"h":"Nuclear","n":"Nuclear","r":false,"sh":"Carbon intensity factor for nuclear (gCO2/kWh)","t":"`$INTEGER`","key$":"Nuclear","index$":8},"Oil":{"a":true,"h":"Oil","n":"Oil","r":false,"sh":"Carbon intensity factor for oil (gCO2/kWh)","t":"`$INTEGER`","key$":"Oil","index$":9},"Other":{"a":true,"h":"Other","n":"Other","r":false,"sh":"Carbon intensity factor for other (gCO2/kWh)","t":"`$INTEGER`","key$":"Other","index$":10},"PumpedStorage":{"a":true,"h":"Pumped Storage","n":"PumpedStorage","r":false,"sh":"Carbon intensity factor for pumped storage (gCO2/kWh)","t":"`$INTEGER`","key$":"PumpedStorage","index$":11},"Solar":{"a":true,"h":"Solar","n":"Solar","r":false,"sh":"Carbon intensity factor for solar (gCO2/kWh)","t":"`$INTEGER`","key$":"Solar","index$":12},"Wind":{"a":true,"h":"Wind","n":"Wind","r":false,"sh":"Carbon intensity factor for wind (gCO2/kWh)","t":"`$INTEGER`","key$":"Wind","index$":13}},"name":"intensity_factor","op":{"list":{"input":"data","name":"list","points":[{"a":true,"co":{"id":"GET /intensity/factors","source":"openapi3","version":2},"g":{},"k":"http","m":"GET","o":"/intensity/factors","q":{},"r":{},"rs":{"kind":"json","media":"application/json"},"s":[{"lit":"intensity"},{"lit":"factors"}],"t":{"req":"`reqdata`","res":"`body.data`"},"index$":0}],"key$":"list"}},"relations":{"ancestors":[]},"key$":"intensity_factor","name__orig":"intensity_factor","Name":"IntensityFactor","name_":"intensity_factor","name-":"intensity-factor","NAME":"INTENSITY_FACTOR","index$":3}, {"active":true,"entity":"intensity_factor","key$":"BasicIntensityFactorFlow","kind":"basic","name":"BasicIntensityFactorFlow","param":{},"step":[{"a":true,"d":{},"i":{},"m":{},"o":"list","s":[],"v":[{"apply":"ItemExists","def":{"ref":"intensity_factor_ref01"}}],"index$":0}]}, 'IntensityFactor', {"GET /intensity/factors":{"protocol":"http","parameters":[]}}, { strict: LIVE_STRICT, t })
     }
     const client = setup.client
     const struct = setup.struct
@@ -72,6 +130,12 @@ describe('IntensityFactorEntity', async () => {
 })
 
 
+
+// main.kit.test.live.strict is true (the default is true): a live
+// request that fails, or a live test missing an input it needs,
+// fails the test.
+// An account with no record for a test to read skips it either way.
+const LIVE_STRICT = true
 
 function basicSetup(extra?: any) {
   // TODO: fix test def options

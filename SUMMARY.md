@@ -135,13 +135,13 @@ Use this map to locate a capability. Consult the entity reference before supplyi
 | RegionalIntensityList | `list` | `GET /regional/intensity/{from}/pt24h` | See reference |
 | RegionalIntensityList | `load` | `GET /regional/intensity/{from}/{to}/postcode/{postcode}` | See reference |
 | RegionalIntensityList | `load` | `GET /regional/intensity/{from}/{to}/regionid/{regionid}` | See reference |
-| RegionalIntensityList | `load` | `GET /regional/intensity/{from}/{to}` | See reference |
 | RegionalIntensityList | `load` | `GET /regional/intensity/{from}/fw24h/postcode/{postcode}` | See reference |
 | RegionalIntensityList | `load` | `GET /regional/intensity/{from}/fw48h/postcode/{postcode}` | See reference |
 | RegionalIntensityList | `load` | `GET /regional/intensity/{from}/pt24h/postcode/{postcode}` | See reference |
 | RegionalIntensityList | `load` | `GET /regional/intensity/{from}/fw24h/regionid/{regionid}` | See reference |
 | RegionalIntensityList | `load` | `GET /regional/intensity/{from}/fw48h/regionid/{regionid}` | See reference |
 | RegionalIntensityList | `load` | `GET /regional/intensity/{from}/pt24h/regionid/{regionid}` | See reference |
+| RegionalIntensityList | `load` | `GET /regional/intensity/{from}/{to}` | See reference |
 | Stat | `load` | `GET /intensity/stats/{from}/{to}/{block}` | See reference |
 | Stat | `load` | `GET /intensity/stats/{from}/{to}` | See reference |
 

@@ -105,11 +105,9 @@ guide: {
       op: list: transform: res: *("`body.data`")|top
     }
     path: "/regional/intensity/{from}/fw24h/postcode/{postcode}": {
-      rename: param: "from": *"intensity_id"
       op: load: method: *GET
     }
     path: "/regional/intensity/{from}/fw24h/regionid/{regionid}": {
-      rename: param: "from": *"intensity_id"
       op: load: method: *GET
     }
     path: "/regional/intensity/{from}/fw48h": {
@@ -117,11 +115,9 @@ guide: {
       op: list: transform: res: *("`body.data`")|top
     }
     path: "/regional/intensity/{from}/fw48h/postcode/{postcode}": {
-      rename: param: "from": *"intensity_id"
       op: load: method: *GET
     }
     path: "/regional/intensity/{from}/fw48h/regionid/{regionid}": {
-      rename: param: "from": *"intensity_id"
       op: load: method: *GET
     }
     path: "/regional/intensity/{from}/pt24h": {
@@ -129,22 +125,18 @@ guide: {
       op: list: transform: res: *("`body.data`")|top
     }
     path: "/regional/intensity/{from}/pt24h/postcode/{postcode}": {
-      rename: param: "from": *"intensity_id"
       op: load: method: *GET
     }
     path: "/regional/intensity/{from}/pt24h/regionid/{regionid}": {
-      rename: param: "from": *"intensity_id"
       op: load: method: *GET
     }
     path: "/regional/intensity/{from}/{to}": {
       op: load: method: *GET
     }
     path: "/regional/intensity/{from}/{to}/postcode/{postcode}": {
-      rename: param: "from": *"intensity_id"
       op: load: method: *GET
     }
     path: "/regional/intensity/{from}/{to}/regionid/{regionid}": {
-      rename: param: "from": *"intensity_id"
       op: load: method: *GET
     }
   }

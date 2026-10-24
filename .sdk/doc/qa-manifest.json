@@ -3,5 +3,23 @@
     "SUMMARY.md"
   ],
   "config": ".sdk/doc/qa/vale.ini",
-  "routes": {}
+  "routes": {},
+  "quoted": {
+    "SUMMARY.md": [
+      "Carbon intensity factor for Dutch imports (gCO2/kWh)",
+      "Carbon intensity factor for French imports (gCO2/kWh)",
+      "Carbon intensity factor for biomass (gCO2/kWh)",
+      "Carbon intensity factor for coal (gCO2/kWh)",
+      "Carbon intensity factor for gas combined cycle (gCO2/kWh)",
+      "Distribution Network Operator region",
+      "End datetime of the period",
+      "Official API for Carbon Intensity in Great Britain provided by National Grid ESO. Allows access to current and historical carbon intensity data for different regions and time periods.",
+      "Outward postcode",
+      "Production server",
+      "Region ID (1-17)",
+      "Short region name",
+      "Start datetime of the period",
+      "Successful response"
+    ]
+  }
 }

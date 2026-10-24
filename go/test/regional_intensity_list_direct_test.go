@@ -10,6 +10,12 @@ import (
 	"github.com/voxgig-sdk/carbon-intensity-sdk/go/core"
 )
 
+// main.kit.test.live.strict is true (the default is true): a live
+// request that fails, or a live test missing an input it needs,
+// fails the test.
+// An account with no record for a test to read skips it either way.
+const regional_intensity_listDirectLiveStrict = true
+
 func TestRegionalIntensityListDirect(t *testing.T) {
 	t.Run("direct-list-regional_intensity_list", func(t *testing.T) {
 		setup := regional_intensity_listDirectSetup([]any{
@@ -30,7 +36,7 @@ func TestRegionalIntensityListDirect(t *testing.T) {
 		if setup.live {
 			for _, _liveKey := range []string{"from01"} {
 				if v := setup.idmap[_liveKey]; v == nil {
-					t.Skipf("live test needs %s via *_ENTID env var (synthetic IDs only)", _liveKey)
+					liveMiss(t, regional_intensity_listDirectLiveStrict, "Live test blocked: needs %s via CARBON_INTENSITY_TEST_REGIONAL_INTENSITY_LIST_ENTID", _liveKey)
 					return
 				}
 			}
@@ -50,19 +56,14 @@ func TestRegionalIntensityListDirect(t *testing.T) {
 			"params": params,
 		})
 		if setup.live {
-			// Live-mode leniency is a model decision
-			// (main.kit.test.live.strict): synthetic IDs 4xx constantly
-			// against an arbitrary public API, so the default SKIPS here.
-			// A project that owns its test server sets strict and FAILS.
 			if err != nil {
-				t.Fatalf("list call failed (likely synthetic IDs against live API): %v", err)
+				liveMiss(t, regional_intensity_listDirectLiveStrict, "Live list failed: %v", err)
 			}
-			if result["ok"] != true {
-				t.Fatalf("list call not ok (likely synthetic IDs against live API): %v", result)
+			if status := core.ToInt(result["status"]); result["ok"] != true || status < 200 || status >= 300 {
+				liveMiss(t, regional_intensity_listDirectLiveStrict, "Live list failed: %s", liveDescribe(result))
 			}
-			status := core.ToInt(result["status"])
-			if status < 200 || status >= 300 {
-				t.Fatalf("expected 2xx status, got %v", result["status"])
+			if _, ok := liveList(result["data"]); !ok {
+				liveMiss(t, regional_intensity_listDirectLiveStrict, "Live list returned no list: %s", liveDescribe(result))
 			}
 		} else {
 			if err != nil {
@@ -116,9 +117,9 @@ func TestRegionalIntensityListDirect(t *testing.T) {
 			return
 		}
 		if setup.live {
-			for _, _liveKey := range []string{"from01"} {
+			for _, _liveKey := range []string{"from01", "postcode01", "to01"} {
 				if v := setup.idmap[_liveKey]; v == nil {
-					t.Skipf("live test needs %s via *_ENTID env var (synthetic IDs only)", _liveKey)
+					liveMiss(t, regional_intensity_listDirectLiveStrict, "Live test blocked: needs %s via CARBON_INTENSITY_TEST_REGIONAL_INTENSITY_LIST_ENTID", _liveKey)
 					return
 				}
 			}
@@ -136,48 +137,47 @@ func TestRegionalIntensityListDirect(t *testing.T) {
 				"params": listParams,
 			})
 			if listErr != nil {
-				t.Fatalf("list call failed (likely synthetic IDs against live API): %v", listErr)
+				liveMiss(t, regional_intensity_listDirectLiveStrict, "Live list discovery failed: %v", listErr)
 			}
 			if listResult["ok"] != true {
-				t.Fatalf("list call not ok (likely synthetic IDs against live API): %v", listResult)
+				liveMiss(t, regional_intensity_listDirectLiveStrict, "Live list discovery failed: %s", liveDescribe(listResult))
 			}
-
-			// Get first entity ID from list
-			listData, _ := listResult["data"].([]any)
+			listData, listOk := liveList(listResult["data"])
+			if !listOk {
+				liveMiss(t, regional_intensity_listDirectLiveStrict, "Live list discovery returned no list: %s", liveDescribe(listResult))
+			}
 			if len(listData) == 0 {
-				t.Skip("no entities to load in live mode")
+				liveEmpty(t, "The account has no regional_intensity_list record to load")
 			}
 			firstEnt := core.ToMapAny(listData[0])
+			if firstEnt["id"] == nil {
+				liveMiss(t, regional_intensity_listDirectLiveStrict, "Live load blocked: discovery returned no usable identity")
+			}
 			params["id"] = firstEnt["id"]
-			params["intensity_id"] = setup.idmap["intensity01"]
+			params["from"] = setup.idmap["from01"]
 			params["postcode"] = setup.idmap["postcode01"]
 			params["to"] = setup.idmap["to01"]
 		} else {
-			params["intensity_id"] = "direct01"
+			params["from"] = "direct01"
 			params["postcode"] = "direct02"
 			params["to"] = "direct03"
 		}
 
 		result, err := client.Direct(map[string]any{
-			"path":   "regional/intensity/{intensity_id}/{to}/postcode/{postcode}",
+			"path":   "regional/intensity/{from}/{to}/postcode/{postcode}",
 			"method": "GET",
 			"params": params,
 			"query":  query,
 		})
 		if setup.live {
-			// Live mode is lenient: synthetic IDs frequently 4xx. Skip
-			// rather than fail when the load endpoint isn't reachable with
-			// the IDs we can construct from setup.idmap — unless the model
-			// sets main.kit.test.live.strict.
 			if err != nil {
-				t.Fatalf("load call failed (likely synthetic IDs against live API): %v", err)
+				liveMiss(t, regional_intensity_listDirectLiveStrict, "Live load failed: %v", err)
 			}
-			if result["ok"] != true {
-				t.Fatalf("load call not ok (likely synthetic IDs against live API): %v", result)
+			if status := core.ToInt(result["status"]); result["ok"] != true || status < 200 || status >= 300 {
+				liveMiss(t, regional_intensity_listDirectLiveStrict, "Live load failed: %s", liveDescribe(result))
 			}
-			status := core.ToInt(result["status"])
-			if status < 200 || status >= 300 {
-				t.Fatalf("expected 2xx status, got %v", result["status"])
+			if result["data"] == nil {
+				liveMiss(t, regional_intensity_listDirectLiveStrict, "Live load returned no data: %s", liveDescribe(result))
 			}
 		} else {
 			if err != nil {

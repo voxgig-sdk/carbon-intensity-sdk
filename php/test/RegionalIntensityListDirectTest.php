@@ -10,6 +10,18 @@ use PHPUnit\Framework\TestCase;
 
 class RegionalIntensityListDirectTest extends TestCase
 {
+    // main.kit.test.live.strict is true (the default is true): a live
+    // request that fails, or a live test missing an input it needs,
+    // fails the test.
+    // An account with no record for a test to read skips it either way.
+    private const LIVE_STRICT = true;
+
+    private static function liveOk(array $result): bool
+    {
+        $status = Helpers::to_int($result["status"] ?? 0);
+        return empty($result["err"]) && !empty($result["ok"]) && $status >= 200 && $status < 300;
+    }
+
     public function test_direct_list_regional_intensity_list(): void
     {
         $setup = regional_intensity_list_direct_setup([
@@ -23,20 +35,15 @@ class RegionalIntensityListDirectTest extends TestCase
         }
         if ($setup["live"]) {
             foreach (["from01"] as $_liveKey) {
-                if (!isset($setup["idmap"][$_liveKey]) || $setup["idmap"][$_liveKey] === null) {
-                    $this->markTestSkipped("live test needs $_liveKey via *_ENTID env var (synthetic IDs only)");
-                    return;
+                if (null === ($setup["idmap"][$_liveKey] ?? null)) {
+                    Runner::live_miss(self::LIVE_STRICT, "Live test blocked: needs " . $_liveKey . " via CARBON_INTENSITY_TEST_REGIONAL_INTENSITY_LIST_ENTID");
                 }
             }
         }
         $client = $setup["client"];
 
         $params = [];
-        if ($setup["live"]) {
-            $params["from"] = $setup["idmap"]["from01"];
-        } else {
-            $params["from"] = "direct01";
-        }
+        $params["from"] = $setup["live"] ? ($setup["idmap"]["from01"] ?? null) : "direct01";
 
         $result = $client->direct([
             "path" => "regional/intensity/{from}/fw24h",
@@ -44,22 +51,13 @@ class RegionalIntensityListDirectTest extends TestCase
             "params" => $params,
         ]);
         if ($setup["live"]) {
-            // Live mode is lenient: synthetic IDs frequently 4xx and the
-            // list-response shape varies wildly across public APIs. Skip
-            // rather than fail when the call doesn't return a usable list.
-            if (!empty($result["err"])) {
-                $this->markTestSkipped("list call failed (likely synthetic IDs against live API): " . (string)$result["err"]);
-                return;
+            if (!self::liveOk($result)) {
+                Runner::live_miss(self::LIVE_STRICT, "Live list failed: " . Runner::live_describe($result));
             }
-            if (empty($result["ok"])) {
-                $this->markTestSkipped("list call not ok (likely synthetic IDs against live API)");
-                return;
+            if (null === Runner::live_list($result["data"] ?? null)) {
+                Runner::live_miss(self::LIVE_STRICT, "Live list returned no list: " . Runner::live_describe($result));
             }
-            $status = Helpers::to_int($result["status"]);
-            if ($status < 200 || $status >= 300) {
-                $this->markTestSkipped("expected 2xx status, got " . $status);
-                return;
-            }
+            $this->assertIsArray(Runner::live_list($result["data"]));
         } else {
             $this->assertArrayNotHasKey("err", $result);
             $this->assertTrue($result["ok"]);
@@ -79,42 +77,60 @@ class RegionalIntensityListDirectTest extends TestCase
             return;
         }
         if ($setup["live"]) {
-            $this->markTestSkipped("live direct-load needs real ID — set *_ENTID env var with real IDs to run");
-            return;
+            foreach (["from01", "postcode01", "to01"] as $_liveKey) {
+                if (null === ($setup["idmap"][$_liveKey] ?? null)) {
+                    Runner::live_miss(self::LIVE_STRICT, "Live test blocked: needs " . $_liveKey . " via CARBON_INTENSITY_TEST_REGIONAL_INTENSITY_LIST_ENTID");
+                }
+            }
         }
         $client = $setup["client"];
 
         $params = [];
         $query = [];
-        if (!$setup["live"]) {
-            $params["intensity_id"] = "direct01";
+        if ($setup["live"]) {
+            $list_result = $client->direct([
+                "path" => "regional/intensity/{from}/fw24h",
+                "method" => "GET",
+                "params" => ["from" => $setup["idmap"]["from01"] ?? null],
+            ]);
+            if (!self::liveOk($list_result)) {
+                Runner::live_miss(self::LIVE_STRICT, "Live list discovery failed: " . Runner::live_describe($list_result));
+            }
+            $records = Runner::live_list($list_result["data"] ?? null);
+            if (null === $records) {
+                Runner::live_miss(self::LIVE_STRICT, "Live list discovery returned no list: " . Runner::live_describe($list_result));
+            }
+            if (0 === count($records)) {
+                Runner::live_empty("The account has no regional_intensity_list record to load");
+            }
+            $first = is_array($records[0]) ? $records[0] : [];
+            $found = $first["from"] ?? $first["id"] ?? null;
+            if (null === $found) {
+                Runner::live_miss(self::LIVE_STRICT, "Live load blocked: discovery returned no usable identity");
+            }
+            $params["from"] = $found;
+            $params["postcode"] = $setup["idmap"]["postcode01"] ?? null;
+            $params["to"] = $setup["idmap"]["to01"] ?? null;
+        } else {
+            $params["from"] = "direct01";
             $params["postcode"] = "direct02";
             $params["to"] = "direct03";
         }
 
         $result = $client->direct([
-            "path" => "regional/intensity/{intensity_id}/{to}/postcode/{postcode}",
+            "path" => "regional/intensity/{from}/{to}/postcode/{postcode}",
             "method" => "GET",
             "params" => $params,
             "query" => $query,
         ]);
         if ($setup["live"]) {
-            // Live mode is lenient: synthetic IDs frequently 4xx. Skip
-            // rather than fail when the load endpoint isn't reachable
-            // with the IDs we can construct from setup.idmap.
-            if (!empty($result["err"])) {
-                $this->markTestSkipped("load call failed (likely synthetic IDs against live API): " . (string)$result["err"]);
-                return;
+            if (!self::liveOk($result)) {
+                Runner::live_miss(self::LIVE_STRICT, "Live load failed: " . Runner::live_describe($result));
             }
-            if (empty($result["ok"])) {
-                $this->markTestSkipped("load call not ok (likely synthetic IDs against live API)");
-                return;
+            if (null === ($result["data"] ?? null)) {
+                Runner::live_miss(self::LIVE_STRICT, "Live load returned no data: " . Runner::live_describe($result));
             }
-            $status = Helpers::to_int($result["status"]);
-            if ($status < 200 || $status >= 300) {
-                $this->markTestSkipped("expected 2xx status, got " . $status);
-                return;
-            }
+            $this->assertNotNull($result["data"]);
         } else {
             $this->assertArrayNotHasKey("err", $result);
             $this->assertTrue($result["ok"]);
@@ -149,11 +165,12 @@ function regional_intensity_list_direct_setup($mockres)
         $merged_opts = array_merge(Runner::live_client_options(), [
         ]);
         $client = new CarbonIntensitySDK($merged_opts);
+        $idmap = $env["CARBON_INTENSITY_TEST_REGIONAL_INTENSITY_LIST_ENTID"] ?? [];
         return [
             "client" => $client,
             "calls" => $calls,
             "live" => true,
-            "idmap" => [],
+            "idmap" => is_array($idmap) ? $idmap : [],
         ];
     }
 

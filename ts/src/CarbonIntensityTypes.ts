@@ -155,7 +155,9 @@ export interface RegionalIntensityList {
 
 export interface RegionalIntensityListLoadMatch {
   from: string
-  to: string
+  postcode?: string
+  to?: string
+  regionid?: number
 }
 
 export interface RegionalIntensityListListMatch {

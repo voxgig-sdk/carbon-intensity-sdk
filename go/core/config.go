@@ -71,6 +71,7 @@ func MakeConfig() map[string]any {
 				},
 				"optspec": map[string]any{
 					"clearTimer": "`$FUNCTION`",
+					"now": "`$FUNCTION`",
 					"setTimer": "`$FUNCTION`",
 				},
 				"strict": false,
@@ -163,6 +164,10 @@ func MakeConfig() map[string]any {
 								},
 								"args": map[string]any{},
 								"select": map[string]any{},
+								"response": map[string]any{
+									"kind": "json",
+									"media": "application/json",
+								},
 							},
 						},
 					},
@@ -218,6 +223,10 @@ func MakeConfig() map[string]any {
 										"from",
 										"to",
 									},
+								},
+								"response": map[string]any{
+									"kind": "json",
+									"media": "application/json",
 								},
 							},
 						},
@@ -294,6 +303,10 @@ func MakeConfig() map[string]any {
 										"from",
 									},
 								},
+								"response": map[string]any{
+									"kind": "json",
+									"media": "application/json",
+								},
 							},
 						},
 					},
@@ -367,6 +380,10 @@ func MakeConfig() map[string]any {
 								},
 								"args": map[string]any{},
 								"select": map[string]any{},
+								"response": map[string]any{
+									"kind": "json",
+									"media": "application/json",
+								},
 							},
 						},
 					},
@@ -427,6 +444,10 @@ func MakeConfig() map[string]any {
 										"period",
 									},
 								},
+								"response": map[string]any{
+									"kind": "json",
+									"media": "application/json",
+								},
 							},
 							map[string]any{
 								"kind": "http",
@@ -477,6 +498,10 @@ func MakeConfig() map[string]any {
 										"to",
 									},
 								},
+								"response": map[string]any{
+									"kind": "json",
+									"media": "application/json",
+								},
 							},
 							map[string]any{
 								"kind": "http",
@@ -518,6 +543,10 @@ func MakeConfig() map[string]any {
 									"exist": []any{
 										"id",
 									},
+								},
+								"response": map[string]any{
+									"kind": "json",
+									"media": "application/json",
 								},
 							},
 						},
@@ -643,6 +672,10 @@ func MakeConfig() map[string]any {
 								},
 								"args": map[string]any{},
 								"select": map[string]any{},
+								"response": map[string]any{
+									"kind": "json",
+									"media": "application/json",
+								},
 							},
 						},
 					},
@@ -725,6 +758,10 @@ func MakeConfig() map[string]any {
 										"from",
 									},
 								},
+								"response": map[string]any{
+									"kind": "json",
+									"media": "application/json",
+								},
 							},
 							map[string]any{
 								"kind": "http",
@@ -766,6 +803,10 @@ func MakeConfig() map[string]any {
 									"exist": []any{
 										"from",
 									},
+								},
+								"response": map[string]any{
+									"kind": "json",
+									"media": "application/json",
 								},
 							},
 							map[string]any{
@@ -809,6 +850,10 @@ func MakeConfig() map[string]any {
 										"from",
 									},
 								},
+								"response": map[string]any{
+									"kind": "json",
+									"media": "application/json",
+								},
 							},
 							map[string]any{
 								"kind": "http",
@@ -833,6 +878,10 @@ func MakeConfig() map[string]any {
 								},
 								"args": map[string]any{},
 								"select": map[string]any{},
+								"response": map[string]any{
+									"kind": "json",
+									"media": "application/json",
+								},
 							},
 						},
 					},
@@ -880,6 +929,10 @@ func MakeConfig() map[string]any {
 									"exist": []any{
 										"date",
 									},
+								},
+								"response": map[string]any{
+									"kind": "json",
+									"media": "application/json",
 								},
 							},
 						},
@@ -950,6 +1003,10 @@ func MakeConfig() map[string]any {
 								},
 								"args": map[string]any{},
 								"select": map[string]any{},
+								"response": map[string]any{
+									"kind": "json",
+									"media": "application/json",
+								},
 							},
 						},
 					},
@@ -1019,6 +1076,10 @@ func MakeConfig() map[string]any {
 								},
 								"args": map[string]any{},
 								"select": map[string]any{},
+								"response": map[string]any{
+									"kind": "json",
+									"media": "application/json",
+								},
 							},
 							map[string]any{
 								"kind": "http",
@@ -1043,6 +1104,10 @@ func MakeConfig() map[string]any {
 								},
 								"args": map[string]any{},
 								"select": map[string]any{},
+								"response": map[string]any{
+									"kind": "json",
+									"media": "application/json",
+								},
 							},
 							map[string]any{
 								"kind": "http",
@@ -1067,6 +1132,10 @@ func MakeConfig() map[string]any {
 								},
 								"args": map[string]any{},
 								"select": map[string]any{},
+								"response": map[string]any{
+									"kind": "json",
+									"media": "application/json",
+								},
 							},
 						},
 					},
@@ -1115,6 +1184,10 @@ func MakeConfig() map[string]any {
 										"postcode",
 									},
 								},
+								"response": map[string]any{
+									"kind": "json",
+									"media": "application/json",
+								},
 							},
 							map[string]any{
 								"kind": "http",
@@ -1156,6 +1229,10 @@ func MakeConfig() map[string]any {
 									"exist": []any{
 										"regionid",
 									},
+								},
+								"response": map[string]any{
+									"kind": "json",
+									"media": "application/json",
 								},
 							},
 						},
@@ -1262,6 +1339,10 @@ func MakeConfig() map[string]any {
 										"from",
 									},
 								},
+								"response": map[string]any{
+									"kind": "json",
+									"media": "application/json",
+								},
 							},
 							map[string]any{
 								"kind": "http",
@@ -1307,6 +1388,10 @@ func MakeConfig() map[string]any {
 									"exist": []any{
 										"from",
 									},
+								},
+								"response": map[string]any{
+									"kind": "json",
+									"media": "application/json",
 								},
 							},
 							map[string]any{
@@ -1354,6 +1439,10 @@ func MakeConfig() map[string]any {
 										"from",
 									},
 								},
+								"response": map[string]any{
+									"kind": "json",
+									"media": "application/json",
+								},
 							},
 						},
 					},
@@ -1373,7 +1462,7 @@ func MakeConfig() map[string]any {
 										"lit": "intensity",
 									},
 									map[string]any{
-										"var": "intensity_id",
+										"var": "from",
 									},
 									map[string]any{
 										"var": "to",
@@ -1388,16 +1477,12 @@ func MakeConfig() map[string]any {
 								"parts": []any{
 									"regional",
 									"intensity",
-									"{intensity_id}",
+									"{from}",
 									"{to}",
 									"postcode",
 									"{postcode}",
 								},
-								"rename": map[string]any{
-									"param": map[string]any{
-										"from": "intensity_id",
-									},
-								},
+								"rename": map[string]any{},
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
@@ -1405,7 +1490,7 @@ func MakeConfig() map[string]any {
 								"args": map[string]any{
 									"params": []any{
 										map[string]any{
-											"name": "intensity_id",
+											"name": "from",
 											"orig": "from",
 											"type": "`$STRING`",
 											"kind": "param",
@@ -1429,10 +1514,14 @@ func MakeConfig() map[string]any {
 								},
 								"select": map[string]any{
 									"exist": []any{
-										"intensity_id",
+										"from",
 										"postcode",
 										"to",
 									},
+								},
+								"response": map[string]any{
+									"kind": "json",
+									"media": "application/json",
 								},
 							},
 							map[string]any{
@@ -1447,7 +1536,7 @@ func MakeConfig() map[string]any {
 										"lit": "intensity",
 									},
 									map[string]any{
-										"var": "intensity_id",
+										"var": "from",
 									},
 									map[string]any{
 										"var": "to",
@@ -1462,16 +1551,12 @@ func MakeConfig() map[string]any {
 								"parts": []any{
 									"regional",
 									"intensity",
-									"{intensity_id}",
+									"{from}",
 									"{to}",
 									"regionid",
 									"{regionid}",
 								},
-								"rename": map[string]any{
-									"param": map[string]any{
-										"from": "intensity_id",
-									},
-								},
+								"rename": map[string]any{},
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
@@ -1479,7 +1564,7 @@ func MakeConfig() map[string]any {
 								"args": map[string]any{
 									"params": []any{
 										map[string]any{
-											"name": "intensity_id",
+											"name": "from",
 											"orig": "from",
 											"type": "`$STRING`",
 											"kind": "param",
@@ -1503,10 +1588,410 @@ func MakeConfig() map[string]any {
 								},
 								"select": map[string]any{
 									"exist": []any{
-										"intensity_id",
+										"from",
 										"regionid",
 										"to",
 									},
+								},
+								"response": map[string]any{
+									"kind": "json",
+									"media": "application/json",
+								},
+							},
+							map[string]any{
+								"kind": "http",
+								"method": "GET",
+								"orig": "/regional/intensity/{from}/fw24h/postcode/{postcode}",
+								"segments": []any{
+									map[string]any{
+										"lit": "regional",
+									},
+									map[string]any{
+										"lit": "intensity",
+									},
+									map[string]any{
+										"var": "from",
+									},
+									map[string]any{
+										"lit": "fw24h",
+									},
+									map[string]any{
+										"lit": "postcode",
+									},
+									map[string]any{
+										"var": "postcode",
+									},
+								},
+								"parts": []any{
+									"regional",
+									"intensity",
+									"{from}",
+									"fw24h",
+									"postcode",
+									"{postcode}",
+								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "from",
+											"orig": "from",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+										},
+										map[string]any{
+											"name": "postcode",
+											"orig": "postcode",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"from",
+										"postcode",
+									},
+								},
+								"response": map[string]any{
+									"kind": "json",
+									"media": "application/json",
+								},
+							},
+							map[string]any{
+								"kind": "http",
+								"method": "GET",
+								"orig": "/regional/intensity/{from}/fw48h/postcode/{postcode}",
+								"segments": []any{
+									map[string]any{
+										"lit": "regional",
+									},
+									map[string]any{
+										"lit": "intensity",
+									},
+									map[string]any{
+										"var": "from",
+									},
+									map[string]any{
+										"lit": "fw48h",
+									},
+									map[string]any{
+										"lit": "postcode",
+									},
+									map[string]any{
+										"var": "postcode",
+									},
+								},
+								"parts": []any{
+									"regional",
+									"intensity",
+									"{from}",
+									"fw48h",
+									"postcode",
+									"{postcode}",
+								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "from",
+											"orig": "from",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+										},
+										map[string]any{
+											"name": "postcode",
+											"orig": "postcode",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"from",
+										"postcode",
+									},
+								},
+								"response": map[string]any{
+									"kind": "json",
+									"media": "application/json",
+								},
+							},
+							map[string]any{
+								"kind": "http",
+								"method": "GET",
+								"orig": "/regional/intensity/{from}/pt24h/postcode/{postcode}",
+								"segments": []any{
+									map[string]any{
+										"lit": "regional",
+									},
+									map[string]any{
+										"lit": "intensity",
+									},
+									map[string]any{
+										"var": "from",
+									},
+									map[string]any{
+										"lit": "pt24h",
+									},
+									map[string]any{
+										"lit": "postcode",
+									},
+									map[string]any{
+										"var": "postcode",
+									},
+								},
+								"parts": []any{
+									"regional",
+									"intensity",
+									"{from}",
+									"pt24h",
+									"postcode",
+									"{postcode}",
+								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "from",
+											"orig": "from",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+										},
+										map[string]any{
+											"name": "postcode",
+											"orig": "postcode",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"from",
+										"postcode",
+									},
+								},
+								"response": map[string]any{
+									"kind": "json",
+									"media": "application/json",
+								},
+							},
+							map[string]any{
+								"kind": "http",
+								"method": "GET",
+								"orig": "/regional/intensity/{from}/fw24h/regionid/{regionid}",
+								"segments": []any{
+									map[string]any{
+										"lit": "regional",
+									},
+									map[string]any{
+										"lit": "intensity",
+									},
+									map[string]any{
+										"var": "from",
+									},
+									map[string]any{
+										"lit": "fw24h",
+									},
+									map[string]any{
+										"lit": "regionid",
+									},
+									map[string]any{
+										"var": "regionid",
+									},
+								},
+								"parts": []any{
+									"regional",
+									"intensity",
+									"{from}",
+									"fw24h",
+									"regionid",
+									"{regionid}",
+								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "from",
+											"orig": "from",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+										},
+										map[string]any{
+											"name": "regionid",
+											"orig": "regionid",
+											"type": "`$INTEGER`",
+											"kind": "param",
+											"reqd": true,
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"from",
+										"regionid",
+									},
+								},
+								"response": map[string]any{
+									"kind": "json",
+									"media": "application/json",
+								},
+							},
+							map[string]any{
+								"kind": "http",
+								"method": "GET",
+								"orig": "/regional/intensity/{from}/fw48h/regionid/{regionid}",
+								"segments": []any{
+									map[string]any{
+										"lit": "regional",
+									},
+									map[string]any{
+										"lit": "intensity",
+									},
+									map[string]any{
+										"var": "from",
+									},
+									map[string]any{
+										"lit": "fw48h",
+									},
+									map[string]any{
+										"lit": "regionid",
+									},
+									map[string]any{
+										"var": "regionid",
+									},
+								},
+								"parts": []any{
+									"regional",
+									"intensity",
+									"{from}",
+									"fw48h",
+									"regionid",
+									"{regionid}",
+								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "from",
+											"orig": "from",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+										},
+										map[string]any{
+											"name": "regionid",
+											"orig": "regionid",
+											"type": "`$INTEGER`",
+											"kind": "param",
+											"reqd": true,
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"from",
+										"regionid",
+									},
+								},
+								"response": map[string]any{
+									"kind": "json",
+									"media": "application/json",
+								},
+							},
+							map[string]any{
+								"kind": "http",
+								"method": "GET",
+								"orig": "/regional/intensity/{from}/pt24h/regionid/{regionid}",
+								"segments": []any{
+									map[string]any{
+										"lit": "regional",
+									},
+									map[string]any{
+										"lit": "intensity",
+									},
+									map[string]any{
+										"var": "from",
+									},
+									map[string]any{
+										"lit": "pt24h",
+									},
+									map[string]any{
+										"lit": "regionid",
+									},
+									map[string]any{
+										"var": "regionid",
+									},
+								},
+								"parts": []any{
+									"regional",
+									"intensity",
+									"{from}",
+									"pt24h",
+									"regionid",
+									"{regionid}",
+								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "from",
+											"orig": "from",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+										},
+										map[string]any{
+											"name": "regionid",
+											"orig": "regionid",
+											"type": "`$INTEGER`",
+											"kind": "param",
+											"reqd": true,
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"from",
+										"regionid",
+									},
+								},
+								"response": map[string]any{
+									"kind": "json",
+									"media": "application/json",
 								},
 							},
 							map[string]any{
@@ -1562,401 +2047,9 @@ func MakeConfig() map[string]any {
 										"to",
 									},
 								},
-							},
-							map[string]any{
-								"kind": "http",
-								"method": "GET",
-								"orig": "/regional/intensity/{from}/fw24h/postcode/{postcode}",
-								"segments": []any{
-									map[string]any{
-										"lit": "regional",
-									},
-									map[string]any{
-										"lit": "intensity",
-									},
-									map[string]any{
-										"var": "intensity_id",
-									},
-									map[string]any{
-										"lit": "fw24h",
-									},
-									map[string]any{
-										"lit": "postcode",
-									},
-									map[string]any{
-										"var": "postcode",
-									},
-								},
-								"parts": []any{
-									"regional",
-									"intensity",
-									"{intensity_id}",
-									"fw24h",
-									"postcode",
-									"{postcode}",
-								},
-								"rename": map[string]any{
-									"param": map[string]any{
-										"from": "intensity_id",
-									},
-								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"name": "intensity_id",
-											"orig": "from",
-											"type": "`$STRING`",
-											"kind": "param",
-											"reqd": true,
-										},
-										map[string]any{
-											"name": "postcode",
-											"orig": "postcode",
-											"type": "`$STRING`",
-											"kind": "param",
-											"reqd": true,
-										},
-									},
-								},
-								"select": map[string]any{
-									"exist": []any{
-										"intensity_id",
-										"postcode",
-									},
-								},
-							},
-							map[string]any{
-								"kind": "http",
-								"method": "GET",
-								"orig": "/regional/intensity/{from}/fw48h/postcode/{postcode}",
-								"segments": []any{
-									map[string]any{
-										"lit": "regional",
-									},
-									map[string]any{
-										"lit": "intensity",
-									},
-									map[string]any{
-										"var": "intensity_id",
-									},
-									map[string]any{
-										"lit": "fw48h",
-									},
-									map[string]any{
-										"lit": "postcode",
-									},
-									map[string]any{
-										"var": "postcode",
-									},
-								},
-								"parts": []any{
-									"regional",
-									"intensity",
-									"{intensity_id}",
-									"fw48h",
-									"postcode",
-									"{postcode}",
-								},
-								"rename": map[string]any{
-									"param": map[string]any{
-										"from": "intensity_id",
-									},
-								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"name": "intensity_id",
-											"orig": "from",
-											"type": "`$STRING`",
-											"kind": "param",
-											"reqd": true,
-										},
-										map[string]any{
-											"name": "postcode",
-											"orig": "postcode",
-											"type": "`$STRING`",
-											"kind": "param",
-											"reqd": true,
-										},
-									},
-								},
-								"select": map[string]any{
-									"exist": []any{
-										"intensity_id",
-										"postcode",
-									},
-								},
-							},
-							map[string]any{
-								"kind": "http",
-								"method": "GET",
-								"orig": "/regional/intensity/{from}/pt24h/postcode/{postcode}",
-								"segments": []any{
-									map[string]any{
-										"lit": "regional",
-									},
-									map[string]any{
-										"lit": "intensity",
-									},
-									map[string]any{
-										"var": "intensity_id",
-									},
-									map[string]any{
-										"lit": "pt24h",
-									},
-									map[string]any{
-										"lit": "postcode",
-									},
-									map[string]any{
-										"var": "postcode",
-									},
-								},
-								"parts": []any{
-									"regional",
-									"intensity",
-									"{intensity_id}",
-									"pt24h",
-									"postcode",
-									"{postcode}",
-								},
-								"rename": map[string]any{
-									"param": map[string]any{
-										"from": "intensity_id",
-									},
-								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"name": "intensity_id",
-											"orig": "from",
-											"type": "`$STRING`",
-											"kind": "param",
-											"reqd": true,
-										},
-										map[string]any{
-											"name": "postcode",
-											"orig": "postcode",
-											"type": "`$STRING`",
-											"kind": "param",
-											"reqd": true,
-										},
-									},
-								},
-								"select": map[string]any{
-									"exist": []any{
-										"intensity_id",
-										"postcode",
-									},
-								},
-							},
-							map[string]any{
-								"kind": "http",
-								"method": "GET",
-								"orig": "/regional/intensity/{from}/fw24h/regionid/{regionid}",
-								"segments": []any{
-									map[string]any{
-										"lit": "regional",
-									},
-									map[string]any{
-										"lit": "intensity",
-									},
-									map[string]any{
-										"var": "intensity_id",
-									},
-									map[string]any{
-										"lit": "fw24h",
-									},
-									map[string]any{
-										"lit": "regionid",
-									},
-									map[string]any{
-										"var": "regionid",
-									},
-								},
-								"parts": []any{
-									"regional",
-									"intensity",
-									"{intensity_id}",
-									"fw24h",
-									"regionid",
-									"{regionid}",
-								},
-								"rename": map[string]any{
-									"param": map[string]any{
-										"from": "intensity_id",
-									},
-								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"name": "intensity_id",
-											"orig": "from",
-											"type": "`$STRING`",
-											"kind": "param",
-											"reqd": true,
-										},
-										map[string]any{
-											"name": "regionid",
-											"orig": "regionid",
-											"type": "`$INTEGER`",
-											"kind": "param",
-											"reqd": true,
-										},
-									},
-								},
-								"select": map[string]any{
-									"exist": []any{
-										"intensity_id",
-										"regionid",
-									},
-								},
-							},
-							map[string]any{
-								"kind": "http",
-								"method": "GET",
-								"orig": "/regional/intensity/{from}/fw48h/regionid/{regionid}",
-								"segments": []any{
-									map[string]any{
-										"lit": "regional",
-									},
-									map[string]any{
-										"lit": "intensity",
-									},
-									map[string]any{
-										"var": "intensity_id",
-									},
-									map[string]any{
-										"lit": "fw48h",
-									},
-									map[string]any{
-										"lit": "regionid",
-									},
-									map[string]any{
-										"var": "regionid",
-									},
-								},
-								"parts": []any{
-									"regional",
-									"intensity",
-									"{intensity_id}",
-									"fw48h",
-									"regionid",
-									"{regionid}",
-								},
-								"rename": map[string]any{
-									"param": map[string]any{
-										"from": "intensity_id",
-									},
-								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"name": "intensity_id",
-											"orig": "from",
-											"type": "`$STRING`",
-											"kind": "param",
-											"reqd": true,
-										},
-										map[string]any{
-											"name": "regionid",
-											"orig": "regionid",
-											"type": "`$INTEGER`",
-											"kind": "param",
-											"reqd": true,
-										},
-									},
-								},
-								"select": map[string]any{
-									"exist": []any{
-										"intensity_id",
-										"regionid",
-									},
-								},
-							},
-							map[string]any{
-								"kind": "http",
-								"method": "GET",
-								"orig": "/regional/intensity/{from}/pt24h/regionid/{regionid}",
-								"segments": []any{
-									map[string]any{
-										"lit": "regional",
-									},
-									map[string]any{
-										"lit": "intensity",
-									},
-									map[string]any{
-										"var": "intensity_id",
-									},
-									map[string]any{
-										"lit": "pt24h",
-									},
-									map[string]any{
-										"lit": "regionid",
-									},
-									map[string]any{
-										"var": "regionid",
-									},
-								},
-								"parts": []any{
-									"regional",
-									"intensity",
-									"{intensity_id}",
-									"pt24h",
-									"regionid",
-									"{regionid}",
-								},
-								"rename": map[string]any{
-									"param": map[string]any{
-										"from": "intensity_id",
-									},
-								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"name": "intensity_id",
-											"orig": "from",
-											"type": "`$STRING`",
-											"kind": "param",
-											"reqd": true,
-										},
-										map[string]any{
-											"name": "regionid",
-											"orig": "regionid",
-											"type": "`$INTEGER`",
-											"kind": "param",
-											"reqd": true,
-										},
-									},
-								},
-								"select": map[string]any{
-									"exist": []any{
-										"intensity_id",
-										"regionid",
-									},
+								"response": map[string]any{
+									"kind": "json",
+									"media": "application/json",
 								},
 							},
 						},
@@ -2070,6 +2163,10 @@ func MakeConfig() map[string]any {
 										"to",
 									},
 								},
+								"response": map[string]any{
+									"kind": "json",
+									"media": "application/json",
+								},
 							},
 							map[string]any{
 								"kind": "http",
@@ -2123,6 +2220,10 @@ func MakeConfig() map[string]any {
 										"from",
 										"to",
 									},
+								},
+								"response": map[string]any{
+									"kind": "json",
+									"media": "application/json",
 								},
 							},
 						},

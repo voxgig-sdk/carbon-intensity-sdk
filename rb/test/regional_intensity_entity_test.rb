@@ -6,10 +6,34 @@ require_relative "../CarbonIntensity_sdk"
 require_relative "runner"
 
 class RegionalIntensityEntityTest < Minitest::Test
+  # main.kit.test.live.strict is true (the default is true): a live
+  # request that fails, or a live test missing an input it needs,
+  # fails the test.
+  # An account with no record for a test to read skips it either way.
+  LIVE_STRICT = true
+
   def test_create_instance
     testsdk = CarbonIntensitySDK.test(nil, nil)
     ent = testsdk.RegionalIntensity(nil)
     assert !ent.nil?
+  end
+
+  def test_list_entities
+    seed = {
+      "entity" => {
+        "regional_intensity" => {
+          "l1" => { "id" => "l1" },
+          "l2" => { "id" => "l2" },
+        },
+      },
+    }
+    items = CarbonIntensitySDK.test(seed, nil).RegionalIntensity(nil).list(nil, nil)
+    # list resolves to one entity per record; data_get reads the record.
+    assert_equal 2, items.length
+    items.each do |item|
+      assert item.respond_to?(:data_get)
+      assert item.data_get.is_a?(Hash)
+    end
   end
 
   # Feature #4: the entity stream(action, ...) method runs the op pipeline and
@@ -48,22 +72,104 @@ class RegionalIntensityEntityTest < Minitest::Test
     end
   end
 
+  class FailHook < CarbonIntensityBaseFeature
+    attr_reader :unexpected
+
+    def initialize
+      super()
+      @name = "failhook"
+      @unexpected = 0
+    end
+
+    def PreSpec(ctx)
+      raise "regional_intensity hook failed"
+    end
+
+    def PreUnexpected(ctx)
+      @unexpected += 1
+    end
+  end
+
+  def test_stream_error
+    offline = { "net" => { "offline" => true } }
+    err = assert_raises(StandardError) do
+      CarbonIntensitySDK.test(offline, nil).RegionalIntensity(nil).stream("list", nil, nil).to_a
+    end
+    assert_match(/offline/, err.message)
+
+    CarbonIntensitySDK.test(offline, nil).RegionalIntensity(nil)
+      .stream("list", nil, { "ctrl" => { "throw" => false } }).to_a
+
+    cfg = CarbonIntensityConfig.shared_config
+    if cfg["feature"].is_a?(Hash) && cfg["feature"].key?("rbac")
+      denied = CarbonIntensitySDK.test(nil, { "feature" => { "rbac" => { "active" => true, "deny" => true } } })
+      err = assert_raises(StandardError) do
+        denied.RegionalIntensity(nil).stream("list", nil, nil).to_a
+      end
+      assert_equal "rbac_denied", err.code
+    end
+  end
+
+  def test_stream_ctrl
+    explain = {}
+    ctrl = { "explain" => explain }
+    CarbonIntensitySDK.test(nil, nil).RegionalIntensity(nil).stream("list", nil, { "ctrl" => ctrl }).to_a
+    assert_equal ["explain"], ctrl.keys
+    assert_same explain, ctrl["explain"]
+    refute_empty explain
+  end
+
+  def test_unexpected
+    hook = FailHook.new
+    client = CarbonIntensitySDK.new({ "feature" => { "test" => { "active" => true } }, "extend" => [hook] })
+
+    err = assert_raises(StandardError) do
+      client.RegionalIntensity(nil).list(nil, nil)
+    end
+    assert_match(/hook failed/, err.message)
+    assert_operator hook.unexpected, :>, 0
+
+    fired = hook.unexpected
+    assert_nil client.RegionalIntensity(nil).list(nil, { "throw" => false })
+    assert_operator hook.unexpected, :>, fired
+  end
+
+  def test_validate_list_response
+    cfg = CarbonIntensityConfig.shared_config
+    unless cfg["feature"].is_a?(Hash) && cfg["feature"].key?("validate")
+      skip("feature not present in this SDK: validate")
+    end
+    opts = { "feature" => { "validate" => { "active" => true, "request" => false, "response" => true } } }
+    listed = CarbonIntensitySDK.test({ "entity" => { "regional_intensity" => { "v1" => {  } } } }, opts).RegionalIntensity(nil).list(nil, nil)
+    assert_equal ["v1"], listed.map { |ent| ent.data_get["id"] }
+    err = assert_raises(StandardError) do
+      CarbonIntensitySDK.test({ "entity" => { "regional_intensity" => { "v1" => { "dnoregion" => 1 } } } }, opts).RegionalIntensity(nil).list(nil, nil)
+    end
+    assert_equal "validate_failed", err.code
+  end
+
+  def test_validate
+    cfg = CarbonIntensityConfig.shared_config
+    unless cfg["feature"].is_a?(Hash) && cfg["feature"].key?("validate")
+      skip("feature not present in this SDK: validate")
+    end
+    client = CarbonIntensitySDK.test(nil, { "feature" => { "validate" => { "active" => true } } })
+    err = assert_raises(StandardError) do
+      client.RegionalIntensity(nil).list({ "dnoregion" => 1 }, nil)
+    end
+    assert_equal "validate_failed", err.code
+  end
+
   def test_basic_flow
     setup = regional_intensity_basic_setup(nil)
     # Per-op sdk-test-control.json skip.
     _live = setup[:live] || false
-    ["list", "load"].each do |_op|
+    ["list"].each do |_op|
       _should_skip, _reason = Runner.is_control_skipped("entityOp", "regional_intensity." + _op, _live ? "live" : "unit")
       if _should_skip
         skip(_reason || "skipped via sdk-test-control.json")
         return
       end
-    end
-    # The basic flow consumes synthetic IDs from the fixture. In live mode
-    # without an *_ENTID env override, those IDs hit the live API and 4xx.
-    if setup[:synthetic_only]
-      skip "live entity test uses synthetic IDs from fixture — set CARBON_INTENSITY_TEST_REGIONAL_INTENSITY_ENTID JSON to run live"
-      return
     end
     client = setup[:client]
 
@@ -82,11 +188,6 @@ class RegionalIntensityEntityTest < Minitest::Test
     regional_intensity_ref01_list_result = regional_intensity_ref01_ent.list(regional_intensity_ref01_match, nil)
     assert regional_intensity_ref01_list_result.is_a?(Array)
 
-    # LOAD
-    regional_intensity_ref01_match_dt0 = {}
-    regional_intensity_ref01_data_dt0_loaded = regional_intensity_ref01_ent.load(regional_intensity_ref01_match_dt0, nil)
-    assert !regional_intensity_ref01_data_dt0_loaded.nil?
-
   end
 end
 
@@ -94,7 +195,7 @@ def regional_intensity_basic_setup(extra)
   Runner.load_env_local
 
   entity_data_file = File.join(__dir__, "..", "..", ".sdk", "test", "entity", "regional_intensity", "RegionalIntensityTestData.json")
-  entity_data_source = File.read(entity_data_file)
+  entity_data_source = File.read(entity_data_file, encoding: "UTF-8")
   entity_data = JSON.parse(entity_data_source)
 
   options = {}
@@ -113,9 +214,8 @@ def regional_intensity_basic_setup(extra)
     }
   )
 
-  # Detect ENTID env override before envOverride consumes it. When live
-  # mode is on without a real override, the basic test runs against synthetic
-  # IDs from the fixture and 4xx's. Surface this so the test can skip.
+  # Whether *_ENTID supplied the idmap, read before env_override consumes
+  # it: without it, the ids a live flow binds are the fixture's synthetic ones.
   entid_env_raw = ENV["CARBON_INTENSITY_TEST_REGIONAL_INTENSITY_ENTID"]
   idmap_overridden = !entid_env_raw.nil? && entid_env_raw.strip.start_with?("{")
 

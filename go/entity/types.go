@@ -135,7 +135,9 @@ type RegionalIntensityList struct {
 // RegionalIntensityListLoadMatch is the typed request payload for RegionalIntensityList.LoadTyped.
 type RegionalIntensityListLoadMatch struct {
 	From string `json:"from"`
-	To string `json:"to"`
+	Postcode *string `json:"postcode,omitempty"`
+	To *string `json:"to,omitempty"`
+	Regionid *int `json:"regionid,omitempty"`
 }
 
 // RegionalIntensityListListMatch is the typed request payload for RegionalIntensityList.ListTyped.
