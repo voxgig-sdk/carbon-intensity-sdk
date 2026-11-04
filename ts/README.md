@@ -51,17 +51,18 @@ for (const generation of generations) {
 }
 ```
 
-### 3. Load an intensitylist
+### 3. Load a regionalintensitylist
 
-IntensityList is nested under date, so provide the `date`.
+RegionalIntensityList is nested under from, so provide the `from`.
 `load()` returns the entity and throws on failure; `.data()` reads its record:
 
 ```ts
 try {
-  const intensitylist = await client.IntensityList().load({
-    date: 'example_date',
+  const regionalintensitylist = await client.RegionalIntensityList().load({
+    from: 'example_from',
+    to: 'example_to',
   })
-  console.log(intensitylist.data())
+  console.log(regionalintensitylist.data())
 } catch (err) {
   console.error('load failed:', err)
 }
@@ -74,8 +75,8 @@ Entity operations reject on failure, so wrap them in `try` / `catch`:
 
 ```ts
 try {
-  const intensitylists = await client.IntensityList().list()
-  console.log(intensitylists.map((item) => item.data()))
+  const generations = await client.Generation().list()
+  console.log(generations.map((item) => item.data()))
 } catch (err) {
   console.error('list failed:', err)
 }
@@ -139,9 +140,9 @@ Create a mock client for unit testing — no server required:
 ```ts
 const client = CarbonIntensitySDK.test()
 
-const intensitylists = await client.IntensityList().list()
-// intensitylists is an array of IntensityList entities, one per mock record
-console.log(intensitylists.map((intensitylist) => intensitylist.data()))
+const generations = await client.Generation().list()
+// generations is an array of Generation entities, one per mock record
+console.log(generations.map((generation) => generation.data()))
 ```
 
 You can also use the instance method:
@@ -156,14 +157,14 @@ const testClient = client.tester()
 Entity instances remember their last match and data:
 
 ```ts
-const entity = client.IntensityList()
+const entity = client.Generation()
 
 // First call runs the operation and stores its result
 await entity.list()
 
 // Subsequent calls reuse the stored state
 const data = entity.data()
-console.log(data)
+console.log(data.id)
 ```
 
 ### Add custom middleware
@@ -353,7 +354,7 @@ API path: `/generation/{from}/pt24h`
 
 Operations: list, load.
 
-API path: `/intensity`
+API path: `/intensity/{from}`
 
 #### IntensityFactor
 
@@ -382,14 +383,13 @@ API path: `/intensity/factors`
 
 | Field | Description |
 | --- | --- |
-| `data` |  |
 | `from` | Start datetime of the period |
 | `intensity` |  |
 | `to` | End datetime of the period |
 
-Operations: list, load.
+Operations: list.
 
-API path: `/intensity/{from}/fw24h`
+API path: `/intensity/date/{date}`
 
 #### Regional
 
@@ -415,9 +415,9 @@ API path: `/regional`
 | `regionid` | Region ID (1-17) |
 | `shortname` | Short region name |
 
-Operations: list, load.
+Operations: list.
 
-API path: `/regional/england`
+API path: `/regional/postcode/{postcode}`
 
 #### RegionalIntensityList
 
@@ -432,7 +432,7 @@ API path: `/regional/england`
 
 Operations: list, load.
 
-API path: `/regional/intensity/{from}/fw24h`
+API path: `/regional/intensity/{from}/{to}/postcode/{postcode}`
 
 #### Stat
 
@@ -533,13 +533,13 @@ Create an instance: `const intensity = client.Intensity()`
 #### Example: Load
 
 ```ts
-const intensity = await client.Intensity().load({ id: 'intensity_id' })
+const intensity = await client.Intensity().load({ from: 'from', to: 'to' })
 ```
 
 #### Example: List
 
 ```ts
-const intensitys = await client.Intensity().list()
+const intensitys = await client.Intensity().list({ from: "example" })
 ```
 
 
@@ -588,27 +588,19 @@ Create an instance: `const intensity_list = client.IntensityList()`
 | Method | Description |
 | --- | --- |
 | `list(match)` | List entities matching the criteria. |
-| `load(match)` | Load a single entity by match criteria. |
 
 #### Fields
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `data` | `any[]` |  |
 | `from` | `string` | Start datetime of the period |
 | `intensity` | `Record<string, any>` |  |
 | `to` | `string` | End datetime of the period |
 
-#### Example: Load
-
-```ts
-const intensity_list = await client.IntensityList().load({ date: 'date' })
-```
-
 #### Example: List
 
 ```ts
-const intensity_lists = await client.IntensityList().list()
+const intensity_lists = await client.IntensityList().list({ date: "example" })
 ```
 
 
@@ -648,7 +640,6 @@ Create an instance: `const regional_intensity = client.RegionalIntensity()`
 | Method | Description |
 | --- | --- |
 | `list(match)` | List entities matching the criteria. |
-| `load(match)` | Load a single entity by match criteria. |
 
 #### Fields
 
@@ -660,16 +651,10 @@ Create an instance: `const regional_intensity = client.RegionalIntensity()`
 | `regionid` | `number` | Region ID (1-17) |
 | `shortname` | `string` | Short region name |
 
-#### Example: Load
-
-```ts
-const regional_intensity = await client.RegionalIntensity().load({ postcode: 'postcode' })
-```
-
 #### Example: List
 
 ```ts
-const regional_intensitys = await client.RegionalIntensity().list()
+const regional_intensitys = await client.RegionalIntensity().list({ postcode: "example" })
 ```
 
 
@@ -698,7 +683,7 @@ Create an instance: `const regional_intensity_list = client.RegionalIntensityLis
 #### Example: Load
 
 ```ts
-const regional_intensity_list = await client.RegionalIntensityList().load({ from: 'from', postcode: 'postcode' })
+const regional_intensity_list = await client.RegionalIntensityList().load({ from: 'from', to: 'to' })
 ```
 
 #### Example: List
@@ -885,11 +870,11 @@ stores the returned data and match criteria internally. Subsequent
 calls on the same instance can rely on this state.
 
 ```ts
-const intensitylist = client.IntensityList()
-await intensitylist.list()
+const generation = client.Generation()
+await generation.list()
 
-// intensitylist.data() now returns the intensitylist data from the last `list`
-// intensitylist.match() returns the last match criteria
+// generation.data() now returns the generation data from the last `list`
+// generation.match() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

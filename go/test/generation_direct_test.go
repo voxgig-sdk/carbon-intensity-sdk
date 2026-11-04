@@ -33,6 +33,9 @@ func TestGenerationDirect(t *testing.T) {
 			t.Skip(_reason)
 			return
 		}
+		if setup.live {
+			livePace()
+		}
 		client := setup.client
 
 
@@ -92,12 +95,15 @@ func TestGenerationDirect(t *testing.T) {
 			return
 		}
 		if setup.live {
-			for _, _liveKey := range []string{"from01", "to01"} {
+			for _, _liveKey := range []string{"to01"} {
 				if v := setup.idmap[_liveKey]; v == nil {
 					liveMiss(t, generationDirectLiveStrict, "Live test blocked: needs %s via CARBON_INTENSITY_TEST_GENERATION_ENTID", _liveKey)
 					return
 				}
 			}
+		}
+		if setup.live {
+			livePace()
 		}
 		client := setup.client
 
@@ -124,11 +130,10 @@ func TestGenerationDirect(t *testing.T) {
 				liveEmpty(t, "The account has no generation record to load")
 			}
 			firstEnt := core.ToMapAny(listData[0])
-			if firstEnt["id"] == nil {
+			if firstEnt["from"] == nil {
 				liveMiss(t, generationDirectLiveStrict, "Live load blocked: discovery returned no usable identity")
 			}
-			params["id"] = firstEnt["id"]
-			params["from"] = setup.idmap["from01"]
+			params["from"] = firstEnt["from"]
 			params["to"] = setup.idmap["to01"]
 		} else {
 			params["from"] = "direct01"

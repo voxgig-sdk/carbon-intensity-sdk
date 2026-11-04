@@ -39,38 +39,16 @@ describe('IntensityListDirect', async () => {
   })
 
 
-  test('direct-load-intensity_list', async (t: any) => {
+  test('direct-list-intensity_list', async (t: any) => {
     if (liveScenariosActive()) { t.skip('Covered by live operation scenarios'); return }
-    const setup = directSetup({ id: 'direct01' })
-    if (maybeSkipControl(t, 'direct', 'direct-load-intensity_list', setup.live)) return
-    if (skipIfMissingIds(t, setup, ["from01","date01"], LIVE_STRICT)) return
+    const setup = directSetup([{ id: 'direct01' }, { id: 'direct02' }])
+    if (maybeSkipControl(t, 'direct', 'direct-list-intensity_list', setup.live)) return
+    if (skipIfMissingIds(t, setup, ["date01"], LIVE_STRICT)) return
     const { client, calls } = setup
 
     const params: any = {}
     const query: any = {}
     if (setup.live) {
-      const listResult: any = await client.direct({
-        path: 'intensity/{from}/fw24h',
-        method: 'GET',
-        params: {
-        from: setup.idmap['from01'],
-        },
-      })
-      if (!listResult.ok || listResult.status < 200 || listResult.status >= 300) {
-        return void liveMiss(t, LIVE_STRICT, 'Live list discovery failed: ' + describeLive(listResult))
-      }
-      const listArr = unwrapListData(listResult.data)
-      if (null == listArr) {
-        return void liveMiss(t, LIVE_STRICT, 'Live list discovery returned no list: ' + describeLive(listResult))
-      }
-      if (0 === listArr.length) {
-        return void liveEmpty(t, 'The account has no intensity_list record to load')
-      }
-      const candidateId = listArr[0]?.date ?? listArr[0]?.id
-      if (null == candidateId) {
-        return void liveMiss(t, LIVE_STRICT, 'Live load blocked: discovery returned no usable identity')
-      }
-      params.date = candidateId
       params.date = setup.idmap['date01']
     } else {
       params.date = 'direct01'
@@ -78,46 +56,6 @@ describe('IntensityListDirect', async () => {
 
     const result: any = await client.direct({
       path: 'intensity/date/{date}',
-      method: 'GET',
-      params,
-      query,
-    })
-
-    if (setup.live) {
-      if (!result.ok || result.status < 200 || result.status >= 300) {
-        return void liveMiss(t, LIVE_STRICT, 'Live load failed: ' + describeLive(result))
-      }
-      if (!(null != result.data)) {
-        return void liveMiss(t, LIVE_STRICT, 'Live load returned no data: ' + describeLive(result))
-      }
-    } else {
-      assert(result.ok === true)
-      assert(result.status === 200)
-      assert(null != result.data)
-      assert(result.data.id === 'direct01')
-      assert(calls.length === 1)
-      assert(calls[0].init.method === 'GET')
-      assert(calls[0].url.includes('direct01'))
-    }
-  })
-
-  test('direct-list-intensity_list', async (t: any) => {
-    if (liveScenariosActive()) { t.skip('Covered by live operation scenarios'); return }
-    const setup = directSetup([{ id: 'direct01' }, { id: 'direct02' }])
-    if (maybeSkipControl(t, 'direct', 'direct-list-intensity_list', setup.live)) return
-    if (skipIfMissingIds(t, setup, ["from01"], LIVE_STRICT)) return
-    const { client, calls } = setup
-
-    const params: any = {}
-    const query: any = {}
-    if (setup.live) {
-      params.from = setup.idmap['from01']
-    } else {
-      params.from = 'direct01'
-    }
-
-    const result: any = await client.direct({
-      path: 'intensity/{from}/fw24h',
       method: 'GET',
       params,
       query,

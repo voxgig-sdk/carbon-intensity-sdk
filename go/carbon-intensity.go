@@ -13,7 +13,11 @@ type Context = core.Context
 type Utility = core.Utility
 type Feature = core.Feature
 type Entity = core.Entity
-type CarbonIntensityEntity = core.CarbonIntensityEntity
+type CarbonIntensityEntityBase = core.CarbonIntensityEntityBase
+
+// Deprecated: use CarbonIntensityEntityBase.
+type CarbonIntensityEntity = core.CarbonIntensityEntityBase
+
 type StreamItem = core.StreamItem
 type FetcherFunc = core.FetcherFunc
 type Spec = core.Spec
@@ -42,31 +46,31 @@ func init() {
 	core.NewTimeoutFeatureFunc = func() core.Feature {
 		return feature.NewTimeoutFeature()
 	}
-	core.NewGenerationEntityFunc = func(client *core.CarbonIntensitySDK, entopts map[string]any) core.CarbonIntensityEntity {
+	core.NewGenerationEntityFunc = func(client *core.CarbonIntensitySDK, entopts map[string]any) core.CarbonIntensityEntityBase {
 		return entity.NewGenerationEntity(client, entopts)
 	}
-	core.NewGenerationListEntityFunc = func(client *core.CarbonIntensitySDK, entopts map[string]any) core.CarbonIntensityEntity {
+	core.NewGenerationListEntityFunc = func(client *core.CarbonIntensitySDK, entopts map[string]any) core.CarbonIntensityEntityBase {
 		return entity.NewGenerationListEntity(client, entopts)
 	}
-	core.NewIntensityEntityFunc = func(client *core.CarbonIntensitySDK, entopts map[string]any) core.CarbonIntensityEntity {
+	core.NewIntensityEntityFunc = func(client *core.CarbonIntensitySDK, entopts map[string]any) core.CarbonIntensityEntityBase {
 		return entity.NewIntensityEntity(client, entopts)
 	}
-	core.NewIntensityFactorEntityFunc = func(client *core.CarbonIntensitySDK, entopts map[string]any) core.CarbonIntensityEntity {
+	core.NewIntensityFactorEntityFunc = func(client *core.CarbonIntensitySDK, entopts map[string]any) core.CarbonIntensityEntityBase {
 		return entity.NewIntensityFactorEntity(client, entopts)
 	}
-	core.NewIntensityListEntityFunc = func(client *core.CarbonIntensitySDK, entopts map[string]any) core.CarbonIntensityEntity {
+	core.NewIntensityListEntityFunc = func(client *core.CarbonIntensitySDK, entopts map[string]any) core.CarbonIntensityEntityBase {
 		return entity.NewIntensityListEntity(client, entopts)
 	}
-	core.NewRegionalEntityFunc = func(client *core.CarbonIntensitySDK, entopts map[string]any) core.CarbonIntensityEntity {
+	core.NewRegionalEntityFunc = func(client *core.CarbonIntensitySDK, entopts map[string]any) core.CarbonIntensityEntityBase {
 		return entity.NewRegionalEntity(client, entopts)
 	}
-	core.NewRegionalIntensityEntityFunc = func(client *core.CarbonIntensitySDK, entopts map[string]any) core.CarbonIntensityEntity {
+	core.NewRegionalIntensityEntityFunc = func(client *core.CarbonIntensitySDK, entopts map[string]any) core.CarbonIntensityEntityBase {
 		return entity.NewRegionalIntensityEntity(client, entopts)
 	}
-	core.NewRegionalIntensityListEntityFunc = func(client *core.CarbonIntensitySDK, entopts map[string]any) core.CarbonIntensityEntity {
+	core.NewRegionalIntensityListEntityFunc = func(client *core.CarbonIntensitySDK, entopts map[string]any) core.CarbonIntensityEntityBase {
 		return entity.NewRegionalIntensityListEntity(client, entopts)
 	}
-	core.NewStatEntityFunc = func(client *core.CarbonIntensitySDK, entopts map[string]any) core.CarbonIntensityEntity {
+	core.NewStatEntityFunc = func(client *core.CarbonIntensitySDK, entopts map[string]any) core.CarbonIntensityEntityBase {
 		return entity.NewStatEntity(client, entopts)
 	}
 }

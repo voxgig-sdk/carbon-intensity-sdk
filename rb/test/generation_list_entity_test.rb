@@ -58,6 +58,7 @@ class GenerationListEntityTest < Minitest::Test
       generation_list_ref01_data = Helpers.to_map(generation_list_ref01_data_raw[0][1])
     end
 
+    Runner.live_pace if setup[:live]
     # LIST
     generation_list_ref01_ent = client.GenerationList(nil)
     generation_list_ref01_match = {

@@ -52,6 +52,10 @@ class StatEntityTest extends TestCase
                 return;
             }
         }
+        if (!empty($setup["live"])) {
+            $this->markTestSkipped('Live coverage incomplete: the flow has no step to run');
+        }
+
         $client = $setup["client"];
 
         // Bootstrap entity data from existing test data.

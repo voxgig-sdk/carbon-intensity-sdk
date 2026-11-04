@@ -147,7 +147,7 @@ describe("IntensityEntity", function()
     local setup = intensity_basic_setup(nil)
     -- Per-op sdk-test-control.json skip.
     local _live = setup.live or false
-    for _, _op in ipairs({"list", "load"}) do
+    for _, _op in ipairs({"list"}) do
       local _should_skip, _reason = runner.is_control_skipped("entityOp", "intensity." .. _op, _live and "live" or "unit")
       if _should_skip then
         pending(_reason or "skipped via sdk-test-control.json")
@@ -155,11 +155,6 @@ describe("IntensityEntity", function()
       end
     end
     local client = setup.client
-    if setup.live then
-      runner.live_existing(pending, setup, LIVE_STRICT, "intensity", function()
-        return client:Intensity(nil):list({}, nil)
-      end)
-    end
 
     -- Bootstrap entity data from existing test data.
     local intensity_ref01_data_raw = vs.items(helpers.to_map(
@@ -169,6 +164,9 @@ describe("IntensityEntity", function()
       intensity_ref01_data = helpers.to_map(intensity_ref01_data_raw[1][2])
     end
 
+    if setup.live then
+      runner.live_pace()
+    end
     -- LIST
     local intensity_ref01_ent = client:Intensity(nil)
     local intensity_ref01_match = {}
@@ -176,16 +174,6 @@ describe("IntensityEntity", function()
     local intensity_ref01_list_result, err = intensity_ref01_ent:list(intensity_ref01_match, nil)
     assert.is_nil(err)
     assert.is_table(intensity_ref01_list_result)
-
-    -- LOAD
-    local intensity_ref01_match_dt0 = {
-      id = intensity_ref01_data["id"],
-    }
-    local intensity_ref01_data_dt0_loaded, err = intensity_ref01_ent:load(intensity_ref01_match_dt0, nil)
-    assert.is_nil(err)
-    local intensity_ref01_data_dt0_load_result = helpers.to_map(type(intensity_ref01_data_dt0_loaded) == 'table' and intensity_ref01_data_dt0_loaded.data_get and intensity_ref01_data_dt0_loaded:data_get() or intensity_ref01_data_dt0_loaded)
-    assert.is_not_nil(intensity_ref01_data_dt0_load_result)
-    assert.are.equal(intensity_ref01_data_dt0_load_result["id"], intensity_ref01_data["id"])
 
   end)
 end)

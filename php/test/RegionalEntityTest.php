@@ -229,6 +229,9 @@ class RegionalEntityTest extends TestCase
             $regional_ref01_data = Helpers::to_map($regional_ref01_data_raw[0][1]);
         }
 
+        if (!empty($setup["live"])) {
+            Runner::live_pace();
+        }
         // LIST
         $regional_ref01_ent = $client->Regional(null);
         $regional_ref01_match = [];

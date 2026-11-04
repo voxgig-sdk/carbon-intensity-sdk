@@ -54,15 +54,15 @@ rescue => err
 end
 ```
 
-### 3. Load an intensitylist
+### 3. Load a regionalintensitylist
 
-IntensityList is nested under date, so provide the `date`.
+RegionalIntensityList is nested under from, so provide the `from`.
 
 ```ruby
 begin
-  # load returns the ENTITY — call data_get for the IntensityList record (raises on error).
-  intensitylist = client.IntensityList.load({ "date" => "example_date" })
-  puts intensitylist.data_get
+  # load returns the ENTITY — call data_get for the RegionalIntensityList record (raises on error).
+  regionalintensitylist = client.RegionalIntensityList.load({ "from" => "example_from", "to" => "example_to" })
+  puts regionalintensitylist.data_get
 rescue => err
   warn "load failed: #{err}"
 end
@@ -75,7 +75,7 @@ Entity operations raise on failure, so rescue them:
 
 ```ruby
 begin
-  intensitylists = client.IntensityList.list()
+  generations = client.Generation.list()
 rescue => err
   warn "list failed: #{err}"
 end
@@ -143,10 +143,10 @@ Create a mock client for unit testing — no server required:
 ```ruby
 client = CarbonIntensitySDK.test
 
-# list returns an Array of IntensityList entities, one per mock record (raises on
+# list returns an Array of Generation entities, one per mock record (raises on
 # error); data_get reads each record.
-intensitylists = client.IntensityList.list()
-intensitylists.each { |item| puts item.data_get }
+generations = client.Generation.list()
+generations.each { |item| puts item.data_get }
 ```
 
 ### Use a custom fetch function
@@ -305,7 +305,7 @@ API path: `/generation/{from}/pt24h`
 
 Operations: List, Load.
 
-API path: `/intensity`
+API path: `/intensity/{from}`
 
 #### IntensityFactor
 
@@ -334,14 +334,13 @@ API path: `/intensity/factors`
 
 | Field | Description |
 | --- | --- |
-| `data` |  |
 | `from` | Start datetime of the period |
 | `intensity` |  |
 | `to` | End datetime of the period |
 
-Operations: List, Load.
+Operations: List.
 
-API path: `/intensity/{from}/fw24h`
+API path: `/intensity/date/{date}`
 
 #### Regional
 
@@ -367,9 +366,9 @@ API path: `/regional`
 | `regionid` | Region ID (1-17) |
 | `shortname` | Short region name |
 
-Operations: List, Load.
+Operations: List.
 
-API path: `/regional/england`
+API path: `/regional/postcode/{postcode}`
 
 #### RegionalIntensityList
 
@@ -384,7 +383,7 @@ API path: `/regional/england`
 
 Operations: List, Load.
 
-API path: `/regional/intensity/{from}/fw24h`
+API path: `/regional/intensity/{from}/{to}/postcode/{postcode}`
 
 #### Stat
 
@@ -491,14 +490,14 @@ Create an instance: `intensity = client.Intensity`
 
 ```ruby
 # load returns the ENTITY — call data_get for the Intensity record (raises on error).
-intensity = client.Intensity.load({ "id" => "intensity_id" })
+intensity = client.Intensity.load({ "from" => "from", "to" => "to" })
 ```
 
 #### Example: List
 
 ```ruby
 # list returns an Array of Intensity entities, one per record (raises on error).
-intensitys = client.Intensity.list
+intensitys = client.Intensity.list({ "from" => "example" })
 intensitys.each { |item| puts item.data_get }
 ```
 
@@ -550,29 +549,20 @@ Create an instance: `intensity_list = client.IntensityList`
 | Method | Description |
 | --- | --- |
 | `list(match)` | List entities matching the criteria. |
-| `load(match)` | Load a single entity by match criteria. |
 
 #### Fields
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `data` | `Array` |  |
 | `from` | `String` | Start datetime of the period |
 | `intensity` | `Hash` |  |
 | `to` | `String` | End datetime of the period |
-
-#### Example: Load
-
-```ruby
-# load returns the ENTITY — call data_get for the IntensityList record (raises on error).
-intensity_list = client.IntensityList.load({ "date" => "date" })
-```
 
 #### Example: List
 
 ```ruby
 # list returns an Array of IntensityList entities, one per record (raises on error).
-intensity_lists = client.IntensityList.list
+intensity_lists = client.IntensityList.list({ "date" => "example" })
 intensity_lists.each { |item| puts item.data_get }
 ```
 
@@ -615,7 +605,6 @@ Create an instance: `regional_intensity = client.RegionalIntensity`
 | Method | Description |
 | --- | --- |
 | `list(match)` | List entities matching the criteria. |
-| `load(match)` | Load a single entity by match criteria. |
 
 #### Fields
 
@@ -627,18 +616,11 @@ Create an instance: `regional_intensity = client.RegionalIntensity`
 | `regionid` | `Integer` | Region ID (1-17) |
 | `shortname` | `String` | Short region name |
 
-#### Example: Load
-
-```ruby
-# load returns the ENTITY — call data_get for the RegionalIntensity record (raises on error).
-regional_intensity = client.RegionalIntensity.load({ "postcode" => "postcode" })
-```
-
 #### Example: List
 
 ```ruby
 # list returns an Array of RegionalIntensity entities, one per record (raises on error).
-regional_intensitys = client.RegionalIntensity.list
+regional_intensitys = client.RegionalIntensity.list({ "postcode" => "example" })
 regional_intensitys.each { |item| puts item.data_get }
 ```
 
@@ -669,7 +651,7 @@ Create an instance: `regional_intensity_list = client.RegionalIntensityList`
 
 ```ruby
 # load returns the ENTITY — call data_get for the RegionalIntensityList record (raises on error).
-regional_intensity_list = client.RegionalIntensityList.load({ "from" => "from", "postcode" => "postcode" })
+regional_intensity_list = client.RegionalIntensityList.load({ "from" => "from", "to" => "to" })
 ```
 
 #### Example: List
@@ -867,11 +849,11 @@ Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```ruby
-intensitylist = client.IntensityList
-intensitylist.list()
+generation = client.Generation
+generation.list()
 
-# intensitylist.data_get now returns the intensitylist data from the last list
-# intensitylist.match_get returns the last match criteria
+# generation.data_get now returns the generation data from the last list
+# generation.match_get returns the last match criteria
 ```
 
 Call `make` to create a fresh instance with the same configuration

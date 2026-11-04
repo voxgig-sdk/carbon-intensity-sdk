@@ -252,7 +252,7 @@ intensity = client.Intensity()
 List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list of entities, one per record, and raises on error.
 
 ```python
-results = client.Intensity().list()
+results = client.Intensity().list({"from": "example"})
 for intensity in results:
     print(intensity.data_get())
 ```
@@ -262,7 +262,7 @@ for intensity in results:
 Load a single entity matching the given criteria. Returns the entity, whose record `data_get()` reads, and raises on error.
 
 ```python
-result = client.Intensity().load({"id": "intensity_id"})
+result = client.Intensity().load({"from": "from", "to": "to"})
 ```
 
 ### Common Methods
@@ -370,7 +370,6 @@ intensity_list = client.IntensityList()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `data` | `list` | No |  |
 | `from` | `str` | No | Start datetime of the period |
 | `intensity` | `dict` | No |  |
 | `to` | `str` | No | End datetime of the period |
@@ -382,17 +381,9 @@ intensity_list = client.IntensityList()
 List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list of entities, one per record, and raises on error.
 
 ```python
-results = client.IntensityList().list()
+results = client.IntensityList().list({"date": "example"})
 for intensity_list in results:
     print(intensity_list.data_get())
-```
-
-#### `load(reqmatch, ctrl=None) -> IntensityListEntity`
-
-Load a single entity matching the given criteria. Returns the entity, whose record `data_get()` reads, and raises on error.
-
-```python
-result = client.IntensityList().load({"date": "date"})
 ```
 
 ### Common Methods
@@ -504,17 +495,9 @@ regional_intensity = client.RegionalIntensity()
 List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list of entities, one per record, and raises on error.
 
 ```python
-results = client.RegionalIntensity().list()
+results = client.RegionalIntensity().list({"postcode": "example"})
 for regional_intensity in results:
     print(regional_intensity.data_get())
-```
-
-#### `load(reqmatch, ctrl=None) -> RegionalIntensityEntity`
-
-Load a single entity matching the given criteria. Returns the entity, whose record `data_get()` reads, and raises on error.
-
-```python
-result = client.RegionalIntensity().load({"postcode": "postcode"})
 ```
 
 ### Common Methods
@@ -580,7 +563,7 @@ for regional_intensity_list in results:
 Load a single entity matching the given criteria. Returns the entity, whose record `data_get()` reads, and raises on error.
 
 ```python
-result = client.RegionalIntensityList().load({"from": "from", "postcode": "postcode"})
+result = client.RegionalIntensityList().load({"from": "from", "to": "to"})
 ```
 
 ### Common Methods

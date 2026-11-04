@@ -164,6 +164,9 @@ describe("IntensityFactorEntity", function()
       intensity_factor_ref01_data = helpers.to_map(intensity_factor_ref01_data_raw[1][2])
     end
 
+    if setup.live then
+      runner.live_pace()
+    end
     -- LIST
     local intensity_factor_ref01_ent = client:IntensityFactor(nil)
     local intensity_factor_ref01_match = {}

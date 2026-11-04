@@ -155,7 +155,7 @@ class RegionalIntensityEntityTest < Minitest::Test
     end
     client = CarbonIntensitySDK.test(nil, { "feature" => { "validate" => { "active" => true } } })
     err = assert_raises(StandardError) do
-      client.RegionalIntensity(nil).list({ "dnoregion" => 1 }, nil)
+      client.RegionalIntensity(nil).list({ "postcode" => 1 }, nil)
     end
     assert_equal "validate_failed", err.code
   end
@@ -181,6 +181,7 @@ class RegionalIntensityEntityTest < Minitest::Test
       regional_intensity_ref01_data = Helpers.to_map(regional_intensity_ref01_data_raw[0][1])
     end
 
+    Runner.live_pace if setup[:live]
     # LIST
     regional_intensity_ref01_ent = client.RegionalIntensity(nil)
     regional_intensity_ref01_match = {}

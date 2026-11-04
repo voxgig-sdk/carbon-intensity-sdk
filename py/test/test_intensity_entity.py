@@ -139,15 +139,12 @@ class TestIntensityEntity:
         # multiple ops; skipping any one skips the whole flow (steps depend
         # on each other).
         _live = setup.get("live", False)
-        for _op in ["list", "load"]:
+        for _op in ["list"]:
             _skip, _reason = runner.is_control_skipped("entityOp", "intensity." + _op, "live" if _live else "unit")
             if _skip:
                 pytest.skip(_reason or "skipped via sdk-test-control.json")
                 return
         client = setup["client"]
-        if setup["live"]:
-            runner.live_existing(setup, LIVE_STRICT, "intensity",
-                                 lambda: client.Intensity(None).list({}, None))
 
         # Bootstrap entity data from existing test data.
         intensity_ref01_data_raw = vs.items(helpers.to_map(
@@ -156,21 +153,14 @@ class TestIntensityEntity:
         if len(intensity_ref01_data_raw) > 0:
             intensity_ref01_data = helpers.to_map(intensity_ref01_data_raw[0][1])
 
+        if setup["live"]:
+            runner.live_pace()
         # LIST
         intensity_ref01_ent = client.Intensity(None)
         intensity_ref01_match = {}
 
         intensity_ref01_list_result = intensity_ref01_ent.list(intensity_ref01_match, None)
         assert isinstance(intensity_ref01_list_result, list)
-
-        # LOAD
-        intensity_ref01_match_dt0 = {
-            "id": intensity_ref01_data["id"],
-        }
-        intensity_ref01_data_dt0_loaded = intensity_ref01_ent.load(intensity_ref01_match_dt0, None)
-        intensity_ref01_data_dt0_load_result = helpers.to_map(runner.entity_data(intensity_ref01_data_dt0_loaded))
-        assert intensity_ref01_data_dt0_load_result is not None
-        assert intensity_ref01_data_dt0_load_result["id"] == intensity_ref01_data["id"]
 
 
 

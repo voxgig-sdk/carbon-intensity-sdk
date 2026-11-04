@@ -229,6 +229,9 @@ class IntensityFactorEntityTest extends TestCase
             $intensity_factor_ref01_data = Helpers::to_map($intensity_factor_ref01_data_raw[0][1]);
         }
 
+        if (!empty($setup["live"])) {
+            Runner::live_pace();
+        }
         // LIST
         $intensity_factor_ref01_ent = $client->IntensityFactor(null);
         $intensity_factor_ref01_match = [];

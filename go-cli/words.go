@@ -75,7 +75,7 @@ func runOp(client *sdk.CarbonIntensitySDK, op string, query *eng.Value, entityAt
 
 // entityFor dispatches on the lowercase entity name. The generator
 // emits one `case "<name>":` per entity defined in the SDK model.
-func entityFor(client *sdk.CarbonIntensitySDK, name string) (sdk.CarbonIntensityEntity, error) {
+func entityFor(client *sdk.CarbonIntensitySDK, name string) (sdk.CarbonIntensityEntityBase, error) {
 	switch strings.ToLower(name) {
 	case "generation":
 		return client.Generation(nil), nil

@@ -33,14 +33,19 @@ class GenerationDirectTest extends TestCase
             $this->markTestSkipped($_reason ?? "skipped via sdk-test-control.json");
             return;
         }
+        if (!empty($setup["live"])) {
+            Runner::live_pace();
+        }
         $client = $setup["client"];
 
         $params = [];
+        $query = [];
 
         $result = $client->direct([
             "path" => "generation",
             "method" => "GET",
             "params" => $params,
+            "query" => $query,
         ]);
         if ($setup["live"]) {
             if (!self::liveOk($result)) {
@@ -75,6 +80,9 @@ class GenerationDirectTest extends TestCase
                 }
             }
         }
+        if (!empty($setup["live"])) {
+            Runner::live_pace();
+        }
         $client = $setup["client"];
 
         $params = [];
@@ -96,7 +104,7 @@ class GenerationDirectTest extends TestCase
                 Runner::live_empty("The account has no generation record to load");
             }
             $first = is_array($records[0]) ? $records[0] : [];
-            $found = $first["from"] ?? $first["id"] ?? null;
+            $found = $first["from"] ?? null;
             if (null === $found) {
                 Runner::live_miss(self::LIVE_STRICT, "Live load blocked: discovery returned no usable identity");
             }

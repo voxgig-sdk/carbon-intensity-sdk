@@ -47,39 +47,39 @@ client := sdk.TestSDK(testopts, sdkopts)
 
 ### Instance Methods
 
-#### `Generation(data map[string]any) CarbonIntensityEntity`
+#### `Generation(data map[string]any) CarbonIntensityEntityBase`
 
 Create a new `Generation` entity instance. Pass `nil` for no initial data.
 
-#### `GenerationList(data map[string]any) CarbonIntensityEntity`
+#### `GenerationList(data map[string]any) CarbonIntensityEntityBase`
 
 Create a new `GenerationList` entity instance. Pass `nil` for no initial data.
 
-#### `Intensity(data map[string]any) CarbonIntensityEntity`
+#### `Intensity(data map[string]any) CarbonIntensityEntityBase`
 
 Create a new `Intensity` entity instance. Pass `nil` for no initial data.
 
-#### `IntensityFactor(data map[string]any) CarbonIntensityEntity`
+#### `IntensityFactor(data map[string]any) CarbonIntensityEntityBase`
 
 Create a new `IntensityFactor` entity instance. Pass `nil` for no initial data.
 
-#### `IntensityList(data map[string]any) CarbonIntensityEntity`
+#### `IntensityList(data map[string]any) CarbonIntensityEntityBase`
 
 Create a new `IntensityList` entity instance. Pass `nil` for no initial data.
 
-#### `Regional(data map[string]any) CarbonIntensityEntity`
+#### `Regional(data map[string]any) CarbonIntensityEntityBase`
 
 Create a new `Regional` entity instance. Pass `nil` for no initial data.
 
-#### `RegionalIntensity(data map[string]any) CarbonIntensityEntity`
+#### `RegionalIntensity(data map[string]any) CarbonIntensityEntityBase`
 
 Create a new `RegionalIntensity` entity instance. Pass `nil` for no initial data.
 
-#### `RegionalIntensityList(data map[string]any) CarbonIntensityEntity`
+#### `RegionalIntensityList(data map[string]any) CarbonIntensityEntityBase`
 
 Create a new `RegionalIntensityList` entity instance. Pass `nil` for no initial data.
 
-#### `Stat(data map[string]any) CarbonIntensityEntity`
+#### `Stat(data map[string]any) CarbonIntensityEntityBase`
 
 Create a new `Stat` entity instance. Pass `nil` for no initial data.
 
@@ -283,7 +283,7 @@ fmt.Println(intensity.GetName()) // "intensity"
 List entities matching the given criteria. Returns a `[]any` of entities, one per record; `err` is non-nil on failure.
 
 ```go
-results, err := client.Intensity(nil).List(nil, nil)
+results, err := client.Intensity(nil).List(map[string]any{"from": "example"}, nil)
 if err != nil {
     panic(err)
 }
@@ -297,7 +297,7 @@ for _, item := range results.([]any) {
 Load a single entity matching the given criteria. Returns the entity, whose record `Data()` reads; `err` is non-nil on failure.
 
 ```go
-result, err := client.Intensity(nil).Load(map[string]any{"id": "intensity_id"}, nil)
+result, err := client.Intensity(nil).Load(map[string]any{"from": "from", "to": "to"}, nil)
 if err != nil {
     panic(err)
 }
@@ -421,7 +421,6 @@ fmt.Println(intensityList.GetName()) // "intensity_list"
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `data` | `[]any` | No |  |
 | `from` | `string` | No | Start datetime of the period |
 | `intensity` | `map[string]any` | No |  |
 | `to` | `string` | No | End datetime of the period |
@@ -433,25 +432,13 @@ fmt.Println(intensityList.GetName()) // "intensity_list"
 List entities matching the given criteria. Returns a `[]any` of entities, one per record; `err` is non-nil on failure.
 
 ```go
-results, err := client.IntensityList(nil).List(nil, nil)
+results, err := client.IntensityList(nil).List(map[string]any{"date": "example"}, nil)
 if err != nil {
     panic(err)
 }
 for _, item := range results.([]any) {
     fmt.Println(item.(sdk.Entity).Data())
 }
-```
-
-#### `Load(reqmatch, ctrl map[string]any) (any, error)`
-
-Load a single entity matching the given criteria. Returns the entity, whose record `Data()` reads; `err` is non-nil on failure.
-
-```go
-result, err := client.IntensityList(nil).Load(map[string]any{"date": "date"}, nil)
-if err != nil {
-    panic(err)
-}
-fmt.Println(result.(sdk.Entity).Data())
 ```
 
 ### Common Methods
@@ -575,25 +562,13 @@ fmt.Println(regionalIntensity.GetName()) // "regional_intensity"
 List entities matching the given criteria. Returns a `[]any` of entities, one per record; `err` is non-nil on failure.
 
 ```go
-results, err := client.RegionalIntensity(nil).List(nil, nil)
+results, err := client.RegionalIntensity(nil).List(map[string]any{"postcode": "example"}, nil)
 if err != nil {
     panic(err)
 }
 for _, item := range results.([]any) {
     fmt.Println(item.(sdk.Entity).Data())
 }
-```
-
-#### `Load(reqmatch, ctrl map[string]any) (any, error)`
-
-Load a single entity matching the given criteria. Returns the entity, whose record `Data()` reads; `err` is non-nil on failure.
-
-```go
-result, err := client.RegionalIntensity(nil).Load(map[string]any{"postcode": "postcode"}, nil)
-if err != nil {
-    panic(err)
-}
-fmt.Println(result.(sdk.Entity).Data())
 ```
 
 ### Common Methods
@@ -667,7 +642,7 @@ for _, item := range results.([]any) {
 Load a single entity matching the given criteria. Returns the entity, whose record `Data()` reads; `err` is non-nil on failure.
 
 ```go
-result, err := client.RegionalIntensityList(nil).Load(map[string]any{"from": "from", "postcode": "postcode"}, nil)
+result, err := client.RegionalIntensityList(nil).Load(map[string]any{"from": "from", "to": "to"}, nil)
 if err != nil {
     panic(err)
 }

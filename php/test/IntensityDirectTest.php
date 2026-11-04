@@ -33,14 +33,27 @@ class IntensityDirectTest extends TestCase
             $this->markTestSkipped($_reason ?? "skipped via sdk-test-control.json");
             return;
         }
+        if ($setup["live"]) {
+            foreach (["from01"] as $_liveKey) {
+                if (null === ($setup["idmap"][$_liveKey] ?? null)) {
+                    Runner::live_miss(self::LIVE_STRICT, "Live test blocked: needs " . $_liveKey . " via CARBON_INTENSITY_TEST_INTENSITY_ENTID");
+                }
+            }
+        }
+        if (!empty($setup["live"])) {
+            Runner::live_pace();
+        }
         $client = $setup["client"];
 
         $params = [];
+        $query = [];
+        $params["from"] = $setup["live"] ? ($setup["idmap"]["from01"] ?? null) : "direct01";
 
         $result = $client->direct([
-            "path" => "intensity",
+            "path" => "intensity/{from}",
             "method" => "GET",
             "params" => $params,
+            "query" => $query,
         ]);
         if ($setup["live"]) {
             if (!self::liveOk($result)) {
@@ -69,11 +82,14 @@ class IntensityDirectTest extends TestCase
             return;
         }
         if ($setup["live"]) {
-            foreach (["period01"] as $_liveKey) {
+            foreach (["from01", "period01"] as $_liveKey) {
                 if (null === ($setup["idmap"][$_liveKey] ?? null)) {
                     Runner::live_miss(self::LIVE_STRICT, "Live test blocked: needs " . $_liveKey . " via CARBON_INTENSITY_TEST_INTENSITY_ENTID");
                 }
             }
+        }
+        if (!empty($setup["live"])) {
+            Runner::live_pace();
         }
         $client = $setup["client"];
 
@@ -81,9 +97,9 @@ class IntensityDirectTest extends TestCase
         $query = [];
         if ($setup["live"]) {
             $list_result = $client->direct([
-                "path" => "intensity",
+                "path" => "intensity/{from}",
                 "method" => "GET",
-                "params" => [],
+                "params" => ["from" => $setup["idmap"]["from01"] ?? null],
             ]);
             if (!self::liveOk($list_result)) {
                 Runner::live_miss(self::LIVE_STRICT, "Live list discovery failed: " . Runner::live_describe($list_result));
@@ -96,7 +112,7 @@ class IntensityDirectTest extends TestCase
                 Runner::live_empty("The account has no intensity record to load");
             }
             $first = is_array($records[0]) ? $records[0] : [];
-            $found = $first["date"] ?? $first["id"] ?? null;
+            $found = $first["date"] ?? null;
             if (null === $found) {
                 Runner::live_miss(self::LIVE_STRICT, "Live load blocked: discovery returned no usable identity");
             }

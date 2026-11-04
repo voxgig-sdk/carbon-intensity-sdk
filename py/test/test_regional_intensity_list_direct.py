@@ -1,6 +1,7 @@
 # RegionalIntensityList direct test
 
 import json
+import os
 import pytest
 
 from carbonintensity_sdk.utility.voxgig_struct import voxgig_struct as vs
@@ -33,22 +34,34 @@ class TestRegionalIntensityListDirect:
             pytest.skip(_reason or "skipped via sdk-test-control.json")
             return
         if setup["live"]:
-            for _live_key in ["from01"]:
+            for _live_key in ["from01", "postcode01", "to01"]:
                 if setup["idmap"].get(_live_key) is None:
                     runner.live_miss(LIVE_STRICT, f"Live test blocked: needs {_live_key} via CARBON_INTENSITY_TEST_REGIONAL_INTENSITY_LIST_ENTID")
 
+        if setup["live"]:
+            runner.live_pace()
         client = setup["client"]
 
         params = {}
+        query = {}
         if setup["live"]:
             params["from"] = setup["idmap"].get("from01")
         else:
             params["from"] = "direct01"
+        if setup["live"]:
+            params["postcode"] = setup["idmap"].get("postcode01")
+        else:
+            params["postcode"] = "direct02"
+        if setup["live"]:
+            params["to"] = setup["idmap"].get("to01")
+        else:
+            params["to"] = "direct03"
 
         result = client.direct({
-            "path": "regional/intensity/{from}/fw24h",
+            "path": "regional/intensity/{from}/{to}/postcode/{postcode}",
             "method": "GET",
             "params": params,
+            "query": query,
         })
         if setup["live"]:
             if not _live_ok(result):
@@ -69,42 +82,27 @@ class TestRegionalIntensityListDirect:
             pytest.skip(_reason or "skipped via sdk-test-control.json")
             return
         if setup["live"]:
-            for _live_key in ["from01", "postcode01", "to01"]:
+            for _live_key in ["from01", "to01"]:
                 if setup["idmap"].get(_live_key) is None:
                     runner.live_miss(LIVE_STRICT, f"Live test blocked: needs {_live_key} via CARBON_INTENSITY_TEST_REGIONAL_INTENSITY_LIST_ENTID")
 
+        if setup["live"]:
+            runner.live_pace()
         client = setup["client"]
 
         params = {}
         query = {}
         if setup["live"]:
-            list_result = client.direct({
-                "path": "regional/intensity/{from}/fw24h",
-                "method": "GET",
-                "params": {"from": setup["idmap"].get("from01")},
-            })
-            if not _live_ok(list_result):
-                runner.live_miss(LIVE_STRICT, "Live list discovery failed: " + runner.live_describe(list_result))
-            records = runner.live_list(list_result.get("data"))
-            if records is None:
-                runner.live_miss(LIVE_STRICT, "Live list discovery returned no list: " + runner.live_describe(list_result))
-            if 0 == len(records):
-                runner.live_empty("The account has no regional_intensity_list record to load")
-            first = records[0] if isinstance(records[0], dict) else {}
-            if first.get("from", first.get("id")) is None:
-                runner.live_miss(LIVE_STRICT, "Live load blocked: discovery returned no usable identity")
-            params["from"] = first.get("from", first.get("id"))
-            params["postcode"] = setup["idmap"].get("postcode01")
+            params["from"] = setup["idmap"].get("from01")
             params["to"] = setup["idmap"].get("to01")
             pass
         else:
             params["from"] = "direct01"
-            params["postcode"] = "direct02"
-            params["to"] = "direct03"
+            params["to"] = "direct02"
             pass
 
         result = client.direct({
-            "path": "regional/intensity/{from}/{to}/postcode/{postcode}",
+            "path": "regional/intensity/{from}/{to}",
             "method": "GET",
             "params": params,
             "query": query,

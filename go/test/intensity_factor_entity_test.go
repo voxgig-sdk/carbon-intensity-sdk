@@ -212,6 +212,9 @@ func TestIntensityFactorEntity(t *testing.T) {
 		// happen not to consume the bootstrap data (e.g. list-only flows).
 		_ = intensityFactorRef01Data
 
+		if setup.live {
+			livePace()
+		}
 		// LIST
 		intensityFactorRef01Ent := client.IntensityFactor(nil)
 		intensityFactorRef01Match := map[string]any{}

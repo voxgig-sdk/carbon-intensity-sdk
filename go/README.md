@@ -76,12 +76,12 @@ Every entity operation returns `(value, error)`. Check `err` before
 using the value — there is no exception to catch:
 
 ```go
-intensitylists, err := client.IntensityList(nil).List(nil, nil)
+generations, err := client.Generation(nil).List(nil, nil)
 if err != nil {
     // handle err
     return
 }
-_ = intensitylists
+_ = generations
 ```
 
 `Direct` follows the same `(value, error)` convention:
@@ -145,14 +145,14 @@ Create a mock client for unit testing — no server required:
 ```go
 client := sdk.Test()
 
-intensityLists, err := client.IntensityList(nil).List(
+generations, err := client.Generation(nil).List(
     nil, nil,
 )
 if err != nil {
     panic(err)
 }
 // A []any of entities, one per mock record.
-for _, item := range intensityLists.([]any) {
+for _, item := range generations.([]any) {
     fmt.Println(item.(sdk.Entity).Data())
 }
 ```
@@ -231,19 +231,19 @@ Creates a test-mode client with mock transport. Both arguments may be `nil`.
 | `GetUtility` | `() *Utility` | Copy of the SDK utility object. |
 | `Prepare` | `(fetchargs map[string]any) (map[string]any, error)` | Build an HTTP request definition without sending. |
 | `Direct` | `(fetchargs map[string]any) (map[string]any, error)` | Build and send an HTTP request. |
-| `Generation` | `(data map[string]any) CarbonIntensityEntity` | Create a Generation entity instance. |
-| `GenerationList` | `(data map[string]any) CarbonIntensityEntity` | Create a GenerationList entity instance. |
-| `Intensity` | `(data map[string]any) CarbonIntensityEntity` | Create an Intensity entity instance. |
-| `IntensityFactor` | `(data map[string]any) CarbonIntensityEntity` | Create an IntensityFactor entity instance. |
-| `IntensityList` | `(data map[string]any) CarbonIntensityEntity` | Create an IntensityList entity instance. |
-| `Regional` | `(data map[string]any) CarbonIntensityEntity` | Create a Regional entity instance. |
-| `RegionalIntensity` | `(data map[string]any) CarbonIntensityEntity` | Create a RegionalIntensity entity instance. |
-| `RegionalIntensityList` | `(data map[string]any) CarbonIntensityEntity` | Create a RegionalIntensityList entity instance. |
-| `Stat` | `(data map[string]any) CarbonIntensityEntity` | Create a Stat entity instance. |
+| `Generation` | `(data map[string]any) CarbonIntensityEntityBase` | Create a Generation entity instance. |
+| `GenerationList` | `(data map[string]any) CarbonIntensityEntityBase` | Create a GenerationList entity instance. |
+| `Intensity` | `(data map[string]any) CarbonIntensityEntityBase` | Create an Intensity entity instance. |
+| `IntensityFactor` | `(data map[string]any) CarbonIntensityEntityBase` | Create an IntensityFactor entity instance. |
+| `IntensityList` | `(data map[string]any) CarbonIntensityEntityBase` | Create an IntensityList entity instance. |
+| `Regional` | `(data map[string]any) CarbonIntensityEntityBase` | Create a Regional entity instance. |
+| `RegionalIntensity` | `(data map[string]any) CarbonIntensityEntityBase` | Create a RegionalIntensity entity instance. |
+| `RegionalIntensityList` | `(data map[string]any) CarbonIntensityEntityBase` | Create a RegionalIntensityList entity instance. |
+| `Stat` | `(data map[string]any) CarbonIntensityEntityBase` | Create a Stat entity instance. |
 
-### Entity interface (CarbonIntensityEntity)
+### Entity interface (CarbonIntensityEntityBase)
 
-All entities implement the `CarbonIntensityEntity` interface.
+All entities implement the `CarbonIntensityEntityBase` interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
@@ -315,7 +315,7 @@ API path: `/generation/{from}/pt24h`
 
 Operations: List, Load.
 
-API path: `/intensity`
+API path: `/intensity/{from}`
 
 #### IntensityFactor
 
@@ -344,14 +344,13 @@ API path: `/intensity/factors`
 
 | Field | Description |
 | --- | --- |
-| `"data"` |  |
 | `"from"` | Start datetime of the period |
 | `"intensity"` |  |
 | `"to"` | End datetime of the period |
 
-Operations: List, Load.
+Operations: List.
 
-API path: `/intensity/{from}/fw24h`
+API path: `/intensity/date/{date}`
 
 #### Regional
 
@@ -377,9 +376,9 @@ API path: `/regional`
 | `"regionid"` | Region ID (1-17) |
 | `"shortname"` | Short region name |
 
-Operations: List, Load.
+Operations: List.
 
-API path: `/regional/england`
+API path: `/regional/postcode/{postcode}`
 
 #### RegionalIntensityList
 
@@ -394,7 +393,7 @@ API path: `/regional/england`
 
 Operations: List, Load.
 
-API path: `/regional/intensity/{from}/fw24h`
+API path: `/regional/intensity/{from}/{to}/postcode/{postcode}`
 
 #### Stat
 
@@ -513,7 +512,7 @@ Create an instance: `intensity := client.Intensity(nil)`
 #### Example: Load
 
 ```go
-intensity, err := client.Intensity(nil).Load(map[string]any{"id": "intensity_id"}, nil)
+intensity, err := client.Intensity(nil).Load(map[string]any{"from": "from", "to": "to"}, nil)
 if err != nil {
     panic(err)
 }
@@ -523,7 +522,7 @@ fmt.Println(intensity.(sdk.Entity).Data()) // the loaded entity's record
 #### Example: List
 
 ```go
-intensitys, err := client.Intensity(nil).List(nil, nil)
+intensitys, err := client.Intensity(nil).List(map[string]any{"from": "example"}, nil)
 if err != nil {
     panic(err)
 }
@@ -586,31 +585,19 @@ Create an instance: `intensityList := client.IntensityList(nil)`
 | Method | Description |
 | --- | --- |
 | `List(match, ctrl)` | List entities matching the criteria. |
-| `Load(match, ctrl)` | Load a single entity by match criteria. |
 
 #### Fields
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `data` | `[]any` |  |
 | `from` | `string` | Start datetime of the period |
 | `intensity` | `map[string]any` |  |
 | `to` | `string` | End datetime of the period |
 
-#### Example: Load
-
-```go
-intensityList, err := client.IntensityList(nil).Load(map[string]any{"date": "date"}, nil)
-if err != nil {
-    panic(err)
-}
-fmt.Println(intensityList.(sdk.Entity).Data()) // the loaded entity's record
-```
-
 #### Example: List
 
 ```go
-intensityLists, err := client.IntensityList(nil).List(nil, nil)
+intensityLists, err := client.IntensityList(nil).List(map[string]any{"date": "example"}, nil)
 if err != nil {
     panic(err)
 }
@@ -664,7 +651,6 @@ Create an instance: `regionalIntensity := client.RegionalIntensity(nil)`
 | Method | Description |
 | --- | --- |
 | `List(match, ctrl)` | List entities matching the criteria. |
-| `Load(match, ctrl)` | Load a single entity by match criteria. |
 
 #### Fields
 
@@ -676,20 +662,10 @@ Create an instance: `regionalIntensity := client.RegionalIntensity(nil)`
 | `regionid` | `int` | Region ID (1-17) |
 | `shortname` | `string` | Short region name |
 
-#### Example: Load
-
-```go
-regionalIntensity, err := client.RegionalIntensity(nil).Load(map[string]any{"postcode": "postcode"}, nil)
-if err != nil {
-    panic(err)
-}
-fmt.Println(regionalIntensity.(sdk.Entity).Data()) // the loaded entity's record
-```
-
 #### Example: List
 
 ```go
-regionalIntensitys, err := client.RegionalIntensity(nil).List(nil, nil)
+regionalIntensitys, err := client.RegionalIntensity(nil).List(map[string]any{"postcode": "example"}, nil)
 if err != nil {
     panic(err)
 }
@@ -725,7 +701,7 @@ Create an instance: `regionalIntensityList := client.RegionalIntensityList(nil)`
 #### Example: Load
 
 ```go
-regionalIntensityList, err := client.RegionalIntensityList(nil).Load(map[string]any{"from": "from", "postcode": "postcode"}, nil)
+regionalIntensityList, err := client.RegionalIntensityList(nil).Load(map[string]any{"from": "from", "to": "to"}, nil)
 if err != nil {
     panic(err)
 }
@@ -933,11 +909,11 @@ Entity instances are stateful. After a successful `List`, the entity
 stores the returned data and match criteria internally.
 
 ```go
-intensitylist := client.IntensityList(nil)
-intensitylist.List(nil, nil)
+generation := client.Generation(nil)
+generation.List(nil, nil)
 
-// intensitylist.Data() now returns the intensitylist data from the last list
-// intensitylist.Match() returns the last match criteria
+// generation.Data() now returns the generation data from the last list
+// generation.Match() returns the last match criteria
 ```
 
 Call `Make()` to create a fresh instance with the same configuration

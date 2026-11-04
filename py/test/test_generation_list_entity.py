@@ -64,6 +64,8 @@ class TestGenerationListEntity:
         if len(generation_list_ref01_data_raw) > 0:
             generation_list_ref01_data = helpers.to_map(generation_list_ref01_data_raw[0][1])
 
+        if setup["live"]:
+            runner.live_pace()
         # LIST
         generation_list_ref01_ent = client.GenerationList(None)
         generation_list_ref01_match = {

@@ -46,16 +46,13 @@ type Intensity struct {
 
 // IntensityLoadMatch is the typed request payload for Intensity.LoadTyped.
 type IntensityLoadMatch struct {
-	Id string `json:"id"`
+	From string `json:"from"`
+	To string `json:"to"`
 }
 
 // IntensityListMatch is the typed request payload for Intensity.ListTyped.
 type IntensityListMatch struct {
-	Data *[]any `json:"data,omitempty"`
-	From *string `json:"from,omitempty"`
-	Id *string `json:"id,omitempty"`
-	Intensity *map[string]any `json:"intensity,omitempty"`
-	To *string `json:"to,omitempty"`
+	From string `json:"from"`
 }
 
 // IntensityFactor is the typed data model for the intensity_factor entity.
@@ -84,17 +81,9 @@ type IntensityFactorListMatch struct {
 type IntensityList struct {
 }
 
-// IntensityListLoadMatch is the typed request payload for IntensityList.LoadTyped.
-type IntensityListLoadMatch struct {
-	Date string `json:"date"`
-}
-
 // IntensityListListMatch is the typed request payload for IntensityList.ListTyped.
 type IntensityListListMatch struct {
-	Data *[]any `json:"data,omitempty"`
-	From *string `json:"from,omitempty"`
-	Intensity *map[string]any `json:"intensity,omitempty"`
-	To *string `json:"to,omitempty"`
+	Date string `json:"date"`
 }
 
 // Regional is the typed data model for the regional entity.
@@ -114,18 +103,9 @@ type RegionalListMatch struct {
 type RegionalIntensity struct {
 }
 
-// RegionalIntensityLoadMatch is the typed request payload for RegionalIntensity.LoadTyped.
-type RegionalIntensityLoadMatch struct {
-	Postcode string `json:"postcode"`
-}
-
 // RegionalIntensityListMatch is the typed request payload for RegionalIntensity.ListTyped.
 type RegionalIntensityListMatch struct {
-	Data *[]any `json:"data,omitempty"`
-	Dnoregion *string `json:"dnoregion,omitempty"`
-	Postcode *string `json:"postcode,omitempty"`
-	Regionid *int `json:"regionid,omitempty"`
-	Shortname *string `json:"shortname,omitempty"`
+	Postcode string `json:"postcode"`
 }
 
 // RegionalIntensityList is the typed data model for the regional_intensity_list entity.
@@ -135,14 +115,15 @@ type RegionalIntensityList struct {
 // RegionalIntensityListLoadMatch is the typed request payload for RegionalIntensityList.LoadTyped.
 type RegionalIntensityListLoadMatch struct {
 	From string `json:"from"`
-	Postcode *string `json:"postcode,omitempty"`
-	To *string `json:"to,omitempty"`
-	Regionid *int `json:"regionid,omitempty"`
+	To string `json:"to"`
 }
 
 // RegionalIntensityListListMatch is the typed request payload for RegionalIntensityList.ListTyped.
 type RegionalIntensityListListMatch struct {
 	From string `json:"from"`
+	Postcode *string `json:"postcode,omitempty"`
+	To *string `json:"to,omitempty"`
+	Regionid *int `json:"regionid,omitempty"`
 }
 
 // Stat is the typed data model for the stat entity.

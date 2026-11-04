@@ -1,6 +1,7 @@
 # RegionalIntensity direct test
 
 import json
+import os
 import pytest
 
 from carbonintensity_sdk.utility.voxgig_struct import voxgig_struct as vs
@@ -32,14 +33,27 @@ class TestRegionalIntensityDirect:
         if _skip:
             pytest.skip(_reason or "skipped via sdk-test-control.json")
             return
+        if setup["live"]:
+            for _live_key in ["postcode01"]:
+                if setup["idmap"].get(_live_key) is None:
+                    runner.live_miss(LIVE_STRICT, f"Live test blocked: needs {_live_key} via CARBON_INTENSITY_TEST_REGIONAL_INTENSITY_ENTID")
+
+        if setup["live"]:
+            runner.live_pace()
         client = setup["client"]
 
         params = {}
+        query = {}
+        if setup["live"]:
+            params["postcode"] = setup["idmap"].get("postcode01")
+        else:
+            params["postcode"] = "direct01"
 
         result = client.direct({
-            "path": "regional/england",
+            "path": "regional/postcode/{postcode}",
             "method": "GET",
             "params": params,
+            "query": query,
         })
         if setup["live"]:
             if not _live_ok(result):
@@ -51,57 +65,6 @@ class TestRegionalIntensityDirect:
             assert helpers.to_int(result["status"]) == 200
             assert isinstance(result["data"], list)
             assert len(result["data"]) == 2
-            assert len(setup["calls"]) == 1
-
-    def test_should_direct_load_regional_intensity(self):
-        setup = _regional_intensity_direct_setup({"id": "direct01"})
-        _skip, _reason = runner.is_control_skipped("direct", "direct-load-regional_intensity", "live" if setup["live"] else "unit")
-        if _skip:
-            pytest.skip(_reason or "skipped via sdk-test-control.json")
-            return
-        client = setup["client"]
-
-        params = {}
-        query = {}
-        if setup["live"]:
-            list_result = client.direct({
-                "path": "regional/england",
-                "method": "GET",
-                "params": {},
-            })
-            if not _live_ok(list_result):
-                runner.live_miss(LIVE_STRICT, "Live list discovery failed: " + runner.live_describe(list_result))
-            records = runner.live_list(list_result.get("data"))
-            if records is None:
-                runner.live_miss(LIVE_STRICT, "Live list discovery returned no list: " + runner.live_describe(list_result))
-            if 0 == len(records):
-                runner.live_empty("The account has no regional_intensity record to load")
-            first = records[0] if isinstance(records[0], dict) else {}
-            if first.get("postcode", first.get("id")) is None:
-                runner.live_miss(LIVE_STRICT, "Live load blocked: discovery returned no usable identity")
-            params["postcode"] = first.get("postcode", first.get("id"))
-            pass
-        else:
-            params["postcode"] = "direct01"
-            pass
-
-        result = client.direct({
-            "path": "regional/postcode/{postcode}",
-            "method": "GET",
-            "params": params,
-            "query": query,
-        })
-        if setup["live"]:
-            if not _live_ok(result):
-                runner.live_miss(LIVE_STRICT, "Live load failed: " + runner.live_describe(result))
-            if result.get("data") is None:
-                runner.live_miss(LIVE_STRICT, "Live load returned no data: " + runner.live_describe(result))
-        else:
-            assert result["ok"] is True
-            assert helpers.to_int(result["status"]) == 200
-            assert result["data"] is not None
-            if isinstance(result["data"], dict):
-                assert result["data"]["id"] == "direct01"
             assert len(setup["calls"]) == 1
 
 

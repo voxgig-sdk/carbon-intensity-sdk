@@ -43,7 +43,7 @@ describe('GenerationDirect', async () => {
     if (liveScenariosActive()) { t.skip('Covered by live operation scenarios'); return }
     const setup = directSetup({ id: 'direct01' })
     if (maybeSkipControl(t, 'direct', 'direct-load-generation', setup.live)) return
-    if (skipIfMissingIds(t, setup, ["from01","to01"], LIVE_STRICT)) return
+    if (skipIfMissingIds(t, setup, ["to01"], LIVE_STRICT)) return
     const { client, calls } = setup
 
     const params: any = {}
@@ -66,12 +66,11 @@ describe('GenerationDirect', async () => {
       if (0 === listArr.length) {
         return void liveEmpty(t, 'The account has no generation record to load')
       }
-      const candidateId = listArr[0]?.from ?? listArr[0]?.id
+      const candidateId = listArr[0]?.from
       if (null == candidateId) {
         return void liveMiss(t, LIVE_STRICT, 'Live load blocked: discovery returned no usable identity')
       }
       params.from = candidateId
-      params.from = setup.idmap['from01']
       params.to = setup.idmap['to01']
     } else {
       params.from = 'direct01'

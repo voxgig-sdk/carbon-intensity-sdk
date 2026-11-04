@@ -1,6 +1,7 @@
 # GenerationList direct test
 
 import json
+import os
 import pytest
 
 from carbonintensity_sdk.utility.voxgig_struct import voxgig_struct as vs
@@ -37,9 +38,12 @@ class TestGenerationListDirect:
                 if setup["idmap"].get(_live_key) is None:
                     runner.live_miss(LIVE_STRICT, f"Live test blocked: needs {_live_key} via CARBON_INTENSITY_TEST_GENERATION_LIST_ENTID")
 
+        if setup["live"]:
+            runner.live_pace()
         client = setup["client"]
 
         params = {}
+        query = {}
         if setup["live"]:
             params["from"] = setup["idmap"].get("from01")
         else:
@@ -49,6 +53,7 @@ class TestGenerationListDirect:
             "path": "generation/{from}/pt24h",
             "method": "GET",
             "params": params,
+            "query": query,
         })
         if setup["live"]:
             if not _live_ok(result):

@@ -34,21 +34,26 @@ class IntensityListDirectTest extends TestCase
             return;
         }
         if ($setup["live"]) {
-            foreach (["from01"] as $_liveKey) {
+            foreach (["date01"] as $_liveKey) {
                 if (null === ($setup["idmap"][$_liveKey] ?? null)) {
                     Runner::live_miss(self::LIVE_STRICT, "Live test blocked: needs " . $_liveKey . " via CARBON_INTENSITY_TEST_INTENSITY_LIST_ENTID");
                 }
             }
         }
+        if (!empty($setup["live"])) {
+            Runner::live_pace();
+        }
         $client = $setup["client"];
 
         $params = [];
-        $params["from"] = $setup["live"] ? ($setup["idmap"]["from01"] ?? null) : "direct01";
+        $query = [];
+        $params["date"] = $setup["live"] ? ($setup["idmap"]["date01"] ?? null) : "direct01";
 
         $result = $client->direct([
-            "path" => "intensity/{from}/fw24h",
+            "path" => "intensity/date/{date}",
             "method" => "GET",
             "params" => $params,
+            "query" => $query,
         ]);
         if ($setup["live"]) {
             if (!self::liveOk($result)) {
@@ -64,77 +69,6 @@ class IntensityListDirectTest extends TestCase
             $this->assertEquals(200, Helpers::to_int($result["status"]));
             $this->assertIsArray($result["data"]);
             $this->assertCount(2, $result["data"]);
-            $this->assertCount(1, $setup["calls"]);
-        }
-    }
-
-    public function test_direct_load_intensity_list(): void
-    {
-        $setup = intensity_list_direct_setup(["id" => "direct01"]);
-        [$_shouldSkip, $_reason] = Runner::is_control_skipped("direct", "direct-load-intensity_list", $setup["live"] ? "live" : "unit");
-        if ($_shouldSkip) {
-            $this->markTestSkipped($_reason ?? "skipped via sdk-test-control.json");
-            return;
-        }
-        if ($setup["live"]) {
-            foreach (["from01"] as $_liveKey) {
-                if (null === ($setup["idmap"][$_liveKey] ?? null)) {
-                    Runner::live_miss(self::LIVE_STRICT, "Live test blocked: needs " . $_liveKey . " via CARBON_INTENSITY_TEST_INTENSITY_LIST_ENTID");
-                }
-            }
-        }
-        $client = $setup["client"];
-
-        $params = [];
-        $query = [];
-        if ($setup["live"]) {
-            $list_result = $client->direct([
-                "path" => "intensity/{from}/fw24h",
-                "method" => "GET",
-                "params" => ["from" => $setup["idmap"]["from01"] ?? null],
-            ]);
-            if (!self::liveOk($list_result)) {
-                Runner::live_miss(self::LIVE_STRICT, "Live list discovery failed: " . Runner::live_describe($list_result));
-            }
-            $records = Runner::live_list($list_result["data"] ?? null);
-            if (null === $records) {
-                Runner::live_miss(self::LIVE_STRICT, "Live list discovery returned no list: " . Runner::live_describe($list_result));
-            }
-            if (0 === count($records)) {
-                Runner::live_empty("The account has no intensity_list record to load");
-            }
-            $first = is_array($records[0]) ? $records[0] : [];
-            $found = $first["date"] ?? $first["id"] ?? null;
-            if (null === $found) {
-                Runner::live_miss(self::LIVE_STRICT, "Live load blocked: discovery returned no usable identity");
-            }
-            $params["date"] = $found;
-        } else {
-            $params["date"] = "direct01";
-        }
-
-        $result = $client->direct([
-            "path" => "intensity/date/{date}",
-            "method" => "GET",
-            "params" => $params,
-            "query" => $query,
-        ]);
-        if ($setup["live"]) {
-            if (!self::liveOk($result)) {
-                Runner::live_miss(self::LIVE_STRICT, "Live load failed: " . Runner::live_describe($result));
-            }
-            if (null === ($result["data"] ?? null)) {
-                Runner::live_miss(self::LIVE_STRICT, "Live load returned no data: " . Runner::live_describe($result));
-            }
-            $this->assertNotNull($result["data"]);
-        } else {
-            $this->assertArrayNotHasKey("err", $result);
-            $this->assertTrue($result["ok"]);
-            $this->assertEquals(200, Helpers::to_int($result["status"]));
-            $this->assertNotNull($result["data"]);
-            if (is_array($result["data"]) && isset($result["data"]["id"])) {
-                $this->assertEquals("direct01", $result["data"]["id"]);
-            }
             $this->assertCount(1, $setup["calls"]);
         }
     }

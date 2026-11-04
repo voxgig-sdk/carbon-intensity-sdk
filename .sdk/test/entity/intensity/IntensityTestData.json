@@ -41,6 +41,11 @@
     }
   },
   "requests": {
+    "GET /intensity/{from}": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    },
     "GET /intensity": {
       "provenance": "operation-contract",
       "version": 2,
@@ -52,11 +57,6 @@
       "source": "openapi3"
     },
     "GET /intensity/{from}/{to}": {
-      "provenance": "operation-contract",
-      "version": 2,
-      "source": "openapi3"
-    },
-    "GET /intensity/{from}": {
       "provenance": "operation-contract",
       "version": 2,
       "source": "openapi3"

@@ -61,6 +61,9 @@ describe("RegionalIntensityListEntity", function()
       regional_intensity_list_ref01_data = helpers.to_map(regional_intensity_list_ref01_data_raw[1][2])
     end
 
+    if setup.live then
+      runner.live_pace()
+    end
     -- LIST
     local regional_intensity_list_ref01_ent = client:RegionalIntensityList(nil)
     local regional_intensity_list_ref01_match = {

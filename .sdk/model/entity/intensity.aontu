@@ -23,6 +23,7 @@ main: kit: entity: intensity: {
       h: "Id"
       n: "id"
       r: false
+      syn: true
       t: "`$STRING`"
     }
     intensity: {
@@ -43,7 +44,16 @@ main: kit: entity: intensity: {
 
   id: {
     field: "id"
+    from: {
+      from: "from"
+      to: "to"
+    }
     name: "id"
+    parts: [
+      "from"
+      "to"
+    ]
+    sep: "/"
   }
 
   name: "intensity"
@@ -51,6 +61,47 @@ main: kit: entity: intensity: {
     list: {
       name: "list"
       points: [
+        {
+          co: {
+            id: "GET /intensity/{from}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                k: "param"
+                n: "from"
+                or: "from"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/intensity/{from}"
+          q: {
+            exist: [
+              "from"
+            ]
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
+          s: [
+            {
+              lit: "intensity"
+            }
+            {
+              var: "from"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body.data`"
+          }
+        }
         {
           co: {
             id: "GET /intensity"
@@ -178,52 +229,6 @@ main: kit: entity: intensity: {
             }
             {
               var: "to"
-            }
-          ]
-          t: {
-            req: "`reqdata`"
-            res: "`body`"
-          }
-        }
-        {
-          co: {
-            id: "GET /intensity/{from}"
-            source: "openapi3"
-            version: 2
-          }
-          g: {
-            params: [
-              {
-                k: "param"
-                n: "id"
-                or: "from"
-                r: true
-                t: "`$STRING`"
-              }
-            ]
-          }
-          m: "GET"
-          o: "/intensity/{from}"
-          q: {
-            exist: [
-              "id"
-            ]
-          }
-          r: {
-            param: {
-              from: "id"
-            }
-          }
-          rs: {
-            kind: "json"
-            media: "application/json"
-          }
-          s: [
-            {
-              lit: "intensity"
-            }
-            {
-              var: "id"
             }
           ]
           t: {

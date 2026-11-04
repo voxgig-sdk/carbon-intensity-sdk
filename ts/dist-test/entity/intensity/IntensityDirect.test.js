@@ -29,16 +29,18 @@ const utility_1 = require("../../utility");
         const setup = directSetup({ id: 'direct01' });
         if ((0, utility_1.maybeSkipControl)(t, 'direct', 'direct-load-intensity', setup.live))
             return;
-        if ((0, utility_1.skipIfMissingIds)(t, setup, ["date01", "period01"], LIVE_STRICT))
+        if ((0, utility_1.skipIfMissingIds)(t, setup, ["from01", "period01"], LIVE_STRICT))
             return;
         const { client, calls } = setup;
         const params = {};
         const query = {};
         if (setup.live) {
             const listResult = await client.direct({
-                path: 'intensity',
+                path: 'intensity/{from}',
                 method: 'GET',
-                params: {},
+                params: {
+                    from: setup.idmap['from01'],
+                },
             });
             if (!listResult.ok || listResult.status < 200 || listResult.status >= 300) {
                 return void (0, utility_1.liveMiss)(t, LIVE_STRICT, 'Live list discovery failed: ' + (0, utility_1.describeLive)(listResult));
@@ -50,12 +52,11 @@ const utility_1 = require("../../utility");
             if (0 === listArr.length) {
                 return void (0, utility_1.liveEmpty)(t, 'The account has no intensity record to load');
             }
-            const candidateId = listArr[0]?.date ?? listArr[0]?.id;
+            const candidateId = listArr[0]?.date;
             if (null == candidateId) {
                 return void (0, utility_1.liveMiss)(t, LIVE_STRICT, 'Live load blocked: discovery returned no usable identity');
             }
             params.date = candidateId;
-            params.date = setup.idmap['date01'];
             params.period = setup.idmap['period01'];
         }
         else {
@@ -95,11 +96,19 @@ const utility_1 = require("../../utility");
         const setup = directSetup([{ id: 'direct01' }, { id: 'direct02' }]);
         if ((0, utility_1.maybeSkipControl)(t, 'direct', 'direct-list-intensity', setup.live))
             return;
+        if ((0, utility_1.skipIfMissingIds)(t, setup, ["from01"], LIVE_STRICT))
+            return;
         const { client, calls } = setup;
         const params = {};
         const query = {};
+        if (setup.live) {
+            params.from = setup.idmap['from01'];
+        }
+        else {
+            params.from = 'direct01';
+        }
         const result = await client.direct({
-            path: 'intensity',
+            path: 'intensity/{from}',
             method: 'GET',
             params,
             query,
@@ -121,6 +130,7 @@ const utility_1 = require("../../utility");
             (0, node_assert_1.default)(listArr.length === 2);
             (0, node_assert_1.default)(calls.length === 1);
             (0, node_assert_1.default)(calls[0].init.method === 'GET');
+            (0, node_assert_1.default)(calls[0].url.includes('direct01'));
         }
     });
 });

@@ -350,7 +350,7 @@ const intensity = client.Intensity()
 List entities matching the given criteria. Resolves to an array of entities, one per record.
 
 ```ts
-const results = await client.Intensity().list()
+const results = await client.Intensity().list({ from: "example" })
 ```
 
 #### `load(match: object, ctrl?: object)`
@@ -358,7 +358,7 @@ const results = await client.Intensity().list()
 Load a single entity matching the given criteria. Resolves to the entity, whose record `data()` reads.
 
 ```ts
-const result = await client.Intensity().load({ id: 'intensity_id' })
+const result = await client.Intensity().load({ from: 'from', to: 'to' })
 ```
 
 ### Common Methods
@@ -462,7 +462,6 @@ const intensity_list = client.IntensityList()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `data` | `any[]` | No |  |
 | `from` | `string` | No | Start datetime of the period |
 | `intensity` | `Record<string, any>` | No |  |
 | `to` | `string` | No | End datetime of the period |
@@ -474,15 +473,7 @@ const intensity_list = client.IntensityList()
 List entities matching the given criteria. Resolves to an array of entities, one per record.
 
 ```ts
-const results = await client.IntensityList().list()
-```
-
-#### `load(match: object, ctrl?: object)`
-
-Load a single entity matching the given criteria. Resolves to the entity, whose record `data()` reads.
-
-```ts
-const result = await client.IntensityList().load({ date: 'date' })
+const results = await client.IntensityList().list({ date: "example" })
 ```
 
 ### Common Methods
@@ -590,15 +581,7 @@ const regional_intensity = client.RegionalIntensity()
 List entities matching the given criteria. Resolves to an array of entities, one per record.
 
 ```ts
-const results = await client.RegionalIntensity().list()
-```
-
-#### `load(match: object, ctrl?: object)`
-
-Load a single entity matching the given criteria. Resolves to the entity, whose record `data()` reads.
-
-```ts
-const result = await client.RegionalIntensity().load({ postcode: 'postcode' })
+const results = await client.RegionalIntensity().list({ postcode: "example" })
 ```
 
 ### Common Methods
@@ -661,7 +644,7 @@ const results = await client.RegionalIntensityList().list({ from: "example" })
 Load a single entity matching the given criteria. Resolves to the entity, whose record `data()` reads.
 
 ```ts
-const result = await client.RegionalIntensityList().load({ from: 'from', postcode: 'postcode' })
+const result = await client.RegionalIntensityList().load({ from: 'from', to: 'to' })
 ```
 
 ### Common Methods

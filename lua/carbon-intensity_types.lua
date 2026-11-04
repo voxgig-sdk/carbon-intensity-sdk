@@ -40,14 +40,11 @@
 ---@field to? string
 
 ---@class IntensityLoadMatch
----@field id string
+---@field from string
+---@field to string
 
 ---@class IntensityListMatch
----@field data? table
----@field from? string
----@field id? string
----@field intensity? table
----@field to? string
+---@field from string
 
 ---@class IntensityFactor
 ---@field Biomass? number
@@ -82,19 +79,12 @@
 ---@field Wind? number
 
 ---@class IntensityList
----@field data? table
 ---@field from? string
 ---@field intensity? table
 ---@field to? string
-
----@class IntensityListLoadMatch
----@field date string
 
 ---@class IntensityListListMatch
----@field data? table
----@field from? string
----@field intensity? table
----@field to? string
+---@field date string
 
 ---@class Regional
 ---@field data? table
@@ -117,15 +107,8 @@
 ---@field regionid? number
 ---@field shortname? string
 
----@class RegionalIntensityLoadMatch
----@field postcode string
-
 ---@class RegionalIntensityListMatch
----@field data? table
----@field dnoregion? string
----@field postcode? string
----@field regionid? number
----@field shortname? string
+---@field postcode string
 
 ---@class RegionalIntensityList
 ---@field data? table
@@ -137,12 +120,13 @@
 
 ---@class RegionalIntensityListLoadMatch
 ---@field from string
----@field postcode? string
----@field to? string
----@field regionid? number
+---@field to string
 
 ---@class RegionalIntensityListListMatch
 ---@field from string
+---@field postcode? string
+---@field to? string
+---@field regionid? number
 
 ---@class Stat
 ---@field data? table

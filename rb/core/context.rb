@@ -115,7 +115,7 @@ class CarbonIntensityContext
   end
 
   def make_error(code, msg)
-    CarbonIntensityError.new(code, msg, self)
+    CarbonIntensityError.new(msg, code: code, ctx: self)
   end
 
   # The serialised context leaves the pipeline (a logger, an error dump), so

@@ -255,7 +255,7 @@ $intensity = $client->Intensity();
 List entities matching the given criteria (call with no argument to list all). Returns an array of entities, one per record, and throws on error.
 
 ```php
-$results = $client->Intensity()->list();
+$results = $client->Intensity()->list(["from" => "example"]);
 ```
 
 #### `load(array $reqmatch, ?array $ctrl = null): mixed`
@@ -263,7 +263,7 @@ $results = $client->Intensity()->list();
 Load a single entity matching the given criteria. Returns the entity, whose record `data_get()` reads, and throws on error.
 
 ```php
-$result = $client->Intensity()->load(["id" => "intensity_id"]);
+$result = $client->Intensity()->load(["from" => "from", "to" => "to"]);
 ```
 
 ### Common Methods
@@ -371,7 +371,6 @@ $intensity_list = $client->IntensityList();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `data` | `array` | No |  |
 | `from` | `string` | No | Start datetime of the period |
 | `intensity` | `array` | No |  |
 | `to` | `string` | No | End datetime of the period |
@@ -383,15 +382,7 @@ $intensity_list = $client->IntensityList();
 List entities matching the given criteria (call with no argument to list all). Returns an array of entities, one per record, and throws on error.
 
 ```php
-$results = $client->IntensityList()->list();
-```
-
-#### `load(array $reqmatch, ?array $ctrl = null): mixed`
-
-Load a single entity matching the given criteria. Returns the entity, whose record `data_get()` reads, and throws on error.
-
-```php
-$result = $client->IntensityList()->load(["date" => "date"]);
+$results = $client->IntensityList()->list(["date" => "example"]);
 ```
 
 ### Common Methods
@@ -503,15 +494,7 @@ $regional_intensity = $client->RegionalIntensity();
 List entities matching the given criteria (call with no argument to list all). Returns an array of entities, one per record, and throws on error.
 
 ```php
-$results = $client->RegionalIntensity()->list();
-```
-
-#### `load(array $reqmatch, ?array $ctrl = null): mixed`
-
-Load a single entity matching the given criteria. Returns the entity, whose record `data_get()` reads, and throws on error.
-
-```php
-$result = $client->RegionalIntensity()->load(["postcode" => "postcode"]);
+$results = $client->RegionalIntensity()->list(["postcode" => "example"]);
 ```
 
 ### Common Methods
@@ -576,7 +559,7 @@ $results = $client->RegionalIntensityList()->list(["from" => "example"]);
 Load a single entity matching the given criteria. Returns the entity, whose record `data_get()` reads, and throws on error.
 
 ```php
-$result = $client->RegionalIntensityList()->load(["from" => "from", "postcode" => "postcode"]);
+$result = $client->RegionalIntensityList()->load(["from" => "from", "to" => "to"]);
 ```
 
 ### Common Methods

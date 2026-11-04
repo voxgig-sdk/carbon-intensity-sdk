@@ -175,7 +175,7 @@ func TestIntensityListEntity(t *testing.T) {
 		client := sdk.TestSDK(nil, map[string]any{
 			"feature": map[string]any{"validate": map[string]any{"active": true}},
 		})
-		_, err := client.IntensityList(nil).List(map[string]any{"from": 1}, nil)
+		_, err := client.IntensityList(nil).List(map[string]any{"date": 1}, nil)
 		if sdkerr, ok := err.(*core.CarbonIntensityError); !ok || "validate_failed" != sdkerr.Code {
 			t.Fatalf("expected validate_failed, got %v", err)
 		}
@@ -212,6 +212,9 @@ func TestIntensityListEntity(t *testing.T) {
 		// happen not to consume the bootstrap data (e.g. list-only flows).
 		_ = intensityListRef01Data
 
+		if setup.live {
+			livePace()
+		}
 		// LIST
 		intensityListRef01Ent := client.IntensityList(nil)
 		intensityListRef01Match := map[string]any{}

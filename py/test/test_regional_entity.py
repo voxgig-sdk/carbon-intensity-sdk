@@ -153,6 +153,8 @@ class TestRegionalEntity:
         if len(regional_ref01_data_raw) > 0:
             regional_ref01_data = helpers.to_map(regional_ref01_data_raw[0][1])
 
+        if setup["live"]:
+            runner.live_pace()
         # LIST
         regional_ref01_ent = client.Regional(None)
         regional_ref01_match = {}

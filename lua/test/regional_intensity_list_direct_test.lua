@@ -32,25 +32,40 @@ describe("RegionalIntensityListDirect", function()
       return
     end
     if setup.live then
-      for _, _live_key in ipairs({"from01"}) do
+      for _, _live_key in ipairs({"from01", "postcode01", "to01"}) do
         if setup.idmap[_live_key] == nil then
           runner.live_miss(pending, LIVE_STRICT, "Live test blocked: needs " .. _live_key .. " via CARBON_INTENSITY_TEST_REGIONAL_INTENSITY_LIST_ENTID")
         end
       end
     end
+    if setup.live then
+      runner.live_pace()
+    end
     local client = setup.client
 
     local params = {}
+    local query = {}
     if setup.live then
       params["from"] = setup.idmap["from01"]
     else
       params["from"] = "direct01"
     end
+    if setup.live then
+      params["postcode"] = setup.idmap["postcode01"]
+    else
+      params["postcode"] = "direct02"
+    end
+    if setup.live then
+      params["to"] = setup.idmap["to01"]
+    else
+      params["to"] = "direct03"
+    end
 
     local result, err = client:direct({
-      path = "regional/intensity/{from}/fw24h",
+      path = "regional/intensity/{from}/{to}/postcode/{postcode}",
       method = "GET",
       params = params,
+      query = query,
     })
     if setup.live then
       if not live_ok(result, err) then
@@ -78,48 +93,29 @@ describe("RegionalIntensityListDirect", function()
       return
     end
     if setup.live then
-      for _, _live_key in ipairs({"from01", "postcode01", "to01"}) do
+      for _, _live_key in ipairs({"from01", "to01"}) do
         if setup.idmap[_live_key] == nil then
           runner.live_miss(pending, LIVE_STRICT, "Live test blocked: needs " .. _live_key .. " via CARBON_INTENSITY_TEST_REGIONAL_INTENSITY_LIST_ENTID")
         end
       end
+    end
+    if setup.live then
+      runner.live_pace()
     end
     local client = setup.client
 
     local params = {}
     local query = {}
     if setup.live then
-      local list_result, list_err = client:direct({
-        path = "regional/intensity/{from}/fw24h",
-        method = "GET",
-        params = {["from"] = setup.idmap["from01"]},
-      })
-      if not live_ok(list_result, list_err) then
-        runner.live_miss(pending, LIVE_STRICT, "Live list discovery failed: " .. runner.live_describe(list_result, list_err))
-      end
-      local records = runner.live_list(list_result["data"])
-      if records == nil then
-        runner.live_miss(pending, LIVE_STRICT, "Live list discovery returned no list: " .. runner.live_describe(list_result, list_err))
-      end
-      if records[1] == nil then
-        runner.live_empty(pending, "The account has no regional_intensity_list record to load")
-      end
-      local first = type(records[1]) == "table" and records[1] or {}
-      local found = first["from"] or first["id"]
-      if found == nil then
-        runner.live_miss(pending, LIVE_STRICT, "Live load blocked: discovery returned no usable identity")
-      end
-      params["from"] = found
-      params["postcode"] = setup.idmap["postcode01"]
+      params["from"] = setup.idmap["from01"]
       params["to"] = setup.idmap["to01"]
     else
       params["from"] = "direct01"
-      params["postcode"] = "direct02"
-      params["to"] = "direct03"
+      params["to"] = "direct02"
     end
 
     local result, err = client:direct({
-      path = "regional/intensity/{from}/{to}/postcode/{postcode}",
+      path = "regional/intensity/{from}/{to}",
       method = "GET",
       params = params,
       query = query,

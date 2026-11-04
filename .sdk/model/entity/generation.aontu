@@ -28,6 +28,7 @@ main: kit: entity: generation: {
       h: "Id"
       n: "id"
       r: false
+      syn: true
       t: "`$STRING`"
     }
     to: {

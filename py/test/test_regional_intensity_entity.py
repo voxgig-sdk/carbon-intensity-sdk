@@ -130,7 +130,7 @@ class TestRegionalIntensityEntity:
         client = CarbonIntensitySDK.test(
             None, {"feature": {"validate": {"active": True}}})
         with pytest.raises(Exception) as err:
-            client.RegionalIntensity(None).list({"dnoregion": 1}, None)
+            client.RegionalIntensity(None).list({"postcode": 1}, None)
         assert "validate_failed" == getattr(err.value, "code", None)
 
     def test_should_run_basic_flow(self):
@@ -153,6 +153,8 @@ class TestRegionalIntensityEntity:
         if len(regional_intensity_ref01_data_raw) > 0:
             regional_intensity_ref01_data = helpers.to_map(regional_intensity_ref01_data_raw[0][1])
 
+        if setup["live"]:
+            runner.live_pace()
         # LIST
         regional_intensity_ref01_ent = client.RegionalIntensity(None)
         regional_intensity_ref01_match = {}

@@ -45,21 +45,6 @@
     }
   },
   "requests": {
-    "GET /regional/intensity/{from}/fw24h": {
-      "provenance": "operation-contract",
-      "version": 2,
-      "source": "openapi3"
-    },
-    "GET /regional/intensity/{from}/fw48h": {
-      "provenance": "operation-contract",
-      "version": 2,
-      "source": "openapi3"
-    },
-    "GET /regional/intensity/{from}/pt24h": {
-      "provenance": "operation-contract",
-      "version": 2,
-      "source": "openapi3"
-    },
     "GET /regional/intensity/{from}/{to}/postcode/{postcode}": {
       "provenance": "operation-contract",
       "version": 2,
@@ -96,6 +81,21 @@
       "source": "openapi3"
     },
     "GET /regional/intensity/{from}/pt24h/regionid/{regionid}": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    },
+    "GET /regional/intensity/{from}/fw24h": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    },
+    "GET /regional/intensity/{from}/fw48h": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    },
+    "GET /regional/intensity/{from}/pt24h": {
       "provenance": "operation-contract",
       "version": 2,
       "source": "openapi3"

@@ -200,7 +200,7 @@ class RegionalIntensityEntityTest extends TestCase
         $client = CarbonIntensitySDK::test(null, ["feature" => ["validate" => ["active" => true]]]);
         $err = null;
         try {
-            $client->RegionalIntensity(null)->list(["dnoregion" => 1], null);
+            $client->RegionalIntensity(null)->list(["postcode" => 1], null);
         } catch (\Throwable $e) {
             $err = $e;
         }
@@ -229,6 +229,9 @@ class RegionalIntensityEntityTest extends TestCase
             $regional_intensity_ref01_data = Helpers::to_map($regional_intensity_ref01_data_raw[0][1]);
         }
 
+        if (!empty($setup["live"])) {
+            Runner::live_pace();
+        }
         // LIST
         $regional_intensity_ref01_ent = $client->RegionalIntensity(null);
         $regional_intensity_ref01_match = [];

@@ -153,6 +153,8 @@ class TestIntensityFactorEntity:
         if len(intensity_factor_ref01_data_raw) > 0:
             intensity_factor_ref01_data = helpers.to_map(intensity_factor_ref01_data_raw[0][1])
 
+        if setup["live"]:
+            runner.live_pace()
         # LIST
         intensity_factor_ref01_ent = client.IntensityFactor(None)
         intensity_factor_ref01_match = {}

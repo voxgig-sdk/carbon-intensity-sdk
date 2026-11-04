@@ -5,12 +5,6 @@ main: kit: entity: intensity_list: {
   alias: field: {}
 
   fields: {
-    data: {
-      h: "Data"
-      n: "data"
-      r: false
-      t: "`$ARRAY`"
-    }
     from: {
       fo: "date-time"
       h: "From"
@@ -40,6 +34,50 @@ main: kit: entity: intensity_list: {
     list: {
       name: "list"
       points: [
+        {
+          co: {
+            id: "GET /intensity/date/{date}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                k: "param"
+                n: "date"
+                or: "date"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/intensity/date/{date}"
+          q: {
+            exist: [
+              "date"
+            ]
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
+          s: [
+            {
+              lit: "intensity"
+            }
+            {
+              lit: "date"
+            }
+            {
+              var: "date"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body.data`"
+          }
+        }
         {
           co: {
             id: "GET /intensity/{from}/fw24h"
@@ -195,55 +233,6 @@ main: kit: entity: intensity_list: {
           t: {
             req: "`reqdata`"
             res: "`body.data`"
-          }
-        }
-      ]
-    }
-    load: {
-      name: "load"
-      points: [
-        {
-          co: {
-            id: "GET /intensity/date/{date}"
-            source: "openapi3"
-            version: 2
-          }
-          g: {
-            params: [
-              {
-                k: "param"
-                n: "date"
-                or: "date"
-                r: true
-                t: "`$STRING`"
-              }
-            ]
-          }
-          m: "GET"
-          o: "/intensity/date/{date}"
-          q: {
-            exist: [
-              "date"
-            ]
-          }
-          rs: {
-            kind: "json"
-            media: "application/json"
-          }
-          s: [
-            {
-              lit: "intensity"
-            }
-            {
-              lit: "date"
-            }
-            {
-              var: "date"
-            }
-          ]
-          t: {
-            req: "`reqdata`"
-            res: "`body`"
           }
         }
       ]

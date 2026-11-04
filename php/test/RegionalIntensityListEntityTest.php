@@ -69,6 +69,9 @@ class RegionalIntensityListEntityTest extends TestCase
             $regional_intensity_list_ref01_data = Helpers::to_map($regional_intensity_list_ref01_data_raw[0][1]);
         }
 
+        if (!empty($setup["live"])) {
+            Runner::live_pace();
+        }
         // LIST
         $regional_intensity_list_ref01_ent = $client->RegionalIntensityList(null);
         $regional_intensity_list_ref01_match = [

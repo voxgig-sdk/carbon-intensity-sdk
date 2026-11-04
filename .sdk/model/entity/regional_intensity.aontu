@@ -48,6 +48,94 @@ main: kit: entity: regional_intensity: {
       points: [
         {
           co: {
+            id: "GET /regional/postcode/{postcode}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                k: "param"
+                n: "postcode"
+                or: "postcode"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/regional/postcode/{postcode}"
+          q: {
+            exist: [
+              "postcode"
+            ]
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
+          s: [
+            {
+              lit: "regional"
+            }
+            {
+              lit: "postcode"
+            }
+            {
+              var: "postcode"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body.data`"
+          }
+        }
+        {
+          co: {
+            id: "GET /regional/regionid/{regionid}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                k: "param"
+                n: "regionid"
+                or: "regionid"
+                r: true
+                t: "`$INTEGER`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/regional/regionid/{regionid}"
+          q: {
+            exist: [
+              "regionid"
+            ]
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
+          s: [
+            {
+              lit: "regional"
+            }
+            {
+              lit: "regionid"
+            }
+            {
+              var: "regionid"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body.data`"
+          }
+        }
+        {
+          co: {
             id: "GET /regional/england"
             source: "openapi3"
             version: 2
@@ -119,99 +207,6 @@ main: kit: entity: regional_intensity: {
           t: {
             req: "`reqdata`"
             res: "`body.data`"
-          }
-        }
-      ]
-    }
-    load: {
-      name: "load"
-      points: [
-        {
-          co: {
-            id: "GET /regional/postcode/{postcode}"
-            source: "openapi3"
-            version: 2
-          }
-          g: {
-            params: [
-              {
-                k: "param"
-                n: "postcode"
-                or: "postcode"
-                r: true
-                t: "`$STRING`"
-              }
-            ]
-          }
-          m: "GET"
-          o: "/regional/postcode/{postcode}"
-          q: {
-            exist: [
-              "postcode"
-            ]
-          }
-          rs: {
-            kind: "json"
-            media: "application/json"
-          }
-          s: [
-            {
-              lit: "regional"
-            }
-            {
-              lit: "postcode"
-            }
-            {
-              var: "postcode"
-            }
-          ]
-          t: {
-            req: "`reqdata`"
-            res: "`body`"
-          }
-        }
-        {
-          co: {
-            id: "GET /regional/regionid/{regionid}"
-            source: "openapi3"
-            version: 2
-          }
-          g: {
-            params: [
-              {
-                k: "param"
-                n: "regionid"
-                or: "regionid"
-                r: true
-                t: "`$INTEGER`"
-              }
-            ]
-          }
-          m: "GET"
-          o: "/regional/regionid/{regionid}"
-          q: {
-            exist: [
-              "regionid"
-            ]
-          }
-          rs: {
-            kind: "json"
-            media: "application/json"
-          }
-          s: [
-            {
-              lit: "regional"
-            }
-            {
-              lit: "regionid"
-            }
-            {
-              var: "regionid"
-            }
-          ]
-          t: {
-            req: "`reqdata`"
-            res: "`body`"
           }
         }
       ]

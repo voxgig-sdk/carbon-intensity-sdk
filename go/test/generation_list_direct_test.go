@@ -41,9 +41,13 @@ func TestGenerationListDirect(t *testing.T) {
 				}
 			}
 		}
+		if setup.live {
+			livePace()
+		}
 		client := setup.client
 
 		params := map[string]any{}
+		query := map[string]any{}
 		if setup.live {
 			params["from"] = setup.idmap["from01"]
 		} else {
@@ -54,6 +58,7 @@ func TestGenerationListDirect(t *testing.T) {
 			"path":   "generation/{from}/pt24h",
 			"method": "GET",
 			"params": params,
+			"query":  query,
 		})
 		if setup.live {
 			if err != nil {

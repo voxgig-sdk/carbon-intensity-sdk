@@ -253,7 +253,7 @@ local intensity = client:Intensity(nil)
 List entities matching the given criteria. Returns an array of entities, one per record, or `nil` and an error on failure.
 
 ```lua
-local results, err = client:Intensity():list()
+local results, err = client:Intensity():list({ from = "example" })
 ```
 
 #### `load(reqmatch, ctrl) -> any, err`
@@ -261,7 +261,7 @@ local results, err = client:Intensity():list()
 Load a single entity matching the given criteria. Returns the entity, whose record `data_get()` reads, or `nil` and an error on failure.
 
 ```lua
-local result, err = client:Intensity():load({ id = "intensity_id" })
+local result, err = client:Intensity():load({ from = "from", to = "to" })
 ```
 
 ### Common Methods
@@ -369,7 +369,6 @@ local intensity_list = client:IntensityList(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `data` | `table` | No |  |
 | `from` | `string` | No | Start datetime of the period |
 | `intensity` | `table` | No |  |
 | `to` | `string` | No | End datetime of the period |
@@ -381,15 +380,7 @@ local intensity_list = client:IntensityList(nil)
 List entities matching the given criteria. Returns an array of entities, one per record, or `nil` and an error on failure.
 
 ```lua
-local results, err = client:IntensityList():list()
-```
-
-#### `load(reqmatch, ctrl) -> any, err`
-
-Load a single entity matching the given criteria. Returns the entity, whose record `data_get()` reads, or `nil` and an error on failure.
-
-```lua
-local result, err = client:IntensityList():load({ date = "date" })
+local results, err = client:IntensityList():list({ date = "example" })
 ```
 
 ### Common Methods
@@ -501,15 +492,7 @@ local regional_intensity = client:RegionalIntensity(nil)
 List entities matching the given criteria. Returns an array of entities, one per record, or `nil` and an error on failure.
 
 ```lua
-local results, err = client:RegionalIntensity():list()
-```
-
-#### `load(reqmatch, ctrl) -> any, err`
-
-Load a single entity matching the given criteria. Returns the entity, whose record `data_get()` reads, or `nil` and an error on failure.
-
-```lua
-local result, err = client:RegionalIntensity():load({ postcode = "postcode" })
+local results, err = client:RegionalIntensity():list({ postcode = "example" })
 ```
 
 ### Common Methods
@@ -574,7 +557,7 @@ local results, err = client:RegionalIntensityList():list({ from = "example" })
 Load a single entity matching the given criteria. Returns the entity, whose record `data_get()` reads, or `nil` and an error on failure.
 
 ```lua
-local result, err = client:RegionalIntensityList():load({ from = "from", postcode = "postcode" })
+local result, err = client:RegionalIntensityList():load({ from = "from", to = "to" })
 ```
 
 ### Common Methods

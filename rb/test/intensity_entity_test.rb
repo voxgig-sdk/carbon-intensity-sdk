@@ -164,7 +164,7 @@ class IntensityEntityTest < Minitest::Test
     setup = intensity_basic_setup(nil)
     # Per-op sdk-test-control.json skip.
     _live = setup[:live] || false
-    ["list", "load"].each do |_op|
+    ["list"].each do |_op|
       _should_skip, _reason = Runner.is_control_skipped("entityOp", "intensity." + _op, _live ? "live" : "unit")
       if _should_skip
         skip(_reason || "skipped via sdk-test-control.json")
@@ -172,11 +172,6 @@ class IntensityEntityTest < Minitest::Test
       end
     end
     client = setup[:client]
-    if setup[:live]
-      Runner.live_existing(setup, LIVE_STRICT, "intensity") do
-        client.Intensity(nil).list({}, nil)
-      end
-    end
 
     # Bootstrap entity data from existing test data.
     intensity_ref01_data_raw = Vs.items(Helpers.to_map(
@@ -186,21 +181,13 @@ class IntensityEntityTest < Minitest::Test
       intensity_ref01_data = Helpers.to_map(intensity_ref01_data_raw[0][1])
     end
 
+    Runner.live_pace if setup[:live]
     # LIST
     intensity_ref01_ent = client.Intensity(nil)
     intensity_ref01_match = {}
 
     intensity_ref01_list_result = intensity_ref01_ent.list(intensity_ref01_match, nil)
     assert intensity_ref01_list_result.is_a?(Array)
-
-    # LOAD
-    intensity_ref01_match_dt0 = {
-      "id" => intensity_ref01_data["id"],
-    }
-    intensity_ref01_data_dt0_loaded = intensity_ref01_ent.load(intensity_ref01_match_dt0, nil)
-    intensity_ref01_data_dt0_load_result = Helpers.to_map(intensity_ref01_data_dt0_loaded.respond_to?(:data_get) ? intensity_ref01_data_dt0_loaded.data_get : intensity_ref01_data_dt0_loaded)
-    assert !intensity_ref01_data_dt0_load_result.nil?
-    assert_equal intensity_ref01_data_dt0_load_result["id"], intensity_ref01_data["id"]
 
   end
 end

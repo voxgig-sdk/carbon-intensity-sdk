@@ -38,9 +38,13 @@ describe("GenerationListDirect", function()
         end
       end
     end
+    if setup.live then
+      runner.live_pace()
+    end
     local client = setup.client
 
     local params = {}
+    local query = {}
     if setup.live then
       params["from"] = setup.idmap["from01"]
     else
@@ -51,6 +55,7 @@ describe("GenerationListDirect", function()
       path = "generation/{from}/pt24h",
       method = "GET",
       params = params,
+      query = query,
     })
     if setup.live then
       if not live_ok(result, err) then

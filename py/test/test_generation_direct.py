@@ -1,6 +1,7 @@
 # Generation direct test
 
 import json
+import os
 import pytest
 
 from carbonintensity_sdk.utility.voxgig_struct import voxgig_struct as vs
@@ -32,14 +33,18 @@ class TestGenerationDirect:
         if _skip:
             pytest.skip(_reason or "skipped via sdk-test-control.json")
             return
+        if setup["live"]:
+            runner.live_pace()
         client = setup["client"]
 
         params = {}
+        query = {}
 
         result = client.direct({
             "path": "generation",
             "method": "GET",
             "params": params,
+            "query": query,
         })
         if setup["live"]:
             if not _live_ok(result):
@@ -64,6 +69,8 @@ class TestGenerationDirect:
                 if setup["idmap"].get(_live_key) is None:
                     runner.live_miss(LIVE_STRICT, f"Live test blocked: needs {_live_key} via CARBON_INTENSITY_TEST_GENERATION_ENTID")
 
+        if setup["live"]:
+            runner.live_pace()
         client = setup["client"]
 
         params = {}
@@ -82,9 +89,9 @@ class TestGenerationDirect:
             if 0 == len(records):
                 runner.live_empty("The account has no generation record to load")
             first = records[0] if isinstance(records[0], dict) else {}
-            if first.get("from", first.get("id")) is None:
+            if first.get("from") is None:
                 runner.live_miss(LIVE_STRICT, "Live load blocked: discovery returned no usable identity")
-            params["from"] = first.get("from", first.get("id"))
+            params["from"] = first.get("from")
             params["to"] = setup["idmap"].get("to01")
             pass
         else:

@@ -19,7 +19,7 @@ type ListArgs struct {
 
 // LoadArgs is what an agent sends to carbon-intensity_load.
 type LoadArgs struct {
-	Entity string         `json:"entity" jsonschema:"one of: generation | intensity | intensity_list | regional_intensity | regional_intensity_list | stat"`
+	Entity string         `json:"entity" jsonschema:"one of: generation | intensity | regional_intensity_list | stat"`
 	Query  map[string]any `json:"query" jsonschema:"match map naming the record, such as {\"id\":1}"`
 }
 
@@ -36,7 +36,7 @@ func registerTools(server *mcp.Server, client *sdk.CarbonIntensitySDK) {
 		Name:        "carbon-intensity_load",
 		Description: "Load one record from CarbonIntensity. Args: entity, query (match map naming the record, such as {\"id\":1}). Returns the record as JSON.",
 		Annotations: &mcp.ToolAnnotations{ReadOnlyHint: true},
-		InputSchema: entitySchema[LoadArgs]("generation", "intensity", "intensity_list", "regional_intensity", "regional_intensity_list", "stat"),
+		InputSchema: entitySchema[LoadArgs]("generation", "intensity", "regional_intensity_list", "stat"),
 	}, func(ctx context.Context, req *mcp.CallToolRequest, args LoadArgs) (*mcp.CallToolResult, any, error) {
 		return runOp(ctx, client, "load", args.Entity, args.Query)
 	})
@@ -101,7 +101,7 @@ func runOp(_ context.Context, client *sdk.CarbonIntensitySDK, op string, entity 
 
 // entityFor dispatches on the lowercase entity name. The generator
 // emits one `case "<name>":` per entity defined in the SDK model.
-func entityFor(client *sdk.CarbonIntensitySDK, name string) (sdk.CarbonIntensityEntity, error) {
+func entityFor(client *sdk.CarbonIntensitySDK, name string) (sdk.CarbonIntensityEntityBase, error) {
 	switch strings.ToLower(name) {
 	case "generation":
 		return client.Generation(nil), nil

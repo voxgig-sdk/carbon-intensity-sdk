@@ -155,7 +155,7 @@ class IntensityListEntityTest < Minitest::Test
     end
     client = CarbonIntensitySDK.test(nil, { "feature" => { "validate" => { "active" => true } } })
     err = assert_raises(StandardError) do
-      client.IntensityList(nil).list({ "from" => 1 }, nil)
+      client.IntensityList(nil).list({ "date" => 1 }, nil)
     end
     assert_equal "validate_failed", err.code
   end
@@ -181,6 +181,7 @@ class IntensityListEntityTest < Minitest::Test
       intensity_list_ref01_data = Helpers.to_map(intensity_list_ref01_data_raw[0][1])
     end
 
+    Runner.live_pace if setup[:live]
     # LIST
     intensity_list_ref01_ent = client.IntensityList(nil)
     intensity_list_ref01_match = {}

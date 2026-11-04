@@ -124,35 +124,23 @@ Intensity = Struct.new(
 
 # Request payload for Intensity#load.
 #
-# @!attribute [rw] id
+# @!attribute [rw] from
+#   @return [String]
+#
+# @!attribute [rw] to
 #   @return [String]
 IntensityLoadMatch = Struct.new(
-  :id,
+  :from,
+  :to,
   keyword_init: true
 )
 
 # Request payload for Intensity#list.
 #
-# @!attribute [rw] data
-#   @return [Array, nil]
-#
 # @!attribute [rw] from
-#   @return [String, nil]
-#
-# @!attribute [rw] id
-#   @return [String, nil]
-#
-# @!attribute [rw] intensity
-#   @return [Hash, nil]
-#
-# @!attribute [rw] to
-#   @return [String, nil]
+#   @return [String]
 IntensityListMatch = Struct.new(
-  :data,
   :from,
-  :id,
-  :intensity,
-  :to,
   keyword_init: true
 )
 
@@ -280,9 +268,6 @@ IntensityFactorListMatch = Struct.new(
 
 # IntensityList entity data model.
 #
-# @!attribute [rw] data
-#   @return [Array, nil]
-#
 # @!attribute [rw] from
 #   @return [String, nil]
 #
@@ -292,40 +277,18 @@ IntensityFactorListMatch = Struct.new(
 # @!attribute [rw] to
 #   @return [String, nil]
 IntensityList = Struct.new(
-  :data,
   :from,
   :intensity,
   :to,
-  keyword_init: true
-)
-
-# Request payload for IntensityList#load.
-#
-# @!attribute [rw] date
-#   @return [String]
-IntensityListLoadMatch = Struct.new(
-  :date,
   keyword_init: true
 )
 
 # Request payload for IntensityList#list.
 #
-# @!attribute [rw] data
-#   @return [Array, nil]
-#
-# @!attribute [rw] from
-#   @return [String, nil]
-#
-# @!attribute [rw] intensity
-#   @return [Hash, nil]
-#
-# @!attribute [rw] to
-#   @return [String, nil]
+# @!attribute [rw] date
+#   @return [String]
 IntensityListListMatch = Struct.new(
-  :data,
-  :from,
-  :intensity,
-  :to,
+  :date,
   keyword_init: true
 )
 
@@ -404,37 +367,12 @@ RegionalIntensity = Struct.new(
   keyword_init: true
 )
 
-# Request payload for RegionalIntensity#load.
+# Request payload for RegionalIntensity#list.
 #
 # @!attribute [rw] postcode
 #   @return [String]
-RegionalIntensityLoadMatch = Struct.new(
-  :postcode,
-  keyword_init: true
-)
-
-# Request payload for RegionalIntensity#list.
-#
-# @!attribute [rw] data
-#   @return [Array, nil]
-#
-# @!attribute [rw] dnoregion
-#   @return [String, nil]
-#
-# @!attribute [rw] postcode
-#   @return [String, nil]
-#
-# @!attribute [rw] regionid
-#   @return [Integer, nil]
-#
-# @!attribute [rw] shortname
-#   @return [String, nil]
 RegionalIntensityListMatch = Struct.new(
-  :data,
-  :dnoregion,
   :postcode,
-  :regionid,
-  :shortname,
   keyword_init: true
 )
 
@@ -472,6 +410,19 @@ RegionalIntensityList = Struct.new(
 # @!attribute [rw] from
 #   @return [String]
 #
+# @!attribute [rw] to
+#   @return [String]
+RegionalIntensityListLoadMatch = Struct.new(
+  :from,
+  :to,
+  keyword_init: true
+)
+
+# Request payload for RegionalIntensityList#list.
+#
+# @!attribute [rw] from
+#   @return [String]
+#
 # @!attribute [rw] postcode
 #   @return [String, nil]
 #
@@ -480,20 +431,11 @@ RegionalIntensityList = Struct.new(
 #
 # @!attribute [rw] regionid
 #   @return [Integer, nil]
-RegionalIntensityListLoadMatch = Struct.new(
+RegionalIntensityListListMatch = Struct.new(
   :from,
   :postcode,
   :to,
   :regionid,
-  keyword_init: true
-)
-
-# Request payload for RegionalIntensityList#list.
-#
-# @!attribute [rw] from
-#   @return [String]
-RegionalIntensityListListMatch = Struct.new(
-  :from,
   keyword_init: true
 )
 

@@ -181,6 +181,7 @@ class IntensityFactorEntityTest < Minitest::Test
       intensity_factor_ref01_data = Helpers.to_map(intensity_factor_ref01_data_raw[0][1])
     end
 
+    Runner.live_pace if setup[:live]
     # LIST
     intensity_factor_ref01_ent = client.IntensityFactor(nil)
     intensity_factor_ref01_match = {}

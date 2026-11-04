@@ -34,21 +34,28 @@ class RegionalIntensityListDirectTest extends TestCase
             return;
         }
         if ($setup["live"]) {
-            foreach (["from01"] as $_liveKey) {
+            foreach (["from01", "postcode01", "to01"] as $_liveKey) {
                 if (null === ($setup["idmap"][$_liveKey] ?? null)) {
                     Runner::live_miss(self::LIVE_STRICT, "Live test blocked: needs " . $_liveKey . " via CARBON_INTENSITY_TEST_REGIONAL_INTENSITY_LIST_ENTID");
                 }
             }
         }
+        if (!empty($setup["live"])) {
+            Runner::live_pace();
+        }
         $client = $setup["client"];
 
         $params = [];
+        $query = [];
         $params["from"] = $setup["live"] ? ($setup["idmap"]["from01"] ?? null) : "direct01";
+        $params["postcode"] = $setup["live"] ? ($setup["idmap"]["postcode01"] ?? null) : "direct02";
+        $params["to"] = $setup["live"] ? ($setup["idmap"]["to01"] ?? null) : "direct03";
 
         $result = $client->direct([
-            "path" => "regional/intensity/{from}/fw24h",
+            "path" => "regional/intensity/{from}/{to}/postcode/{postcode}",
             "method" => "GET",
             "params" => $params,
+            "query" => $query,
         ]);
         if ($setup["live"]) {
             if (!self::liveOk($result)) {
@@ -77,48 +84,29 @@ class RegionalIntensityListDirectTest extends TestCase
             return;
         }
         if ($setup["live"]) {
-            foreach (["from01", "postcode01", "to01"] as $_liveKey) {
+            foreach (["from01", "to01"] as $_liveKey) {
                 if (null === ($setup["idmap"][$_liveKey] ?? null)) {
                     Runner::live_miss(self::LIVE_STRICT, "Live test blocked: needs " . $_liveKey . " via CARBON_INTENSITY_TEST_REGIONAL_INTENSITY_LIST_ENTID");
                 }
             }
+        }
+        if (!empty($setup["live"])) {
+            Runner::live_pace();
         }
         $client = $setup["client"];
 
         $params = [];
         $query = [];
         if ($setup["live"]) {
-            $list_result = $client->direct([
-                "path" => "regional/intensity/{from}/fw24h",
-                "method" => "GET",
-                "params" => ["from" => $setup["idmap"]["from01"] ?? null],
-            ]);
-            if (!self::liveOk($list_result)) {
-                Runner::live_miss(self::LIVE_STRICT, "Live list discovery failed: " . Runner::live_describe($list_result));
-            }
-            $records = Runner::live_list($list_result["data"] ?? null);
-            if (null === $records) {
-                Runner::live_miss(self::LIVE_STRICT, "Live list discovery returned no list: " . Runner::live_describe($list_result));
-            }
-            if (0 === count($records)) {
-                Runner::live_empty("The account has no regional_intensity_list record to load");
-            }
-            $first = is_array($records[0]) ? $records[0] : [];
-            $found = $first["from"] ?? $first["id"] ?? null;
-            if (null === $found) {
-                Runner::live_miss(self::LIVE_STRICT, "Live load blocked: discovery returned no usable identity");
-            }
-            $params["from"] = $found;
-            $params["postcode"] = $setup["idmap"]["postcode01"] ?? null;
+            $params["from"] = $setup["idmap"]["from01"] ?? null;
             $params["to"] = $setup["idmap"]["to01"] ?? null;
         } else {
             $params["from"] = "direct01";
-            $params["postcode"] = "direct02";
-            $params["to"] = "direct03";
+            $params["to"] = "direct02";
         }
 
         $result = $client->direct([
-            "path" => "regional/intensity/{from}/{to}/postcode/{postcode}",
+            "path" => "regional/intensity/{from}/{to}",
             "method" => "GET",
             "params" => $params,
             "query" => $query,

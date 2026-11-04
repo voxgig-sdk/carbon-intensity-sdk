@@ -139,7 +139,7 @@ describe("IntensityListEntity", function()
       return
     end
     local client = sdk.test(nil, { feature = { validate = { active = true } } })
-    local _, err = client:IntensityList(nil):list({ ["from"] = 1 }, nil)
+    local _, err = client:IntensityList(nil):list({ ["date"] = 1 }, nil)
     assert.are.equal("validate_failed", type(err) == "table" and err.code or nil)
   end)
 
@@ -164,6 +164,9 @@ describe("IntensityListEntity", function()
       intensity_list_ref01_data = helpers.to_map(intensity_list_ref01_data_raw[1][2])
     end
 
+    if setup.live then
+      runner.live_pace()
+    end
     -- LIST
     local intensity_list_ref01_ent = client:IntensityList(nil)
     local intensity_list_ref01_match = {}

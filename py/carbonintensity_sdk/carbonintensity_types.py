@@ -61,17 +61,15 @@ Intensity = TypedDict('Intensity', {
 }, total=False)
 
 
-class IntensityLoadMatch(TypedDict):
-    id: str
+IntensityLoadMatch = TypedDict('IntensityLoadMatch', {
+    "from": str,
+    "to": str,
+})
 
 
 IntensityListMatch = TypedDict('IntensityListMatch', {
-    "data": list,
     "from": str,
-    "id": str,
-    "intensity": dict,
-    "to": str,
-}, total=False)
+})
 
 
 class IntensityFactor(TypedDict, total=False):
@@ -109,23 +107,14 @@ class IntensityFactorListMatch(TypedDict, total=False):
 
 
 IntensityList = TypedDict('IntensityList', {
-    "data": list,
     "from": str,
     "intensity": dict,
     "to": str,
 }, total=False)
 
 
-class IntensityListLoadMatch(TypedDict):
+class IntensityListListMatch(TypedDict):
     date: str
-
-
-IntensityListListMatch = TypedDict('IntensityListListMatch', {
-    "data": list,
-    "from": str,
-    "intensity": dict,
-    "to": str,
-}, total=False)
 
 
 class Regional(TypedDict, total=False):
@@ -152,16 +141,8 @@ class RegionalIntensity(TypedDict, total=False):
     shortname: str
 
 
-class RegionalIntensityLoadMatch(TypedDict):
+class RegionalIntensityListMatch(TypedDict):
     postcode: str
-
-
-class RegionalIntensityListMatch(TypedDict, total=False):
-    data: list
-    dnoregion: str
-    postcode: str
-    regionid: int
-    shortname: str
 
 
 class RegionalIntensityList(TypedDict, total=False):
@@ -173,24 +154,25 @@ class RegionalIntensityList(TypedDict, total=False):
     shortname: str
 
 
-RegionalIntensityListLoadMatchRequired = TypedDict('RegionalIntensityListLoadMatchRequired', {
+RegionalIntensityListLoadMatch = TypedDict('RegionalIntensityListLoadMatch', {
+    "from": str,
+    "to": str,
+})
+
+
+RegionalIntensityListListMatchRequired = TypedDict('RegionalIntensityListListMatchRequired', {
     "from": str,
 })
 
-RegionalIntensityListLoadMatchOptional = TypedDict('RegionalIntensityListLoadMatchOptional', {
+RegionalIntensityListListMatchOptional = TypedDict('RegionalIntensityListListMatchOptional', {
     "postcode": str,
     "to": str,
     "regionid": int,
 }, total=False)
 
 
-class RegionalIntensityListLoadMatch(RegionalIntensityListLoadMatchRequired, RegionalIntensityListLoadMatchOptional):
+class RegionalIntensityListListMatch(RegionalIntensityListListMatchRequired, RegionalIntensityListListMatchOptional):
     pass
-
-
-RegionalIntensityListListMatch = TypedDict('RegionalIntensityListListMatch', {
-    "from": str,
-})
 
 
 class Stat(TypedDict, total=False):

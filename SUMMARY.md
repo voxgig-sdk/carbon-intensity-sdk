@@ -53,7 +53,7 @@ Key fields to recognise:
 
 Results: Successful response.
 
-SDK operations: `list`, `load`.
+SDK operations: `list`.
 
 Key fields to recognise:
 
@@ -77,7 +77,7 @@ Key fields to recognise:
 
 Results: Successful response.
 
-SDK operations: `list`, `load`.
+SDK operations: `list`.
 
 Key fields to recognise:
 
@@ -114,33 +114,33 @@ Use this map to locate a capability. Consult the entity reference before supplyi
 | Generation | `list` | `GET /generation` | See reference |
 | Generation | `load` | `GET /generation/{from}/{to}` | See reference |
 | GenerationList | `list` | `GET /generation/{from}/pt24h` | See reference |
+| Intensity | `list` | `GET /intensity/{from}` | See reference |
 | Intensity | `list` | `GET /intensity` | See reference |
 | Intensity | `load` | `GET /intensity/date/{date}/{period}` | See reference |
 | Intensity | `load` | `GET /intensity/{from}/{to}` | See reference |
-| Intensity | `load` | `GET /intensity/{from}` | See reference |
 | IntensityFactor | `list` | `GET /intensity/factors` | See reference |
+| IntensityList | `list` | `GET /intensity/date/{date}` | See reference |
 | IntensityList | `list` | `GET /intensity/{from}/fw24h` | See reference |
 | IntensityList | `list` | `GET /intensity/{from}/fw48h` | See reference |
 | IntensityList | `list` | `GET /intensity/{from}/pt24h` | See reference |
 | IntensityList | `list` | `GET /intensity/date` | See reference |
-| IntensityList | `load` | `GET /intensity/date/{date}` | See reference |
 | Regional | `list` | `GET /regional` | See reference |
+| RegionalIntensity | `list` | `GET /regional/postcode/{postcode}` | See reference |
+| RegionalIntensity | `list` | `GET /regional/regionid/{regionid}` | See reference |
 | RegionalIntensity | `list` | `GET /regional/england` | See reference |
 | RegionalIntensity | `list` | `GET /regional/scotland` | See reference |
 | RegionalIntensity | `list` | `GET /regional/wales` | See reference |
-| RegionalIntensity | `load` | `GET /regional/postcode/{postcode}` | See reference |
-| RegionalIntensity | `load` | `GET /regional/regionid/{regionid}` | See reference |
+| RegionalIntensityList | `list` | `GET /regional/intensity/{from}/{to}/postcode/{postcode}` | See reference |
+| RegionalIntensityList | `list` | `GET /regional/intensity/{from}/{to}/regionid/{regionid}` | See reference |
+| RegionalIntensityList | `list` | `GET /regional/intensity/{from}/fw24h/postcode/{postcode}` | See reference |
+| RegionalIntensityList | `list` | `GET /regional/intensity/{from}/fw48h/postcode/{postcode}` | See reference |
+| RegionalIntensityList | `list` | `GET /regional/intensity/{from}/pt24h/postcode/{postcode}` | See reference |
+| RegionalIntensityList | `list` | `GET /regional/intensity/{from}/fw24h/regionid/{regionid}` | See reference |
+| RegionalIntensityList | `list` | `GET /regional/intensity/{from}/fw48h/regionid/{regionid}` | See reference |
+| RegionalIntensityList | `list` | `GET /regional/intensity/{from}/pt24h/regionid/{regionid}` | See reference |
 | RegionalIntensityList | `list` | `GET /regional/intensity/{from}/fw24h` | See reference |
 | RegionalIntensityList | `list` | `GET /regional/intensity/{from}/fw48h` | See reference |
 | RegionalIntensityList | `list` | `GET /regional/intensity/{from}/pt24h` | See reference |
-| RegionalIntensityList | `load` | `GET /regional/intensity/{from}/{to}/postcode/{postcode}` | See reference |
-| RegionalIntensityList | `load` | `GET /regional/intensity/{from}/{to}/regionid/{regionid}` | See reference |
-| RegionalIntensityList | `load` | `GET /regional/intensity/{from}/fw24h/postcode/{postcode}` | See reference |
-| RegionalIntensityList | `load` | `GET /regional/intensity/{from}/fw48h/postcode/{postcode}` | See reference |
-| RegionalIntensityList | `load` | `GET /regional/intensity/{from}/pt24h/postcode/{postcode}` | See reference |
-| RegionalIntensityList | `load` | `GET /regional/intensity/{from}/fw24h/regionid/{regionid}` | See reference |
-| RegionalIntensityList | `load` | `GET /regional/intensity/{from}/fw48h/regionid/{regionid}` | See reference |
-| RegionalIntensityList | `load` | `GET /regional/intensity/{from}/pt24h/regionid/{regionid}` | See reference |
 | RegionalIntensityList | `load` | `GET /regional/intensity/{from}/{to}` | See reference |
 | Stat | `load` | `GET /intensity/stats/{from}/{to}/{block}` | See reference |
 | Stat | `load` | `GET /intensity/stats/{from}/{to}` | See reference |
@@ -192,7 +192,7 @@ Use the MCP server to expose supported API operations to an MCP client.
 Repository directory: `go-mcp/`. Not published. Build from the go-mcp directory.
 
 - `carbon-intensity_list`: List records for an entity. Supported entities: `generation`, `generation_list`, `intensity`, `intensity_factor`, `intensity_list`, `regional`, `regional_intensity`, `regional_intensity_list`.
-- `carbon-intensity_load`: Load one record for an entity. Supported entities: `generation`, `intensity`, `intensity_list`, `regional_intensity`, `regional_intensity_list`, `stat`.
+- `carbon-intensity_load`: Load one record for an entity. Supported entities: `generation`, `intensity`, `regional_intensity_list`, `stat`.
 
 ## Operational features
 

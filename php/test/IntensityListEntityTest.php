@@ -200,7 +200,7 @@ class IntensityListEntityTest extends TestCase
         $client = CarbonIntensitySDK::test(null, ["feature" => ["validate" => ["active" => true]]]);
         $err = null;
         try {
-            $client->IntensityList(null)->list(["from" => 1], null);
+            $client->IntensityList(null)->list(["date" => 1], null);
         } catch (\Throwable $e) {
             $err = $e;
         }
@@ -229,6 +229,9 @@ class IntensityListEntityTest extends TestCase
             $intensity_list_ref01_data = Helpers::to_map($intensity_list_ref01_data_raw[0][1]);
         }
 
+        if (!empty($setup["live"])) {
+            Runner::live_pace();
+        }
         // LIST
         $intensity_list_ref01_ent = $client->IntensityList(null);
         $intensity_list_ref01_match = [];

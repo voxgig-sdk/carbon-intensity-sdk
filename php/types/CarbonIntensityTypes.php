@@ -66,17 +66,14 @@ class Intensity
 /** Request payload for Intensity#load. */
 class IntensityLoadMatch
 {
-    public string $id;
+    public string $from;
+    public string $to;
 }
 
 /** Request payload for Intensity#list. */
 class IntensityListMatch
 {
-    public ?array $data = null;
-    public ?string $from = null;
-    public ?string $id = null;
-    public ?array $intensity = null;
-    public ?string $to = null;
+    public string $from;
 }
 
 /** IntensityFactor entity data model. */
@@ -120,25 +117,15 @@ class IntensityFactorListMatch
 /** IntensityList entity data model. */
 class IntensityList
 {
-    public ?array $data = null;
     public ?string $from = null;
     public ?array $intensity = null;
     public ?string $to = null;
-}
-
-/** Request payload for IntensityList#load. */
-class IntensityListLoadMatch
-{
-    public string $date;
 }
 
 /** Request payload for IntensityList#list. */
 class IntensityListListMatch
 {
-    public ?array $data = null;
-    public ?string $from = null;
-    public ?array $intensity = null;
-    public ?string $to = null;
+    public string $date;
 }
 
 /** Regional entity data model. */
@@ -171,20 +158,10 @@ class RegionalIntensity
     public ?string $shortname = null;
 }
 
-/** Request payload for RegionalIntensity#load. */
-class RegionalIntensityLoadMatch
-{
-    public string $postcode;
-}
-
 /** Request payload for RegionalIntensity#list. */
 class RegionalIntensityListMatch
 {
-    public ?array $data = null;
-    public ?string $dnoregion = null;
-    public ?string $postcode = null;
-    public ?int $regionid = null;
-    public ?string $shortname = null;
+    public string $postcode;
 }
 
 /** RegionalIntensityList entity data model. */
@@ -202,15 +179,16 @@ class RegionalIntensityList
 class RegionalIntensityListLoadMatch
 {
     public string $from;
-    public ?string $postcode = null;
-    public ?string $to = null;
-    public ?int $regionid = null;
+    public string $to;
 }
 
 /** Request payload for RegionalIntensityList#list. */
 class RegionalIntensityListListMatch
 {
     public string $from;
+    public ?string $postcode = null;
+    public ?string $to = null;
+    public ?int $regionid = null;
 }
 
 /** Stat entity data model. */

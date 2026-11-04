@@ -375,7 +375,16 @@ class CarbonIntensityConfig
           ],
           'id' => [
             'field' => 'id',
+            'from' => [
+              'from' => 'from',
+              'to' => 'to',
+            ],
             'name' => 'id',
+            'parts' => [
+              'from',
+              'to',
+            ],
+            'sep' => '/',
           ],
           'name' => 'intensity',
           'op' => [
@@ -383,6 +392,48 @@ class CarbonIntensityConfig
               'input' => 'data',
               'name' => 'list',
               'points' => [
+                [
+                  'kind' => 'http',
+                  'method' => 'GET',
+                  'orig' => '/intensity/{from}',
+                  'segments' => [
+                    [
+                      'lit' => 'intensity',
+                    ],
+                    [
+                      'var' => 'from',
+                    ],
+                  ],
+                  'parts' => [
+                    'intensity',
+                    '{from}',
+                  ],
+                  'rename' => [],
+                  'transform' => [
+                    'req' => '`reqdata`',
+                    'res' => '`body.data`',
+                  ],
+                  'args' => [
+                    'params' => [
+                      [
+                        'name' => 'from',
+                        'orig' => 'from',
+                        'type' => '`$STRING`',
+                        'kind' => 'param',
+                        'reqd' => true,
+                      ],
+                    ],
+                  ],
+                  'select' => [
+                    'exist' => [
+                      'from',
+                    ],
+                  ],
+                  'response' => [
+                    'kind' => 'json',
+                    'media' => 'application/json',
+                  ],
+                ],
                 [
                   'kind' => 'http',
                   'method' => 'GET',
@@ -518,52 +569,6 @@ class CarbonIntensityConfig
                     'exist' => [
                       'from',
                       'to',
-                    ],
-                  ],
-                  'response' => [
-                    'kind' => 'json',
-                    'media' => 'application/json',
-                  ],
-                ],
-                [
-                  'kind' => 'http',
-                  'method' => 'GET',
-                  'orig' => '/intensity/{from}',
-                  'segments' => [
-                    [
-                      'lit' => 'intensity',
-                    ],
-                    [
-                      'var' => 'id',
-                    ],
-                  ],
-                  'parts' => [
-                    'intensity',
-                    '{id}',
-                  ],
-                  'rename' => [
-                    'param' => [
-                      'from' => 'id',
-                    ],
-                  ],
-                  'transform' => [
-                    'req' => '`reqdata`',
-                    'res' => '`body`',
-                  ],
-                  'args' => [
-                    'params' => [
-                      [
-                        'name' => 'id',
-                        'orig' => 'from',
-                        'type' => '`$STRING`',
-                        'kind' => 'param',
-                        'reqd' => true,
-                      ],
-                    ],
-                  ],
-                  'select' => [
-                    'exist' => [
-                      'id',
                     ],
                   ],
                   'response' => [
@@ -709,11 +714,6 @@ class CarbonIntensityConfig
         'intensity_list' => [
           'fields' => [
             [
-              'name' => 'data',
-              'title' => 'Data',
-              'type' => '`$ARRAY`',
-            ],
-            [
               'name' => 'from',
               'title' => 'From',
               'type' => '`$STRING`',
@@ -739,6 +739,52 @@ class CarbonIntensityConfig
               'input' => 'data',
               'name' => 'list',
               'points' => [
+                [
+                  'kind' => 'http',
+                  'method' => 'GET',
+                  'orig' => '/intensity/date/{date}',
+                  'segments' => [
+                    [
+                      'lit' => 'intensity',
+                    ],
+                    [
+                      'lit' => 'date',
+                    ],
+                    [
+                      'var' => 'date',
+                    ],
+                  ],
+                  'parts' => [
+                    'intensity',
+                    'date',
+                    '{date}',
+                  ],
+                  'rename' => [],
+                  'transform' => [
+                    'req' => '`reqdata`',
+                    'res' => '`body.data`',
+                  ],
+                  'args' => [
+                    'params' => [
+                      [
+                        'name' => 'date',
+                        'orig' => 'date',
+                        'type' => '`$STRING`',
+                        'kind' => 'param',
+                        'reqd' => true,
+                      ],
+                    ],
+                  ],
+                  'select' => [
+                    'exist' => [
+                      'date',
+                    ],
+                  ],
+                  'response' => [
+                    'kind' => 'json',
+                    'media' => 'application/json',
+                  ],
+                ],
                 [
                   'kind' => 'http',
                   'method' => 'GET',
@@ -907,58 +953,6 @@ class CarbonIntensityConfig
                 ],
               ],
             ],
-            'load' => [
-              'input' => 'data',
-              'name' => 'load',
-              'points' => [
-                [
-                  'kind' => 'http',
-                  'method' => 'GET',
-                  'orig' => '/intensity/date/{date}',
-                  'segments' => [
-                    [
-                      'lit' => 'intensity',
-                    ],
-                    [
-                      'lit' => 'date',
-                    ],
-                    [
-                      'var' => 'date',
-                    ],
-                  ],
-                  'parts' => [
-                    'intensity',
-                    'date',
-                    '{date}',
-                  ],
-                  'rename' => [],
-                  'transform' => [
-                    'req' => '`reqdata`',
-                    'res' => '`body`',
-                  ],
-                  'args' => [
-                    'params' => [
-                      [
-                        'name' => 'date',
-                        'orig' => 'date',
-                        'type' => '`$STRING`',
-                        'kind' => 'param',
-                        'reqd' => true,
-                      ],
-                    ],
-                  ],
-                  'select' => [
-                    'exist' => [
-                      'date',
-                    ],
-                  ],
-                  'response' => [
-                    'kind' => 'json',
-                    'media' => 'application/json',
-                  ],
-                ],
-              ],
-            ],
           ],
           'relations' => [
             'ancestors' => [
@@ -1078,6 +1072,98 @@ class CarbonIntensityConfig
                 [
                   'kind' => 'http',
                   'method' => 'GET',
+                  'orig' => '/regional/postcode/{postcode}',
+                  'segments' => [
+                    [
+                      'lit' => 'regional',
+                    ],
+                    [
+                      'lit' => 'postcode',
+                    ],
+                    [
+                      'var' => 'postcode',
+                    ],
+                  ],
+                  'parts' => [
+                    'regional',
+                    'postcode',
+                    '{postcode}',
+                  ],
+                  'rename' => [],
+                  'transform' => [
+                    'req' => '`reqdata`',
+                    'res' => '`body.data`',
+                  ],
+                  'args' => [
+                    'params' => [
+                      [
+                        'name' => 'postcode',
+                        'orig' => 'postcode',
+                        'type' => '`$STRING`',
+                        'kind' => 'param',
+                        'reqd' => true,
+                      ],
+                    ],
+                  ],
+                  'select' => [
+                    'exist' => [
+                      'postcode',
+                    ],
+                  ],
+                  'response' => [
+                    'kind' => 'json',
+                    'media' => 'application/json',
+                  ],
+                ],
+                [
+                  'kind' => 'http',
+                  'method' => 'GET',
+                  'orig' => '/regional/regionid/{regionid}',
+                  'segments' => [
+                    [
+                      'lit' => 'regional',
+                    ],
+                    [
+                      'lit' => 'regionid',
+                    ],
+                    [
+                      'var' => 'regionid',
+                    ],
+                  ],
+                  'parts' => [
+                    'regional',
+                    'regionid',
+                    '{regionid}',
+                  ],
+                  'rename' => [],
+                  'transform' => [
+                    'req' => '`reqdata`',
+                    'res' => '`body.data`',
+                  ],
+                  'args' => [
+                    'params' => [
+                      [
+                        'name' => 'regionid',
+                        'orig' => 'regionid',
+                        'type' => '`$INTEGER`',
+                        'kind' => 'param',
+                        'reqd' => true,
+                      ],
+                    ],
+                  ],
+                  'select' => [
+                    'exist' => [
+                      'regionid',
+                    ],
+                  ],
+                  'response' => [
+                    'kind' => 'json',
+                    'media' => 'application/json',
+                  ],
+                ],
+                [
+                  'kind' => 'http',
+                  'method' => 'GET',
                   'orig' => '/regional/england',
                   'segments' => [
                     [
@@ -1161,104 +1247,6 @@ class CarbonIntensityConfig
                 ],
               ],
             ],
-            'load' => [
-              'input' => 'data',
-              'name' => 'load',
-              'points' => [
-                [
-                  'kind' => 'http',
-                  'method' => 'GET',
-                  'orig' => '/regional/postcode/{postcode}',
-                  'segments' => [
-                    [
-                      'lit' => 'regional',
-                    ],
-                    [
-                      'lit' => 'postcode',
-                    ],
-                    [
-                      'var' => 'postcode',
-                    ],
-                  ],
-                  'parts' => [
-                    'regional',
-                    'postcode',
-                    '{postcode}',
-                  ],
-                  'rename' => [],
-                  'transform' => [
-                    'req' => '`reqdata`',
-                    'res' => '`body`',
-                  ],
-                  'args' => [
-                    'params' => [
-                      [
-                        'name' => 'postcode',
-                        'orig' => 'postcode',
-                        'type' => '`$STRING`',
-                        'kind' => 'param',
-                        'reqd' => true,
-                      ],
-                    ],
-                  ],
-                  'select' => [
-                    'exist' => [
-                      'postcode',
-                    ],
-                  ],
-                  'response' => [
-                    'kind' => 'json',
-                    'media' => 'application/json',
-                  ],
-                ],
-                [
-                  'kind' => 'http',
-                  'method' => 'GET',
-                  'orig' => '/regional/regionid/{regionid}',
-                  'segments' => [
-                    [
-                      'lit' => 'regional',
-                    ],
-                    [
-                      'lit' => 'regionid',
-                    ],
-                    [
-                      'var' => 'regionid',
-                    ],
-                  ],
-                  'parts' => [
-                    'regional',
-                    'regionid',
-                    '{regionid}',
-                  ],
-                  'rename' => [],
-                  'transform' => [
-                    'req' => '`reqdata`',
-                    'res' => '`body`',
-                  ],
-                  'args' => [
-                    'params' => [
-                      [
-                        'name' => 'regionid',
-                        'orig' => 'regionid',
-                        'type' => '`$INTEGER`',
-                        'kind' => 'param',
-                        'reqd' => true,
-                      ],
-                    ],
-                  ],
-                  'select' => [
-                    'exist' => [
-                      'regionid',
-                    ],
-                  ],
-                  'response' => [
-                    'kind' => 'json',
-                    'media' => 'application/json',
-                  ],
-                ],
-              ],
-            ],
           ],
           'relations' => [
             'ancestors' => [],
@@ -1316,6 +1304,550 @@ class CarbonIntensityConfig
               'input' => 'data',
               'name' => 'list',
               'points' => [
+                [
+                  'kind' => 'http',
+                  'method' => 'GET',
+                  'orig' => '/regional/intensity/{from}/{to}/postcode/{postcode}',
+                  'segments' => [
+                    [
+                      'lit' => 'regional',
+                    ],
+                    [
+                      'lit' => 'intensity',
+                    ],
+                    [
+                      'var' => 'from',
+                    ],
+                    [
+                      'var' => 'to',
+                    ],
+                    [
+                      'lit' => 'postcode',
+                    ],
+                    [
+                      'var' => 'postcode',
+                    ],
+                  ],
+                  'parts' => [
+                    'regional',
+                    'intensity',
+                    '{from}',
+                    '{to}',
+                    'postcode',
+                    '{postcode}',
+                  ],
+                  'rename' => [],
+                  'transform' => [
+                    'req' => '`reqdata`',
+                    'res' => '`body.data`',
+                  ],
+                  'args' => [
+                    'params' => [
+                      [
+                        'name' => 'from',
+                        'orig' => 'from',
+                        'type' => '`$STRING`',
+                        'kind' => 'param',
+                        'reqd' => true,
+                      ],
+                      [
+                        'name' => 'postcode',
+                        'orig' => 'postcode',
+                        'type' => '`$STRING`',
+                        'kind' => 'param',
+                        'reqd' => true,
+                      ],
+                      [
+                        'name' => 'to',
+                        'orig' => 'to',
+                        'type' => '`$STRING`',
+                        'kind' => 'param',
+                        'reqd' => true,
+                      ],
+                    ],
+                  ],
+                  'select' => [
+                    'exist' => [
+                      'from',
+                      'postcode',
+                      'to',
+                    ],
+                  ],
+                  'response' => [
+                    'kind' => 'json',
+                    'media' => 'application/json',
+                  ],
+                ],
+                [
+                  'kind' => 'http',
+                  'method' => 'GET',
+                  'orig' => '/regional/intensity/{from}/{to}/regionid/{regionid}',
+                  'segments' => [
+                    [
+                      'lit' => 'regional',
+                    ],
+                    [
+                      'lit' => 'intensity',
+                    ],
+                    [
+                      'var' => 'from',
+                    ],
+                    [
+                      'var' => 'to',
+                    ],
+                    [
+                      'lit' => 'regionid',
+                    ],
+                    [
+                      'var' => 'regionid',
+                    ],
+                  ],
+                  'parts' => [
+                    'regional',
+                    'intensity',
+                    '{from}',
+                    '{to}',
+                    'regionid',
+                    '{regionid}',
+                  ],
+                  'rename' => [],
+                  'transform' => [
+                    'req' => '`reqdata`',
+                    'res' => '`body.data`',
+                  ],
+                  'args' => [
+                    'params' => [
+                      [
+                        'name' => 'from',
+                        'orig' => 'from',
+                        'type' => '`$STRING`',
+                        'kind' => 'param',
+                        'reqd' => true,
+                      ],
+                      [
+                        'name' => 'regionid',
+                        'orig' => 'regionid',
+                        'type' => '`$INTEGER`',
+                        'kind' => 'param',
+                        'reqd' => true,
+                      ],
+                      [
+                        'name' => 'to',
+                        'orig' => 'to',
+                        'type' => '`$STRING`',
+                        'kind' => 'param',
+                        'reqd' => true,
+                      ],
+                    ],
+                  ],
+                  'select' => [
+                    'exist' => [
+                      'from',
+                      'regionid',
+                      'to',
+                    ],
+                  ],
+                  'response' => [
+                    'kind' => 'json',
+                    'media' => 'application/json',
+                  ],
+                ],
+                [
+                  'kind' => 'http',
+                  'method' => 'GET',
+                  'orig' => '/regional/intensity/{from}/fw24h/postcode/{postcode}',
+                  'segments' => [
+                    [
+                      'lit' => 'regional',
+                    ],
+                    [
+                      'lit' => 'intensity',
+                    ],
+                    [
+                      'var' => 'from',
+                    ],
+                    [
+                      'lit' => 'fw24h',
+                    ],
+                    [
+                      'lit' => 'postcode',
+                    ],
+                    [
+                      'var' => 'postcode',
+                    ],
+                  ],
+                  'parts' => [
+                    'regional',
+                    'intensity',
+                    '{from}',
+                    'fw24h',
+                    'postcode',
+                    '{postcode}',
+                  ],
+                  'rename' => [],
+                  'transform' => [
+                    'req' => '`reqdata`',
+                    'res' => '`body.data`',
+                  ],
+                  'args' => [
+                    'params' => [
+                      [
+                        'name' => 'from',
+                        'orig' => 'from',
+                        'type' => '`$STRING`',
+                        'kind' => 'param',
+                        'reqd' => true,
+                      ],
+                      [
+                        'name' => 'postcode',
+                        'orig' => 'postcode',
+                        'type' => '`$STRING`',
+                        'kind' => 'param',
+                        'reqd' => true,
+                      ],
+                    ],
+                  ],
+                  'select' => [
+                    'exist' => [
+                      'from',
+                      'postcode',
+                    ],
+                  ],
+                  'response' => [
+                    'kind' => 'json',
+                    'media' => 'application/json',
+                  ],
+                ],
+                [
+                  'kind' => 'http',
+                  'method' => 'GET',
+                  'orig' => '/regional/intensity/{from}/fw48h/postcode/{postcode}',
+                  'segments' => [
+                    [
+                      'lit' => 'regional',
+                    ],
+                    [
+                      'lit' => 'intensity',
+                    ],
+                    [
+                      'var' => 'from',
+                    ],
+                    [
+                      'lit' => 'fw48h',
+                    ],
+                    [
+                      'lit' => 'postcode',
+                    ],
+                    [
+                      'var' => 'postcode',
+                    ],
+                  ],
+                  'parts' => [
+                    'regional',
+                    'intensity',
+                    '{from}',
+                    'fw48h',
+                    'postcode',
+                    '{postcode}',
+                  ],
+                  'rename' => [],
+                  'transform' => [
+                    'req' => '`reqdata`',
+                    'res' => '`body.data`',
+                  ],
+                  'args' => [
+                    'params' => [
+                      [
+                        'name' => 'from',
+                        'orig' => 'from',
+                        'type' => '`$STRING`',
+                        'kind' => 'param',
+                        'reqd' => true,
+                      ],
+                      [
+                        'name' => 'postcode',
+                        'orig' => 'postcode',
+                        'type' => '`$STRING`',
+                        'kind' => 'param',
+                        'reqd' => true,
+                      ],
+                    ],
+                  ],
+                  'select' => [
+                    'exist' => [
+                      'from',
+                      'postcode',
+                    ],
+                  ],
+                  'response' => [
+                    'kind' => 'json',
+                    'media' => 'application/json',
+                  ],
+                ],
+                [
+                  'kind' => 'http',
+                  'method' => 'GET',
+                  'orig' => '/regional/intensity/{from}/pt24h/postcode/{postcode}',
+                  'segments' => [
+                    [
+                      'lit' => 'regional',
+                    ],
+                    [
+                      'lit' => 'intensity',
+                    ],
+                    [
+                      'var' => 'from',
+                    ],
+                    [
+                      'lit' => 'pt24h',
+                    ],
+                    [
+                      'lit' => 'postcode',
+                    ],
+                    [
+                      'var' => 'postcode',
+                    ],
+                  ],
+                  'parts' => [
+                    'regional',
+                    'intensity',
+                    '{from}',
+                    'pt24h',
+                    'postcode',
+                    '{postcode}',
+                  ],
+                  'rename' => [],
+                  'transform' => [
+                    'req' => '`reqdata`',
+                    'res' => '`body.data`',
+                  ],
+                  'args' => [
+                    'params' => [
+                      [
+                        'name' => 'from',
+                        'orig' => 'from',
+                        'type' => '`$STRING`',
+                        'kind' => 'param',
+                        'reqd' => true,
+                      ],
+                      [
+                        'name' => 'postcode',
+                        'orig' => 'postcode',
+                        'type' => '`$STRING`',
+                        'kind' => 'param',
+                        'reqd' => true,
+                      ],
+                    ],
+                  ],
+                  'select' => [
+                    'exist' => [
+                      'from',
+                      'postcode',
+                    ],
+                  ],
+                  'response' => [
+                    'kind' => 'json',
+                    'media' => 'application/json',
+                  ],
+                ],
+                [
+                  'kind' => 'http',
+                  'method' => 'GET',
+                  'orig' => '/regional/intensity/{from}/fw24h/regionid/{regionid}',
+                  'segments' => [
+                    [
+                      'lit' => 'regional',
+                    ],
+                    [
+                      'lit' => 'intensity',
+                    ],
+                    [
+                      'var' => 'from',
+                    ],
+                    [
+                      'lit' => 'fw24h',
+                    ],
+                    [
+                      'lit' => 'regionid',
+                    ],
+                    [
+                      'var' => 'regionid',
+                    ],
+                  ],
+                  'parts' => [
+                    'regional',
+                    'intensity',
+                    '{from}',
+                    'fw24h',
+                    'regionid',
+                    '{regionid}',
+                  ],
+                  'rename' => [],
+                  'transform' => [
+                    'req' => '`reqdata`',
+                    'res' => '`body.data`',
+                  ],
+                  'args' => [
+                    'params' => [
+                      [
+                        'name' => 'from',
+                        'orig' => 'from',
+                        'type' => '`$STRING`',
+                        'kind' => 'param',
+                        'reqd' => true,
+                      ],
+                      [
+                        'name' => 'regionid',
+                        'orig' => 'regionid',
+                        'type' => '`$INTEGER`',
+                        'kind' => 'param',
+                        'reqd' => true,
+                      ],
+                    ],
+                  ],
+                  'select' => [
+                    'exist' => [
+                      'from',
+                      'regionid',
+                    ],
+                  ],
+                  'response' => [
+                    'kind' => 'json',
+                    'media' => 'application/json',
+                  ],
+                ],
+                [
+                  'kind' => 'http',
+                  'method' => 'GET',
+                  'orig' => '/regional/intensity/{from}/fw48h/regionid/{regionid}',
+                  'segments' => [
+                    [
+                      'lit' => 'regional',
+                    ],
+                    [
+                      'lit' => 'intensity',
+                    ],
+                    [
+                      'var' => 'from',
+                    ],
+                    [
+                      'lit' => 'fw48h',
+                    ],
+                    [
+                      'lit' => 'regionid',
+                    ],
+                    [
+                      'var' => 'regionid',
+                    ],
+                  ],
+                  'parts' => [
+                    'regional',
+                    'intensity',
+                    '{from}',
+                    'fw48h',
+                    'regionid',
+                    '{regionid}',
+                  ],
+                  'rename' => [],
+                  'transform' => [
+                    'req' => '`reqdata`',
+                    'res' => '`body.data`',
+                  ],
+                  'args' => [
+                    'params' => [
+                      [
+                        'name' => 'from',
+                        'orig' => 'from',
+                        'type' => '`$STRING`',
+                        'kind' => 'param',
+                        'reqd' => true,
+                      ],
+                      [
+                        'name' => 'regionid',
+                        'orig' => 'regionid',
+                        'type' => '`$INTEGER`',
+                        'kind' => 'param',
+                        'reqd' => true,
+                      ],
+                    ],
+                  ],
+                  'select' => [
+                    'exist' => [
+                      'from',
+                      'regionid',
+                    ],
+                  ],
+                  'response' => [
+                    'kind' => 'json',
+                    'media' => 'application/json',
+                  ],
+                ],
+                [
+                  'kind' => 'http',
+                  'method' => 'GET',
+                  'orig' => '/regional/intensity/{from}/pt24h/regionid/{regionid}',
+                  'segments' => [
+                    [
+                      'lit' => 'regional',
+                    ],
+                    [
+                      'lit' => 'intensity',
+                    ],
+                    [
+                      'var' => 'from',
+                    ],
+                    [
+                      'lit' => 'pt24h',
+                    ],
+                    [
+                      'lit' => 'regionid',
+                    ],
+                    [
+                      'var' => 'regionid',
+                    ],
+                  ],
+                  'parts' => [
+                    'regional',
+                    'intensity',
+                    '{from}',
+                    'pt24h',
+                    'regionid',
+                    '{regionid}',
+                  ],
+                  'rename' => [],
+                  'transform' => [
+                    'req' => '`reqdata`',
+                    'res' => '`body.data`',
+                  ],
+                  'args' => [
+                    'params' => [
+                      [
+                        'name' => 'from',
+                        'orig' => 'from',
+                        'type' => '`$STRING`',
+                        'kind' => 'param',
+                        'reqd' => true,
+                      ],
+                      [
+                        'name' => 'regionid',
+                        'orig' => 'regionid',
+                        'type' => '`$INTEGER`',
+                        'kind' => 'param',
+                        'reqd' => true,
+                      ],
+                    ],
+                  ],
+                  'select' => [
+                    'exist' => [
+                      'from',
+                      'regionid',
+                    ],
+                  ],
+                  'response' => [
+                    'kind' => 'json',
+                    'media' => 'application/json',
+                  ],
+                ],
                 [
                   'kind' => 'http',
                   'method' => 'GET',
@@ -1472,550 +2004,6 @@ class CarbonIntensityConfig
               'input' => 'data',
               'name' => 'load',
               'points' => [
-                [
-                  'kind' => 'http',
-                  'method' => 'GET',
-                  'orig' => '/regional/intensity/{from}/{to}/postcode/{postcode}',
-                  'segments' => [
-                    [
-                      'lit' => 'regional',
-                    ],
-                    [
-                      'lit' => 'intensity',
-                    ],
-                    [
-                      'var' => 'from',
-                    ],
-                    [
-                      'var' => 'to',
-                    ],
-                    [
-                      'lit' => 'postcode',
-                    ],
-                    [
-                      'var' => 'postcode',
-                    ],
-                  ],
-                  'parts' => [
-                    'regional',
-                    'intensity',
-                    '{from}',
-                    '{to}',
-                    'postcode',
-                    '{postcode}',
-                  ],
-                  'rename' => [],
-                  'transform' => [
-                    'req' => '`reqdata`',
-                    'res' => '`body`',
-                  ],
-                  'args' => [
-                    'params' => [
-                      [
-                        'name' => 'from',
-                        'orig' => 'from',
-                        'type' => '`$STRING`',
-                        'kind' => 'param',
-                        'reqd' => true,
-                      ],
-                      [
-                        'name' => 'postcode',
-                        'orig' => 'postcode',
-                        'type' => '`$STRING`',
-                        'kind' => 'param',
-                        'reqd' => true,
-                      ],
-                      [
-                        'name' => 'to',
-                        'orig' => 'to',
-                        'type' => '`$STRING`',
-                        'kind' => 'param',
-                        'reqd' => true,
-                      ],
-                    ],
-                  ],
-                  'select' => [
-                    'exist' => [
-                      'from',
-                      'postcode',
-                      'to',
-                    ],
-                  ],
-                  'response' => [
-                    'kind' => 'json',
-                    'media' => 'application/json',
-                  ],
-                ],
-                [
-                  'kind' => 'http',
-                  'method' => 'GET',
-                  'orig' => '/regional/intensity/{from}/{to}/regionid/{regionid}',
-                  'segments' => [
-                    [
-                      'lit' => 'regional',
-                    ],
-                    [
-                      'lit' => 'intensity',
-                    ],
-                    [
-                      'var' => 'from',
-                    ],
-                    [
-                      'var' => 'to',
-                    ],
-                    [
-                      'lit' => 'regionid',
-                    ],
-                    [
-                      'var' => 'regionid',
-                    ],
-                  ],
-                  'parts' => [
-                    'regional',
-                    'intensity',
-                    '{from}',
-                    '{to}',
-                    'regionid',
-                    '{regionid}',
-                  ],
-                  'rename' => [],
-                  'transform' => [
-                    'req' => '`reqdata`',
-                    'res' => '`body`',
-                  ],
-                  'args' => [
-                    'params' => [
-                      [
-                        'name' => 'from',
-                        'orig' => 'from',
-                        'type' => '`$STRING`',
-                        'kind' => 'param',
-                        'reqd' => true,
-                      ],
-                      [
-                        'name' => 'regionid',
-                        'orig' => 'regionid',
-                        'type' => '`$INTEGER`',
-                        'kind' => 'param',
-                        'reqd' => true,
-                      ],
-                      [
-                        'name' => 'to',
-                        'orig' => 'to',
-                        'type' => '`$STRING`',
-                        'kind' => 'param',
-                        'reqd' => true,
-                      ],
-                    ],
-                  ],
-                  'select' => [
-                    'exist' => [
-                      'from',
-                      'regionid',
-                      'to',
-                    ],
-                  ],
-                  'response' => [
-                    'kind' => 'json',
-                    'media' => 'application/json',
-                  ],
-                ],
-                [
-                  'kind' => 'http',
-                  'method' => 'GET',
-                  'orig' => '/regional/intensity/{from}/fw24h/postcode/{postcode}',
-                  'segments' => [
-                    [
-                      'lit' => 'regional',
-                    ],
-                    [
-                      'lit' => 'intensity',
-                    ],
-                    [
-                      'var' => 'from',
-                    ],
-                    [
-                      'lit' => 'fw24h',
-                    ],
-                    [
-                      'lit' => 'postcode',
-                    ],
-                    [
-                      'var' => 'postcode',
-                    ],
-                  ],
-                  'parts' => [
-                    'regional',
-                    'intensity',
-                    '{from}',
-                    'fw24h',
-                    'postcode',
-                    '{postcode}',
-                  ],
-                  'rename' => [],
-                  'transform' => [
-                    'req' => '`reqdata`',
-                    'res' => '`body`',
-                  ],
-                  'args' => [
-                    'params' => [
-                      [
-                        'name' => 'from',
-                        'orig' => 'from',
-                        'type' => '`$STRING`',
-                        'kind' => 'param',
-                        'reqd' => true,
-                      ],
-                      [
-                        'name' => 'postcode',
-                        'orig' => 'postcode',
-                        'type' => '`$STRING`',
-                        'kind' => 'param',
-                        'reqd' => true,
-                      ],
-                    ],
-                  ],
-                  'select' => [
-                    'exist' => [
-                      'from',
-                      'postcode',
-                    ],
-                  ],
-                  'response' => [
-                    'kind' => 'json',
-                    'media' => 'application/json',
-                  ],
-                ],
-                [
-                  'kind' => 'http',
-                  'method' => 'GET',
-                  'orig' => '/regional/intensity/{from}/fw48h/postcode/{postcode}',
-                  'segments' => [
-                    [
-                      'lit' => 'regional',
-                    ],
-                    [
-                      'lit' => 'intensity',
-                    ],
-                    [
-                      'var' => 'from',
-                    ],
-                    [
-                      'lit' => 'fw48h',
-                    ],
-                    [
-                      'lit' => 'postcode',
-                    ],
-                    [
-                      'var' => 'postcode',
-                    ],
-                  ],
-                  'parts' => [
-                    'regional',
-                    'intensity',
-                    '{from}',
-                    'fw48h',
-                    'postcode',
-                    '{postcode}',
-                  ],
-                  'rename' => [],
-                  'transform' => [
-                    'req' => '`reqdata`',
-                    'res' => '`body`',
-                  ],
-                  'args' => [
-                    'params' => [
-                      [
-                        'name' => 'from',
-                        'orig' => 'from',
-                        'type' => '`$STRING`',
-                        'kind' => 'param',
-                        'reqd' => true,
-                      ],
-                      [
-                        'name' => 'postcode',
-                        'orig' => 'postcode',
-                        'type' => '`$STRING`',
-                        'kind' => 'param',
-                        'reqd' => true,
-                      ],
-                    ],
-                  ],
-                  'select' => [
-                    'exist' => [
-                      'from',
-                      'postcode',
-                    ],
-                  ],
-                  'response' => [
-                    'kind' => 'json',
-                    'media' => 'application/json',
-                  ],
-                ],
-                [
-                  'kind' => 'http',
-                  'method' => 'GET',
-                  'orig' => '/regional/intensity/{from}/pt24h/postcode/{postcode}',
-                  'segments' => [
-                    [
-                      'lit' => 'regional',
-                    ],
-                    [
-                      'lit' => 'intensity',
-                    ],
-                    [
-                      'var' => 'from',
-                    ],
-                    [
-                      'lit' => 'pt24h',
-                    ],
-                    [
-                      'lit' => 'postcode',
-                    ],
-                    [
-                      'var' => 'postcode',
-                    ],
-                  ],
-                  'parts' => [
-                    'regional',
-                    'intensity',
-                    '{from}',
-                    'pt24h',
-                    'postcode',
-                    '{postcode}',
-                  ],
-                  'rename' => [],
-                  'transform' => [
-                    'req' => '`reqdata`',
-                    'res' => '`body`',
-                  ],
-                  'args' => [
-                    'params' => [
-                      [
-                        'name' => 'from',
-                        'orig' => 'from',
-                        'type' => '`$STRING`',
-                        'kind' => 'param',
-                        'reqd' => true,
-                      ],
-                      [
-                        'name' => 'postcode',
-                        'orig' => 'postcode',
-                        'type' => '`$STRING`',
-                        'kind' => 'param',
-                        'reqd' => true,
-                      ],
-                    ],
-                  ],
-                  'select' => [
-                    'exist' => [
-                      'from',
-                      'postcode',
-                    ],
-                  ],
-                  'response' => [
-                    'kind' => 'json',
-                    'media' => 'application/json',
-                  ],
-                ],
-                [
-                  'kind' => 'http',
-                  'method' => 'GET',
-                  'orig' => '/regional/intensity/{from}/fw24h/regionid/{regionid}',
-                  'segments' => [
-                    [
-                      'lit' => 'regional',
-                    ],
-                    [
-                      'lit' => 'intensity',
-                    ],
-                    [
-                      'var' => 'from',
-                    ],
-                    [
-                      'lit' => 'fw24h',
-                    ],
-                    [
-                      'lit' => 'regionid',
-                    ],
-                    [
-                      'var' => 'regionid',
-                    ],
-                  ],
-                  'parts' => [
-                    'regional',
-                    'intensity',
-                    '{from}',
-                    'fw24h',
-                    'regionid',
-                    '{regionid}',
-                  ],
-                  'rename' => [],
-                  'transform' => [
-                    'req' => '`reqdata`',
-                    'res' => '`body`',
-                  ],
-                  'args' => [
-                    'params' => [
-                      [
-                        'name' => 'from',
-                        'orig' => 'from',
-                        'type' => '`$STRING`',
-                        'kind' => 'param',
-                        'reqd' => true,
-                      ],
-                      [
-                        'name' => 'regionid',
-                        'orig' => 'regionid',
-                        'type' => '`$INTEGER`',
-                        'kind' => 'param',
-                        'reqd' => true,
-                      ],
-                    ],
-                  ],
-                  'select' => [
-                    'exist' => [
-                      'from',
-                      'regionid',
-                    ],
-                  ],
-                  'response' => [
-                    'kind' => 'json',
-                    'media' => 'application/json',
-                  ],
-                ],
-                [
-                  'kind' => 'http',
-                  'method' => 'GET',
-                  'orig' => '/regional/intensity/{from}/fw48h/regionid/{regionid}',
-                  'segments' => [
-                    [
-                      'lit' => 'regional',
-                    ],
-                    [
-                      'lit' => 'intensity',
-                    ],
-                    [
-                      'var' => 'from',
-                    ],
-                    [
-                      'lit' => 'fw48h',
-                    ],
-                    [
-                      'lit' => 'regionid',
-                    ],
-                    [
-                      'var' => 'regionid',
-                    ],
-                  ],
-                  'parts' => [
-                    'regional',
-                    'intensity',
-                    '{from}',
-                    'fw48h',
-                    'regionid',
-                    '{regionid}',
-                  ],
-                  'rename' => [],
-                  'transform' => [
-                    'req' => '`reqdata`',
-                    'res' => '`body`',
-                  ],
-                  'args' => [
-                    'params' => [
-                      [
-                        'name' => 'from',
-                        'orig' => 'from',
-                        'type' => '`$STRING`',
-                        'kind' => 'param',
-                        'reqd' => true,
-                      ],
-                      [
-                        'name' => 'regionid',
-                        'orig' => 'regionid',
-                        'type' => '`$INTEGER`',
-                        'kind' => 'param',
-                        'reqd' => true,
-                      ],
-                    ],
-                  ],
-                  'select' => [
-                    'exist' => [
-                      'from',
-                      'regionid',
-                    ],
-                  ],
-                  'response' => [
-                    'kind' => 'json',
-                    'media' => 'application/json',
-                  ],
-                ],
-                [
-                  'kind' => 'http',
-                  'method' => 'GET',
-                  'orig' => '/regional/intensity/{from}/pt24h/regionid/{regionid}',
-                  'segments' => [
-                    [
-                      'lit' => 'regional',
-                    ],
-                    [
-                      'lit' => 'intensity',
-                    ],
-                    [
-                      'var' => 'from',
-                    ],
-                    [
-                      'lit' => 'pt24h',
-                    ],
-                    [
-                      'lit' => 'regionid',
-                    ],
-                    [
-                      'var' => 'regionid',
-                    ],
-                  ],
-                  'parts' => [
-                    'regional',
-                    'intensity',
-                    '{from}',
-                    'pt24h',
-                    'regionid',
-                    '{regionid}',
-                  ],
-                  'rename' => [],
-                  'transform' => [
-                    'req' => '`reqdata`',
-                    'res' => '`body`',
-                  ],
-                  'args' => [
-                    'params' => [
-                      [
-                        'name' => 'from',
-                        'orig' => 'from',
-                        'type' => '`$STRING`',
-                        'kind' => 'param',
-                        'reqd' => true,
-                      ],
-                      [
-                        'name' => 'regionid',
-                        'orig' => 'regionid',
-                        'type' => '`$INTEGER`',
-                        'kind' => 'param',
-                        'reqd' => true,
-                      ],
-                    ],
-                  ],
-                  'select' => [
-                    'exist' => [
-                      'from',
-                      'regionid',
-                    ],
-                  ],
-                  'response' => [
-                    'kind' => 'json',
-                    'media' => 'application/json',
-                  ],
-                ],
                 [
                   'kind' => 'http',
                   'method' => 'GET',

@@ -6,24 +6,21 @@
         "dnoregion": "s33",
         "postcode": "s34",
         "regionid": 53,
-        "shortname": "s36",
-        "id": "REGIONAL_INTENSITY00"
+        "shortname": "s36"
       },
       "REGIONAL_INTENSITY01": {
         "data": [],
         "dnoregion": "s65",
         "postcode": "s66",
         "regionid": 103,
-        "shortname": "s68",
-        "id": "REGIONAL_INTENSITY01"
+        "shortname": "s68"
       },
       "REGIONAL_INTENSITY02": {
         "data": [],
         "dnoregion": "s97",
         "postcode": "s98",
         "regionid": 153,
-        "shortname": "s9a",
-        "id": "REGIONAL_INTENSITY02"
+        "shortname": "s9a"
       }
     }
   },
@@ -39,6 +36,16 @@
     }
   },
   "requests": {
+    "GET /regional/postcode/{postcode}": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    },
+    "GET /regional/regionid/{regionid}": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    },
     "GET /regional/england": {
       "provenance": "operation-contract",
       "version": 2,
@@ -50,16 +57,6 @@
       "source": "openapi3"
     },
     "GET /regional/wales": {
-      "provenance": "operation-contract",
-      "version": 2,
-      "source": "openapi3"
-    },
-    "GET /regional/postcode/{postcode}": {
-      "provenance": "operation-contract",
-      "version": 2,
-      "source": "openapi3"
-    },
-    "GET /regional/regionid/{regionid}": {
       "provenance": "operation-contract",
       "version": 2,
       "source": "openapi3"

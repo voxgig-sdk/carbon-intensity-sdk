@@ -294,43 +294,9 @@ func (e *RegionalIntensityEntity) streamSteps(ctx *core.Context) error {
 	return nil
 }
 
-
-func (e *RegionalIntensityEntity) Load(reqmatch map[string]any, ctrl map[string]any) (any, error) {
-	utility := e.utility
-	ctx := utility.MakeContext(map[string]any{
-		"opname":   "load",
-		"ctrl":     ctrl,
-		"match":    e.match,
-		"data":     e.data,
-		"reqmatch": reqmatch,
-	}, e.entctx)
-
-	return e.runOp(ctx, func() {
-		if ctx.Result != nil {
-			if ctx.Result.Resmatch != nil {
-				e.match = ctx.Result.Resmatch
-			}
-			if ctx.Result.Resdata != nil {
-				e.data = map[string]any{}
-				if data := core.ToMapAny(vs.Clone(ctx.Result.Resdata)); data != nil {
-					e.data = data
-				}
-			}
-		}
-	})
+func (e *RegionalIntensityEntity) Load(_ map[string]any, _ map[string]any) (any, error) {
+	return core.UnsupportedOp("load", e.name)
 }
-
-// LoadTyped is the statically-typed variant of Load: it takes an
-// RegionalIntensityLoadMatch and returns an RegionalIntensity. It delegates to the untyped
-// Load (identical runtime) and converts at the typed boundary.
-func (e *RegionalIntensityEntity) LoadTyped(reqmatch RegionalIntensityLoadMatch, ctrl map[string]any) (RegionalIntensity, error) {
-	res, err := e.Load(asMap(reqmatch), ctrl)
-	if err != nil {
-		return RegionalIntensity{}, err
-	}
-	return typedFrom[RegionalIntensity](res), nil
-}
-
 
 
 

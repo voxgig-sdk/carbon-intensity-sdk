@@ -69,6 +69,9 @@ class GenerationListEntityTest extends TestCase
             $generation_list_ref01_data = Helpers::to_map($generation_list_ref01_data_raw[0][1]);
         }
 
+        if (!empty($setup["live"])) {
+            Runner::live_pace();
+        }
         // LIST
         $generation_list_ref01_ent = $client->GenerationList(null);
         $generation_list_ref01_match = [

@@ -164,6 +164,9 @@ describe("RegionalEntity", function()
       regional_ref01_data = helpers.to_map(regional_ref01_data_raw[1][2])
     end
 
+    if setup.live then
+      runner.live_pace()
+    end
     -- LIST
     local regional_ref01_ent = client:Regional(nil)
     local regional_ref01_match = {}

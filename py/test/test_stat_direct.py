@@ -1,6 +1,7 @@
 # Stat direct test
 
 import json
+import os
 import pytest
 
 from carbonintensity_sdk.utility.voxgig_struct import voxgig_struct as vs
@@ -34,6 +35,8 @@ class TestStatDirect:
                 if setup["idmap"].get(_live_key) is None:
                     runner.live_miss(LIVE_STRICT, f"Live test blocked: needs {_live_key} via CARBON_INTENSITY_TEST_STAT_ENTID")
 
+        if setup["live"]:
+            runner.live_pace()
         client = setup["client"]
 
         params = {}

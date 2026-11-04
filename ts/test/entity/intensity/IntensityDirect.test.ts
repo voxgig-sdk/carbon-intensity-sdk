@@ -43,17 +43,17 @@ describe('IntensityDirect', async () => {
     if (liveScenariosActive()) { t.skip('Covered by live operation scenarios'); return }
     const setup = directSetup({ id: 'direct01' })
     if (maybeSkipControl(t, 'direct', 'direct-load-intensity', setup.live)) return
-    if (skipIfMissingIds(t, setup, ["date01","period01"], LIVE_STRICT)) return
+    if (skipIfMissingIds(t, setup, ["from01","period01"], LIVE_STRICT)) return
     const { client, calls } = setup
 
     const params: any = {}
     const query: any = {}
     if (setup.live) {
       const listResult: any = await client.direct({
-        path: 'intensity',
+        path: 'intensity/{from}',
         method: 'GET',
         params: {
-
+        from: setup.idmap['from01'],
         },
       })
       if (!listResult.ok || listResult.status < 200 || listResult.status >= 300) {
@@ -66,12 +66,11 @@ describe('IntensityDirect', async () => {
       if (0 === listArr.length) {
         return void liveEmpty(t, 'The account has no intensity record to load')
       }
-      const candidateId = listArr[0]?.date ?? listArr[0]?.id
+      const candidateId = listArr[0]?.date
       if (null == candidateId) {
         return void liveMiss(t, LIVE_STRICT, 'Live load blocked: discovery returned no usable identity')
       }
       params.date = candidateId
-      params.date = setup.idmap['date01']
       params.period = setup.idmap['period01']
     } else {
       params.date = 'direct01'
@@ -108,13 +107,19 @@ describe('IntensityDirect', async () => {
     if (liveScenariosActive()) { t.skip('Covered by live operation scenarios'); return }
     const setup = directSetup([{ id: 'direct01' }, { id: 'direct02' }])
     if (maybeSkipControl(t, 'direct', 'direct-list-intensity', setup.live)) return
+    if (skipIfMissingIds(t, setup, ["from01"], LIVE_STRICT)) return
     const { client, calls } = setup
 
     const params: any = {}
     const query: any = {}
+    if (setup.live) {
+      params.from = setup.idmap['from01']
+    } else {
+      params.from = 'direct01'
+    }
 
     const result: any = await client.direct({
-      path: 'intensity',
+      path: 'intensity/{from}',
       method: 'GET',
       params,
       query,
@@ -136,6 +141,7 @@ describe('IntensityDirect', async () => {
       assert(listArr!.length === 2)
       assert(calls.length === 1)
       assert(calls[0].init.method === 'GET')
+      assert(calls[0].url.includes('direct01'))
     }
   })
 

@@ -212,7 +212,7 @@ class IntensityEntityTest extends TestCase
         $setup = intensity_basic_setup(null);
         // Per-op sdk-test-control.json skip.
         $_live = !empty($setup["live"]);
-        foreach (["list", "load"] as $_op) {
+        foreach (["list"] as $_op) {
             [$_shouldSkip, $_reason] = Runner::is_control_skipped("entityOp", "intensity." . $_op, $_live ? "live" : "unit");
             if ($_shouldSkip) {
                 $this->markTestSkipped($_reason ?? "skipped via sdk-test-control.json");
@@ -220,10 +220,6 @@ class IntensityEntityTest extends TestCase
             }
         }
         $client = $setup["client"];
-        if (!empty($setup["live"])) {
-            Runner::live_existing($setup, self::LIVE_STRICT, "intensity",
-                fn() => $client->Intensity(null)->list([], null));
-        }
 
         // Bootstrap entity data from existing test data.
         $intensity_ref01_data_raw = Vs::items(Helpers::to_map(
@@ -233,21 +229,15 @@ class IntensityEntityTest extends TestCase
             $intensity_ref01_data = Helpers::to_map($intensity_ref01_data_raw[0][1]);
         }
 
+        if (!empty($setup["live"])) {
+            Runner::live_pace();
+        }
         // LIST
         $intensity_ref01_ent = $client->Intensity(null);
         $intensity_ref01_match = [];
 
         $intensity_ref01_list_result = $intensity_ref01_ent->list($intensity_ref01_match, null);
         $this->assertIsArray($intensity_ref01_list_result);
-
-        // LOAD
-        $intensity_ref01_match_dt0 = [
-            "id" => $intensity_ref01_data["id"],
-        ];
-        $intensity_ref01_data_dt0_loaded = $intensity_ref01_ent->load($intensity_ref01_match_dt0, null);
-        $intensity_ref01_data_dt0_load_result = Helpers::to_map(is_object($intensity_ref01_data_dt0_loaded) && method_exists($intensity_ref01_data_dt0_loaded, 'data_get') ? $intensity_ref01_data_dt0_loaded->data_get() : $intensity_ref01_data_dt0_loaded);
-        $this->assertNotNull($intensity_ref01_data_dt0_load_result);
-        $this->assertEquals($intensity_ref01_data_dt0_load_result["id"], $intensity_ref01_data["id"]);
 
     }
 }

@@ -29,7 +29,7 @@ const utility_1 = require("../../utility");
         const setup = directSetup({ id: 'direct01' });
         if ((0, utility_1.maybeSkipControl)(t, 'direct', 'direct-load-generation', setup.live))
             return;
-        if ((0, utility_1.skipIfMissingIds)(t, setup, ["from01", "to01"], LIVE_STRICT))
+        if ((0, utility_1.skipIfMissingIds)(t, setup, ["to01"], LIVE_STRICT))
             return;
         const { client, calls } = setup;
         const params = {};
@@ -50,12 +50,11 @@ const utility_1 = require("../../utility");
             if (0 === listArr.length) {
                 return void (0, utility_1.liveEmpty)(t, 'The account has no generation record to load');
             }
-            const candidateId = listArr[0]?.from ?? listArr[0]?.id;
+            const candidateId = listArr[0]?.from;
             if (null == candidateId) {
                 return void (0, utility_1.liveMiss)(t, LIVE_STRICT, 'Live load blocked: discovery returned no usable identity');
             }
             params.from = candidateId;
-            params.from = setup.idmap['from01'];
             params.to = setup.idmap['to01'];
         }
         else {

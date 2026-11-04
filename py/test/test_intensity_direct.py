@@ -1,6 +1,7 @@
 # Intensity direct test
 
 import json
+import os
 import pytest
 
 from carbonintensity_sdk.utility.voxgig_struct import voxgig_struct as vs
@@ -32,14 +33,27 @@ class TestIntensityDirect:
         if _skip:
             pytest.skip(_reason or "skipped via sdk-test-control.json")
             return
+        if setup["live"]:
+            for _live_key in ["from01"]:
+                if setup["idmap"].get(_live_key) is None:
+                    runner.live_miss(LIVE_STRICT, f"Live test blocked: needs {_live_key} via CARBON_INTENSITY_TEST_INTENSITY_ENTID")
+
+        if setup["live"]:
+            runner.live_pace()
         client = setup["client"]
 
         params = {}
+        query = {}
+        if setup["live"]:
+            params["from"] = setup["idmap"].get("from01")
+        else:
+            params["from"] = "direct01"
 
         result = client.direct({
-            "path": "intensity",
+            "path": "intensity/{from}",
             "method": "GET",
             "params": params,
+            "query": query,
         })
         if setup["live"]:
             if not _live_ok(result):
@@ -60,19 +74,21 @@ class TestIntensityDirect:
             pytest.skip(_reason or "skipped via sdk-test-control.json")
             return
         if setup["live"]:
-            for _live_key in ["period01"]:
+            for _live_key in ["from01", "period01"]:
                 if setup["idmap"].get(_live_key) is None:
                     runner.live_miss(LIVE_STRICT, f"Live test blocked: needs {_live_key} via CARBON_INTENSITY_TEST_INTENSITY_ENTID")
 
+        if setup["live"]:
+            runner.live_pace()
         client = setup["client"]
 
         params = {}
         query = {}
         if setup["live"]:
             list_result = client.direct({
-                "path": "intensity",
+                "path": "intensity/{from}",
                 "method": "GET",
-                "params": {},
+                "params": {"from": setup["idmap"].get("from01")},
             })
             if not _live_ok(list_result):
                 runner.live_miss(LIVE_STRICT, "Live list discovery failed: " + runner.live_describe(list_result))
@@ -82,9 +98,9 @@ class TestIntensityDirect:
             if 0 == len(records):
                 runner.live_empty("The account has no intensity record to load")
             first = records[0] if isinstance(records[0], dict) else {}
-            if first.get("date", first.get("id")) is None:
+            if first.get("date") is None:
                 runner.live_miss(LIVE_STRICT, "Live load blocked: discovery returned no usable identity")
-            params["date"] = first.get("date", first.get("id"))
+            params["date"] = first.get("date")
             params["period"] = setup["idmap"].get("period01")
             pass
         else:

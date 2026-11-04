@@ -258,7 +258,7 @@ intensity = client.Intensity
 List entities matching the given criteria (call with no argument to list all). Returns an array of entities, one per record; `data_get` reads each record. Raises on error.
 
 ```ruby
-results = client.Intensity.list
+results = client.Intensity.list({ "from" => "example" })
 results.each { |item| puts item.data_get }
 ```
 
@@ -267,7 +267,7 @@ results.each { |item| puts item.data_get }
 Load a single entity matching the given criteria. Returns the entity, whose record `data_get` reads, and raises on error.
 
 ```ruby
-result = client.Intensity.load({ "id" => "intensity_id" })
+result = client.Intensity.load({ "from" => "from", "to" => "to" })
 ```
 
 ### Common Methods
@@ -376,7 +376,6 @@ intensity_list = client.IntensityList
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `data` | `Array` | No |  |
 | `from` | `String` | No | Start datetime of the period |
 | `intensity` | `Hash` | No |  |
 | `to` | `String` | No | End datetime of the period |
@@ -388,16 +387,8 @@ intensity_list = client.IntensityList
 List entities matching the given criteria (call with no argument to list all). Returns an array of entities, one per record; `data_get` reads each record. Raises on error.
 
 ```ruby
-results = client.IntensityList.list
+results = client.IntensityList.list({ "date" => "example" })
 results.each { |item| puts item.data_get }
-```
-
-#### `load(reqmatch, ctrl = nil) -> result`
-
-Load a single entity matching the given criteria. Returns the entity, whose record `data_get` reads, and raises on error.
-
-```ruby
-result = client.IntensityList.load({ "date" => "date" })
 ```
 
 ### Common Methods
@@ -510,16 +501,8 @@ regional_intensity = client.RegionalIntensity
 List entities matching the given criteria (call with no argument to list all). Returns an array of entities, one per record; `data_get` reads each record. Raises on error.
 
 ```ruby
-results = client.RegionalIntensity.list
+results = client.RegionalIntensity.list({ "postcode" => "example" })
 results.each { |item| puts item.data_get }
-```
-
-#### `load(reqmatch, ctrl = nil) -> result`
-
-Load a single entity matching the given criteria. Returns the entity, whose record `data_get` reads, and raises on error.
-
-```ruby
-result = client.RegionalIntensity.load({ "postcode" => "postcode" })
 ```
 
 ### Common Methods
@@ -585,7 +568,7 @@ results.each { |item| puts item.data_get }
 Load a single entity matching the given criteria. Returns the entity, whose record `data_get` reads, and raises on error.
 
 ```ruby
-result = client.RegionalIntensityList.load({ "from" => "from", "postcode" => "postcode" })
+result = client.RegionalIntensityList.load({ "from" => "from", "to" => "to" })
 ```
 
 ### Common Methods

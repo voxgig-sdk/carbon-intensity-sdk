@@ -45,15 +45,12 @@ export interface Intensity {
 }
 
 export interface IntensityLoadMatch {
-  id: string
+  from: string
+  to: string
 }
 
 export interface IntensityListMatch {
-  data?: any[]
-  from?: string
-  id?: string
-  intensity?: Record<string, any>
-  to?: string
+  from: string
 }
 
 export interface IntensityFactor {
@@ -91,21 +88,13 @@ export interface IntensityFactorListMatch {
 }
 
 export interface IntensityList {
-  data?: any[]
   from?: string
   intensity?: Record<string, any>
   to?: string
-}
-
-export interface IntensityListLoadMatch {
-  date: string
 }
 
 export interface IntensityListListMatch {
-  data?: any[]
-  from?: string
-  intensity?: Record<string, any>
-  to?: string
+  date: string
 }
 
 export interface Regional {
@@ -132,16 +121,8 @@ export interface RegionalIntensity {
   shortname?: string
 }
 
-export interface RegionalIntensityLoadMatch {
-  postcode: string
-}
-
 export interface RegionalIntensityListMatch {
-  data?: any[]
-  dnoregion?: string
-  postcode?: string
-  regionid?: number
-  shortname?: string
+  postcode: string
 }
 
 export interface RegionalIntensityList {
@@ -155,13 +136,14 @@ export interface RegionalIntensityList {
 
 export interface RegionalIntensityListLoadMatch {
   from: string
-  postcode?: string
-  to?: string
-  regionid?: number
+  to: string
 }
 
 export interface RegionalIntensityListListMatch {
   from: string
+  postcode?: string
+  to?: string
+  regionid?: number
 }
 
 export interface Stat {

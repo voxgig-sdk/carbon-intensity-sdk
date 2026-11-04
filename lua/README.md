@@ -49,16 +49,17 @@ for _, item in ipairs(generations) do
 end
 ```
 
-### 3. Load an intensitylist
+### 3. Load a regionalintensitylist
 
-IntensityList is nested under date, so provide the `date`.
+RegionalIntensityList is nested under from, so provide the `from`.
 
 `load` returns the entity; `data_get()` reads its record.
 
 ```lua
-local intensitylist, err = client:IntensityList():load({ date = "example_date" })
+local regionalintensitylist, err = client:RegionalIntensityList():load({ from = "example_from", to = "example_to" })
 if err then error(err) end
-for k, val in pairs(intensitylist:data_get()) do print(k, val) end
+local rec = regionalintensitylist:data_get()
+print(rec["id"])
 ```
 
 
@@ -68,7 +69,7 @@ Entity operations return `(value, err)`. Check `err` before using
 the value:
 
 ```lua
-local intensitylists, err = client:IntensityList():list()
+local generations, err = client:Generation():list()
 if err then error(err) end
 ```
 
@@ -126,9 +127,21 @@ Create a mock client for unit testing — no server required:
 ```lua
 local client = sdk.test()
 
-local result, err = client:IntensityList():list()
+local result, err = client:Generation():list()
 -- result is an array of entities, one per mock record; err is set on failure
 ```
+
+### Verify the server over HTTPS
+
+An `https://` request goes through LuaSocket and LuaSec, and the SDK checks
+the server itself before any of the request is sent: its certificate against
+the system's trust store, and its name against the host (an address against
+the certificate's addresses). Nothing turns that off. `SSL_CERT_FILE` or
+`SSL_CERT_DIR` names the trust store, as for OpenSSL; with neither set and no
+system store found, an `https://` request fails rather than going unverified.
+`CARBON_INTENSITY_CA_BUNDLE` names a PEM file of roots added to the store,
+for a local service with its own certificate authority or a self-signed
+certificate. A different policy is a custom fetch function, described next.
 
 ### Use a custom fetch function
 
@@ -289,7 +302,7 @@ API path: `/generation/{from}/pt24h`
 
 Operations: List, Load.
 
-API path: `/intensity`
+API path: `/intensity/{from}`
 
 #### IntensityFactor
 
@@ -318,14 +331,13 @@ API path: `/intensity/factors`
 
 | Field | Description |
 | --- | --- |
-| `data` |  |
 | `from` | Start datetime of the period |
 | `intensity` |  |
 | `to` | End datetime of the period |
 
-Operations: List, Load.
+Operations: List.
 
-API path: `/intensity/{from}/fw24h`
+API path: `/intensity/date/{date}`
 
 #### Regional
 
@@ -351,9 +363,9 @@ API path: `/regional`
 | `regionid` | Region ID (1-17) |
 | `shortname` | Short region name |
 
-Operations: List, Load.
+Operations: List.
 
-API path: `/regional/england`
+API path: `/regional/postcode/{postcode}`
 
 #### RegionalIntensityList
 
@@ -368,7 +380,7 @@ API path: `/regional/england`
 
 Operations: List, Load.
 
-API path: `/regional/intensity/{from}/fw24h`
+API path: `/regional/intensity/{from}/{to}/postcode/{postcode}`
 
 #### Stat
 
@@ -469,13 +481,13 @@ Create an instance: `local intensity = client:Intensity(nil)`
 #### Example: Load
 
 ```lua
-local intensity, err = client:Intensity():load({ id = "intensity_id" })
+local intensity, err = client:Intensity():load({ from = "from", to = "to" })
 ```
 
 #### Example: List
 
 ```lua
-local intensitys, err = client:Intensity():list()
+local intensitys, err = client:Intensity():list({ from = "example" })
 ```
 
 
@@ -524,27 +536,19 @@ Create an instance: `local intensity_list = client:IntensityList(nil)`
 | Method | Description |
 | --- | --- |
 | `list(match)` | List entities matching the criteria. |
-| `load(match)` | Load a single entity by match criteria. |
 
 #### Fields
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `data` | `table` |  |
 | `from` | `string` | Start datetime of the period |
 | `intensity` | `table` |  |
 | `to` | `string` | End datetime of the period |
 
-#### Example: Load
-
-```lua
-local intensity_list, err = client:IntensityList():load({ date = "date" })
-```
-
 #### Example: List
 
 ```lua
-local intensity_lists, err = client:IntensityList():list()
+local intensity_lists, err = client:IntensityList():list({ date = "example" })
 ```
 
 
@@ -584,7 +588,6 @@ Create an instance: `local regional_intensity = client:RegionalIntensity(nil)`
 | Method | Description |
 | --- | --- |
 | `list(match)` | List entities matching the criteria. |
-| `load(match)` | Load a single entity by match criteria. |
 
 #### Fields
 
@@ -596,16 +599,10 @@ Create an instance: `local regional_intensity = client:RegionalIntensity(nil)`
 | `regionid` | `number` | Region ID (1-17) |
 | `shortname` | `string` | Short region name |
 
-#### Example: Load
-
-```lua
-local regional_intensity, err = client:RegionalIntensity():load({ postcode = "postcode" })
-```
-
 #### Example: List
 
 ```lua
-local regional_intensitys, err = client:RegionalIntensity():list()
+local regional_intensitys, err = client:RegionalIntensity():list({ postcode = "example" })
 ```
 
 
@@ -634,7 +631,7 @@ Create an instance: `local regional_intensity_list = client:RegionalIntensityLis
 #### Example: Load
 
 ```lua
-local regional_intensity_list, err = client:RegionalIntensityList():load({ from = "from", postcode = "postcode" })
+local regional_intensity_list, err = client:RegionalIntensityList():load({ from = "from", to = "to" })
 ```
 
 #### Example: List
@@ -829,11 +826,11 @@ Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```lua
-local intensitylist = client:IntensityList()
-intensitylist:list()
+local generation = client:Generation()
+generation:list()
 
--- intensitylist:data_get() now returns the intensitylist data from the last list
--- intensitylist:match_get() returns the last match criteria
+-- generation:data_get() now returns the generation data from the last list
+-- generation:match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

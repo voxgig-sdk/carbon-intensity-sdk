@@ -82,6 +82,9 @@ func TestRegionalIntensityListEntity(t *testing.T) {
 		// happen not to consume the bootstrap data (e.g. list-only flows).
 		_ = regionalIntensityListRef01Data
 
+		if setup.live {
+			livePace()
+		}
 		// LIST
 		regionalIntensityListRef01Ent := client.RegionalIntensityList(nil)
 		regionalIntensityListRef01Match := map[string]any{

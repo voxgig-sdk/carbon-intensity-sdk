@@ -190,7 +190,7 @@ func TestIntensityEntity(t *testing.T) {
 		if setup.live {
 			_mode = "live"
 		}
-		for _, _op := range []string{"list", "load"} {
+		for _, _op := range []string{"list"} {
 			if _shouldSkip, _reason := isControlSkipped("entityOp", "intensity." + _op, _mode); _shouldSkip {
 				if _reason == "" {
 					_reason = "skipped via sdk-test-control.json"
@@ -201,11 +201,6 @@ func TestIntensityEntity(t *testing.T) {
 		}
 		client := setup.client
 		_ = client
-		if setup.live {
-			liveExisting(t, intensityEntityLiveStrict, setup.data, "intensity", func() (any, error) {
-				return client.Intensity(nil).List(map[string]any{}, nil)
-			})
-		}
 
 		// Bootstrap entity data from existing test data (no create step in flow).
 		intensityRef01DataRaw := vs.Items(core.ToMapAny(vs.GetPath(setup.data, "existing.intensity")))
@@ -217,6 +212,9 @@ func TestIntensityEntity(t *testing.T) {
 		// happen not to consume the bootstrap data (e.g. list-only flows).
 		_ = intensityRef01Data
 
+		if setup.live {
+			livePace()
+		}
 		// LIST
 		intensityRef01Ent := client.Intensity(nil)
 		intensityRef01Match := map[string]any{}
@@ -228,22 +226,6 @@ func TestIntensityEntity(t *testing.T) {
 		_, intensityRef01ListOk := intensityRef01ListResult.([]any)
 		if !intensityRef01ListOk {
 			t.Fatalf("expected list result to be an array, got %T", intensityRef01ListResult)
-		}
-
-		// LOAD
-		intensityRef01MatchDt0 := map[string]any{
-			"id": intensityRef01Data["id"],
-		}
-		intensityRef01DataDt0Loaded, err := intensityRef01Ent.Load(intensityRef01MatchDt0, nil)
-		if err != nil {
-			t.Fatalf("load failed: %v", err)
-		}
-		intensityRef01DataDt0LoadResult := core.ToMapAny(entityData(intensityRef01DataDt0Loaded))
-		if intensityRef01DataDt0LoadResult == nil {
-			t.Fatal("expected load result to be a map")
-		}
-		if intensityRef01DataDt0LoadResult["id"] != intensityRef01Data["id"] {
-			t.Fatal("expected load result id to match")
 		}
 
 	})

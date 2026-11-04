@@ -33,13 +33,32 @@ func TestRegionalIntensityDirect(t *testing.T) {
 			t.Skip(_reason)
 			return
 		}
+		if setup.live {
+			for _, _liveKey := range []string{"postcode01"} {
+				if v := setup.idmap[_liveKey]; v == nil {
+					liveMiss(t, regional_intensityDirectLiveStrict, "Live test blocked: needs %s via CARBON_INTENSITY_TEST_REGIONAL_INTENSITY_ENTID", _liveKey)
+					return
+				}
+			}
+		}
+		if setup.live {
+			livePace()
+		}
 		client := setup.client
 
+		params := map[string]any{}
+		query := map[string]any{}
+		if setup.live {
+			params["postcode"] = setup.idmap["postcode01"]
+		} else {
+			params["postcode"] = "direct01"
+		}
 
 		result, err := client.Direct(map[string]any{
-			"path":   "regional/england",
+			"path":   "regional/postcode/{postcode}",
 			"method": "GET",
-			"params": map[string]any{},
+			"params": params,
+			"query":  query,
 		})
 		if setup.live {
 			if err != nil {
@@ -70,105 +89,6 @@ func TestRegionalIntensityDirect(t *testing.T) {
 				}
 			} else {
 				t.Fatalf("expected data to be an array, got %T", result["data"])
-			}
-
-			if len(*setup.calls) != 1 {
-				t.Fatalf("expected 1 call, got %d", len(*setup.calls))
-			}
-		}
-	})
-
-	t.Run("direct-load-regional_intensity", func(t *testing.T) {
-		setup := regional_intensityDirectSetup(map[string]any{"id": "direct01"})
-		_mode := "unit"
-		if setup.live {
-			_mode = "live"
-		}
-		if _shouldSkip, _reason := isControlSkipped("direct", "direct-load-regional_intensity", _mode); _shouldSkip {
-			if _reason == "" {
-				_reason = "skipped via sdk-test-control.json"
-			}
-			t.Skip(_reason)
-			return
-		}
-		if setup.live {
-			for _, _liveKey := range []string{"postcode01"} {
-				if v := setup.idmap[_liveKey]; v == nil {
-					liveMiss(t, regional_intensityDirectLiveStrict, "Live test blocked: needs %s via CARBON_INTENSITY_TEST_REGIONAL_INTENSITY_ENTID", _liveKey)
-					return
-				}
-			}
-		}
-		client := setup.client
-
-		params := map[string]any{}
-		query := map[string]any{}
-		if setup.live {
-			listParams := map[string]any{}
-			listResult, listErr := client.Direct(map[string]any{
-				"path":   "regional/england",
-				"method": "GET",
-				"params": listParams,
-			})
-			if listErr != nil {
-				liveMiss(t, regional_intensityDirectLiveStrict, "Live list discovery failed: %v", listErr)
-			}
-			if listResult["ok"] != true {
-				liveMiss(t, regional_intensityDirectLiveStrict, "Live list discovery failed: %s", liveDescribe(listResult))
-			}
-			listData, listOk := liveList(listResult["data"])
-			if !listOk {
-				liveMiss(t, regional_intensityDirectLiveStrict, "Live list discovery returned no list: %s", liveDescribe(listResult))
-			}
-			if len(listData) == 0 {
-				liveEmpty(t, "The account has no regional_intensity record to load")
-			}
-			firstEnt := core.ToMapAny(listData[0])
-			if firstEnt["id"] == nil {
-				liveMiss(t, regional_intensityDirectLiveStrict, "Live load blocked: discovery returned no usable identity")
-			}
-			params["id"] = firstEnt["id"]
-			params["postcode"] = setup.idmap["postcode01"]
-		} else {
-			params["postcode"] = "direct01"
-		}
-
-		result, err := client.Direct(map[string]any{
-			"path":   "regional/postcode/{postcode}",
-			"method": "GET",
-			"params": params,
-			"query":  query,
-		})
-		if setup.live {
-			if err != nil {
-				liveMiss(t, regional_intensityDirectLiveStrict, "Live load failed: %v", err)
-			}
-			if status := core.ToInt(result["status"]); result["ok"] != true || status < 200 || status >= 300 {
-				liveMiss(t, regional_intensityDirectLiveStrict, "Live load failed: %s", liveDescribe(result))
-			}
-			if result["data"] == nil {
-				liveMiss(t, regional_intensityDirectLiveStrict, "Live load returned no data: %s", liveDescribe(result))
-			}
-		} else {
-			if err != nil {
-				t.Fatalf("direct failed: %v", err)
-			}
-			if result["ok"] != true {
-				t.Fatalf("expected ok to be true, got %v", result["ok"])
-			}
-			if core.ToInt(result["status"]) != 200 {
-				t.Fatalf("expected status 200, got %v", result["status"])
-			}
-			if result["data"] == nil {
-				t.Fatal("expected data to be non-nil")
-			}
-		}
-
-		if !setup.live {
-			if dataMap, ok := result["data"].(map[string]any); ok {
-				if dataMap["id"] != "direct01" {
-					t.Fatalf("expected data.id to be direct01, got %v", dataMap["id"])
-				}
 			}
 
 			if len(*setup.calls) != 1 {

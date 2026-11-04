@@ -33,13 +33,32 @@ func TestIntensityDirect(t *testing.T) {
 			t.Skip(_reason)
 			return
 		}
+		if setup.live {
+			for _, _liveKey := range []string{"from01"} {
+				if v := setup.idmap[_liveKey]; v == nil {
+					liveMiss(t, intensityDirectLiveStrict, "Live test blocked: needs %s via CARBON_INTENSITY_TEST_INTENSITY_ENTID", _liveKey)
+					return
+				}
+			}
+		}
+		if setup.live {
+			livePace()
+		}
 		client := setup.client
 
+		params := map[string]any{}
+		query := map[string]any{}
+		if setup.live {
+			params["from"] = setup.idmap["from01"]
+		} else {
+			params["from"] = "direct01"
+		}
 
 		result, err := client.Direct(map[string]any{
-			"path":   "intensity",
+			"path":   "intensity/{from}",
 			"method": "GET",
-			"params": map[string]any{},
+			"params": params,
+			"query":  query,
 		})
 		if setup.live {
 			if err != nil {
@@ -75,6 +94,17 @@ func TestIntensityDirect(t *testing.T) {
 			if len(*setup.calls) != 1 {
 				t.Fatalf("expected 1 call, got %d", len(*setup.calls))
 			}
+			call := (*setup.calls)[0]
+			if initMap, ok := call["init"].(map[string]any); ok {
+				if initMap["method"] != "GET" {
+					t.Fatalf("expected method GET, got %v", initMap["method"])
+				}
+			}
+			if url, ok := call["url"].(string); ok {
+				if !strings.Contains(url, "direct01") {
+					t.Fatalf("expected url to contain direct01, got %v", url)
+				}
+			}
 		}
 	})
 
@@ -92,12 +122,15 @@ func TestIntensityDirect(t *testing.T) {
 			return
 		}
 		if setup.live {
-			for _, _liveKey := range []string{"date01", "period01"} {
+			for _, _liveKey := range []string{"from01", "period01"} {
 				if v := setup.idmap[_liveKey]; v == nil {
 					liveMiss(t, intensityDirectLiveStrict, "Live test blocked: needs %s via CARBON_INTENSITY_TEST_INTENSITY_ENTID", _liveKey)
 					return
 				}
 			}
+		}
+		if setup.live {
+			livePace()
 		}
 		client := setup.client
 
@@ -105,8 +138,9 @@ func TestIntensityDirect(t *testing.T) {
 		query := map[string]any{}
 		if setup.live {
 			listParams := map[string]any{}
+			listParams["from"] = setup.idmap["from01"]
 			listResult, listErr := client.Direct(map[string]any{
-				"path":   "intensity",
+				"path":   "intensity/{from}",
 				"method": "GET",
 				"params": listParams,
 			})
@@ -124,11 +158,10 @@ func TestIntensityDirect(t *testing.T) {
 				liveEmpty(t, "The account has no intensity record to load")
 			}
 			firstEnt := core.ToMapAny(listData[0])
-			if firstEnt["id"] == nil {
+			if firstEnt["date"] == nil {
 				liveMiss(t, intensityDirectLiveStrict, "Live load blocked: discovery returned no usable identity")
 			}
-			params["id"] = firstEnt["id"]
-			params["date"] = setup.idmap["date01"]
+			params["date"] = firstEnt["date"]
 			params["period"] = setup.idmap["period01"]
 		} else {
 			params["date"] = "direct01"

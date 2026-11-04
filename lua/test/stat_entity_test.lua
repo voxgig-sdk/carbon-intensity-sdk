@@ -44,6 +44,11 @@ describe("StatEntity", function()
         return
       end
     end
+    if setup.live then
+      pending("Live coverage incomplete: the flow has no step to run")
+      return
+    end
+
     local client = setup.client
 
     -- Bootstrap entity data from existing test data.

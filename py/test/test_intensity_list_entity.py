@@ -130,7 +130,7 @@ class TestIntensityListEntity:
         client = CarbonIntensitySDK.test(
             None, {"feature": {"validate": {"active": True}}})
         with pytest.raises(Exception) as err:
-            client.IntensityList(None).list({"from": 1}, None)
+            client.IntensityList(None).list({"date": 1}, None)
         assert "validate_failed" == getattr(err.value, "code", None)
 
     def test_should_run_basic_flow(self):
@@ -153,6 +153,8 @@ class TestIntensityListEntity:
         if len(intensity_list_ref01_data_raw) > 0:
             intensity_list_ref01_data = helpers.to_map(intensity_list_ref01_data_raw[0][1])
 
+        if setup["live"]:
+            runner.live_pace()
         # LIST
         intensity_list_ref01_ent = client.IntensityList(None)
         intensity_list_ref01_match = {}

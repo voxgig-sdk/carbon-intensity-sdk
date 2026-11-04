@@ -31,14 +31,31 @@ describe("IntensityDirect", function()
       pending(_reason or "skipped via sdk-test-control.json")
       return
     end
+    if setup.live then
+      for _, _live_key in ipairs({"from01"}) do
+        if setup.idmap[_live_key] == nil then
+          runner.live_miss(pending, LIVE_STRICT, "Live test blocked: needs " .. _live_key .. " via CARBON_INTENSITY_TEST_INTENSITY_ENTID")
+        end
+      end
+    end
+    if setup.live then
+      runner.live_pace()
+    end
     local client = setup.client
 
     local params = {}
+    local query = {}
+    if setup.live then
+      params["from"] = setup.idmap["from01"]
+    else
+      params["from"] = "direct01"
+    end
 
     local result, err = client:direct({
-      path = "intensity",
+      path = "intensity/{from}",
       method = "GET",
       params = params,
+      query = query,
     })
     if setup.live then
       if not live_ok(result, err) then
@@ -66,11 +83,14 @@ describe("IntensityDirect", function()
       return
     end
     if setup.live then
-      for _, _live_key in ipairs({"period01"}) do
+      for _, _live_key in ipairs({"from01", "period01"}) do
         if setup.idmap[_live_key] == nil then
           runner.live_miss(pending, LIVE_STRICT, "Live test blocked: needs " .. _live_key .. " via CARBON_INTENSITY_TEST_INTENSITY_ENTID")
         end
       end
+    end
+    if setup.live then
+      runner.live_pace()
     end
     local client = setup.client
 
@@ -78,9 +98,9 @@ describe("IntensityDirect", function()
     local query = {}
     if setup.live then
       local list_result, list_err = client:direct({
-        path = "intensity",
+        path = "intensity/{from}",
         method = "GET",
-        params = {},
+        params = {["from"] = setup.idmap["from01"]},
       })
       if not live_ok(list_result, list_err) then
         runner.live_miss(pending, LIVE_STRICT, "Live list discovery failed: " .. runner.live_describe(list_result, list_err))
@@ -93,7 +113,7 @@ describe("IntensityDirect", function()
         runner.live_empty(pending, "The account has no intensity record to load")
       end
       local first = type(records[1]) == "table" and records[1] or {}
-      local found = first["date"] or first["id"]
+      local found = first["date"]
       if found == nil then
         runner.live_miss(pending, LIVE_STRICT, "Live load blocked: discovery returned no usable identity")
       end

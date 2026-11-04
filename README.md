@@ -46,22 +46,22 @@ network, and no credentials:
 // Shape: { entity: { <entity-name>: { <id>: <record> } } }
 const client = CarbonIntensitySDK.test({
   entity: {
-    intensity_list: {
+    generation: {
       test01: { id: 'test01' },
     },
   },
 })
-const intensitylists = await client.IntensityList().list()
-// intensitylists is an array of IntensityList entities, one per mock record
-console.log(intensitylists.map((intensitylist) => intensitylist.data()))
+const generations = await client.Generation().list()
+// generations is an array of Generation entities, one per mock record
+console.log(generations.map((generation) => generation.data()))
 ```
 
 ### Python
 
 ```python
 client = CarbonIntensitySDK.test()
-intensitylists = client.IntensityList().list()
-print([item.data_get() for item in intensitylists])
+generations = client.Generation().list()
+print([item.data_get() for item in generations])
 ```
 
 ### PHP
@@ -69,16 +69,16 @@ print([item.data_get() for item in intensitylists])
 ```php
 // Seed fixture data so offline calls resolve without a live server.
 $client = CarbonIntensitySDK::test([
-    "entity" => ["intensity_list" => ["test01" => []]],
+    "entity" => ["generation" => ["test01" => []]],
 ]);
-$intensitylists = $client->IntensityList()->list();
+$generations = $client->Generation()->list();
 ```
 
 ### Golang
 
 ```go
 client := sdk.Test()
-result, err := client.IntensityList(nil).List(
+result, err := client.Generation(nil).List(
     nil, nil,
 )
 ```
@@ -88,16 +88,16 @@ result, err := client.IntensityList(nil).List(
 ```ruby
 # Seed fixture data so offline calls resolve without a live server.
 client = CarbonIntensitySDK.test({
-  "entity" => { "intensity_list" => { "test01" => {} } },
+  "entity" => { "generation" => { "test01" => {} } },
 })
-intensitylists = client.IntensityList.list()
+generations = client.Generation.list()
 ```
 
 ### Lua
 
 ```lua
 local client = sdk.test()
-local results, err = client:IntensityList():list()
+local results, err = client:Generation():list()
 ```
 
 ## Packages
@@ -128,11 +128,12 @@ for (const generation of generations) {
   console.log(generation.data())
 }
 
-// Load a specific intensitylist (returns the entity, an IntensityListEntity)
-const intensitylist = await client.IntensityList().load({
-  date: 'example_date',
+// Load a specific regionalintensitylist (returns the entity, a RegionalIntensityListEntity)
+const regionalintensitylist = await client.RegionalIntensityList().load({
+  from: 'example_from',
+  to: 'example_to',
 })
-console.log(intensitylist.data())
+console.log(regionalintensitylist.data())
 ```
 
 See the [TypeScript README](ts/README.md) for the full guide.
@@ -176,12 +177,12 @@ The API exposes 9 entities:
 | --- | --- | --- |
 | **Generation** | The Generation entity (list, load). | `/generation` |
 | **GenerationList** | The GenerationList entity (list). | `/generation/{from}/pt24h` |
-| **Intensity** | The Intensity entity (list, load). | `/intensity` |
+| **Intensity** | The Intensity entity (list, load). | `/intensity/{from}` |
 | **IntensityFactor** | The IntensityFactor entity (list). | `/intensity/factors` |
-| **IntensityList** | The IntensityList entity (list, load). | `/intensity/{from}/fw24h` |
+| **IntensityList** | The IntensityList entity (list). | `/intensity/date/{date}` |
 | **Regional** | The Regional entity (list). | `/regional` |
-| **RegionalIntensity** | The RegionalIntensity entity (list, load). | `/regional/england` |
-| **RegionalIntensityList** | The RegionalIntensityList entity (list, load). | `/regional/intensity/{from}/fw24h` |
+| **RegionalIntensity** | The RegionalIntensity entity (list). | `/regional/postcode/{postcode}` |
+| **RegionalIntensityList** | The RegionalIntensityList entity (list, load). | `/regional/intensity/{from}/{to}/postcode/{postcode}` |
 | **Stat** | The Stat entity (load). | `/intensity/stats/{from}/{to}/{block}` |
 
 The operations available across these entities are **load**, **list** — see each entity's
@@ -239,14 +240,14 @@ for _, generation := range generations.([]any) {
     fmt.Println(generation.(sdk.Entity).Data())
 }
 
-// Load a specific intensitylist (returns the entity; err is non-nil on failure)
-intensityList, err := client.IntensityList(nil).Load(
-    map[string]any{"date": "example_date"}, nil,
+// Load a specific regionalintensitylist (returns the entity; err is non-nil on failure)
+regionalIntensityList, err := client.RegionalIntensityList(nil).Load(
+    map[string]any{"from": "example_from", "to": "example_to"}, nil,
 )
 if err != nil {
     panic(err)
 }
-fmt.Println(intensityList.(sdk.Entity).Data())
+fmt.Println(regionalIntensityList.(sdk.Entity).Data())
 ```
 
 ### Ruby

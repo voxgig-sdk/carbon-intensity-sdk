@@ -43,45 +43,21 @@ describe('RegionalIntensityListDirect', async () => {
     if (liveScenariosActive()) { t.skip('Covered by live operation scenarios'); return }
     const setup = directSetup({ id: 'direct01' })
     if (maybeSkipControl(t, 'direct', 'direct-load-regional_intensity_list', setup.live)) return
-    if (skipIfMissingIds(t, setup, ["from01","postcode01","to01"], LIVE_STRICT)) return
+    if (skipIfMissingIds(t, setup, ["from01","to01"], LIVE_STRICT)) return
     const { client, calls } = setup
 
     const params: any = {}
     const query: any = {}
     if (setup.live) {
-      const listResult: any = await client.direct({
-        path: 'regional/intensity/{from}/fw24h',
-        method: 'GET',
-        params: {
-        from: setup.idmap['from01'],
-        },
-      })
-      if (!listResult.ok || listResult.status < 200 || listResult.status >= 300) {
-        return void liveMiss(t, LIVE_STRICT, 'Live list discovery failed: ' + describeLive(listResult))
-      }
-      const listArr = unwrapListData(listResult.data)
-      if (null == listArr) {
-        return void liveMiss(t, LIVE_STRICT, 'Live list discovery returned no list: ' + describeLive(listResult))
-      }
-      if (0 === listArr.length) {
-        return void liveEmpty(t, 'The account has no regional_intensity_list record to load')
-      }
-      const candidateId = listArr[0]?.from ?? listArr[0]?.id
-      if (null == candidateId) {
-        return void liveMiss(t, LIVE_STRICT, 'Live load blocked: discovery returned no usable identity')
-      }
-      params.from = candidateId
       params.from = setup.idmap['from01']
-      params.postcode = setup.idmap['postcode01']
       params.to = setup.idmap['to01']
     } else {
       params.from = 'direct01'
-      params.postcode = 'direct02'
-      params.to = 'direct03'
+      params.to = 'direct02'
     }
 
     const result: any = await client.direct({
-      path: 'regional/intensity/{from}/{to}/postcode/{postcode}',
+      path: 'regional/intensity/{from}/{to}',
       method: 'GET',
       params,
       query,
@@ -103,7 +79,6 @@ describe('RegionalIntensityListDirect', async () => {
       assert(calls[0].init.method === 'GET')
       assert(calls[0].url.includes('direct01'))
       assert(calls[0].url.includes('direct02'))
-      assert(calls[0].url.includes('direct03'))
     }
   })
 
@@ -111,19 +86,23 @@ describe('RegionalIntensityListDirect', async () => {
     if (liveScenariosActive()) { t.skip('Covered by live operation scenarios'); return }
     const setup = directSetup([{ id: 'direct01' }, { id: 'direct02' }])
     if (maybeSkipControl(t, 'direct', 'direct-list-regional_intensity_list', setup.live)) return
-    if (skipIfMissingIds(t, setup, ["from01"], LIVE_STRICT)) return
+    if (skipIfMissingIds(t, setup, ["from01","postcode01","to01"], LIVE_STRICT)) return
     const { client, calls } = setup
 
     const params: any = {}
     const query: any = {}
     if (setup.live) {
       params.from = setup.idmap['from01']
+      params.postcode = setup.idmap['postcode01']
+      params.to = setup.idmap['to01']
     } else {
       params.from = 'direct01'
+      params.postcode = 'direct02'
+      params.to = 'direct03'
     }
 
     const result: any = await client.direct({
-      path: 'regional/intensity/{from}/fw24h',
+      path: 'regional/intensity/{from}/{to}/postcode/{postcode}',
       method: 'GET',
       params,
       query,
@@ -146,6 +125,8 @@ describe('RegionalIntensityListDirect', async () => {
       assert(calls.length === 1)
       assert(calls[0].init.method === 'GET')
       assert(calls[0].url.includes('direct01'))
+      assert(calls[0].url.includes('direct02'))
+      assert(calls[0].url.includes('direct03'))
     }
   })
 

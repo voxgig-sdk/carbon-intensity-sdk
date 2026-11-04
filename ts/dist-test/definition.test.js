@@ -129,6 +129,44 @@ const PLAN = [
         "accessor": "Intensity",
         "op": "list",
         "method": "GET",
+        "path": "/intensity/{from}",
+        "args": [
+            {
+                "name": "from",
+                "wire": "from",
+                "value": "p1"
+            }
+        ],
+        "select": {},
+        "headers": [],
+        "cookies": [],
+        "responseMedia": [
+            "application/json"
+        ],
+        "query": [],
+        "queryArgs": [],
+        "auth": null,
+        "status": 200,
+        "sample": {
+            "data": [
+                {
+                    "from": "2026-01-01T00:00:00Z",
+                    "to": "2026-01-01T00:00:00Z",
+                    "intensity": {
+                        "forecast": 1,
+                        "actual": 1,
+                        "index": "very low"
+                    }
+                }
+            ]
+        },
+        "idField": "id"
+    },
+    {
+        "entity": "intensity",
+        "accessor": "Intensity",
+        "op": "list",
+        "method": "GET",
         "path": "/intensity",
         "args": [],
         "select": {},
@@ -243,44 +281,6 @@ const PLAN = [
         "idField": "id"
     },
     {
-        "entity": "intensity",
-        "accessor": "Intensity",
-        "op": "load",
-        "method": "GET",
-        "path": "/intensity/{from}",
-        "args": [
-            {
-                "name": "id",
-                "wire": "from",
-                "value": "p1"
-            }
-        ],
-        "select": {},
-        "headers": [],
-        "cookies": [],
-        "responseMedia": [
-            "application/json"
-        ],
-        "query": [],
-        "queryArgs": [],
-        "auth": null,
-        "status": 200,
-        "sample": {
-            "data": [
-                {
-                    "from": "2026-01-01T00:00:00Z",
-                    "to": "2026-01-01T00:00:00Z",
-                    "intensity": {
-                        "forecast": 1,
-                        "actual": 1,
-                        "index": "very low"
-                    }
-                }
-            ]
-        },
-        "idField": "id"
-    },
-    {
         "entity": "intensity_factor",
         "accessor": "IntensityFactor",
         "op": "list",
@@ -324,8 +324,14 @@ const PLAN = [
         "accessor": "IntensityList",
         "op": "list",
         "method": "GET",
-        "path": "/intensity/date",
-        "args": [],
+        "path": "/intensity/date/{date}",
+        "args": [
+            {
+                "name": "date",
+                "wire": "date",
+                "value": "p1"
+            }
+        ],
         "select": {},
         "headers": [],
         "cookies": [],
@@ -354,16 +360,10 @@ const PLAN = [
     {
         "entity": "intensity_list",
         "accessor": "IntensityList",
-        "op": "load",
+        "op": "list",
         "method": "GET",
-        "path": "/intensity/date/{date}",
-        "args": [
-            {
-                "name": "date",
-                "wire": "date",
-                "value": "p1"
-            }
-        ],
+        "path": "/intensity/date",
+        "args": [],
         "select": {},
         "headers": [],
         "cookies": [],
@@ -434,7 +434,7 @@ const PLAN = [
     {
         "entity": "regional_intensity",
         "accessor": "RegionalIntensity",
-        "op": "load",
+        "op": "list",
         "method": "GET",
         "path": "/regional/postcode/{postcode}",
         "args": [
@@ -482,7 +482,7 @@ const PLAN = [
     {
         "entity": "regional_intensity",
         "accessor": "RegionalIntensity",
-        "op": "load",
+        "op": "list",
         "method": "GET",
         "path": "/regional/regionid/{regionid}",
         "args": [
@@ -530,7 +530,7 @@ const PLAN = [
     {
         "entity": "regional_intensity_list",
         "accessor": "RegionalIntensityList",
-        "op": "load",
+        "op": "list",
         "method": "GET",
         "path": "/regional/intensity/{from}/{to}/postcode/{postcode}",
         "args": [
@@ -588,7 +588,7 @@ const PLAN = [
     {
         "entity": "regional_intensity_list",
         "accessor": "RegionalIntensityList",
-        "op": "load",
+        "op": "list",
         "method": "GET",
         "path": "/regional/intensity/{from}/{to}/regionid/{regionid}",
         "args": [

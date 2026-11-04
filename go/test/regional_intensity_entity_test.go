@@ -175,7 +175,7 @@ func TestRegionalIntensityEntity(t *testing.T) {
 		client := sdk.TestSDK(nil, map[string]any{
 			"feature": map[string]any{"validate": map[string]any{"active": true}},
 		})
-		_, err := client.RegionalIntensity(nil).List(map[string]any{"dnoregion": 1}, nil)
+		_, err := client.RegionalIntensity(nil).List(map[string]any{"postcode": 1}, nil)
 		if sdkerr, ok := err.(*core.CarbonIntensityError); !ok || "validate_failed" != sdkerr.Code {
 			t.Fatalf("expected validate_failed, got %v", err)
 		}
@@ -212,6 +212,9 @@ func TestRegionalIntensityEntity(t *testing.T) {
 		// happen not to consume the bootstrap data (e.g. list-only flows).
 		_ = regionalIntensityRef01Data
 
+		if setup.live {
+			livePace()
+		}
 		// LIST
 		regionalIntensityRef01Ent := client.RegionalIntensity(nil)
 		regionalIntensityRef01Match := map[string]any{}

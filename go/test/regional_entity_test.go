@@ -212,6 +212,9 @@ func TestRegionalEntity(t *testing.T) {
 		// happen not to consume the bootstrap data (e.g. list-only flows).
 		_ = regionalRef01Data
 
+		if setup.live {
+			livePace()
+		}
 		// LIST
 		regionalRef01Ent := client.Regional(nil)
 		regionalRef01Match := map[string]any{}

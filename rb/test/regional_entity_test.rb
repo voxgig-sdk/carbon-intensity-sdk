@@ -181,6 +181,7 @@ class RegionalEntityTest < Minitest::Test
       regional_ref01_data = Helpers.to_map(regional_ref01_data_raw[0][1])
     end
 
+    Runner.live_pace if setup[:live]
     # LIST
     regional_ref01_ent = client.Regional(nil)
     regional_ref01_match = {}

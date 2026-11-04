@@ -142,7 +142,7 @@ operation, of the 9 the SDK has:
 | Tool | Entities |
 |------|----------|
 | `carbon-intensity_list` | generation, generation_list, intensity, intensity_factor, intensity_list, regional, regional_intensity, regional_intensity_list |
-| `carbon-intensity_load` | generation, intensity, intensity_list, regional_intensity, regional_intensity_list, stat |
+| `carbon-intensity_load` | generation, intensity, regional_intensity_list, stat |
 
 JSON schemas are emitted by the SDK from each tool's argument struct's
 `json` / `jsonschema` tags — no schema is hand-written. Each tool's

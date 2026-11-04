@@ -212,6 +212,9 @@ func TestGenerationEntity(t *testing.T) {
 		// happen not to consume the bootstrap data (e.g. list-only flows).
 		_ = generationRef01Data
 
+		if setup.live {
+			livePace()
+		}
 		// LIST
 		generationRef01Ent := client.Generation(nil)
 		generationRef01Match := map[string]any{}

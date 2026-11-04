@@ -34,26 +34,41 @@ func TestRegionalIntensityListDirect(t *testing.T) {
 			return
 		}
 		if setup.live {
-			for _, _liveKey := range []string{"from01"} {
+			for _, _liveKey := range []string{"from01", "postcode01", "to01"} {
 				if v := setup.idmap[_liveKey]; v == nil {
 					liveMiss(t, regional_intensity_listDirectLiveStrict, "Live test blocked: needs %s via CARBON_INTENSITY_TEST_REGIONAL_INTENSITY_LIST_ENTID", _liveKey)
 					return
 				}
 			}
 		}
+		if setup.live {
+			livePace()
+		}
 		client := setup.client
 
 		params := map[string]any{}
+		query := map[string]any{}
 		if setup.live {
 			params["from"] = setup.idmap["from01"]
 		} else {
 			params["from"] = "direct01"
 		}
+		if setup.live {
+			params["postcode"] = setup.idmap["postcode01"]
+		} else {
+			params["postcode"] = "direct02"
+		}
+		if setup.live {
+			params["to"] = setup.idmap["to01"]
+		} else {
+			params["to"] = "direct03"
+		}
 
 		result, err := client.Direct(map[string]any{
-			"path":   "regional/intensity/{from}/fw24h",
+			"path":   "regional/intensity/{from}/{to}/postcode/{postcode}",
 			"method": "GET",
 			"params": params,
+			"query":  query,
 		})
 		if setup.live {
 			if err != nil {
@@ -99,6 +114,12 @@ func TestRegionalIntensityListDirect(t *testing.T) {
 				if !strings.Contains(url, "direct01") {
 					t.Fatalf("expected url to contain direct01, got %v", url)
 				}
+				if !strings.Contains(url, "direct02") {
+					t.Fatalf("expected url to contain direct02, got %v", url)
+				}
+				if !strings.Contains(url, "direct03") {
+					t.Fatalf("expected url to contain direct03, got %v", url)
+				}
 			}
 		}
 	})
@@ -117,54 +138,30 @@ func TestRegionalIntensityListDirect(t *testing.T) {
 			return
 		}
 		if setup.live {
-			for _, _liveKey := range []string{"from01", "postcode01", "to01"} {
+			for _, _liveKey := range []string{"from01", "to01"} {
 				if v := setup.idmap[_liveKey]; v == nil {
 					liveMiss(t, regional_intensity_listDirectLiveStrict, "Live test blocked: needs %s via CARBON_INTENSITY_TEST_REGIONAL_INTENSITY_LIST_ENTID", _liveKey)
 					return
 				}
 			}
 		}
+		if setup.live {
+			livePace()
+		}
 		client := setup.client
 
 		params := map[string]any{}
 		query := map[string]any{}
 		if setup.live {
-			listParams := map[string]any{}
-			listParams["from"] = setup.idmap["from01"]
-			listResult, listErr := client.Direct(map[string]any{
-				"path":   "regional/intensity/{from}/fw24h",
-				"method": "GET",
-				"params": listParams,
-			})
-			if listErr != nil {
-				liveMiss(t, regional_intensity_listDirectLiveStrict, "Live list discovery failed: %v", listErr)
-			}
-			if listResult["ok"] != true {
-				liveMiss(t, regional_intensity_listDirectLiveStrict, "Live list discovery failed: %s", liveDescribe(listResult))
-			}
-			listData, listOk := liveList(listResult["data"])
-			if !listOk {
-				liveMiss(t, regional_intensity_listDirectLiveStrict, "Live list discovery returned no list: %s", liveDescribe(listResult))
-			}
-			if len(listData) == 0 {
-				liveEmpty(t, "The account has no regional_intensity_list record to load")
-			}
-			firstEnt := core.ToMapAny(listData[0])
-			if firstEnt["id"] == nil {
-				liveMiss(t, regional_intensity_listDirectLiveStrict, "Live load blocked: discovery returned no usable identity")
-			}
-			params["id"] = firstEnt["id"]
 			params["from"] = setup.idmap["from01"]
-			params["postcode"] = setup.idmap["postcode01"]
 			params["to"] = setup.idmap["to01"]
 		} else {
 			params["from"] = "direct01"
-			params["postcode"] = "direct02"
-			params["to"] = "direct03"
+			params["to"] = "direct02"
 		}
 
 		result, err := client.Direct(map[string]any{
-			"path":   "regional/intensity/{from}/{to}/postcode/{postcode}",
+			"path":   "regional/intensity/{from}/{to}",
 			"method": "GET",
 			"params": params,
 			"query":  query,
@@ -216,9 +213,6 @@ func TestRegionalIntensityListDirect(t *testing.T) {
 				}
 				if !strings.Contains(url, "direct02") {
 					t.Fatalf("expected url to contain direct02, got %v", url)
-				}
-				if !strings.Contains(url, "direct03") {
-					t.Fatalf("expected url to contain direct03, got %v", url)
 				}
 			}
 		}

@@ -229,6 +229,9 @@ class GenerationEntityTest extends TestCase
             $generation_ref01_data = Helpers::to_map($generation_ref01_data_raw[0][1]);
         }
 
+        if (!empty($setup["live"])) {
+            Runner::live_pace();
+        }
         // LIST
         $generation_ref01_ent = $client->Generation(null);
         $generation_ref01_match = [];

@@ -139,7 +139,7 @@ describe("RegionalIntensityEntity", function()
       return
     end
     local client = sdk.test(nil, { feature = { validate = { active = true } } })
-    local _, err = client:RegionalIntensity(nil):list({ ["dnoregion"] = 1 }, nil)
+    local _, err = client:RegionalIntensity(nil):list({ ["postcode"] = 1 }, nil)
     assert.are.equal("validate_failed", type(err) == "table" and err.code or nil)
   end)
 
@@ -164,6 +164,9 @@ describe("RegionalIntensityEntity", function()
       regional_intensity_ref01_data = helpers.to_map(regional_intensity_ref01_data_raw[1][2])
     end
 
+    if setup.live then
+      runner.live_pace()
+    end
     -- LIST
     local regional_intensity_ref01_ent = client:RegionalIntensity(nil)
     local regional_intensity_ref01_match = {}

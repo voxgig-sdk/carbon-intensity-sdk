@@ -2,42 +2,40 @@
   "existing": {
     "intensity_list": {
       "INTENSITY_LIST00": {
-        "data": [],
-        "from": "s29",
+        "from": "s1e",
         "intensity": {},
-        "to": "s2b",
-        "date": "DATE01",
-        "id": "INTENSITY_LIST00"
+        "to": "s20",
+        "date": "DATE01"
       },
       "INTENSITY_LIST01": {
-        "data": [],
-        "from": "s51",
+        "from": "s3c",
         "intensity": {},
-        "to": "s53",
-        "date": "DATE01",
-        "id": "INTENSITY_LIST01"
+        "to": "s3e",
+        "date": "DATE01"
       },
       "INTENSITY_LIST02": {
-        "data": [],
-        "from": "s79",
+        "from": "s5a",
         "intensity": {},
-        "to": "s7b",
-        "date": "DATE01",
-        "id": "INTENSITY_LIST02"
+        "to": "s5c",
+        "date": "DATE01"
       }
     }
   },
   "new": {
     "intensity_list": {
       "intensity_list_ref01": {
-        "data": [],
-        "from": "sa1",
+        "from": "s78",
         "intensity": {},
-        "to": "sa3"
+        "to": "s7a"
       }
     }
   },
   "requests": {
+    "GET /intensity/date/{date}": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    },
     "GET /intensity/{from}/fw24h": {
       "provenance": "operation-contract",
       "version": 2,
@@ -54,11 +52,6 @@
       "source": "openapi3"
     },
     "GET /intensity/date": {
-      "provenance": "operation-contract",
-      "version": 2,
-      "source": "openapi3"
-    },
-    "GET /intensity/date/{date}": {
       "provenance": "operation-contract",
       "version": 2,
       "source": "openapi3"

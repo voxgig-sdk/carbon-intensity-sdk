@@ -34,15 +34,18 @@ class GenerationListDirectTest < Minitest::Test
         end
       end
     end
+    Runner.live_pace if setup[:live]
     client = setup[:client]
 
     params = {}
+    query = {}
     params["from"] = setup[:live] ? setup[:idmap]["from01"] : "direct01"
 
     result = client.direct({
       "path" => "generation/{from}/pt24h",
       "method" => "GET",
       "params" => params,
+      "query" => query,
     })
     if setup[:live]
       unless live_ok(result)

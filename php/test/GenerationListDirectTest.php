@@ -40,15 +40,20 @@ class GenerationListDirectTest extends TestCase
                 }
             }
         }
+        if (!empty($setup["live"])) {
+            Runner::live_pace();
+        }
         $client = $setup["client"];
 
         $params = [];
+        $query = [];
         $params["from"] = $setup["live"] ? ($setup["idmap"]["from01"] ?? null) : "direct01";
 
         $result = $client->direct([
             "path" => "generation/{from}/pt24h",
             "method" => "GET",
             "params" => $params,
+            "query" => $query,
         ]);
         if ($setup["live"]) {
             if (!self::liveOk($result)) {

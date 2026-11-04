@@ -50,15 +50,15 @@ except Exception as err:
     print(f"list failed: {err}")
 ```
 
-### 3. Load an intensitylist
+### 3. Load a regionalintensitylist
 
-IntensityList is nested under date, so provide the `date`.
+RegionalIntensityList is nested under from, so provide the `from`.
 `load()` returns the ENTITY — call data_get() for the record — and raises on error.
 
 ```python
 try:
-    intensitylist = client.IntensityList().load({"date": "example_date"})
-    print(intensitylist.data_get())
+    regionalintensitylist = client.RegionalIntensityList().load({"from": "example_from", "to": "example_to"})
+    print(regionalintensitylist.data_get())
 except Exception as err:
     print(f"load failed: {err}")
 ```
@@ -70,8 +70,8 @@ Entity operations raise on failure, so wrap them in `try` / `except`:
 
 ```python
 try:
-    intensitylists = client.IntensityList().list()
-    print([item.data_get() for item in intensitylists])
+    generations = client.Generation().list()
+    print([item.data_get() for item in generations])
 except Exception as err:
     print(f"list failed: {err}")
 ```
@@ -138,7 +138,7 @@ Create a mock client for unit testing — no server required:
 client = CarbonIntensitySDK.test()
 
 # Entity ops return the entity, and list one per record; they raise on error.
-intensitylist = client.IntensityList().list()
+generation = client.Generation().list()
 # data_get() on an entity reads its mock response record
 ```
 
@@ -298,7 +298,7 @@ API path: `/generation/{from}/pt24h`
 
 Operations: List, Load.
 
-API path: `/intensity`
+API path: `/intensity/{from}`
 
 #### IntensityFactor
 
@@ -327,14 +327,13 @@ API path: `/intensity/factors`
 
 | Field | Description |
 | --- | --- |
-| `data` |  |
 | `from` | Start datetime of the period |
 | `intensity` |  |
 | `to` | End datetime of the period |
 
-Operations: List, Load.
+Operations: List.
 
-API path: `/intensity/{from}/fw24h`
+API path: `/intensity/date/{date}`
 
 #### Regional
 
@@ -360,9 +359,9 @@ API path: `/regional`
 | `regionid` | Region ID (1-17) |
 | `shortname` | Short region name |
 
-Operations: List, Load.
+Operations: List.
 
-API path: `/regional/england`
+API path: `/regional/postcode/{postcode}`
 
 #### RegionalIntensityList
 
@@ -377,7 +376,7 @@ API path: `/regional/england`
 
 Operations: List, Load.
 
-API path: `/regional/intensity/{from}/fw24h`
+API path: `/regional/intensity/{from}/{to}/postcode/{postcode}`
 
 #### Stat
 
@@ -478,13 +477,13 @@ Create an instance: `intensity = client.Intensity()`
 #### Example: Load
 
 ```python
-intensity = client.Intensity().load({"id": "intensity_id"})
+intensity = client.Intensity().load({"from": "from", "to": "to"})
 ```
 
 #### Example: List
 
 ```python
-intensitys = client.Intensity().list()
+intensitys = client.Intensity().list({"from": "example"})
 ```
 
 
@@ -533,27 +532,19 @@ Create an instance: `intensity_list = client.IntensityList()`
 | Method | Description |
 | --- | --- |
 | `list()` | List entities, optionally matching the given criteria. |
-| `load(match)` | Load a single entity by match criteria. |
 
 #### Fields
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `data` | `list` |  |
 | `from` | `str` | Start datetime of the period |
 | `intensity` | `dict` |  |
 | `to` | `str` | End datetime of the period |
 
-#### Example: Load
-
-```python
-intensity_list = client.IntensityList().load({"date": "date"})
-```
-
 #### Example: List
 
 ```python
-intensity_lists = client.IntensityList().list()
+intensity_lists = client.IntensityList().list({"date": "example"})
 ```
 
 
@@ -593,7 +584,6 @@ Create an instance: `regional_intensity = client.RegionalIntensity()`
 | Method | Description |
 | --- | --- |
 | `list()` | List entities, optionally matching the given criteria. |
-| `load(match)` | Load a single entity by match criteria. |
 
 #### Fields
 
@@ -605,16 +595,10 @@ Create an instance: `regional_intensity = client.RegionalIntensity()`
 | `regionid` | `int` | Region ID (1-17) |
 | `shortname` | `str` | Short region name |
 
-#### Example: Load
-
-```python
-regional_intensity = client.RegionalIntensity().load({"postcode": "postcode"})
-```
-
 #### Example: List
 
 ```python
-regional_intensitys = client.RegionalIntensity().list()
+regional_intensitys = client.RegionalIntensity().list({"postcode": "example"})
 ```
 
 
@@ -643,7 +627,7 @@ Create an instance: `regional_intensity_list = client.RegionalIntensityList()`
 #### Example: Load
 
 ```python
-regional_intensity_list = client.RegionalIntensityList().load({"from": "from", "postcode": "postcode"})
+regional_intensity_list = client.RegionalIntensityList().load({"from": "from", "to": "to"})
 ```
 
 #### Example: List
@@ -837,11 +821,11 @@ Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```python
-intensitylist = client.IntensityList()
-intensitylist.list()
+generation = client.Generation()
+generation.list()
 
-# intensitylist.data_get() now returns the intensitylist data from the last list
-# intensitylist.match_get() returns the last match criteria
+# generation.data_get() now returns the generation data from the last list
+# generation.match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

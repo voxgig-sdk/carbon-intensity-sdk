@@ -27,14 +27,25 @@ class RegionalIntensityDirectTest < Minitest::Test
       skip(_reason || "skipped via sdk-test-control.json")
       return
     end
+    if setup[:live]
+      ["postcode01"].each do |_live_key|
+        if setup[:idmap][_live_key].nil?
+          Runner.live_miss(LIVE_STRICT, "Live test blocked: needs #{_live_key} via CARBON_INTENSITY_TEST_REGIONAL_INTENSITY_ENTID")
+        end
+      end
+    end
+    Runner.live_pace if setup[:live]
     client = setup[:client]
 
     params = {}
+    query = {}
+    params["postcode"] = setup[:live] ? setup[:idmap]["postcode01"] : "direct01"
 
     result = client.direct({
-      "path" => "regional/england",
+      "path" => "regional/postcode/{postcode}",
       "method" => "GET",
       "params" => params,
+      "query" => query,
     })
     if setup[:live]
       unless live_ok(result)
@@ -50,69 +61,6 @@ class RegionalIntensityDirectTest < Minitest::Test
       assert_equal 200, Helpers.to_int(result["status"])
       assert result["data"].is_a?(Array)
       assert_equal 2, result["data"].length
-      assert_equal 1, setup[:calls].length
-    end
-  end
-
-  def test_direct_load_regional_intensity
-    setup = regional_intensity_direct_setup({ "id" => "direct01" })
-    _should_skip, _reason = Runner.is_control_skipped("direct", "direct-load-regional_intensity", setup[:live] ? "live" : "unit")
-    if _should_skip
-      skip(_reason || "skipped via sdk-test-control.json")
-      return
-    end
-    client = setup[:client]
-
-    params = {}
-    query = {}
-    if setup[:live]
-      list_result = client.direct({
-        "path" => "regional/england",
-        "method" => "GET",
-        "params" => {},
-      })
-      unless live_ok(list_result)
-        Runner.live_miss(LIVE_STRICT, "Live list discovery failed: " + Runner.live_describe(list_result))
-      end
-      records = Runner.live_list(list_result["data"])
-      if records.nil?
-        Runner.live_miss(LIVE_STRICT, "Live list discovery returned no list: " + Runner.live_describe(list_result))
-      end
-      if records.empty?
-        Runner.live_empty("The account has no regional_intensity record to load")
-      end
-      first = records[0].is_a?(Hash) ? records[0] : {}
-      found = first.fetch("postcode", first["id"])
-      if found.nil?
-        Runner.live_miss(LIVE_STRICT, "Live load blocked: discovery returned no usable identity")
-      end
-      params["postcode"] = found
-    else
-      params["postcode"] = "direct01"
-    end
-
-    result = client.direct({
-      "path" => "regional/postcode/{postcode}",
-      "method" => "GET",
-      "params" => params,
-      "query" => query,
-    })
-    if setup[:live]
-      unless live_ok(result)
-        Runner.live_miss(LIVE_STRICT, "Live load failed: " + Runner.live_describe(result))
-      end
-      if result["data"].nil?
-        Runner.live_miss(LIVE_STRICT, "Live load returned no data: " + Runner.live_describe(result))
-      end
-      assert !result["data"].nil?
-    else
-      assert_nil result["err"]
-      assert result["ok"]
-      assert_equal 200, Helpers.to_int(result["status"])
-      assert !result["data"].nil?
-      if result["data"].is_a?(Hash)
-        assert_equal "direct01", result["data"]["id"]
-      end
       assert_equal 1, setup[:calls].length
     end
   end

@@ -27,14 +27,25 @@ class IntensityDirectTest < Minitest::Test
       skip(_reason || "skipped via sdk-test-control.json")
       return
     end
+    if setup[:live]
+      ["from01"].each do |_live_key|
+        if setup[:idmap][_live_key].nil?
+          Runner.live_miss(LIVE_STRICT, "Live test blocked: needs #{_live_key} via CARBON_INTENSITY_TEST_INTENSITY_ENTID")
+        end
+      end
+    end
+    Runner.live_pace if setup[:live]
     client = setup[:client]
 
     params = {}
+    query = {}
+    params["from"] = setup[:live] ? setup[:idmap]["from01"] : "direct01"
 
     result = client.direct({
-      "path" => "intensity",
+      "path" => "intensity/{from}",
       "method" => "GET",
       "params" => params,
+      "query" => query,
     })
     if setup[:live]
       unless live_ok(result)
@@ -62,21 +73,22 @@ class IntensityDirectTest < Minitest::Test
       return
     end
     if setup[:live]
-      ["period01"].each do |_live_key|
+      ["from01", "period01"].each do |_live_key|
         if setup[:idmap][_live_key].nil?
           Runner.live_miss(LIVE_STRICT, "Live test blocked: needs #{_live_key} via CARBON_INTENSITY_TEST_INTENSITY_ENTID")
         end
       end
     end
+    Runner.live_pace if setup[:live]
     client = setup[:client]
 
     params = {}
     query = {}
     if setup[:live]
       list_result = client.direct({
-        "path" => "intensity",
+        "path" => "intensity/{from}",
         "method" => "GET",
-        "params" => {},
+        "params" => {"from" => setup[:idmap]["from01"]},
       })
       unless live_ok(list_result)
         Runner.live_miss(LIVE_STRICT, "Live list discovery failed: " + Runner.live_describe(list_result))
@@ -89,7 +101,7 @@ class IntensityDirectTest < Minitest::Test
         Runner.live_empty("The account has no intensity record to load")
       end
       first = records[0].is_a?(Hash) ? records[0] : {}
-      found = first.fetch("date", first["id"])
+      found = first["date"]
       if found.nil?
         Runner.live_miss(LIVE_STRICT, "Live load blocked: discovery returned no usable identity")
       end

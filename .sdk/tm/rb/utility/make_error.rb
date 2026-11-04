@@ -36,7 +36,7 @@ module CarbonIntensityUtilities
     # The context stays reachable for a debugger (`err.ctx`) and is left out
     # of every serialiser the error defines; result and spec are cleaned
     # COPIES, so masking them never masks the pipeline's own objects.
-    sdk_err = CarbonIntensityError.new("", msg, ctx)
+    sdk_err = CarbonIntensityError.new(msg, ctx: ctx)
     sdk_err.result = clean.call(ctx, result)
     sdk_err.spec = clean.call(ctx, spec)
 
